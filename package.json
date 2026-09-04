@@ -1,0 +1,9 @@
+{
+  "dependencies": {},
+  "scripts": {
+    "build:docs": "bun run scripts/build-docs.ts"
+  },
+  "devDependencies": {
+    "marked": "^18.0.11"
+  }
+}

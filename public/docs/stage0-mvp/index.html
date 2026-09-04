@@ -1,0 +1,616 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Stage 0 MVP Plan: Verified Proxy — mnr</title>
+  <meta name="description" content="Engineering plan for Stage 0: single-binary Rust proxy over public Monero nodes and owned infrastructure, rate capping, and zero-log token authentication.">
+  <link rel="canonical" href="https://mnr.network/docs/stage0-mvp/">
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+  <meta property="og:title" content="Stage 0 MVP Plan: Verified Proxy — mnr">
+  <meta property="og:description" content="Engineering plan for Stage 0: single-binary Rust proxy over public Monero nodes and owned infrastructure, rate capping, and zero-log token authentication.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://mnr.network/docs/stage0-mvp/">
+  <meta property="og:site_name" content="mnr">
+  <meta property="og:image" content="https://mnr.network/og.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Stage 0 MVP Plan: Verified Proxy — mnr">
+  <meta name="twitter:description" content="Engineering plan for Stage 0: single-binary Rust proxy over public Monero nodes and owned infrastructure, rate capping, and zero-log token authentication.">
+  <meta name="twitter:image" content="https://mnr.network/og.png">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png">
+  <link rel="icon" href="/favicon-16.png" sizes="16x16" type="image/png">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <link rel="alternate" type="text/markdown" title="LLM context" href="/llms.txt">
+  <script type="application/ld+json">
+  {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebPage",
+      "@id": "https://mnr.network/docs/stage0-mvp/#webpage",
+      "url": "https://mnr.network/docs/stage0-mvp/",
+      "name": "Stage 0 MVP Plan: Verified Proxy",
+      "description": "Engineering plan for Stage 0: single-binary Rust proxy over public Monero nodes and owned infrastructure, rate capping, and zero-log token authentication.",
+      "isPartOf": {
+        "@type": "WebSite",
+        "@id": "https://mnr.network/#website",
+        "url": "https://mnr.network/",
+        "name": "mnr"
+      }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://mnr.network/docs/stage0-mvp/#breadcrumbs",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "mnr",
+          "item": "https://mnr.network/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "docs",
+          "item": "https://mnr.network/docs/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Stage 0 MVP",
+          "item": "https://mnr.network/docs/stage0-mvp/"
+        }
+      ]
+    }
+  ]
+}
+  </script>
+  <script>
+    try { var t = localStorage.getItem('mnr-theme'); if (t === 'light' || t === 'dark') document.documentElement.setAttribute('data-theme', t); } catch (e) {}
+  </script>
+  <style>
+    @font-face {
+      font-family: "Geist";
+      font-style: normal;
+      font-weight: 100 900;
+      font-display: swap;
+      src: url("/fonts/geist-latin.woff2") format("woff2");
+      unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+    }
+    @font-face {
+      font-family: "Geist Mono";
+      font-style: normal;
+      font-weight: 100 900;
+      font-display: swap;
+      src: url("/fonts/geist-mono-latin.woff2") format("woff2");
+      unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+    }
+    :root {
+      --accent: #F26822;
+      --bg: #FBFAF8; --bg-alt: #F3EFEA; --fg: #1B1917; --fg-2: #4A4541; --muted: #6B655F; --card: #FFFFFF;
+      --line: #E8E3DD; --line-strong: #DDD8D2; --log-bg: #1B1917; --log-fg: #E9E4DE;
+      --inverse-bg: #1B1917; --inverse-fg: #E9E4DE; --inverse-strong: #FFFFFF; --inverse-muted: #B8B1A9; --inverse-line: #3A3531;
+      --pill-bg: #FFF4E5;
+      color-scheme: light;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root:not([data-theme="light"]) {
+        --bg: #141210; --bg-alt: #1B1917; --fg: #ECE7E1; --fg-2: #C9C2BA; --muted: #9A938B; --card: #1E1B18;
+        --line: #2E2A26; --line-strong: #3A3531; --log-bg: #0E0D0C; --log-fg: #E9E4DE;
+        --inverse-bg: #221F1B; --inverse-fg: #E9E4DE; --inverse-strong: #FFFFFF; --inverse-muted: #B8B1A9; --inverse-line: #3F3A35;
+        --pill-bg: #3A2A14;
+        color-scheme: dark;
+      }
+    }
+    :root[data-theme="dark"] {
+      --bg: #141210; --bg-alt: #1B1917; --fg: #ECE7E1; --fg-2: #C9C2BA; --muted: #9A938B; --card: #1E1B18;
+      --line: #2E2A26; --line-strong: #3A3531; --log-bg: #0E0D0C; --log-fg: #E9E4DE;
+      --inverse-bg: #221F1B; --inverse-fg: #E9E4DE; --inverse-strong: #FFFFFF; --inverse-muted: #B8B1A9; --inverse-line: #3F3A35;
+      --pill-bg: #3A2A14;
+      color-scheme: dark;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { margin: 0; background: var(--bg); color: var(--fg); font-family: "Geist", "Helvetica Neue", Helvetica, Arial, sans-serif; font-size: 16.5px; line-height: 1.65; -webkit-font-smoothing: antialiased; }
+    a { color: var(--fg); text-decoration: none; } a:hover { color: #C2410C; }
+    p { margin: 0 0 16px; }
+    .mono { font-family: "Geist Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace; }
+    .wrap { max-width: 1120px; margin: 0 auto; padding: 0 32px; }
+    .doc-wrap { max-width: 920px; margin: 0 auto; padding: 48px 32px 96px; }
+    .rule { height: 1px; background: var(--line); }
+    
+    .navlinks { display: flex; gap: 28px; align-items: center; font-size: 15px; font-weight: 500; }
+    .btn { display: inline-flex; align-items: center; justify-content: center; height: 44px; padding: 0 20px; border-radius: 10px; font-weight: 600; font-size: 15px; white-space: nowrap; }
+    .btn-primary { background: var(--accent); color: #FFFFFF; } .btn-primary:hover { background: #C2410C; color: #FFFFFF; }
+    .btn-sm { height: 40px; padding: 0 16px; font-size: 14px; }
+    .theme-btn { display: inline-flex; align-items: center; justify-content: center; width: 40px; height: 40px; border-radius: 10px; border: 1px solid var(--line-strong); background: var(--card); color: var(--fg); cursor: pointer; padding: 0; }
+    .theme-btn .sun { display: none; } .theme-btn .moon { display: block; }
+    :root[data-theme="dark"] .theme-btn .sun { display: block; } :root[data-theme="dark"] .theme-btn .moon { display: none; }
+    @media (prefers-color-scheme: dark) {
+      :root:not([data-theme="light"]) .theme-btn .sun { display: block; }
+      :root:not([data-theme="light"]) .theme-btn .moon { display: none; }
+    }
+    .mark { display: block; flex: none; color: var(--fg); }
+
+    /* Docs Navigation & Tabs */
+    .docs-tabs-bar { background: var(--bg-alt); border-bottom: 1px solid var(--line); padding: 10px 0; position: sticky; top: 0; z-index: 10; backdrop-filter: blur(12px); }
+    .docs-tabs { display: flex; gap: 8px; overflow-x: auto; padding: 4px 0; -webkit-overflow-scrolling: touch; }
+    .doc-tab { display: inline-flex; align-items: center; gap: 6px; padding: 8px 14px; border-radius: 8px; font-size: 14px; font-weight: 500; color: var(--fg-2); border: 1px solid transparent; white-space: nowrap; transition: all 0.15s ease; }
+    .doc-tab:hover { background: var(--card); border-color: var(--line); color: var(--fg); }
+    .doc-tab.active { background: var(--card); border-color: var(--line-strong); color: var(--fg); font-weight: 600; }
+    .tab-badge { font-size: 11px; padding: 2px 6px; border-radius: 999px; background: var(--pill-bg); border: 1px solid var(--line); color: var(--accent); font-family: "Geist Mono", monospace; }
+
+    /* Breadcrumbs */
+    .breadcrumbs { display: flex; align-items: center; gap: 8px; font-size: 13.5px; color: var(--muted); margin-bottom: 24px; font-family: "Geist Mono", monospace; }
+    .breadcrumbs a { color: var(--muted); } .breadcrumbs a:hover { color: var(--accent); }
+    .breadcrumbs span { color: var(--fg); }
+
+    /* Prose Styling */
+    .prose { color: var(--fg); line-height: 1.7; word-break: break-word; }
+    .prose h1 { font-size: 38px; line-height: 1.15; letter-spacing: -0.02em; font-weight: 700; margin: 0 0 20px; }
+    .prose h2 { font-size: 26px; line-height: 1.25; letter-spacing: -0.015em; font-weight: 600; margin: 48px 0 16px; padding-bottom: 8px; border-bottom: 1px solid var(--line); }
+    .prose h3 { font-size: 20px; line-height: 1.35; font-weight: 600; margin: 32px 0 12px; }
+    .prose h4 { font-size: 17px; font-weight: 600; margin: 24px 0 8px; }
+    .prose ul, .prose ol { margin: 0 0 20px; padding-left: 24px; }
+    .prose li { margin-bottom: 8px; }
+    .prose hr { border: 0; height: 1px; background: var(--line); margin: 40px 0; }
+    .prose blockquote { margin: 24px 0; padding: 12px 20px; border-left: 3px solid var(--accent); background: var(--bg-alt); border-radius: 0 8px 8px 0; color: var(--fg-2); }
+    .prose blockquote p:last-child { margin-bottom: 0; }
+
+    .prose code:not(pre code) {
+      font-family: "Geist Mono", monospace;
+      font-size: 13.5px;
+      background: var(--bg-alt);
+      border: 1px solid var(--line);
+      border-radius: 5px;
+      padding: 2px 6px;
+      color: var(--fg);
+    }
+    .prose pre {
+      background: var(--log-bg);
+      color: var(--log-fg);
+      border-radius: 12px;
+      padding: 18px 20px;
+      font-size: 13.5px;
+      line-height: 1.6;
+      overflow-x: auto;
+      margin: 24px 0;
+      border: 1px solid var(--line);
+      font-family: "Geist Mono", monospace;
+    }
+    .prose pre code { background: transparent; padding: 0; border: 0; color: inherit; }
+
+    /* Tables */
+    .prose .table-wrap { overflow-x: auto; margin: 28px 0; border: 1px solid var(--line); border-radius: 12px; background: var(--card); }
+    .prose table { width: 100%; border-collapse: collapse; font-size: 14.5px; margin: 0; text-align: left; }
+    .prose th { font-weight: 600; font-size: 12.5px; letter-spacing: 0.04em; text-transform: uppercase; color: var(--muted); padding: 12px 14px; background: var(--bg-alt); border-bottom: 1px solid var(--line-strong); }
+    .prose td { padding: 12px 14px; border-bottom: 1px solid var(--line); vertical-align: top; }
+    .prose tbody tr:last-child td { border-bottom: 0; }
+    .prose tbody tr:hover td { background: var(--bg-alt); }
+
+    /* Hub Cards */
+    .hub-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; margin: 32px 0 48px; }
+    .hub-card { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 24px; transition: border-color 0.15s ease, transform 0.15s ease; display: flex; flex-direction: column; gap: 10px; }
+    .hub-card:hover { border-color: var(--accent); transform: translateY(-2px); }
+    .hub-card h3 { font-size: 18px; font-weight: 600; margin: 0; color: var(--fg); }
+    .hub-card p { font-size: 14.5px; color: var(--muted); margin: 0; line-height: 1.5; }
+    .hub-card-meta { display: flex; align-items: center; justify-content: space-between; margin-top: auto; padding-top: 12px; font-size: 13px; font-family: "Geist Mono", monospace; color: var(--accent); }
+
+    @media (max-width: 768px) {
+      .wrap, .doc-wrap { padding: 0 20px; }
+      .navlinks { display: none; }
+      .hub-grid { grid-template-columns: 1fr; }
+      .prose h1 { font-size: 30px; }
+      .prose h2 { font-size: 22px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="wrap" style="display: flex; align-items: center; justify-content: space-between; height: 72px;">
+    <a href="/" style="display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 22px; letter-spacing: -0.02em;" aria-label="mnr home">
+      <svg class="mark" width="24" height="24" viewBox="0 0 24 24" aria-hidden="true"><circle cx="16.5" cy="12" r="5.2" fill="var(--accent)"/><path d="M5.2 6.6 L11.9 10.1 M5.2 17.4 L11.9 13.9" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"/><circle cx="5.2" cy="6.6" r="2.1" fill="currentColor"/><circle cx="5.2" cy="17.4" r="2.1" fill="currentColor"/></svg>
+      <span>mnr</span>
+    </a>
+    <nav class="navlinks" aria-label="Sections">
+      <a href="/#how">How it works</a>
+      <a href="/#upstreams">Upstreams</a>
+      <a href="/#pricing">Pricing</a>
+      <a href="/docs/" style="color: var(--accent); font-weight: 600;">Docs</a>
+      <a href="https://github.com/mnrnetwork/mnr" target="_blank" rel="noopener noreferrer" class="mono" style="font-weight: 500;">GitHub</a>
+    </nav>
+    <div style="display: flex; align-items: center; gap: 12px;">
+      <button class="theme-btn" id="theme-toggle" type="button" title="Switch light / dark" aria-label="Switch light / dark">
+        <svg class="sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"></path></svg>
+        <svg class="moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"></path></svg>
+      </button>
+      <a href="/#pricing" class="btn btn-primary btn-sm">Get a free token</a>
+    </div>
+  </header>
+  <div class="rule"></div>
+
+  <!-- Docs Sub-Nav Tabs -->
+  <div class="docs-tabs-bar">
+    <div class="wrap">
+      
+    <nav class="docs-tabs" aria-label="Documentation sections">
+      <a href="/docs/" class="doc-tab ">
+          <span>Overview</span>
+          
+        </a>
+      <a href="/docs/method-policy/" class="doc-tab ">
+          <span>Method Policy</span>
+          <span class="tab-badge">RPC Spec</span>
+        </a>
+      <a href="/docs/stage0-mvp/" class="doc-tab active">
+          <span>Stage 0 MVP</span>
+          <span class="tab-badge">Active</span>
+        </a>
+      <a href="/docs/stage1-gateway/" class="doc-tab ">
+          <span>Stage 1 Gateway</span>
+          <span class="tab-badge">Mesh & SLA</span>
+        </a>
+      <a href="/docs/stage2-network/" class="doc-tab ">
+          <span>Stage 2 Network</span>
+          <span class="tab-badge">Protocol</span>
+        </a>
+    </nav>
+  
+    </div>
+  </div>
+
+  <!-- Document Body -->
+  <main class="doc-wrap">
+    <div class="breadcrumbs">
+      <a href="/">mnr</a>
+      <span>/</span>
+      <a href="/docs/">docs</a>
+      <span>/</span><span>stage0-mvp</span>
+    </div>
+
+    <article class="prose">
+      <h1>mnr — Stage 0 MVP Plan</h1>
+<p><em>a verified proxy over public Monero nodes, plus one of our own</em></p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>Status</strong></td>
+<td>The MVP. Sits <em>under</em> <code>Monero RPC Gateway - Development Plan v1.md</code> (Stage 1) and <code>mnr - Protocol and Development Architecture.md</code> (Stage 2); those stay as the map. This is the to-do list.</td>
+</tr>
+<tr>
+<td><strong>Date</strong></td>
+<td>2026-09-03</td>
+</tr>
+<tr>
+<td><strong>Team</strong></td>
+<td>Two people: <strong>A</strong> (Rust, the proxy) and <strong>B</strong> (node, ops, upstream curation, storefront page, outreach).</td>
+</tr>
+<tr>
+<td><strong>Duration</strong></td>
+<td>4 weeks to public beta, weeks of <strong>2026-09-14 → 2026-10-11</strong>; 2 more weeks of hardening before charging.</td>
+</tr>
+<tr>
+<td><strong>Budget</strong></td>
+<td>≈ $90/month (one relayer VPS ≈ $20, one owned node ≈ $60, domain/Tor/misc ≈ $10).</td>
+</tr>
+<tr>
+<td><strong>Language</strong></td>
+<td>Rust. The same binary becomes <code>mnr-relay</code> in Stage 1 and 2; nothing built here is thrown away.</td>
+</tr>
+</tbody></table></div>
+<hr>
+<h2>1. What Stage 0 is, in one paragraph</h2>
+<p>A single Rust binary, <code>mnr-relay</code>, on one VPS. It accepts Monero daemon RPC at <code>rpc.mnr.network</code> (and a <code>.onion</code>), authenticates a path token, applies the method policy from the gateway plan, caches what is safe to cache, fans out writes, and forwards everything else to a pool of upstreams. The pool is <strong>public nodes that already serve the community, plus one node we run and list publicly ourselves</strong>. Every answer that can be checked is checked — block and tx hashes, header linkage, height agreement across upstreams — so the proxy is <em>more</em> trustworthy than any single public node a wallet would otherwise pick blindly. It says exactly this on its front page. It is free, with a cheap Pro tier for people who want higher limits, and it makes no availability promise, because we do not run most of the nodes.</p>
+<p>What it is <strong>not</strong>: not a gateway (no SLA, no owned mesh), not a network (no operator agent, no settlement), not a way to resell other people&#39;s nodes at Business prices. Those are Stages 1 and 2, and the gate to each is in §9.</p>
+<hr>
+<h2>2. Rules toward public nodes (non-negotiable; they are the ethics of Stage 0)</h2>
+<ol>
+<li><strong>Disclose.</strong> The front page, the docs and the <code>User-Agent</code> say what this is. Upstream list is public at <code>mnr.network/upstreams</code> with each node&#39;s current status and our request rate to it.</li>
+<li><strong>Contribute.</strong> Our own node is a full node, listed on the public node lists, open to the public with the same restricted RPC everyone else offers, and it carries the heaviest traffic class (wallet-sync streams) by preference so public nodes see light calls from us, not floods.</li>
+<li><strong>Cap ourselves.</strong> Per-upstream ceilings: 5 rps light calls, 2 concurrent <code>get_blocks.bin</code> streams, 10 MB/s. Above that, requests queue or go to our own node. These caps are config, published, and stricter than what most public nodes would tolerate.</li>
+<li><strong>Identify.</strong> <code>User-Agent: mnr-relay/0.x (+https://mnr.network/upstreams)</code> on every upstream request so an operator can see who we are and how to reach us.</li>
+<li><strong>Honour opt-out.</strong> Any node operator who asks is removed within 24 hours; the opt-out list is public. We also check a <code>/.well-known/mnr-optout</code> on each upstream host daily so operators can remove themselves without contacting us.</li>
+<li><strong>Never pass client identity.</strong> No client IP, no <code>X-Forwarded-For</code>, no token, nothing but the RPC body reaches an upstream.</li>
+<li><strong>Use restricted RPC only.</strong> The policy table&#39;s allow-list is enforced before dispatch; we never call admin methods on anyone&#39;s node.</li>
+</ol>
+<p>The disclosure paragraph for the front page, verbatim:</p>
+<blockquote>
+<p>mnr is a verified proxy. Your wallet&#39;s requests are forwarded to public Monero nodes run by community members, and to our own public node. We check every block, transaction and header we return against its hash and against several nodes, so you get a better answer than any single node gives — but the nodes are not ours, and we make no uptime promise. We cap our traffic to each public node, identify ourselves to operators, honour opt-outs, and publish the full upstream list. If you need nodes we run ourselves, with an SLA, that is a separate paid service coming later.</p>
+</blockquote>
+<hr>
+<h2>3. Upstream pool</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Aspect</th>
+<th>Rule</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Sources</td>
+<td>Seed list curated by B from the well-known public node lists (monero.fail and wallet-maintained lists), clearnet and <code>.onion</code>, mainnet only for now. Target: 8–12 clearnet + 3–5 onion at launch. Nodes run by wallet teams or known community members preferred; anonymous VPS nodes allowed but weighted lower.</td>
+</tr>
+<tr>
+<td>Consent</td>
+<td>Not required by convention (these nodes are public), but B emails or messages every operator we can identify in week 1 to say we are doing it, with the opt-out link. Anyone who says no is never added.</td>
+</tr>
+<tr>
+<td>Our node</td>
+<td>Full node, NVMe, <code>--restricted-rpc --public-node</code>, listed publicly, reached by the relayer over a private link (WireGuard) <em>and</em> used as a public node by everyone else. It is <code>tier: owned</code> in config and preferred for streams and tie-breaks.</td>
+</tr>
+<tr>
+<td>Probing</td>
+<td>Every 15 s: <code>get_info</code> + <code>get_last_block_header</code>, 2 s timeout clearnet, 8 s onion (via the box&#39;s local Tor SOCKS). Records RTT (EMA), height, top hash, <code>synchronized</code>, restricted-RPC check.</td>
+</tr>
+<tr>
+<td>Quorum tip</td>
+<td>Highest height reported by ≥3 upstreams that agree on the hash at that height. If fewer than 3 agree, degraded mode (serve highest-height <em>owned</em> node; cache writes suspended).</td>
+</tr>
+<tr>
+<td>Ranking</td>
+<td>Healthy, on quorum tip, sorted by EMA latency; owned node gets a small bonus; onion nodes serve light calls only.</td>
+</tr>
+<tr>
+<td>Ejection</td>
+<td>Any upstream that fails verification (§4) three times in an hour is removed from rotation for 24 h and the event logged publicly on the upstreams page.</td>
+</tr>
+</tbody></table></div>
+<hr>
+<h2>4. Verification at Stage 0</h2>
+<p>Reused from the network doc §3.4, trimmed to what one box can do:</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Data</th>
+<th>Check</th>
+<th>Cost</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>get_block</code>, <code>get_block_header_*</code></td>
+<td>Recompute block hash from blob; match requested hash or our header chain</td>
+<td>Cheap</td>
+</tr>
+<tr>
+<td><code>/get_transactions</code></td>
+<td>Keccak(tx blob) = txid; height ≤ tip</td>
+<td>Cheap</td>
+</tr>
+<tr>
+<td>Header chain</td>
+<td>Built once by majority from upstreams (≈ 280 MB on disk), extended at the tip by agreement; reorg detection → cache epoch bump</td>
+<td>One-time sync ≈ hours</td>
+</tr>
+<tr>
+<td><code>get_info</code>, <code>get_height</code>, fee estimate</td>
+<td>Majority of ≥3 upstreams; node-specific fields normalised; SWR cache 1/5/15 s</td>
+<td>Cheap</td>
+</tr>
+<tr>
+<td><code>/get_outs.bin</code></td>
+<td>Two-upstream agreement for <strong>Pro</strong> tokens; single upstream (owned node preferred) for Free</td>
+<td>Moderate</td>
+</tr>
+<tr>
+<td><code>/get_blocks.bin</code></td>
+<td><strong>Not verified</strong> in Stage 0; routed to the owned node first, public nodes second; response header <code>Mnr-Verify: none</code></td>
+<td>—</td>
+</tr>
+<tr>
+<td>Mempool</td>
+<td>Not verifiable; header <code>Mnr-Upstream: &lt;n&gt;</code> (an opaque number, not the node&#39;s URL, so we do not advertise which node saw what)</td>
+<td>—</td>
+</tr>
+<tr>
+<td><code>send_raw_transaction</code></td>
+<td>Fan out to all healthy upstreams; success if ≥1 OK; <code>Mnr-Relayed: k/n</code></td>
+<td>—</td>
+</tr>
+</tbody></table></div>
+<p>Verified request counts and fault counts per upstream are the numbers on the public upstreams page. This is the feature: &quot;we caught node X serving a wrong header on Tuesday, here&#39;s the proof&quot; is what makes people trust the proxy over a raw public node.</p>
+<hr>
+<h2>5. Method policy, caching, auth, limits</h2>
+<ul>
+<li><strong>Method policy:</strong> the gateway plan §3.3 table as-is, compiled into <code>mnr-core::policy</code>.</li>
+<li><strong>Cache:</strong> in-memory (<code>moka</code>, 1 GB cap) for SWR and immutable-below-tip−10; on-disk store deferred to Stage 1.</li>
+<li><strong>Auth:</strong> path token <code>/v1/&lt;token&gt;/…</code> and Basic auth alternative, 256-bit, hashed at rest in SQLite; rotation endpoint with 24 h grace. Free tokens are issued instantly from the site; no email.</li>
+<li><strong>Limits:</strong> in-process token bucket per token; daily WU quota in SQLite.</li>
+</ul>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th></th>
+<th>Free</th>
+<th>Pro</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Price</td>
+<td>$0</td>
+<td><strong>$9/month</strong>, XMR invoice</td>
+</tr>
+<tr>
+<td>Allowance</td>
+<td>500k WU/month</td>
+<td>10M WU/month</td>
+</tr>
+<tr>
+<td>Burst</td>
+<td>5 rps</td>
+<td>25 rps</td>
+</tr>
+<tr>
+<td><code>get_outs</code></td>
+<td>single upstream</td>
+<td>two-upstream agreement</td>
+</tr>
+<tr>
+<td>Streams</td>
+<td>owned node when available, else public, 1 concurrent</td>
+<td>owned node preferred, 3 concurrent</td>
+</tr>
+<tr>
+<td>Promise</td>
+<td>none</td>
+<td>none — &quot;we will tell you what we verified&quot; is the whole promise</td>
+</tr>
+</tbody></table></div>
+<p>$9 is deliberately a supporter price. It pays the two boxes at ~15 subscribers, and it tests the only question Stage 0 needs to answer: <em>will anyone pay for verification and convenience over nodes they could use for free?</em></p>
+<ul>
+<li><strong>Payments:</strong> view-only <code>monero-wallet-rpc</code> on the relayer box, subaddress per invoice, activation at 10 confirmations, renewals extend <code>valid_until</code>. XMR402 flow deferred to Stage 1 unless Ripley wants it in week 4.</li>
+<li><strong>Logging:</strong> no request logs; aggregate metrics only; token hash prefix in error samples. The gateway plan §3.6 policy applies.</li>
+</ul>
+<hr>
+<h2>6. Architecture (one binary, one box)</h2>
+<pre><code>clients ──▶ rpc.mnr.network (TLS, axum) ──┐
+clients ──▶ &lt;onion&gt;.onion (local tor)  ───┤
+                                          ▼
+                     mnr-relay ──── auth (SQLite) ── limits ── policy ── cache ── verify
+                                          │
+                       ┌──────────────────┼───────────────────────┐
+                       ▼                  ▼                       ▼
+              owned node (WireGuard)   public clearnet nodes   public .onion nodes (via tor SOCKS)
+              full, --public-node      HTTPS/HTTP, capped      light calls only, 8 s timeout
+
+background: prober (15 s) · header-chain sync · cache epoch on reorg · invoice watcher (wallet-rpc) · metrics (/metrics, Prometheus)
+</code></pre>
+<p>Crates: <code>mnr-core</code> (policy, hash, verify, header chain — the same crate the network doc specifies) and <code>mnr-relay</code> (everything else). No agent, no directory, no settlement. Config is one TOML file; upstreams are a list with <code>kind: owned | public</code>, <code>transport: https | http | onion</code>, and per-node caps.</p>
+<p>Relayer box: 4 vCPU / 8 GB / 80 GB NVMe (header chain + SQLite + cache). Owned node: 8 vCPU / 32 GB / 1 TB NVMe on a different provider, in the sizing of the gateway plan §4.</p>
+<hr>
+<h2>7. Four-week build</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Week</th>
+<th>A — Rust</th>
+<th>B — node, ops, product</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>1</strong> (Sep 14)</td>
+<td>Repo, CI, <code>mnr-core</code>: policy table, block/tx hashing with mainnet fixtures, header-chain store, verify functions with tests.</td>
+<td>Order owned node and relayer VPS; start <code>monerod</code> sync from a trusted snapshot; WireGuard; Tor on relayer box; curate upstream list; write to identifiable operators; register domain + <code>.onion</code>; check <code>mnr</code> on crates.io/npm/PyPI.</td>
+</tr>
+<tr>
+<td><strong>2</strong></td>
+<td><code>mnr-relay</code>: axum ingress, token auth, limits, policy dispatch, prober, ranking, quorum tip, degraded mode, passthrough and broadcast. First end-to-end: CLI wallet syncs through the proxy against public nodes.</td>
+<td>Owned node public and listed; monitoring (disk, sync, RTT); upstreams page (static, fed by relayer JSON); front page with the disclosure text; opt-out mechanism and <code>.well-known</code> check.</td>
+</tr>
+<tr>
+<td><strong>3</strong></td>
+<td>Verification wired into the request path (block/tx/header, majority for consensus state, <code>get_outs</code> agreement for Pro); SWR + immutable cache with epoch bump on reorg; <code>Mnr-*</code> headers; metrics.</td>
+<td>Invoice flow: view-only wallet-rpc, subaddress per invoice, activation, renewals; Free-token issuance page; docs: connect CLI/GUI/Feather/Cake/Monerujo; run compatibility checks.</td>
+</tr>
+<tr>
+<td><strong>4</strong></td>
+<td>Hardening: per-upstream caps and queues, ejection logic, onion upstream path, fuzz smoke on parsers, load test (500 rps light, 10 concurrent syncs).</td>
+<td><strong>Public beta</strong> (Free only): announce in community channels with the disclosure; dogfood KYC.RIP and Ripley on Pro tokens; watch upstream operators&#39; reactions and honour any opt-outs same day.</td>
+</tr>
+<tr>
+<td><strong>5–6</strong></td>
+<td>Fix what the beta finds; header-chain reorg drill; token rotation endpoint.</td>
+<td>Turn on Pro ($9); publish first weekly &quot;what we verified / what we caught&quot; post; collect the three numbers in §9.</td>
+</tr>
+</tbody></table></div>
+<p>Exit criteria for &quot;MVP shipped&quot;: a stock CLI wallet and Feather sync from scratch through <code>rpc.mnr.network</code>; injected wrong-header test from a fake upstream produces an ejection and a public log entry; owned node listed on public node lists and serving outsiders; no request logs anywhere; upstream caps demonstrably enforced under load; at least 10 identified upstream operators informed, zero unresolved opt-outs.</p>
+<hr>
+<h2>8. Risks specific to Stage 0</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Risk</th>
+<th>Response</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>A public-node operator objects publicly (&quot;they&#39;re reselling our node&quot;)</td>
+<td>The disclosure, the caps, the identification header, the opt-out, and our own public node are the answer; respond within the day, remove on request, link the upstreams page. This is the scenario the reviews warned about, and the rules in §2 exist so the answer is already true when it is asked.</td>
+</tr>
+<tr>
+<td>Public nodes are inconsistent (pruned vs full, old versions, odd <code>get_info</code>)</td>
+<td>Verification and normalisation handle data; the prober&#39;s restricted-RPC and version checks handle capability; anything weird is ejected and logged rather than papered over.</td>
+</tr>
+<tr>
+<td>Public nodes rate-limit or ban us</td>
+<td>Caps keep us under typical limits; the owned node absorbs overflow; ejection is automatic. If it becomes common, that is the signal to move to Stage 1.</td>
+</tr>
+<tr>
+<td>Owned node becomes the real workhorse and public nodes decorative</td>
+<td>Acceptable — it means demand exists and Stage 1 (two more nodes) is justified. Track the share of WU served by the owned node; above 60% for 4 weeks is a Stage 1 trigger.</td>
+</tr>
+<tr>
+<td>Nobody pays $9</td>
+<td>Then the verification layer is a public good and the business is Stage 1 with owned nodes and SLAs sold to backends — the code is unchanged.</td>
+</tr>
+<tr>
+<td>Header-chain sync from public nodes is poisoned</td>
+<td>Built by majority of ≥5 upstreams including our own node; spot-checked against two block explorers as an advisory signal; any disagreement halts the build and alerts.</td>
+</tr>
+</tbody></table></div>
+<hr>
+<h2>9. Gates to the next stages</h2>
+<p>Collect three numbers weekly from week 6: <strong>paying Pro tokens</strong>, <strong>WU served per day</strong> (split owned/public), and <strong>backends asking for an SLA</strong> (any client who asks &quot;what uptime do you guarantee?&quot; is a tally mark).</p>
+<ul>
+<li><strong>Go to Stage 1 (gateway: two more owned nodes, Business tier, SLA credits)</strong> when <em>either</em> five backends have asked for an SLA, <em>or</em> the owned node serves &gt; 60% of WU for four consecutive weeks, <em>or</em> Pro revenue covers two more boxes. The gateway plan is the spec; its M1 starts the day the boxes are ordered.</li>
+<li><strong>Go to Stage 2 (mnr network: operator agent, settlement, directory)</strong> when <em>either</em> three public-node operators ask to be paid or to plug in formally, <em>or</em> a partner (wallet, hosting business) wants to run their own relayer on our binary. The network architecture doc is the spec; P1 starts from a working relayer rather than from zero, which removes roughly a quarter of its schedule.</li>
+<li><strong>Stay at Stage 0</strong> if none of the above within 12 weeks of public beta — in which case the proxy remains a maintained public good at $90/month, and the business question is answered honestly.</li>
+</ul>
+<hr>
+<h2>10. Decisions for the two of you this week</h2>
+<ol>
+<li>Confirm the $9 Pro price and Free allowance (500k WU/month).</li>
+<li>Provider for the owned node (different from the relayer VPS&#39;s provider).</li>
+<li>Whether to require two-upstream <code>get_outs</code> agreement for Free as well (safer, roughly halves Free capacity).</li>
+<li>Who signs the upstream-operator notices (B, in their own name or the project&#39;s).</li>
+<li>Whether to include <code>.onion</code> upstreams at launch or in week 5 (they add Tor plumbing to week 4).</li>
+</ol>
+
+    </article>
+  </main>
+
+  <div class="rule"></div>
+
+  <!-- Footer -->
+  <footer class="wrap" style="padding: 48px 32px;">
+    <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px;">
+      <div style="display: flex; align-items: center; gap: 10px; font-size: 14px;" class="muted">
+        <span>mnr — an RPC network for Monero</span>
+        <span>·</span>
+        <a href="https://github.com/mnrnetwork/mnr" target="_blank" rel="noopener noreferrer" style="text-decoration: underline;">AGPL-3.0</a>
+      </div>
+      <div style="display: flex; gap: 24px; font-size: 14px;">
+        <a href="/">Home</a>
+        <a href="/docs/">Docs Hub</a>
+        <a href="/docs/method-policy/">Method Policy</a>
+        <a href="https://github.com/mnrnetwork/mnr" target="_blank" rel="noopener noreferrer">GitHub</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    (function () {
+      var btn = document.getElementById('theme-toggle');
+      var root = document.documentElement;
+      function current() {
+        var t = root.getAttribute('data-theme');
+        if (t === 'light' || t === 'dark') return t;
+        return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+      }
+      btn.addEventListener('click', function () {
+        var next = current() === 'dark' ? 'light' : 'dark';
+        root.setAttribute('data-theme', next);
+        try { localStorage.setItem('mnr-theme', next); } catch (e) {}
+      });
+    })();
+  </script>
+</body>
+</html>

@@ -1,0 +1,1194 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Monero RPC Method Policy & Verification Rules — mnr</title>
+  <meta name="description" content="Verification rules, cache bounds (SWR), upstream quorum requirements, and timeout budgets for every Monero daemon JSON-RPC and legacy method.">
+  <link rel="canonical" href="https://mnr.network/docs/method-policy/">
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+  <meta property="og:title" content="Monero RPC Method Policy & Verification Rules — mnr">
+  <meta property="og:description" content="Verification rules, cache bounds (SWR), upstream quorum requirements, and timeout budgets for every Monero daemon JSON-RPC and legacy method.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://mnr.network/docs/method-policy/">
+  <meta property="og:site_name" content="mnr">
+  <meta property="og:image" content="https://mnr.network/og.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Monero RPC Method Policy & Verification Rules — mnr">
+  <meta name="twitter:description" content="Verification rules, cache bounds (SWR), upstream quorum requirements, and timeout budgets for every Monero daemon JSON-RPC and legacy method.">
+  <meta name="twitter:image" content="https://mnr.network/og.png">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png">
+  <link rel="icon" href="/favicon-16.png" sizes="16x16" type="image/png">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <link rel="alternate" type="text/markdown" title="LLM context" href="/llms.txt">
+  <script type="application/ld+json">
+  {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebPage",
+      "@id": "https://mnr.network/docs/method-policy/#webpage",
+      "url": "https://mnr.network/docs/method-policy/",
+      "name": "Monero RPC Method Policy & Verification Rules",
+      "description": "Verification rules, cache bounds (SWR), upstream quorum requirements, and timeout budgets for every Monero daemon JSON-RPC and legacy method.",
+      "isPartOf": {
+        "@type": "WebSite",
+        "@id": "https://mnr.network/#website",
+        "url": "https://mnr.network/",
+        "name": "mnr"
+      }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://mnr.network/docs/method-policy/#breadcrumbs",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "mnr",
+          "item": "https://mnr.network/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "docs",
+          "item": "https://mnr.network/docs/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Method Policy",
+          "item": "https://mnr.network/docs/method-policy/"
+        }
+      ]
+    }
+  ]
+}
+  </script>
+  <script>
+    try { var t = localStorage.getItem('mnr-theme'); if (t === 'light' || t === 'dark') document.documentElement.setAttribute('data-theme', t); } catch (e) {}
+  </script>
+  <style>
+    @font-face {
+      font-family: "Geist";
+      font-style: normal;
+      font-weight: 100 900;
+      font-display: swap;
+      src: url("/fonts/geist-latin.woff2") format("woff2");
+      unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+    }
+    @font-face {
+      font-family: "Geist Mono";
+      font-style: normal;
+      font-weight: 100 900;
+      font-display: swap;
+      src: url("/fonts/geist-mono-latin.woff2") format("woff2");
+      unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+    }
+    :root {
+      --accent: #F26822;
+      --bg: #FBFAF8; --bg-alt: #F3EFEA; --fg: #1B1917; --fg-2: #4A4541; --muted: #6B655F; --card: #FFFFFF;
+      --line: #E8E3DD; --line-strong: #DDD8D2; --log-bg: #1B1917; --log-fg: #E9E4DE;
+      --inverse-bg: #1B1917; --inverse-fg: #E9E4DE; --inverse-strong: #FFFFFF; --inverse-muted: #B8B1A9; --inverse-line: #3A3531;
+      --pill-bg: #FFF4E5;
+      color-scheme: light;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root:not([data-theme="light"]) {
+        --bg: #141210; --bg-alt: #1B1917; --fg: #ECE7E1; --fg-2: #C9C2BA; --muted: #9A938B; --card: #1E1B18;
+        --line: #2E2A26; --line-strong: #3A3531; --log-bg: #0E0D0C; --log-fg: #E9E4DE;
+        --inverse-bg: #221F1B; --inverse-fg: #E9E4DE; --inverse-strong: #FFFFFF; --inverse-muted: #B8B1A9; --inverse-line: #3F3A35;
+        --pill-bg: #3A2A14;
+        color-scheme: dark;
+      }
+    }
+    :root[data-theme="dark"] {
+      --bg: #141210; --bg-alt: #1B1917; --fg: #ECE7E1; --fg-2: #C9C2BA; --muted: #9A938B; --card: #1E1B18;
+      --line: #2E2A26; --line-strong: #3A3531; --log-bg: #0E0D0C; --log-fg: #E9E4DE;
+      --inverse-bg: #221F1B; --inverse-fg: #E9E4DE; --inverse-strong: #FFFFFF; --inverse-muted: #B8B1A9; --inverse-line: #3F3A35;
+      --pill-bg: #3A2A14;
+      color-scheme: dark;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { margin: 0; background: var(--bg); color: var(--fg); font-family: "Geist", "Helvetica Neue", Helvetica, Arial, sans-serif; font-size: 16.5px; line-height: 1.65; -webkit-font-smoothing: antialiased; }
+    a { color: var(--fg); text-decoration: none; } a:hover { color: #C2410C; }
+    p { margin: 0 0 16px; }
+    .mono { font-family: "Geist Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace; }
+    .wrap { max-width: 1120px; margin: 0 auto; padding: 0 32px; }
+    .doc-wrap { max-width: 920px; margin: 0 auto; padding: 48px 32px 96px; }
+    .rule { height: 1px; background: var(--line); }
+    
+    .navlinks { display: flex; gap: 28px; align-items: center; font-size: 15px; font-weight: 500; }
+    .btn { display: inline-flex; align-items: center; justify-content: center; height: 44px; padding: 0 20px; border-radius: 10px; font-weight: 600; font-size: 15px; white-space: nowrap; }
+    .btn-primary { background: var(--accent); color: #FFFFFF; } .btn-primary:hover { background: #C2410C; color: #FFFFFF; }
+    .btn-sm { height: 40px; padding: 0 16px; font-size: 14px; }
+    .theme-btn { display: inline-flex; align-items: center; justify-content: center; width: 40px; height: 40px; border-radius: 10px; border: 1px solid var(--line-strong); background: var(--card); color: var(--fg); cursor: pointer; padding: 0; }
+    .theme-btn .sun { display: none; } .theme-btn .moon { display: block; }
+    :root[data-theme="dark"] .theme-btn .sun { display: block; } :root[data-theme="dark"] .theme-btn .moon { display: none; }
+    @media (prefers-color-scheme: dark) {
+      :root:not([data-theme="light"]) .theme-btn .sun { display: block; }
+      :root:not([data-theme="light"]) .theme-btn .moon { display: none; }
+    }
+    .mark { display: block; flex: none; color: var(--fg); }
+
+    /* Docs Navigation & Tabs */
+    .docs-tabs-bar { background: var(--bg-alt); border-bottom: 1px solid var(--line); padding: 10px 0; position: sticky; top: 0; z-index: 10; backdrop-filter: blur(12px); }
+    .docs-tabs { display: flex; gap: 8px; overflow-x: auto; padding: 4px 0; -webkit-overflow-scrolling: touch; }
+    .doc-tab { display: inline-flex; align-items: center; gap: 6px; padding: 8px 14px; border-radius: 8px; font-size: 14px; font-weight: 500; color: var(--fg-2); border: 1px solid transparent; white-space: nowrap; transition: all 0.15s ease; }
+    .doc-tab:hover { background: var(--card); border-color: var(--line); color: var(--fg); }
+    .doc-tab.active { background: var(--card); border-color: var(--line-strong); color: var(--fg); font-weight: 600; }
+    .tab-badge { font-size: 11px; padding: 2px 6px; border-radius: 999px; background: var(--pill-bg); border: 1px solid var(--line); color: var(--accent); font-family: "Geist Mono", monospace; }
+
+    /* Breadcrumbs */
+    .breadcrumbs { display: flex; align-items: center; gap: 8px; font-size: 13.5px; color: var(--muted); margin-bottom: 24px; font-family: "Geist Mono", monospace; }
+    .breadcrumbs a { color: var(--muted); } .breadcrumbs a:hover { color: var(--accent); }
+    .breadcrumbs span { color: var(--fg); }
+
+    /* Prose Styling */
+    .prose { color: var(--fg); line-height: 1.7; word-break: break-word; }
+    .prose h1 { font-size: 38px; line-height: 1.15; letter-spacing: -0.02em; font-weight: 700; margin: 0 0 20px; }
+    .prose h2 { font-size: 26px; line-height: 1.25; letter-spacing: -0.015em; font-weight: 600; margin: 48px 0 16px; padding-bottom: 8px; border-bottom: 1px solid var(--line); }
+    .prose h3 { font-size: 20px; line-height: 1.35; font-weight: 600; margin: 32px 0 12px; }
+    .prose h4 { font-size: 17px; font-weight: 600; margin: 24px 0 8px; }
+    .prose ul, .prose ol { margin: 0 0 20px; padding-left: 24px; }
+    .prose li { margin-bottom: 8px; }
+    .prose hr { border: 0; height: 1px; background: var(--line); margin: 40px 0; }
+    .prose blockquote { margin: 24px 0; padding: 12px 20px; border-left: 3px solid var(--accent); background: var(--bg-alt); border-radius: 0 8px 8px 0; color: var(--fg-2); }
+    .prose blockquote p:last-child { margin-bottom: 0; }
+
+    .prose code:not(pre code) {
+      font-family: "Geist Mono", monospace;
+      font-size: 13.5px;
+      background: var(--bg-alt);
+      border: 1px solid var(--line);
+      border-radius: 5px;
+      padding: 2px 6px;
+      color: var(--fg);
+    }
+    .prose pre {
+      background: var(--log-bg);
+      color: var(--log-fg);
+      border-radius: 12px;
+      padding: 18px 20px;
+      font-size: 13.5px;
+      line-height: 1.6;
+      overflow-x: auto;
+      margin: 24px 0;
+      border: 1px solid var(--line);
+      font-family: "Geist Mono", monospace;
+    }
+    .prose pre code { background: transparent; padding: 0; border: 0; color: inherit; }
+
+    /* Tables */
+    .prose .table-wrap { overflow-x: auto; margin: 28px 0; border: 1px solid var(--line); border-radius: 12px; background: var(--card); }
+    .prose table { width: 100%; border-collapse: collapse; font-size: 14.5px; margin: 0; text-align: left; }
+    .prose th { font-weight: 600; font-size: 12.5px; letter-spacing: 0.04em; text-transform: uppercase; color: var(--muted); padding: 12px 14px; background: var(--bg-alt); border-bottom: 1px solid var(--line-strong); }
+    .prose td { padding: 12px 14px; border-bottom: 1px solid var(--line); vertical-align: top; }
+    .prose tbody tr:last-child td { border-bottom: 0; }
+    .prose tbody tr:hover td { background: var(--bg-alt); }
+
+    /* Hub Cards */
+    .hub-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; margin: 32px 0 48px; }
+    .hub-card { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 24px; transition: border-color 0.15s ease, transform 0.15s ease; display: flex; flex-direction: column; gap: 10px; }
+    .hub-card:hover { border-color: var(--accent); transform: translateY(-2px); }
+    .hub-card h3 { font-size: 18px; font-weight: 600; margin: 0; color: var(--fg); }
+    .hub-card p { font-size: 14.5px; color: var(--muted); margin: 0; line-height: 1.5; }
+    .hub-card-meta { display: flex; align-items: center; justify-content: space-between; margin-top: auto; padding-top: 12px; font-size: 13px; font-family: "Geist Mono", monospace; color: var(--accent); }
+
+    @media (max-width: 768px) {
+      .wrap, .doc-wrap { padding: 0 20px; }
+      .navlinks { display: none; }
+      .hub-grid { grid-template-columns: 1fr; }
+      .prose h1 { font-size: 30px; }
+      .prose h2 { font-size: 22px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="wrap" style="display: flex; align-items: center; justify-content: space-between; height: 72px;">
+    <a href="/" style="display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 22px; letter-spacing: -0.02em;" aria-label="mnr home">
+      <svg class="mark" width="24" height="24" viewBox="0 0 24 24" aria-hidden="true"><circle cx="16.5" cy="12" r="5.2" fill="var(--accent)"/><path d="M5.2 6.6 L11.9 10.1 M5.2 17.4 L11.9 13.9" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"/><circle cx="5.2" cy="6.6" r="2.1" fill="currentColor"/><circle cx="5.2" cy="17.4" r="2.1" fill="currentColor"/></svg>
+      <span>mnr</span>
+    </a>
+    <nav class="navlinks" aria-label="Sections">
+      <a href="/#how">How it works</a>
+      <a href="/#upstreams">Upstreams</a>
+      <a href="/#pricing">Pricing</a>
+      <a href="/docs/" style="color: var(--accent); font-weight: 600;">Docs</a>
+      <a href="https://github.com/mnrnetwork/mnr" target="_blank" rel="noopener noreferrer" class="mono" style="font-weight: 500;">GitHub</a>
+    </nav>
+    <div style="display: flex; align-items: center; gap: 12px;">
+      <button class="theme-btn" id="theme-toggle" type="button" title="Switch light / dark" aria-label="Switch light / dark">
+        <svg class="sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"></path></svg>
+        <svg class="moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"></path></svg>
+      </button>
+      <a href="/#pricing" class="btn btn-primary btn-sm">Get a free token</a>
+    </div>
+  </header>
+  <div class="rule"></div>
+
+  <!-- Docs Sub-Nav Tabs -->
+  <div class="docs-tabs-bar">
+    <div class="wrap">
+      
+    <nav class="docs-tabs" aria-label="Documentation sections">
+      <a href="/docs/" class="doc-tab ">
+          <span>Overview</span>
+          
+        </a>
+      <a href="/docs/method-policy/" class="doc-tab active">
+          <span>Method Policy</span>
+          <span class="tab-badge">RPC Spec</span>
+        </a>
+      <a href="/docs/stage0-mvp/" class="doc-tab ">
+          <span>Stage 0 MVP</span>
+          <span class="tab-badge">Active</span>
+        </a>
+      <a href="/docs/stage1-gateway/" class="doc-tab ">
+          <span>Stage 1 Gateway</span>
+          <span class="tab-badge">Mesh & SLA</span>
+        </a>
+      <a href="/docs/stage2-network/" class="doc-tab ">
+          <span>Stage 2 Network</span>
+          <span class="tab-badge">Protocol</span>
+        </a>
+    </nav>
+  
+    </div>
+  </div>
+
+  <!-- Document Body -->
+  <main class="doc-wrap">
+    <div class="breadcrumbs">
+      <a href="/">mnr</a>
+      <span>/</span>
+      <a href="/docs/">docs</a>
+      <span>/</span><span>method-policy</span>
+    </div>
+
+    <article class="prose">
+      <h1>mnr - method policy table</h1>
+<p><em>Generated from <code>mnr-core::policy::render_markdown</code>. The code is canonical; this table is regenerated from it.</em></p>
+<p>Tip safety depth: 10 blocks (<code>TIP_SAFETY_DEPTH</code>). Data within that distance of the quorum tip is never cached; requests above the safety line fall back to SWR or pass through. Unknown methods are denied (allow-list).</p>
+<p>The allow-list is verified against monerod&#39;s endpoint registry (<code>crates/core/fixtures/monerod-core_rpc_server.h</code>, fetched 2026-09-04). 86 rows, 16 of them aliases.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Transport</th>
+<th>Class</th>
+<th>Cache rule</th>
+<th>Quorum rule</th>
+<th>Verification</th>
+<th>Timeout (ms)</th>
+<th>Note</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>get_block</code></td>
+<td>json-rpc</td>
+<td>IMMUTABLE</td>
+<td>Cache 30 d only if requested height &lt;= quorum_tip - TIP_SAFETY_DEPTH; requests above the safety line fall back to SWR. Cache key includes the block hash returned by the node.</td>
+<td>Height/hash must match the quorum-tip chain (validated against the header chain).</td>
+<td>authenticated</td>
+<td>3000</td>
+<td>Block hash recomputed from the blob and matched to the requested hash or height.</td>
+</tr>
+<tr>
+<td><code>get_block_header_by_height</code></td>
+<td>json-rpc</td>
+<td>IMMUTABLE</td>
+<td>Cache 30 d only if requested height &lt;= quorum_tip - TIP_SAFETY_DEPTH; requests above the safety line fall back to SWR. Cache key includes the block hash returned by the node.</td>
+<td>Height/hash must match the quorum-tip chain (validated against the header chain).</td>
+<td>authenticated</td>
+<td>3000</td>
+<td>Header hash matched to the header chain at that height.</td>
+</tr>
+<tr>
+<td><code>get_block_header_by_hash</code></td>
+<td>json-rpc</td>
+<td>IMMUTABLE</td>
+<td>Cache 30 d only if requested height &lt;= quorum_tip - TIP_SAFETY_DEPTH; requests above the safety line fall back to SWR. Cache key includes the block hash returned by the node.</td>
+<td>Height/hash must match the quorum-tip chain (validated against the header chain).</td>
+<td>authenticated</td>
+<td>3000</td>
+<td>Recomputed header hash matched to the requested hash.</td>
+</tr>
+<tr>
+<td><code>get_block_headers_range</code></td>
+<td>json-rpc</td>
+<td>IMMUTABLE</td>
+<td>Cache 30 d only if requested height &lt;= quorum_tip - TIP_SAFETY_DEPTH; requests above the safety line fall back to SWR. Cache key includes the block hash returned by the node.</td>
+<td>Height/hash must match the quorum-tip chain (validated against the header chain).</td>
+<td>authenticated</td>
+<td>3000</td>
+<td>Range requests are split at the safety line.</td>
+</tr>
+<tr>
+<td><code>on_get_block_hash</code></td>
+<td>json-rpc</td>
+<td>IMMUTABLE</td>
+<td>Cache 30 d only if requested height &lt;= quorum_tip - TIP_SAFETY_DEPTH; requests above the safety line fall back to SWR. Cache key includes the block hash returned by the node.</td>
+<td>Height/hash must match the quorum-tip chain (validated against the header chain).</td>
+<td>authenticated</td>
+<td>3000</td>
+<td>Takes a height, returns the block hash; matched to the header chain.</td>
+</tr>
+<tr>
+<td><code>getblock</code></td>
+<td>json-rpc</td>
+<td>IMMUTABLE</td>
+<td>Cache 30 d only if requested height &lt;= quorum_tip - TIP_SAFETY_DEPTH; requests above the safety line fall back to SWR. Cache key includes the block hash returned by the node.</td>
+<td>Height/hash must match the quorum-tip chain (validated against the header chain).</td>
+<td>authenticated</td>
+<td>3000</td>
+<td>Alias of get_block.</td>
+</tr>
+<tr>
+<td><code>getblockheaderbyhash</code></td>
+<td>json-rpc</td>
+<td>IMMUTABLE</td>
+<td>Cache 30 d only if requested height &lt;= quorum_tip - TIP_SAFETY_DEPTH; requests above the safety line fall back to SWR. Cache key includes the block hash returned by the node.</td>
+<td>Height/hash must match the quorum-tip chain (validated against the header chain).</td>
+<td>authenticated</td>
+<td>3000</td>
+<td>Alias of get_block_header_by_hash.</td>
+</tr>
+<tr>
+<td><code>getblockheaderbyheight</code></td>
+<td>json-rpc</td>
+<td>IMMUTABLE</td>
+<td>Cache 30 d only if requested height &lt;= quorum_tip - TIP_SAFETY_DEPTH; requests above the safety line fall back to SWR. Cache key includes the block hash returned by the node.</td>
+<td>Height/hash must match the quorum-tip chain (validated against the header chain).</td>
+<td>authenticated</td>
+<td>3000</td>
+<td>Alias of get_block_header_by_height.</td>
+</tr>
+<tr>
+<td><code>getblockheadersrange</code></td>
+<td>json-rpc</td>
+<td>IMMUTABLE</td>
+<td>Cache 30 d only if requested height &lt;= quorum_tip - TIP_SAFETY_DEPTH; requests above the safety line fall back to SWR. Cache key includes the block hash returned by the node.</td>
+<td>Height/hash must match the quorum-tip chain (validated against the header chain).</td>
+<td>authenticated</td>
+<td>3000</td>
+<td>Alias of get_block_headers_range.</td>
+</tr>
+<tr>
+<td><code>on_getblockhash</code></td>
+<td>json-rpc</td>
+<td>IMMUTABLE</td>
+<td>Cache 30 d only if requested height &lt;= quorum_tip - TIP_SAFETY_DEPTH; requests above the safety line fall back to SWR. Cache key includes the block hash returned by the node.</td>
+<td>Height/hash must match the quorum-tip chain (validated against the header chain).</td>
+<td>authenticated</td>
+<td>3000</td>
+<td>Alias of on_get_block_hash.</td>
+</tr>
+<tr>
+<td><code>get_info</code></td>
+<td>json-rpc</td>
+<td>SWR</td>
+<td>SWR 1/5/15 s (max-age=1, stale-while-revalidate=5, stale-if-error=15) with single-flight coalescing; node-specific fields normalised. Staleness bound &lt;=6 s normal, &lt;=15 s during upstream error.</td>
+<td>Majority of &gt;=3 upstreams on quorum tip (each probe height &gt;= quorum_tip - 1).</td>
+<td>majority (&gt;=3)</td>
+<td>1500</td>
+<td>Consensus state; node-specific fields (connections, peerlist, update_available, start_time) normalised.</td>
+</tr>
+<tr>
+<td><code>/get_info</code></td>
+<td>legacy</td>
+<td>SWR</td>
+<td>SWR 1/5/15 s (max-age=1, stale-while-revalidate=5, stale-if-error=15) with single-flight coalescing; node-specific fields normalised. Staleness bound &lt;=6 s normal, &lt;=15 s during upstream error.</td>
+<td>Majority of &gt;=3 upstreams on quorum tip (each probe height &gt;= quorum_tip - 1).</td>
+<td>majority (&gt;=3)</td>
+<td>1500</td>
+<td>Legacy form of get_info; same normalisation.</td>
+</tr>
+<tr>
+<td><code>/get_height</code></td>
+<td>legacy</td>
+<td>SWR</td>
+<td>SWR 1/5/15 s (max-age=1, stale-while-revalidate=5, stale-if-error=15) with single-flight coalescing; node-specific fields normalised. Staleness bound &lt;=6 s normal, &lt;=15 s during upstream error.</td>
+<td>Majority of &gt;=3 upstreams on quorum tip (each probe height &gt;= quorum_tip - 1).</td>
+<td>majority (&gt;=3)</td>
+<td>1500</td>
+<td>Consensus state; majority of &gt;=3 upstreams.</td>
+</tr>
+<tr>
+<td><code>get_last_block_header</code></td>
+<td>json-rpc</td>
+<td>SWR</td>
+<td>SWR 1/5/15 s (max-age=1, stale-while-revalidate=5, stale-if-error=15) with single-flight coalescing; node-specific fields normalised. Staleness bound &lt;=6 s normal, &lt;=15 s during upstream error.</td>
+<td>Majority of &gt;=3 upstreams on quorum tip (each probe height &gt;= quorum_tip - 1).</td>
+<td>majority (&gt;=3)</td>
+<td>1500</td>
+<td>Header verified against the header chain.</td>
+</tr>
+<tr>
+<td><code>get_fee_estimate</code></td>
+<td>json-rpc</td>
+<td>SWR</td>
+<td>SWR 1/5/15 s (max-age=1, stale-while-revalidate=5, stale-if-error=15) with single-flight coalescing; node-specific fields normalised. Staleness bound &lt;=6 s normal, &lt;=15 s during upstream error.</td>
+<td>Majority of &gt;=3 upstreams on quorum tip (each probe height &gt;= quorum_tip - 1).</td>
+<td>majority (&gt;=3)</td>
+<td>1500</td>
+<td>Fee estimate = median of upstream estimates.</td>
+</tr>
+<tr>
+<td><code>hard_fork_info</code></td>
+<td>json-rpc</td>
+<td>SWR</td>
+<td>SWR 1/5/15 s (max-age=1, stale-while-revalidate=5, stale-if-error=15) with single-flight coalescing; node-specific fields normalised. Staleness bound &lt;=6 s normal, &lt;=15 s during upstream error.</td>
+<td>Majority of &gt;=3 upstreams on quorum tip (each probe height &gt;= quorum_tip - 1).</td>
+<td>majority (&gt;=3)</td>
+<td>1500</td>
+<td>Fork/version agreement across upstreams.</td>
+</tr>
+<tr>
+<td><code>get_version</code></td>
+<td>json-rpc</td>
+<td>SWR</td>
+<td>SWR 1/5/15 s (max-age=1, stale-while-revalidate=5, stale-if-error=15) with single-flight coalescing; node-specific fields normalised. Staleness bound &lt;=6 s normal, &lt;=15 s during upstream error.</td>
+<td>Majority of &gt;=3 upstreams on quorum tip (each probe height &gt;= quorum_tip - 1).</td>
+<td>majority (&gt;=3)</td>
+<td>1500</td>
+<td>Node version; checked against the directory minimum in Stage 2.</td>
+</tr>
+<tr>
+<td><code>get_block_count</code></td>
+<td>json-rpc</td>
+<td>SWR</td>
+<td>SWR 1/5/15 s (max-age=1, stale-while-revalidate=5, stale-if-error=15) with single-flight coalescing; node-specific fields normalised. Staleness bound &lt;=6 s normal, &lt;=15 s during upstream error.</td>
+<td>Majority of &gt;=3 upstreams on quorum tip (each probe height &gt;= quorum_tip - 1).</td>
+<td>majority (&gt;=3)</td>
+<td>1500</td>
+<td>Equivalent of get_height by block count; majority of &gt;=3 upstreams.</td>
+</tr>
+<tr>
+<td><code>/getheight</code></td>
+<td>legacy</td>
+<td>SWR</td>
+<td>SWR 1/5/15 s (max-age=1, stale-while-revalidate=5, stale-if-error=15) with single-flight coalescing; node-specific fields normalised. Staleness bound &lt;=6 s normal, &lt;=15 s during upstream error.</td>
+<td>Majority of &gt;=3 upstreams on quorum tip (each probe height &gt;= quorum_tip - 1).</td>
+<td>majority (&gt;=3)</td>
+<td>1500</td>
+<td>Alias of /get_height.</td>
+</tr>
+<tr>
+<td><code>/getinfo</code></td>
+<td>legacy</td>
+<td>SWR</td>
+<td>SWR 1/5/15 s (max-age=1, stale-while-revalidate=5, stale-if-error=15) with single-flight coalescing; node-specific fields normalised. Staleness bound &lt;=6 s normal, &lt;=15 s during upstream error.</td>
+<td>Majority of &gt;=3 upstreams on quorum tip (each probe height &gt;= quorum_tip - 1).</td>
+<td>majority (&gt;=3)</td>
+<td>1500</td>
+<td>Alias of /get_info.</td>
+</tr>
+<tr>
+<td><code>getlastblockheader</code></td>
+<td>json-rpc</td>
+<td>SWR</td>
+<td>SWR 1/5/15 s (max-age=1, stale-while-revalidate=5, stale-if-error=15) with single-flight coalescing; node-specific fields normalised. Staleness bound &lt;=6 s normal, &lt;=15 s during upstream error.</td>
+<td>Majority of &gt;=3 upstreams on quorum tip (each probe height &gt;= quorum_tip - 1).</td>
+<td>majority (&gt;=3)</td>
+<td>1500</td>
+<td>Alias of get_last_block_header.</td>
+</tr>
+<tr>
+<td><code>getblockcount</code></td>
+<td>json-rpc</td>
+<td>SWR</td>
+<td>SWR 1/5/15 s (max-age=1, stale-while-revalidate=5, stale-if-error=15) with single-flight coalescing; node-specific fields normalised. Staleness bound &lt;=6 s normal, &lt;=15 s during upstream error.</td>
+<td>Majority of &gt;=3 upstreams on quorum tip (each probe height &gt;= quorum_tip - 1).</td>
+<td>majority (&gt;=3)</td>
+<td>1500</td>
+<td>Alias of get_block_count.</td>
+</tr>
+<tr>
+<td><code>/get_transactions</code></td>
+<td>legacy</td>
+<td>IMMUTABLE-CONDITIONAL</td>
+<td>Cache 30 d per tx hash only for txs with block_height &lt;= quorum_tip - TIP_SAFETY_DEPTH; mempool/young txs pass through. Per-tx-hash, not per request body; batches reassembled at the edge.</td>
+<td>Single node on quorum tip.</td>
+<td>authenticated</td>
+<td>5000</td>
+<td>Tx blob hashed to txid; pruned-tx hash form verified where applicable.</td>
+</tr>
+<tr>
+<td><code>/get_outs.bin</code></td>
+<td>legacy</td>
+<td>IMMUTABLE-CONDITIONAL</td>
+<td>Cache 24 h only if all requested indices belong to blocks &lt;= quorum_tip - TIP_SAFETY_DEPTH; else pass through.</td>
+<td>Single node on quorum tip.</td>
+<td>agreement free=1 pro=2</td>
+<td>10000</td>
+<td>Ring construction; correctness &gt; hit rate. Stage 0: two-upstream agreement for Pro tokens, single upstream (owned node preferred) for Free. Free-tier two-upstream agreement is an open decision (plan §10 item 3).</td>
+</tr>
+<tr>
+<td><code>/get_outs</code></td>
+<td>legacy</td>
+<td>IMMUTABLE-CONDITIONAL</td>
+<td>Cache 24 h only if all requested indices belong to blocks &lt;= quorum_tip - TIP_SAFETY_DEPTH; else pass through.</td>
+<td>Single node on quorum tip.</td>
+<td>agreement free=1 pro=2</td>
+<td>10000</td>
+<td>JSON twin of /get_outs.bin; same per-tier agreement.</td>
+</tr>
+<tr>
+<td><code>/get_o_indexes.bin</code></td>
+<td>legacy</td>
+<td>IMMUTABLE-CONDITIONAL</td>
+<td>Cache 24 h only if all requested indices belong to blocks &lt;= quorum_tip - TIP_SAFETY_DEPTH; else pass through.</td>
+<td>Single node on quorum tip.</td>
+<td>agreement free=1 pro=2</td>
+<td>10000</td>
+<td>Tx global output indexes; same per-tier agreement.</td>
+</tr>
+<tr>
+<td><code>/get_output_distribution.bin</code></td>
+<td>legacy</td>
+<td>IMMUTABLE-CONDITIONAL</td>
+<td>Cache 24 h only if all requested indices belong to blocks &lt;= quorum_tip - TIP_SAFETY_DEPTH; else pass through.</td>
+<td>Single node on quorum tip.</td>
+<td>agreement free=1 pro=2</td>
+<td>10000</td>
+<td>Binary form of get_output_distribution.</td>
+</tr>
+<tr>
+<td><code>get_output_distribution</code></td>
+<td>json-rpc</td>
+<td>IMMUTABLE-CONDITIONAL</td>
+<td>Cache 24 h only if all requested indices belong to blocks &lt;= quorum_tip - TIP_SAFETY_DEPTH; else pass through.</td>
+<td>Single node on quorum tip.</td>
+<td>agreement free=1 pro=2</td>
+<td>10000</td>
+<td>Ring-construction data; not self-authenticating from a single response.</td>
+</tr>
+<tr>
+<td><code>get_output_histogram</code></td>
+<td>json-rpc</td>
+<td>IMMUTABLE-CONDITIONAL</td>
+<td>Cache 24 h only if all requested indices belong to blocks &lt;= quorum_tip - TIP_SAFETY_DEPTH; else pass through.</td>
+<td>Single node on quorum tip.</td>
+<td>agreement free=1 pro=2</td>
+<td>10000</td>
+<td>Ring-construction data; not self-authenticating from a single response.</td>
+</tr>
+<tr>
+<td><code>/gettransactions</code></td>
+<td>legacy</td>
+<td>IMMUTABLE-CONDITIONAL</td>
+<td>Cache 30 d per tx hash only for txs with block_height &lt;= quorum_tip - TIP_SAFETY_DEPTH; mempool/young txs pass through. Per-tx-hash, not per request body; batches reassembled at the edge.</td>
+<td>Single node on quorum tip.</td>
+<td>authenticated</td>
+<td>5000</td>
+<td>Alias of /get_transactions.</td>
+</tr>
+<tr>
+<td><code>/get_blocks.bin</code></td>
+<td>legacy</td>
+<td>PASSTHROUGH-STREAM</td>
+<td>None - streamed body-through, no buffering.</td>
+<td>Route to the healthiest full node on quorum tip (pruned node only if request has prune=true).</td>
+<td>annotated</td>
+<td>60000</td>
+<td>Wallet sync path; largest bandwidth consumer, metered separately (bytes). Stage 0: not verified - Mnr-Verify: none; owned node preferred; idle timeout 15 s.</td>
+</tr>
+<tr>
+<td><code>/get_blocks_by_height.bin</code></td>
+<td>legacy</td>
+<td>PASSTHROUGH-STREAM</td>
+<td>None - streamed body-through, no buffering.</td>
+<td>Route to the healthiest full node on quorum tip (pruned node only if request has prune=true).</td>
+<td>annotated</td>
+<td>60000</td>
+<td>Same as get_blocks.bin by height; Mnr-Verify: none in Stage 0; idle timeout 15 s.</td>
+</tr>
+<tr>
+<td><code>/get_hashes.bin</code></td>
+<td>legacy</td>
+<td>PASSTHROUGH-STREAM</td>
+<td>None - streamed body-through, no buffering.</td>
+<td>Route to the healthiest full node on quorum tip (pruned node only if request has prune=true).</td>
+<td>annotated</td>
+<td>60000</td>
+<td>Block hashes for sync; Mnr-Verify: none in Stage 0; idle timeout 15 s.</td>
+</tr>
+<tr>
+<td><code>/getblocks.bin</code></td>
+<td>legacy</td>
+<td>PASSTHROUGH-STREAM</td>
+<td>None - streamed body-through, no buffering.</td>
+<td>Route to the healthiest full node on quorum tip (pruned node only if request has prune=true).</td>
+<td>annotated</td>
+<td>60000</td>
+<td>Alias of /get_blocks.bin.</td>
+</tr>
+<tr>
+<td><code>/getblocks_by_height.bin</code></td>
+<td>legacy</td>
+<td>PASSTHROUGH-STREAM</td>
+<td>None - streamed body-through, no buffering.</td>
+<td>Route to the healthiest full node on quorum tip (pruned node only if request has prune=true).</td>
+<td>annotated</td>
+<td>60000</td>
+<td>Alias of /get_blocks_by_height.bin.</td>
+</tr>
+<tr>
+<td><code>/gethashes.bin</code></td>
+<td>legacy</td>
+<td>PASSTHROUGH-STREAM</td>
+<td>None - streamed body-through, no buffering.</td>
+<td>Route to the healthiest full node on quorum tip (pruned node only if request has prune=true).</td>
+<td>annotated</td>
+<td>60000</td>
+<td>Alias of /get_hashes.bin.</td>
+</tr>
+<tr>
+<td><code>/get_transaction_pool_hashes.bin</code></td>
+<td>legacy</td>
+<td>PASSTHROUGH</td>
+<td>None (mempool is per-node by nature).</td>
+<td>Single node; response annotated Mnr-Upstream (opaque id).</td>
+<td>annotated</td>
+<td>3000</td>
+<td>Mempool is per-node by nature; never cached.</td>
+</tr>
+<tr>
+<td><code>/get_transaction_pool_hashes</code></td>
+<td>legacy</td>
+<td>PASSTHROUGH</td>
+<td>None (mempool is per-node by nature).</td>
+<td>Single node; response annotated Mnr-Upstream (opaque id).</td>
+<td>annotated</td>
+<td>3000</td>
+<td>Mempool is per-node by nature; never cached.</td>
+</tr>
+<tr>
+<td><code>/get_transaction_pool_stats</code></td>
+<td>legacy</td>
+<td>PASSTHROUGH</td>
+<td>None (mempool is per-node by nature).</td>
+<td>Single node; response annotated Mnr-Upstream (opaque id).</td>
+<td>annotated</td>
+<td>3000</td>
+<td>Mempool is per-node by nature; never cached.</td>
+</tr>
+<tr>
+<td><code>/is_key_image_spent</code></td>
+<td>legacy</td>
+<td>PASSTHROUGH</td>
+<td>None (spent status changes with the mempool).</td>
+<td>Single node on quorum tip.</td>
+<td>annotated</td>
+<td>3000</td>
+<td>Restricted-safe; used by wallets during sync.</td>
+</tr>
+<tr>
+<td><code>/get_public_nodes</code></td>
+<td>legacy</td>
+<td>PASSTHROUGH</td>
+<td>None.</td>
+<td>Single node on quorum tip.</td>
+<td>annotated</td>
+<td>3000</td>
+<td>Public node list; we never forward client identity (no client IP, no X-Forwarded-For).</td>
+</tr>
+<tr>
+<td><code>/get_limit</code></td>
+<td>legacy</td>
+<td>PASSTHROUGH</td>
+<td>None.</td>
+<td>Single node on quorum tip.</td>
+<td>annotated</td>
+<td>3000</td>
+<td>Daemon bandwidth limits; we never forward client identity.</td>
+</tr>
+<tr>
+<td><code>get_txpool_backlog</code></td>
+<td>json-rpc</td>
+<td>PASSTHROUGH</td>
+<td>None.</td>
+<td>Single node on quorum tip.</td>
+<td>annotated</td>
+<td>3000</td>
+<td>Mempool backlog metrics; per-node by nature.</td>
+</tr>
+<tr>
+<td><code>get_txids_loose</code></td>
+<td>json-rpc</td>
+<td>PASSTHROUGH</td>
+<td>None.</td>
+<td>Single node on quorum tip.</td>
+<td>annotated</td>
+<td>3000</td>
+<td>Mempool txids by prefix; per-node by nature.</td>
+</tr>
+<tr>
+<td><code>/send_raw_transaction</code></td>
+<td>legacy</td>
+<td>BROADCAST</td>
+<td>None.</td>
+<td>Fan out to all healthy upstreams in parallel; success if &gt;=1 returns status OK.</td>
+<td>annotated</td>
+<td>5000</td>
+<td>do_not_relay honoured; no retries (tx is idempotent on-chain); overall budget 6 s; result header Mnr-Relayed: k/n. If all reject, return the first error verbatim.</td>
+</tr>
+<tr>
+<td><code>/sendrawtransaction</code></td>
+<td>legacy</td>
+<td>BROADCAST</td>
+<td>None.</td>
+<td>Fan out to all healthy upstreams in parallel; success if &gt;=1 returns status OK.</td>
+<td>annotated</td>
+<td>5000</td>
+<td>Alias of /send_raw_transaction.</td>
+</tr>
+<tr>
+<td><code>check_tx_key</code></td>
+<td>json-rpc</td>
+<td>NOT-DAEMON</td>
+<td>n/a</td>
+<td>n/a</td>
+<td>not-daemon</td>
+<td>0</td>
+<td>Wallet-RPC method, not a daemon method; return -32601 method not found with a hint.</td>
+</tr>
+<tr>
+<td><code>check_tx_proof</code></td>
+<td>json-rpc</td>
+<td>NOT-DAEMON</td>
+<td>n/a</td>
+<td>n/a</td>
+<td>not-daemon</td>
+<td>0</td>
+<td>Wallet-RPC method, not a daemon method; return -32601 method not found with a hint.</td>
+</tr>
+<tr>
+<td><code>check_spend_proof</code></td>
+<td>json-rpc</td>
+<td>NOT-DAEMON</td>
+<td>n/a</td>
+<td>n/a</td>
+<td>not-daemon</td>
+<td>0</td>
+<td>Wallet-RPC method, not a daemon method; return -32601 method not found with a hint.</td>
+</tr>
+<tr>
+<td><code>check_reserve_proof</code></td>
+<td>json-rpc</td>
+<td>NOT-DAEMON</td>
+<td>n/a</td>
+<td>n/a</td>
+<td>not-daemon</td>
+<td>0</td>
+<td>Wallet-RPC method, not a daemon method; return -32601 method not found with a hint.</td>
+</tr>
+<tr>
+<td><code>/get_alt_blocks_hashes</code></td>
+<td>legacy</td>
+<td>DENY</td>
+<td>n/a</td>
+<td>n/a</td>
+<td>n/a</td>
+<td>0</td>
+<td>Denied at the edge (403 / -32601); nodes also run --restricted-rpc as defence in depth.</td>
+</tr>
+<tr>
+<td><code>/start_mining</code></td>
+<td>legacy</td>
+<td>DENY</td>
+<td>n/a</td>
+<td>n/a</td>
+<td>n/a</td>
+<td>0</td>
+<td>Denied at the edge (403 / -32601); nodes also run --restricted-rpc as defence in depth.</td>
+</tr>
+<tr>
+<td><code>/stop_mining</code></td>
+<td>legacy</td>
+<td>DENY</td>
+<td>n/a</td>
+<td>n/a</td>
+<td>n/a</td>
+<td>0</td>
+<td>Denied at the edge (403 / -32601); nodes also run --restricted-rpc as defence in depth.</td>
+</tr>
+<tr>
+<td><code>/mining_status</code></td>
+<td>legacy</td>
+<td>DENY</td>
+<td>n/a</td>
+<td>n/a</td>
+<td>n/a</td>
+<td>0</td>
+<td>Denied at the edge (403 / -32601); nodes also run --restricted-rpc as defence in depth.</td>
+</tr>
+<tr>
+<td><code>/save_bc</code></td>
+<td>legacy</td>
+<td>DENY</td>
+<td>n/a</td>
+<td>n/a</td>
+<td>n/a</td>
+<td>0</td>
+<td>Denied at the edge (403 / -32601); nodes also run --restricted-rpc as defence in depth.</td>
+</tr>
+<tr>
+<td><code>/get_peer_list</code></td>
+<td>legacy</td>
+<td>DENY</td>
+<td>n/a</td>
+<td>n/a</td>
+<td>n/a</td>
+<td>0</td>
+<td>Denied at the edge (403 / -32601); nodes also run --restricted-rpc as defence in depth.</td>
+</tr>
+<tr>
+<td><code>/set_log_hash_rate</code></td>
+<td>legacy</td>
+<td>DENY</td>
+<td>n/a</td>
+<td>n/a</td>
+<td>n/a</td>
+<td>0</td>
+<td>Logging control; denied at the edge (403 / -32601).</td>
+</tr>
+<tr>
+<td><code>/set_log_level</code></td>
+<td>legacy</td>
+<td>DENY</td>
+<td>n/a</td>
+<td>n/a</td>
+<td>n/a</td>
+<td>0</td>
+<td>Logging control; denied at the edge (403 / -32601).</td>
+</tr>
+<tr>
+<td><code>/set_log_categories</code></td>
+<td>legacy</td>
+<td>DENY</td>
+<td>n/a</td>
+<td>n/a</td>
+<td>n/a</td>
+<td>0</td>
+<td>Logging control; denied at the edge (403 / -32601).</td>
+</tr>
+<tr>
+<td><code>/get_transaction_pool</code></td>
+<td>legacy</td>
+<td>DENY</td>
+<td>n/a</td>
+<td>n/a</td>
+<td>n/a</td>
+<td>0</td>
+<td>Restricted-gated (!m_restricted); cannot be served from a public node. Wallets use /get_transaction_pool_hashes(.bin) and /get_transaction_pool_stats instead.</td>
+</tr>
+<tr>
+<td><code>/stop_daemon</code></td>
+<td>legacy</td>
+<td>DENY</td>
+<td>n/a</td>
+<td>n/a</td>
+<td>n/a</td>
+<td>0</td>
+<td>Denied at the edge (403 / -32601); nodes also run --restricted-rpc as defence in depth.</td>
+</tr>
+<tr>
+<td><code>/get_net_stats</code></td>
+<td>legacy</td>
+<td>DENY</td>
+<td>n/a</td>
+<td>n/a</td>
+<td>n/a</td>
+<td>0</td>
+<td>Denied at the edge (403 / -32601); nodes also run --restricted-rpc as defence in depth.</td>
+</tr>
+<tr>
+<td><code>/set_limit</code></td>
+<td>legacy</td>
+<td>DENY</td>
+<td>n/a</td>
+<td>n/a</td>
+<td>n/a</td>
+<td>0</td>
+<td>Denied at the edge (403 / -32601); nodes also run --restricted-rpc as defence in depth.</td>
+</tr>
+<tr>
+<td><code>/out_peers</code></td>
+<td>legacy</td>
+<td>DENY</td>
+<td>n/a</td>
+<td>n/a</td>
+<td>n/a</td>
+<td>0</td>
+<td>Denied at the edge (403 / -32601); nodes also run --restricted-rpc as defence in depth.</td>
+</tr>
+<tr>
+<td><code>/in_peers</code></td>
+<td>legacy</td>
+<td>DENY</td>
+<td>n/a</td>
+<td>n/a</td>
+<td>n/a</td>
+<td>0</td>
+<td>Denied at the edge (403 / -32601); nodes also run --restricted-rpc as defence in depth.</td>
+</tr>
+<tr>
+<td><code>/update</code></td>
+<td>legacy</td>
+<td>DENY</td>
+<td>n/a</td>
+<td>n/a</td>
+<td>n/a</td>
+<td>0</td>
+<td>Denied at the edge (403 / -32601); nodes also run --restricted-rpc as defence in depth.</td>
+</tr>
+<tr>
+<td><code>/pop_blocks</code></td>
+<td>legacy</td>
+<td>DENY</td>
+<td>n/a</td>
+<td>n/a</td>
+<td>n/a</td>
+<td>0</td>
+<td>Denied at the edge (403 / -32601); nodes also run --restricted-rpc as defence in depth.</td>
+</tr>
+<tr>
+<td><code>get_connections</code></td>
+<td>json-rpc</td>
+<td>DENY</td>
+<td>n/a</td>
+<td>n/a</td>
+<td>n/a</td>
+<td>0</td>
+<td>Denied at the edge (403 / -32601); nodes also run --restricted-rpc as defence in depth.</td>
+</tr>
+<tr>
+<td><code>get_bans</code></td>
+<td>json-rpc</td>
+<td>DENY</td>
+<td>n/a</td>
+<td>n/a</td>
+<td>n/a</td>
+<td>0</td>
+<td>Denied at the edge (403 / -32601); nodes also run --restricted-rpc as defence in depth.</td>
+</tr>
+<tr>
+<td><code>set_bans</code></td>
+<td>json-rpc</td>
+<td>DENY</td>
+<td>n/a</td>
+<td>n/a</td>
+<td>n/a</td>
+<td>0</td>
+<td>Denied at the edge (403 / -32601); nodes also run --restricted-rpc as defence in depth.</td>
+</tr>
+<tr>
+<td><code>banned</code></td>
+<td>json-rpc</td>
+<td>DENY</td>
+<td>n/a</td>
+<td>n/a</td>
+<td>n/a</td>
+<td>0</td>
+<td>Denied at the edge (403 / -32601); nodes also run --restricted-rpc as defence in depth.</td>
+</tr>
+<tr>
+<td><code>flush_txpool</code></td>
+<td>json-rpc</td>
+<td>DENY</td>
+<td>n/a</td>
+<td>n/a</td>
+<td>n/a</td>
+<td>0</td>
+<td>Denied at the edge (403 / -32601); nodes also run --restricted-rpc as defence in depth.</td>
+</tr>
+<tr>
+<td><code>relay_tx</code></td>
+<td>json-rpc</td>
+<td>DENY</td>
+<td>n/a</td>
+<td>n/a</td>
+<td>n/a</td>
+<td>0</td>
+<td>Restricted-gated (!m_restricted); cannot be served from a public node. Broadcast is available via /send_raw_transaction.</td>
+</tr>
+<tr>
+<td><code>sync_info</code></td>
+<td>json-rpc</td>
+<td>DENY</td>
+<td>n/a</td>
+<td>n/a</td>
+<td>n/a</td>
+<td>0</td>
+<td>Denied at the edge (403 / -32601); nodes also run --restricted-rpc as defence in depth.</td>
+</tr>
+<tr>
+<td><code>prune_blockchain</code></td>
+<td>json-rpc</td>
+<td>DENY</td>
+<td>n/a</td>
+<td>n/a</td>
+<td>n/a</td>
+<td>0</td>
+<td>Denied at the edge (403 / -32601); nodes also run --restricted-rpc as defence in depth.</td>
+</tr>
+<tr>
+<td><code>get_coinbase_tx_sum</code></td>
+<td>json-rpc</td>
+<td>DENY</td>
+<td>n/a</td>
+<td>n/a</td>
+<td>n/a</td>
+<td>0</td>
+<td>Denied at the edge (403 / -32601); nodes also run --restricted-rpc as defence in depth.</td>
+</tr>
+<tr>
+<td><code>get_alternate_chains</code></td>
+<td>json-rpc</td>
+<td>DENY</td>
+<td>n/a</td>
+<td>n/a</td>
+<td>n/a</td>
+<td>0</td>
+<td>Denied at the edge (403 / -32601); nodes also run --restricted-rpc as defence in depth.</td>
+</tr>
+<tr>
+<td><code>flush_cache</code></td>
+<td>json-rpc</td>
+<td>DENY</td>
+<td>n/a</td>
+<td>n/a</td>
+<td>n/a</td>
+<td>0</td>
+<td>Denied at the edge (403 / -32601); nodes also run --restricted-rpc as defence in depth.</td>
+</tr>
+<tr>
+<td><code>get_block_template</code></td>
+<td>json-rpc</td>
+<td>DENY</td>
+<td>n/a</td>
+<td>n/a</td>
+<td>n/a</td>
+<td>0</td>
+<td>Mining/admin; denied at the edge (403 / -32601).</td>
+</tr>
+<tr>
+<td><code>getblocktemplate</code></td>
+<td>json-rpc</td>
+<td>DENY</td>
+<td>n/a</td>
+<td>n/a</td>
+<td>n/a</td>
+<td>0</td>
+<td>Alias of get_block_template (denied).</td>
+</tr>
+<tr>
+<td><code>get_miner_data</code></td>
+<td>json-rpc</td>
+<td>DENY</td>
+<td>n/a</td>
+<td>n/a</td>
+<td>n/a</td>
+<td>0</td>
+<td>Mining/admin; denied at the edge (403 / -32601).</td>
+</tr>
+<tr>
+<td><code>calc_pow</code></td>
+<td>json-rpc</td>
+<td>DENY</td>
+<td>n/a</td>
+<td>n/a</td>
+<td>n/a</td>
+<td>0</td>
+<td>Denied at the edge (403 / -32601); nodes also run --restricted-rpc as defence in depth.</td>
+</tr>
+<tr>
+<td><code>add_aux_pow</code></td>
+<td>json-rpc</td>
+<td>DENY</td>
+<td>n/a</td>
+<td>n/a</td>
+<td>n/a</td>
+<td>0</td>
+<td>Mining/admin; denied at the edge (403 / -32601).</td>
+</tr>
+<tr>
+<td><code>submit_block</code></td>
+<td>json-rpc</td>
+<td>DENY</td>
+<td>n/a</td>
+<td>n/a</td>
+<td>n/a</td>
+<td>0</td>
+<td>Mining/admin; denied at the edge (403 / -32601).</td>
+</tr>
+<tr>
+<td><code>submitblock</code></td>
+<td>json-rpc</td>
+<td>DENY</td>
+<td>n/a</td>
+<td>n/a</td>
+<td>n/a</td>
+<td>0</td>
+<td>Alias of submit_block (denied).</td>
+</tr>
+<tr>
+<td><code>generateblocks</code></td>
+<td>json-rpc</td>
+<td>DENY</td>
+<td>n/a</td>
+<td>n/a</td>
+<td>n/a</td>
+<td>0</td>
+<td>Mining/admin; denied at the edge (403 / -32601).</td>
+</tr>
+</tbody></table></div>
+
+    </article>
+  </main>
+
+  <div class="rule"></div>
+
+  <!-- Footer -->
+  <footer class="wrap" style="padding: 48px 32px;">
+    <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px;">
+      <div style="display: flex; align-items: center; gap: 10px; font-size: 14px;" class="muted">
+        <span>mnr — an RPC network for Monero</span>
+        <span>·</span>
+        <a href="https://github.com/mnrnetwork/mnr" target="_blank" rel="noopener noreferrer" style="text-decoration: underline;">AGPL-3.0</a>
+      </div>
+      <div style="display: flex; gap: 24px; font-size: 14px;">
+        <a href="/">Home</a>
+        <a href="/docs/">Docs Hub</a>
+        <a href="/docs/method-policy/">Method Policy</a>
+        <a href="https://github.com/mnrnetwork/mnr" target="_blank" rel="noopener noreferrer">GitHub</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    (function () {
+      var btn = document.getElementById('theme-toggle');
+      var root = document.documentElement;
+      function current() {
+        var t = root.getAttribute('data-theme');
+        if (t === 'light' || t === 'dark') return t;
+        return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+      }
+      btn.addEventListener('click', function () {
+        var next = current() === 'dark' ? 'light' : 'dark';
+        root.setAttribute('data-theme', next);
+        try { localStorage.setItem('mnr-theme', next); } catch (e) {}
+      });
+    })();
+  </script>
+</body>
+</html>

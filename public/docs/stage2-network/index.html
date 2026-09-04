@@ -1,0 +1,742 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Stage 2 Network Protocol Architecture — mnr</title>
+  <meta name="description" content="Protocol and network architecture for mnr: permissionless monerod operators, cryptographic fault logging, and weekly XMR settlement without stake or slashing.">
+  <link rel="canonical" href="https://mnr.network/docs/stage2-network/">
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+  <meta property="og:title" content="Stage 2 Network Protocol Architecture — mnr">
+  <meta property="og:description" content="Protocol and network architecture for mnr: permissionless monerod operators, cryptographic fault logging, and weekly XMR settlement without stake or slashing.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://mnr.network/docs/stage2-network/">
+  <meta property="og:site_name" content="mnr">
+  <meta property="og:image" content="https://mnr.network/og.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Stage 2 Network Protocol Architecture — mnr">
+  <meta name="twitter:description" content="Protocol and network architecture for mnr: permissionless monerod operators, cryptographic fault logging, and weekly XMR settlement without stake or slashing.">
+  <meta name="twitter:image" content="https://mnr.network/og.png">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png">
+  <link rel="icon" href="/favicon-16.png" sizes="16x16" type="image/png">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <link rel="alternate" type="text/markdown" title="LLM context" href="/llms.txt">
+  <script type="application/ld+json">
+  {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebPage",
+      "@id": "https://mnr.network/docs/stage2-network/#webpage",
+      "url": "https://mnr.network/docs/stage2-network/",
+      "name": "Stage 2 Network Protocol Architecture",
+      "description": "Protocol and network architecture for mnr: permissionless monerod operators, cryptographic fault logging, and weekly XMR settlement without stake or slashing.",
+      "isPartOf": {
+        "@type": "WebSite",
+        "@id": "https://mnr.network/#website",
+        "url": "https://mnr.network/",
+        "name": "mnr"
+      }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://mnr.network/docs/stage2-network/#breadcrumbs",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "mnr",
+          "item": "https://mnr.network/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "docs",
+          "item": "https://mnr.network/docs/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Stage 2 Network",
+          "item": "https://mnr.network/docs/stage2-network/"
+        }
+      ]
+    }
+  ]
+}
+  </script>
+  <script>
+    try { var t = localStorage.getItem('mnr-theme'); if (t === 'light' || t === 'dark') document.documentElement.setAttribute('data-theme', t); } catch (e) {}
+  </script>
+  <style>
+    @font-face {
+      font-family: "Geist";
+      font-style: normal;
+      font-weight: 100 900;
+      font-display: swap;
+      src: url("/fonts/geist-latin.woff2") format("woff2");
+      unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+    }
+    @font-face {
+      font-family: "Geist Mono";
+      font-style: normal;
+      font-weight: 100 900;
+      font-display: swap;
+      src: url("/fonts/geist-mono-latin.woff2") format("woff2");
+      unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+    }
+    :root {
+      --accent: #F26822;
+      --bg: #FBFAF8; --bg-alt: #F3EFEA; --fg: #1B1917; --fg-2: #4A4541; --muted: #6B655F; --card: #FFFFFF;
+      --line: #E8E3DD; --line-strong: #DDD8D2; --log-bg: #1B1917; --log-fg: #E9E4DE;
+      --inverse-bg: #1B1917; --inverse-fg: #E9E4DE; --inverse-strong: #FFFFFF; --inverse-muted: #B8B1A9; --inverse-line: #3A3531;
+      --pill-bg: #FFF4E5;
+      color-scheme: light;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root:not([data-theme="light"]) {
+        --bg: #141210; --bg-alt: #1B1917; --fg: #ECE7E1; --fg-2: #C9C2BA; --muted: #9A938B; --card: #1E1B18;
+        --line: #2E2A26; --line-strong: #3A3531; --log-bg: #0E0D0C; --log-fg: #E9E4DE;
+        --inverse-bg: #221F1B; --inverse-fg: #E9E4DE; --inverse-strong: #FFFFFF; --inverse-muted: #B8B1A9; --inverse-line: #3F3A35;
+        --pill-bg: #3A2A14;
+        color-scheme: dark;
+      }
+    }
+    :root[data-theme="dark"] {
+      --bg: #141210; --bg-alt: #1B1917; --fg: #ECE7E1; --fg-2: #C9C2BA; --muted: #9A938B; --card: #1E1B18;
+      --line: #2E2A26; --line-strong: #3A3531; --log-bg: #0E0D0C; --log-fg: #E9E4DE;
+      --inverse-bg: #221F1B; --inverse-fg: #E9E4DE; --inverse-strong: #FFFFFF; --inverse-muted: #B8B1A9; --inverse-line: #3F3A35;
+      --pill-bg: #3A2A14;
+      color-scheme: dark;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { margin: 0; background: var(--bg); color: var(--fg); font-family: "Geist", "Helvetica Neue", Helvetica, Arial, sans-serif; font-size: 16.5px; line-height: 1.65; -webkit-font-smoothing: antialiased; }
+    a { color: var(--fg); text-decoration: none; } a:hover { color: #C2410C; }
+    p { margin: 0 0 16px; }
+    .mono { font-family: "Geist Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace; }
+    .wrap { max-width: 1120px; margin: 0 auto; padding: 0 32px; }
+    .doc-wrap { max-width: 920px; margin: 0 auto; padding: 48px 32px 96px; }
+    .rule { height: 1px; background: var(--line); }
+    
+    .navlinks { display: flex; gap: 28px; align-items: center; font-size: 15px; font-weight: 500; }
+    .btn { display: inline-flex; align-items: center; justify-content: center; height: 44px; padding: 0 20px; border-radius: 10px; font-weight: 600; font-size: 15px; white-space: nowrap; }
+    .btn-primary { background: var(--accent); color: #FFFFFF; } .btn-primary:hover { background: #C2410C; color: #FFFFFF; }
+    .btn-sm { height: 40px; padding: 0 16px; font-size: 14px; }
+    .theme-btn { display: inline-flex; align-items: center; justify-content: center; width: 40px; height: 40px; border-radius: 10px; border: 1px solid var(--line-strong); background: var(--card); color: var(--fg); cursor: pointer; padding: 0; }
+    .theme-btn .sun { display: none; } .theme-btn .moon { display: block; }
+    :root[data-theme="dark"] .theme-btn .sun { display: block; } :root[data-theme="dark"] .theme-btn .moon { display: none; }
+    @media (prefers-color-scheme: dark) {
+      :root:not([data-theme="light"]) .theme-btn .sun { display: block; }
+      :root:not([data-theme="light"]) .theme-btn .moon { display: none; }
+    }
+    .mark { display: block; flex: none; color: var(--fg); }
+
+    /* Docs Navigation & Tabs */
+    .docs-tabs-bar { background: var(--bg-alt); border-bottom: 1px solid var(--line); padding: 10px 0; position: sticky; top: 0; z-index: 10; backdrop-filter: blur(12px); }
+    .docs-tabs { display: flex; gap: 8px; overflow-x: auto; padding: 4px 0; -webkit-overflow-scrolling: touch; }
+    .doc-tab { display: inline-flex; align-items: center; gap: 6px; padding: 8px 14px; border-radius: 8px; font-size: 14px; font-weight: 500; color: var(--fg-2); border: 1px solid transparent; white-space: nowrap; transition: all 0.15s ease; }
+    .doc-tab:hover { background: var(--card); border-color: var(--line); color: var(--fg); }
+    .doc-tab.active { background: var(--card); border-color: var(--line-strong); color: var(--fg); font-weight: 600; }
+    .tab-badge { font-size: 11px; padding: 2px 6px; border-radius: 999px; background: var(--pill-bg); border: 1px solid var(--line); color: var(--accent); font-family: "Geist Mono", monospace; }
+
+    /* Breadcrumbs */
+    .breadcrumbs { display: flex; align-items: center; gap: 8px; font-size: 13.5px; color: var(--muted); margin-bottom: 24px; font-family: "Geist Mono", monospace; }
+    .breadcrumbs a { color: var(--muted); } .breadcrumbs a:hover { color: var(--accent); }
+    .breadcrumbs span { color: var(--fg); }
+
+    /* Prose Styling */
+    .prose { color: var(--fg); line-height: 1.7; word-break: break-word; }
+    .prose h1 { font-size: 38px; line-height: 1.15; letter-spacing: -0.02em; font-weight: 700; margin: 0 0 20px; }
+    .prose h2 { font-size: 26px; line-height: 1.25; letter-spacing: -0.015em; font-weight: 600; margin: 48px 0 16px; padding-bottom: 8px; border-bottom: 1px solid var(--line); }
+    .prose h3 { font-size: 20px; line-height: 1.35; font-weight: 600; margin: 32px 0 12px; }
+    .prose h4 { font-size: 17px; font-weight: 600; margin: 24px 0 8px; }
+    .prose ul, .prose ol { margin: 0 0 20px; padding-left: 24px; }
+    .prose li { margin-bottom: 8px; }
+    .prose hr { border: 0; height: 1px; background: var(--line); margin: 40px 0; }
+    .prose blockquote { margin: 24px 0; padding: 12px 20px; border-left: 3px solid var(--accent); background: var(--bg-alt); border-radius: 0 8px 8px 0; color: var(--fg-2); }
+    .prose blockquote p:last-child { margin-bottom: 0; }
+
+    .prose code:not(pre code) {
+      font-family: "Geist Mono", monospace;
+      font-size: 13.5px;
+      background: var(--bg-alt);
+      border: 1px solid var(--line);
+      border-radius: 5px;
+      padding: 2px 6px;
+      color: var(--fg);
+    }
+    .prose pre {
+      background: var(--log-bg);
+      color: var(--log-fg);
+      border-radius: 12px;
+      padding: 18px 20px;
+      font-size: 13.5px;
+      line-height: 1.6;
+      overflow-x: auto;
+      margin: 24px 0;
+      border: 1px solid var(--line);
+      font-family: "Geist Mono", monospace;
+    }
+    .prose pre code { background: transparent; padding: 0; border: 0; color: inherit; }
+
+    /* Tables */
+    .prose .table-wrap { overflow-x: auto; margin: 28px 0; border: 1px solid var(--line); border-radius: 12px; background: var(--card); }
+    .prose table { width: 100%; border-collapse: collapse; font-size: 14.5px; margin: 0; text-align: left; }
+    .prose th { font-weight: 600; font-size: 12.5px; letter-spacing: 0.04em; text-transform: uppercase; color: var(--muted); padding: 12px 14px; background: var(--bg-alt); border-bottom: 1px solid var(--line-strong); }
+    .prose td { padding: 12px 14px; border-bottom: 1px solid var(--line); vertical-align: top; }
+    .prose tbody tr:last-child td { border-bottom: 0; }
+    .prose tbody tr:hover td { background: var(--bg-alt); }
+
+    /* Hub Cards */
+    .hub-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; margin: 32px 0 48px; }
+    .hub-card { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 24px; transition: border-color 0.15s ease, transform 0.15s ease; display: flex; flex-direction: column; gap: 10px; }
+    .hub-card:hover { border-color: var(--accent); transform: translateY(-2px); }
+    .hub-card h3 { font-size: 18px; font-weight: 600; margin: 0; color: var(--fg); }
+    .hub-card p { font-size: 14.5px; color: var(--muted); margin: 0; line-height: 1.5; }
+    .hub-card-meta { display: flex; align-items: center; justify-content: space-between; margin-top: auto; padding-top: 12px; font-size: 13px; font-family: "Geist Mono", monospace; color: var(--accent); }
+
+    @media (max-width: 768px) {
+      .wrap, .doc-wrap { padding: 0 20px; }
+      .navlinks { display: none; }
+      .hub-grid { grid-template-columns: 1fr; }
+      .prose h1 { font-size: 30px; }
+      .prose h2 { font-size: 22px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="wrap" style="display: flex; align-items: center; justify-content: space-between; height: 72px;">
+    <a href="/" style="display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 22px; letter-spacing: -0.02em;" aria-label="mnr home">
+      <svg class="mark" width="24" height="24" viewBox="0 0 24 24" aria-hidden="true"><circle cx="16.5" cy="12" r="5.2" fill="var(--accent)"/><path d="M5.2 6.6 L11.9 10.1 M5.2 17.4 L11.9 13.9" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"/><circle cx="5.2" cy="6.6" r="2.1" fill="currentColor"/><circle cx="5.2" cy="17.4" r="2.1" fill="currentColor"/></svg>
+      <span>mnr</span>
+    </a>
+    <nav class="navlinks" aria-label="Sections">
+      <a href="/#how">How it works</a>
+      <a href="/#upstreams">Upstreams</a>
+      <a href="/#pricing">Pricing</a>
+      <a href="/docs/" style="color: var(--accent); font-weight: 600;">Docs</a>
+      <a href="https://github.com/mnrnetwork/mnr" target="_blank" rel="noopener noreferrer" class="mono" style="font-weight: 500;">GitHub</a>
+    </nav>
+    <div style="display: flex; align-items: center; gap: 12px;">
+      <button class="theme-btn" id="theme-toggle" type="button" title="Switch light / dark" aria-label="Switch light / dark">
+        <svg class="sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"></path></svg>
+        <svg class="moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"></path></svg>
+      </button>
+      <a href="/#pricing" class="btn btn-primary btn-sm">Get a free token</a>
+    </div>
+  </header>
+  <div class="rule"></div>
+
+  <!-- Docs Sub-Nav Tabs -->
+  <div class="docs-tabs-bar">
+    <div class="wrap">
+      
+    <nav class="docs-tabs" aria-label="Documentation sections">
+      <a href="/docs/" class="doc-tab ">
+          <span>Overview</span>
+          
+        </a>
+      <a href="/docs/method-policy/" class="doc-tab ">
+          <span>Method Policy</span>
+          <span class="tab-badge">RPC Spec</span>
+        </a>
+      <a href="/docs/stage0-mvp/" class="doc-tab ">
+          <span>Stage 0 MVP</span>
+          <span class="tab-badge">Active</span>
+        </a>
+      <a href="/docs/stage1-gateway/" class="doc-tab ">
+          <span>Stage 1 Gateway</span>
+          <span class="tab-badge">Mesh & SLA</span>
+        </a>
+      <a href="/docs/stage2-network/" class="doc-tab active">
+          <span>Stage 2 Network</span>
+          <span class="tab-badge">Protocol</span>
+        </a>
+    </nav>
+  
+    </div>
+  </div>
+
+  <!-- Document Body -->
+  <main class="doc-wrap">
+    <div class="breadcrumbs">
+      <a href="/">mnr</a>
+      <span>/</span>
+      <a href="/docs/">docs</a>
+      <span>/</span><span>stage2-network</span>
+    </div>
+
+    <article class="prose">
+      <h1>mnr — Protocol &amp; Development Architecture</h1>
+<p><em>an RPC network for Monero</em></p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>Status</strong></td>
+<td>Design document for the <em>network direction</em>. Does not replace <code>Monero RPC Gateway - Development Plan v1.md</code>; that document is the <em>gateway direction</em> and is kept as an alternative. Where the two share material (method policy, cache safety, timeouts), this document references it rather than repeating it.</td>
+</tr>
+<tr>
+<td><strong>Date</strong></td>
+<td>2026-09-03</td>
+</tr>
+<tr>
+<td><strong>Name</strong></td>
+<td><strong>mnr</strong> (lowercase wordmark; the consonants of <em>Monero</em>). Spoken as &quot;Monero network&quot; or spelled out &quot;M-N-R&quot; — both are fine and both are expected. Written on every page as &quot;mnr — an RPC network for Monero&quot;, never &quot;the Monero network&quot;. Protocol at <code>mnr.network</code>; hostname scheme in §4.9. Package/crate prefix <code>mnr</code>, binaries <code>mnr-agent</code>, <code>mnr-relay</code>, <code>mnr-client</code>.</td>
+</tr>
+<tr>
+<td><strong>Companion</strong></td>
+<td><code>mnr - Business Model and 18-Month Plan.md</code></td>
+</tr>
+<tr>
+<td><strong>Reading order</strong></td>
+<td>§1 what it is → §2 roles and trust → §3 protocol → §4 component design → §5 build plan → §6 difficulties register → §7 open questions</td>
+</tr>
+</tbody></table></div>
+<hr>
+<h2>1. What is being built</h2>
+<p>A permissionless network in which independent <strong>operators</strong> run <code>monerod</code> behind a small agent, <strong>relayers</strong> aggregate many operators into one verified, cached, metered endpoint, and <strong>clients</strong> (wallets, swap backends, autonomous agents) pay in XMR — either to a relayer for one URL, or, later, directly to operators. The protocol, operator agent, relayer, and client library are open source (AGPL-3.0 for binaries, CC-BY for the spec). The founders participate as the first operators and the reference relayer; they do not own the network.</p>
+<p>Design principles, in priority order:</p>
+<ol>
+<li><strong>Verify, don&#39;t trust.</strong> Wherever Monero data is self-authenticating (block hashes, tx hashes, header chains), the relayer or client checks it. Trust is used only where verification is impossible (mempool, node info), and there it is replaced by agreement across independent operators.</li>
+<li><strong>No token, no stake, no slashing.</strong> Operators are paid in XMR for verified work; bad work is recorded in a public, cryptographically verifiable fault log that anyone can weigh. Nothing is locked, nothing is confiscated.</li>
+<li><strong>Stock wallets must work.</strong> A wallet must be able to use the network with nothing more than <code>--daemon-address</code>. Direct multi-operator verification is a client-library feature, not a requirement.</li>
+<li><strong>Hobbyist operators must be able to join in ten minutes</strong> with a one-line install, no view key, no public IP if they use Tor.</li>
+<li><strong>The reference relayer must be replaceable.</strong> Everything a relayer knows that others would need (operator directory, fault log, settlement statements) is published in a form another relayer can consume.</li>
+<li><strong>Both sides of the market are paid from day one.</strong> Operators through the pool with a probation lane for newcomers; distributors (wallets, agents, interfaces) through an affiliate share. These are the two THORChain mechanisms that demonstrably bootstrapped an anonymous-operator network, and they are protocol features here, not marketing programmes.</li>
+</ol>
+<p>Out of scope, permanently: <code>monero-wallet-rpc</code> methods, mixnets / decoy traffic, any on-chain protocol changes to Monero. Out of scope for the first 18 months: I2P ingress (planned, not built), payment channels of any kind, cross-relayer traffic sharing.</p>
+<hr>
+<h2>2. Roles, identities and trust boundaries</h2>
+<h3>2.1 Roles</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Role</th>
+<th>Runs</th>
+<th>Holds</th>
+<th>Sees</th>
+<th>Paid by</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>Operator</strong></td>
+<td><code>monerod</code> + <code>mnr-agent</code></td>
+<td>Ed25519 operator key; Monero payout subaddress; no view key needed</td>
+<td>Request bodies from relayers (not client IPs, unless the relayer is misconfigured)</td>
+<td>Relayers (settlement pool), later clients directly</td>
+</tr>
+<tr>
+<td><strong>Relayer</strong></td>
+<td><code>mnr-relay</code> (+ <code>mnr-store</code> storefront, <code>monero-wallet-rpc</code> view-only)</td>
+<td>Ed25519 relayer key; client tokens (hashed); its own header chain; cache; metering DB</td>
+<td>Client IPs (unless client uses the relayer&#39;s <code>.onion</code>), request bodies, everything</td>
+<td>Clients (subscriptions / XMR402 credit)</td>
+</tr>
+<tr>
+<td><strong>Client</strong></td>
+<td>Any Monero software, optionally <code>mnr-client</code></td>
+<td>A bearer token (relayer mode) or an XMR402 credit (direct mode)</td>
+<td>—</td>
+<td>—</td>
+</tr>
+<tr>
+<td><strong>Affiliate</strong></td>
+<td>Nothing (a wallet, agent framework, swap interface or integrator that puts its id on tokens it brings)</td>
+<td>Ed25519 affiliate key; payout address</td>
+<td>—</td>
+<td>Relayers (15% of referred client revenue, from the relayer&#39;s share)</td>
+</tr>
+<tr>
+<td><strong>Directory signers</strong></td>
+<td><code>mnr-directory</code> signer tooling</td>
+<td>Ed25519 signer keys (threshold <em>t</em>-of-<em>n</em>, initially 1-of-1 = founders, target 3-of-5 by month 15)</td>
+<td>Operator/relayer registration records</td>
+<td>Nobody (public good)</td>
+</tr>
+</tbody></table></div>
+<h3>2.2 Identity and keys</h3>
+<ul>
+<li>Every operator and relayer has a long-lived <strong>Ed25519 identity key</strong>. The public key <em>is</em> the identity (<code>op1…</code> / <code>rl1…</code> bech32m encoded). Keys are generated by the binary on first run and stored in the config directory; loss of key = new identity with zero history, which is the only &quot;penalty&quot; the network has, and it is enough.</li>
+<li>Operators sign their <strong>directory record</strong>. Relayers sign <strong>session challenges</strong>, <strong>settlement statements</strong> and <strong>fault records</strong>. Directory signers sign the <strong>directory snapshot</strong>.</li>
+<li>Transport identity is separate: clearnet endpoints use TLS with either a public CA cert or a self-signed cert whose SPKI hash is in the directory record (pinning); <code>.onion</code> endpoints get identity from Tor. Both are acceptable; pinning is preferred because it does not depend on the CA system.</li>
+</ul>
+<h3>2.3 Trust boundaries (who can hurt whom)</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Threat</th>
+<th>Mitigation</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Operator serves wrong block/tx/header</td>
+<td>Relayer verifies hash; issues signed fault record; operator is deprioritised network-wide.</td>
+</tr>
+<tr>
+<td>Operator serves wrong <code>get_info</code>/fee/mempool</td>
+<td>Majority agreement across ≥3 operators for consensus state; mempool is annotated as per-operator and never treated as authoritative.</td>
+</tr>
+<tr>
+<td>Operator under-reports or relayer under-pays</td>
+<td>Both meter; settlement statements are signed and published; discrepancy &gt; 2% is visible to everyone. There is no proof-of-serving; the remedy is reputation and exit.</td>
+</tr>
+<tr>
+<td>Relayer logs or de-anonymises clients</td>
+<td>Cannot be prevented by protocol; mitigated by open source, <code>.onion</code> ingress, direct mode, and multiple relayers. Stated plainly in docs.</td>
+</tr>
+<tr>
+<td>Sybil operators (one person, many identities)</td>
+<td>Pool payout is pro-rata by <em>verified served work</em>, so Sybils earn nothing extra per unit of capacity; diversity scoring (ASN, /24, latency fingerprint) limits how many &quot;independent&quot; votes one host can have in agreement checks.</td>
+</tr>
+<tr>
+<td>Relayer and operator are the same entity (self-dealing)</td>
+<td>Allowed and expected (we are both). Settlement statements show it; clients can prefer relayers with more external supply.</td>
+</tr>
+<tr>
+<td>Directory signers are compromised or coerced</td>
+<td>Records are individually operator-signed, so a malicious snapshot can <em>omit</em> operators but not <em>forge</em> them; multiple mirrors; threshold signing from month 15; relayers cache the last good snapshot and continue on stale data with a warning.</td>
+</tr>
+<tr>
+<td>Hard-fork desync across independent operators</td>
+<td>Agent enforces a minimum <code>monerod</code> version published in the directory snapshot; operators below it are marked <code>stale</code> 2 weeks before a fork height and excluded from consensus checks after it.</td>
+</tr>
+</tbody></table></div>
+<hr>
+<h2>3. Protocol specification (v0 — what the spec document will contain)</h2>
+<p>The spec is a separate, versioned document (<code>mnr-spec</code>). This section fixes the decisions so engineering can start; wire formats are finalised in the spec.</p>
+<h3>3.1 Directory</h3>
+<p><strong>Operator record</strong> (CBOR, signed by operator key):</p>
+<pre><code>{ v: 1, id: &lt;op pubkey&gt;, endpoints: [{kind: &quot;https&quot;|&quot;onion&quot;|&quot;i2p&quot;, url, spki?}],
+  node: {pruned: bool, restricted: true, version: &quot;0.18.x&quot;, chain: &quot;mainnet&quot;|&quot;stagenet&quot;},
+  capacity: {rps_light: u32, mbps_stream: u32},         // self-declared, verified by relayers
+  payout: [{addr: &lt;monero subaddress or integrated addr&gt;, bps: u16}, …],   // splits must sum to 10000; see &quot;pooled operators&quot; below
+  min_payout_xmr: f64,
+  accepts_direct: bool,                                  // phase 3
+  votes: {param_name: value, …},                         // optional; §3.7
+  contact: &lt;optional onion/simplex/matrix string&gt;, ts: unix, sig }
+</code></pre>
+<p><strong>Pooled operators (borrowed from THORChain&#39;s pooled nodes):</strong> <code>payout</code> is a list of splits, so a person with capital can fund a box that a skilled operator runs, with the split (e.g. operator 2,000 bps, funder 8,000 bps) declared in the signed record. Relayers pay each address its share in the same settlement transaction. No protocol state beyond the record; the two parties&#39; agreement is their own business.</p>
+<p><strong>Directory snapshot</strong> (CBOR, threshold-signed): <code>{v, seq, ts, min_monerod_version, fork_height?, operators: [record…], relayers: [record…], fault_log_urls: [], sigs: []}</code>. Distributed over: HTTPS mirrors (≥3, different hosts), <code>.onion</code>, and a DNS TXT seed carrying the current mirror list and snapshot hash (like Monero&#39;s seed nodes). Snapshot size at 500 operators ≈ 250 KB; refreshed hourly; sequence numbers prevent rollback.</p>
+<p><strong>Registration:</strong> the agent POSTs its signed record to any directory mirror; the record is queued; a relayer (initially ours) probes the endpoint for correctness (height, restricted RPC, version, TLS pin) and the signer includes it in the next snapshot. There is no fee and no bond. Removal is by the operator (signed tombstone) or by the signers (record omitted; reason published in the fault log).</p>
+<h3>3.2 Relayer ↔ operator session</h3>
+<ol>
+<li>Relayer opens TLS (pinned) or Tor connection to the agent&#39;s endpoint and requests <code>/mnr/v1/session</code> with <code>{relayer_id, nonce_r}</code>.</li>
+<li>Agent replies <code>{nonce_a}</code>; relayer returns <code>sig_relayer(nonce_a || nonce_r || op_id)</code>; agent verifies against the relayer&#39;s published key (agent fetches the directory too) or, for unknown relayers, its own <code>allow_unknown_relayers</code> setting (default <strong>true</strong>, so new relayers can bootstrap; operators may restrict).</li>
+<li>Agent issues a <strong>session id</strong> (random 128-bit) valid 24 h; all subsequent RPC requests carry <code>Mnr-Session: &lt;id&gt;</code>. Requests without a valid session hit the agent&#39;s <em>public policy</em>: by default <code>deny</code> (private operator), optionally <code>free-tier</code> (small unauthenticated allowance — how public nodes join without changing their habits).</li>
+<li>Both sides count per-session: <code>light_requests</code>, <code>stream_bytes</code>, <code>errors</code>, <code>first_ts</code>, <code>last_ts</code>. Counters are persisted every 10 s (SQLite) so restarts do not lose more than 10 s.</li>
+</ol>
+<p>Metering unit: <strong>work units (WU)</strong> = <code>light_requests × 1 + stream_MB × 20</code> (one MB of <code>get_blocks.bin</code> costs an operator roughly what 20 light calls do; the coefficient is a directory-snapshot parameter so it can be tuned network-wide without a release).</p>
+<h3>3.3 Settlement</h3>
+<ul>
+<li>Weekly epoch (Monday 00:00 UTC). For each operator with which the relayer had sessions, the relayer publishes a <strong>settlement statement</strong>: <code>{relayer_id, op_id, epoch, wu_served, wu_faulted, share, pool_xmr, amount_xmr, txid?, sig}</code>.</li>
+<li>The pool: <code>pool_xmr = op_share × relayer_client_revenue_xmr(epoch)</code> where <code>op_share</code> is the relayer&#39;s published rate (reference relayer: <strong>0.60</strong>). Each operator&#39;s <code>share = wu_served_i / Σ wu_served</code>, with <code>wu_faulted</code> (requests whose responses failed verification) excluded and counted against reputation.</li>
+<li>Amounts below the operator&#39;s <code>min_payout_xmr</code> roll over. Payouts are batched into one Monero transaction per epoch (up to 16 outputs per tx; more epochs → more txs). Relayer&#39;s <code>monero-wallet-rpc</code> (spend-capable hot wallet with a <strong>capped float</strong>; the storefront&#39;s incoming wallet is view-only and swept to cold) sends them.</li>
+<li>Operators compare <code>wu_served</code> in the statement to their own session counters. The agent exposes <code>GET /mnr/v1/statements</code> showing both numbers side by side; discrepancies &gt; 2% are flagged locally and, optionally, published as a signed <strong>dispute record</strong> to the fault log. Nothing is automatically enforced; the point is visibility.</li>
+<li><strong>Dev fee:</strong> the reference relayer&#39;s settlement code adds a line <code>{op_id: &lt;maintainers&#39; key&gt;, share: 0.02}</code> to the pool by default, minus any portion of the pool that went to the relayer&#39;s own operators (we do not pay ourselves a fee on ourselves). It is a config flag (<code>dev_fee = 0.02</code>), disclosed in the relayer&#39;s directory record, and visible in every statement.</li>
+<li><strong>Affiliate share (borrowed from THORChain&#39;s interface fee):</strong> a client token may carry an <code>affiliate_id</code> (an Ed25519 key registered in the directory like an operator, with a payout address) set at purchase time by the wallet, agent framework, swap interface or integrator that brought the client. The relayer pays the affiliate <strong>15% of that client&#39;s revenue</strong> (reference default; a relayer config value) out of its own 40%, in the same weekly settlement, with a signed statement. Self-referral is allowed and harmless — it is merely a discount. The <code>op_share</code> pool is unaffected, so operators never subsidise distribution.</li>
+<li><strong>Probation lane (borrowed from THORChain&#39;s churn):</strong> each epoch the dispatcher reserves <strong>10% of traffic weight</strong> for operators with the least verified history in the last 30 days (new joiners and returners), spread evenly among them, subject to the normal on-tip and fault-rate gates. This guarantees that a new operator earns and is audited from its first week instead of being starved by the ranking. The share is a snapshot parameter (<code>probation_weight</code>).</li>
+<li><strong><code>op_share</code> band (THORChain&#39;s incentive pendulum, deferred):</strong> <code>op_share</code> is a snapshot parameter with a permitted band of 0.50–0.70. v1 pins it at 0.60; a later version may move it with network utilisation (scarce supply → higher; abundant supply → lower). Declaring it a parameter now means changing it later is not a protocol break.</li>
+</ul>
+<h3>3.4 Verification rules (the heart of the network)</h3>
+<p>The relayer maintains its own <strong>header chain</strong>: for every height, <code>(hash, prev_hash, timestamp, height)</code> — 32 + 32 + 8 + 8 bytes ≈ 80 B × ~3.5 M blocks ≈ 280 MB on disk, built once from operators by majority and then extended at the tip by agreement. RandomX proof-of-work is <strong>not</strong> verified (too expensive, and irrelevant: an operator that fabricates a PoW-valid alternate chain is a 51% attacker, which is not our threat model); linkage and majority are.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Data</th>
+<th>How verified</th>
+<th>On failure</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>get_block</code> / <code>get_block_header_by_hash</code></td>
+<td>Recompute block hash from the returned blob (Keccak over hashing blob: header ‖ tx-tree-hash ‖ tx count). Must equal the requested hash, or the header-chain hash at the requested height.</td>
+<td>Fault record; retry on next operator.</td>
+</tr>
+<tr>
+<td><code>get_block_header_by_height</code>, <code>get_block_headers_range</code></td>
+<td>Header hash must equal the relayer&#39;s header chain at that height; if the relayer&#39;s chain is shorter, extend by majority first.</td>
+<td>Fault record.</td>
+</tr>
+<tr>
+<td><code>/get_transactions</code></td>
+<td>For each tx: Keccak(tx blob) = txid (pruned txs: verify the pruned-hash form). <code>block_height</code>/<code>in_pool</code> fields must be consistent with header chain (height ≤ tip).</td>
+<td>Fault record.</td>
+</tr>
+<tr>
+<td><code>/get_blocks.bin</code> (stream)</td>
+<td>Relayer parses the epee stream incrementally, hashes every block, and checks linkage (<code>prev_id</code>) and equality with the header chain. CPU cost is real (§6.2); the relayer may <strong>sample-verify</strong> (every block header linkage, full hash on 1-in-<em>k</em> blocks, <em>k</em> configurable, default 4) when overloaded and record the verification level in metrics.</td>
+<td>Abort stream, fault record, restart from last verified height on another operator (clients handle short reads).</td>
+</tr>
+<tr>
+<td><code>/get_outs.bin</code>, <code>get_output_distribution</code>, <code>get_output_histogram</code></td>
+<td>Immutable but not self-authenticating from a single response. Two-operator agreement on first request; cached with the tip−10 rule afterwards.</td>
+<td>Both answers cached as &quot;disputed&quot;, third operator breaks tie; loser gets fault record.</td>
+</tr>
+<tr>
+<td><code>get_info</code>, <code>get_height</code>, <code>get_last_block_header</code>, <code>get_fee_estimate</code>, <code>hard_fork_info</code></td>
+<td>Majority of ≥3 operators on <code>height</code> and <code>top_block_hash</code> (SWR-cached, §3.6); fee estimate = median. Node-specific fields normalised (see gateway plan §3.3).</td>
+<td>Degraded mode: serve highest-height operator, suspend immutable cache writes, alert.</td>
+</tr>
+<tr>
+<td>Mempool methods</td>
+<td>Not verifiable. Annotated <code>Mnr-Operator: &lt;id&gt;</code>; never cached.</td>
+<td>—</td>
+</tr>
+<tr>
+<td><code>send_raw_transaction</code></td>
+<td>Broadcast to all healthy operators; success if ≥1 <code>OK</code>. Result header <code>Mnr-Relayed: k/n</code>.</td>
+<td>If all reject with the same reason (e.g. <code>double spend</code>), return it verbatim.</td>
+</tr>
+</tbody></table></div>
+<p><strong>Fault record</strong> (CBOR, signed by relayer): <code>{relayer_id, op_id, ts, method, request_hash, response_hash, expected, got, evidence_url?, sig}</code>. The evidence (request + response blobs) is stored by the relayer for 30 days so anyone can reproduce the check. Fault logs are append-only files served over HTTPS/onion; relayers and <code>mnr-client</code> fetch the logs of relayers they choose to believe (initially the reference relayer&#39;s; a relayer can mark others&#39; logs as trusted in config). An operator&#39;s <strong>fault rate</strong> = faults / verified requests over 30 days, decayed; ranking multiplies capacity weight by <code>(1 − fault_rate)^8</code>, so 5% faults roughly halves an operator&#39;s traffic and 20% removes them from the pool for practical purposes.</p>
+<h3>3.5 Client access</h3>
+<p><strong>Relayer mode (v1):</strong> exactly the token scheme from the gateway plan §3.1 — path token or Basic auth, 256-bit, hashed at rest, rotation with grace — but issued by the relayer&#39;s storefront. Purchases via invoice page or <strong>XMR402</strong>: the storefront responds <code>402</code> with <code>{amount_xmr, address, memo, expires}</code>; the client pays; on 10 confirmations (or a relayer-chosen lower threshold for small credits) the storefront issues the token. Credits are denominated in <strong>WU</strong> (same unit as settlement) so that a client&#39;s balance and an operator&#39;s payout are commensurable. Purchase requests may carry <code>affiliate_id</code> (query parameter on the invoice page, header in the XMR402 flow); it is bound to the token for its lifetime and shown on the client&#39;s statement.</p>
+<p><strong>Direct mode (phase 3):</strong> <code>mnr-client</code> fetches the directory, picks <em>k</em> operators by diversity + fault rate + latency, and performs the verification rules itself. Payment: XMR402 credit purchased from an operator whose <code>accepts_direct</code> is true (the agent gets an optional view-only wallet for this; hobbyists stay relayer-only). Stock wallets never use direct mode; it is for backends, agents and wallet developers who embed the library.</p>
+<h3>3.6 Caching and policy</h3>
+<p>Identical to the gateway plan §3.3 (tip−10 immutable rule, SWR 1/5/15 for consensus state, per-tx cache, never cache mempool, method allow-list, per-method timeouts) with one change: cache keys include the <strong>verification level</strong> (<code>full</code> | <code>sampled</code> | <code>agreed</code>) so that a sampled-verified stream never satisfies a request that asked for full verification.</p>
+<h3>3.7 Network parameters and work-weighted votes (THORChain&#39;s &quot;mimir&quot;, without a token)</h3>
+<p>The directory snapshot carries a small set of <strong>network parameters</strong>: <code>wu_stream_per_mb</code> (20), <code>op_share</code> (0.60, band 0.50–0.70), <code>probation_weight</code> (0.10), <code>affiliate_default</code> (0.15), <code>min_monerod_version</code>, <code>fork_height</code>, <code>tip_safety_depth</code> (10). Until month 15 the directory signers set them. From then on, an operator may include a <code>votes</code> map in its signed record; when the signers build a snapshot they compute, per parameter, the <strong>median of votes weighted by each operator&#39;s verified WU over the trailing 90 days</strong> (from the published settlement statements of all relayers the signers recognise) and adopt it if at least 40% of network-wide verified WU has voted. Voting weight is <em>work actually served and verified</em>, not capital and not identity — the only Sybil-resistant quantity this network has. Relayers are not obliged to follow the snapshot&#39;s <code>op_share</code>, but the reference relayer does, and their published value is visible to operators choosing where to serve.</p>
+<hr>
+<h2>4. Component design</h2>
+<p>All core components are <strong>Rust</strong> (tokio, hyper/axum, rustls). Rationale: epee parsing and hashing on streamed data is CPU-bound and must be memory-safe; one language across agent, relayer and client library; existing crates (<code>monero-serai</code>/<code>monero-rs</code> families) for serialization and hashing; <code>arti</code> for Tor as a later option. TypeScript is used only for the storefront UI and the optional wallet-plugin glue.</p>
+<h3>4.1 <code>mnr-core</code> (library crate)</h3>
+<p>Modules: <code>wire</code> (epee binary + JSON-RPC types for the daemon API, hand-verified against <code>monerod</code> 0.18.x fixtures), <code>hash</code> (Keccak-256, block hashing blob, tx-tree hash, pruned tx hash), <code>verify</code> (rules of §3.4 as pure functions over bytes), <code>policy</code> (method table; the single source of truth rendered into docs), <code>directory</code> (record/snapshot types, signing, validation), <code>metering</code> (WU accounting), <code>identity</code> (Ed25519 keys, bech32m ids), <code>settlement</code> (statement types, pool math). No I/O in this crate; it must be fuzzable (<code>cargo fuzz</code> targets for every parser).</p>
+<h3>4.2 <code>mnr-agent</code> (operator binary)</h3>
+<pre><code>[ clearnet TLS :443 ] ─┐
+[ tor hidden svc    ] ─┼─▶ ingress (axum) ─▶ session auth ─▶ local policy (restricted-only) ─▶ proxy ─▶ monerod 127.0.0.1:18081
+[ i2p (later)       ] ─┘        │                 │                          │
+                               │                 └── unknown-session policy (deny | free-tier bucket)
+                               ├── metering (per-session counters → SQLite, 10 s flush)
+                               ├── health (self-probe monerod every 5 s: height, sync, peers, disk)
+                               ├── directory client (fetch snapshot hourly; enforce min version; refresh own record daily)
+                               └── statements viewer (GET /mnr/v1/statements; compares relayer statements to own counters)
+</code></pre>
+<p>Properties: single static binary (musl), ~10 MB; config is one TOML file; <code>mnr-agent init</code> generates keys, detects <code>monerod</code>, writes config, registers with the directory, and prints the operator id; <code>mnr-agent doctor</code> checks restricted RPC, version, disk, port reachability, Tor status. It does <strong>not</strong> manage <code>monerod</code> (operators keep their setup) but ships a recommended systemd unit and flags. Memory budget &lt; 100 MB; it must run on the same box as a pruned node on a 4 GB VPS. Streaming responses are proxied without buffering. No view key, no wallet, no payments in v1 — the agent is deliberately boring.</p>
+<h3>4.3 <code>mnr-relay</code> (relayer binary)</h3>
+<pre><code>client ─▶ ingress (axum; clearnet + onion) ─▶ auth (token hash → SQLite/Postgres; isolate cache) ─▶ rate limit (governor; per-token bucket + WU balance)
+      ─▶ policy (mnr-core::policy) ─▶ cache (in-memory LRU + on-disk immutable store, key includes verification level)
+      ─▶ dispatcher (operator pool: rank by on_tip, ema_latency, fault_rate, diversity; retry-once; broadcast for writes)
+      ─▶ verifier (mnr-core::verify; streaming for .bin; sample-verify under load) ─▶ response (+ Mnr-* headers)
+
+background tasks: header-chain sync (majority extend at tip; reorg detection → epoch bump of cache)
+                  operator prober (every 10 s: get_info + last header; EMA; on_tip)
+                  directory sync (hourly) + fault-log publisher (append-only, signed)
+                  settlement (weekly: pool math, statements, payout via wallet-rpc hot wallet, dev fee line)
+                  metrics (Prometheus /metrics, no per-client labels except hashed prefix in error samples)
+</code></pre>
+<p>State: SQLite for a single-node relayer (our v1); Postgres option for larger relayers. Cache: <code>moka</code> in-memory (bounded, e.g. 2 GB) + <code>rocksdb</code> on-disk store for immutable blocks/txs (bounded by size, LRU eviction). The relayer runs on <strong>2 boxes</strong> in active/active behind DNS with health-checked failover in v1 (no Cloudflare required; optional Cloudflare in front for those who want it — off by default in the reference deployment). Each box also runs Tor for the <code>.onion</code> ingress; both boxes publish the <em>same</em> onion via OnionBalance.</p>
+<h3>4.4 <code>mnr-store</code> (storefront + billing, part of the relayer repo)</h3>
+<p>Axum routes + a small server-rendered UI: tier/credit purchase, invoice page with live confirmations, XMR402 endpoints, token issuance/rotation, statements for clients (WU balance). Watches a <strong>view-only</strong> <code>monero-wallet-rpc</code> for incoming payments; sweeps to cold on a schedule. A separate <strong>spend-capable</strong> <code>monero-wallet-rpc</code> with a capped float (refilled manually from cold) performs operator payouts; it is the one hot key in the system and is treated as such (own box, firewalled, cap = one epoch&#39;s pool + 10%).</p>
+<h3>4.5 <code>mnr-client</code> (library) and integrations</h3>
+<p>Rust library with C ABI, plus thin TypeScript and Python packages generated from it. Provides: directory fetch + selection, relayer-mode helper (token handling, rotation), direct-mode verified calls (phase 3), XMR402 purchase flow. A <strong>local proxy</strong> mode (<code>mnr-client proxy --listen 127.0.0.1:18089</code>) lets stock wallets use direct mode without embedding the library — the wallet points at localhost and the proxy does selection and verification. This is how Feather/Cake/CLI users get direct mode without those projects changing anything.</p>
+<h3>4.6 <code>mnr-directory</code></h3>
+<p>Signer CLI (<code>mnr-dir sign</code>, <code>mnr-dir add</code>, <code>mnr-dir tombstone</code>) producing snapshots; a static-file publisher for mirrors; a registration intake (small axum service) that queues records for probing. Threshold signing uses FROST (Ed25519) via an existing Rust crate when the signer set expands (month 15); until then a single key with an offline backup.</p>
+<h3>4.7 <code>mnr-sim</code> (test network harness)</h3>
+<p>Docker-compose bringing up <em>N</em> stagenet <code>monerod</code> + agents, one relayer, a fault injector (serve wrong block, lag height, drop streams, return alt-chain), synthetic clients (wallet-sync replay, <code>get_info</code> storm, broadcast). Used in CI nightly and for every release. This is not optional; a network protocol without a simulator will ship bugs that only appear with strangers&#39; nodes.</p>
+<h3>4.8 Repository layout</h3>
+<pre><code>mnr/
+├── spec/                 protocol spec (markdown, versioned; wire formats, verification rules, settlement)
+├── crates/core/          mnr-core
+├── crates/agent/         mnr-agent
+├── crates/relay/         mnr-relay (+ store/ module)
+├── crates/client/        mnr-client (+ ffi/, bindings/ts, bindings/py)
+├── crates/directory/     mnr-directory
+├── sim/                  mnr-sim docker harness, fault injector, k6/replay clients
+├── deploy/               ansible for our operators + relayer boxes; systemd units; Tor/OnionBalance config
+├── docs/                 operator guide, relayer guide, client guide, wallet how-tos, generated method table
+└── .github/              CI: fmt, clippy, tests, fuzz smoke, sim nightly, release builds (musl, arm64)
+</code></pre>
+<h3>4.9 Hostnames</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Hostname</th>
+<th>Role</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>mnr.network</code></td>
+<td>Protocol site: spec, docs, relayer list, transparency reports</td>
+<td>Neutral; lists <em>all</em> relayers, ours first only while it is the only one</td>
+</tr>
+<tr>
+<td><code>rpc.mnr.network</code></td>
+<td>Reference relayer client endpoint (<code>/v1/&lt;token&gt;/json_rpc</code>)</td>
+<td>Run by the founders&#39; entity; disclosed as such on the site. Health-checked DNS across the two relayer boxes; <code>.onion</code> published beside it via OnionBalance</td>
+</tr>
+<tr>
+<td><code>stagenet.rpc.mnr.network</code></td>
+<td>Stagenet endpoint</td>
+<td>Handed to THORChain-side teams in week 1</td>
+</tr>
+<tr>
+<td><code>node.mnr.network</code></td>
+<td>Operator onboarding: agent download, <code>mnr-agent init</code> instructions, earnings dashboard</td>
+<td>&quot;Run a node, get paid&quot;</td>
+</tr>
+<tr>
+<td><code>dir1.</code> / <code>dir2.</code> / <code>dir3.mnr.network</code></td>
+<td>Directory mirrors</td>
+<td>Different hosts; each with a <code>.onion</code>; deliberately separate from <code>rpc.</code> so the neutral part is visibly not the commercial part</td>
+</tr>
+<tr>
+<td><code>pay.mnr.network</code></td>
+<td>Storefront, invoices, XMR402 endpoints, token rotation</td>
+<td>Reference relayer&#39;s; other relayers run their own</td>
+</tr>
+<tr>
+<td><code>status.mnr.network</code></td>
+<td>Status page (phase 2)</td>
+<td>Static host, outside the relayer boxes</td>
+</tr>
+</tbody></table></div>
+<hr>
+<h2>5. Build plan</h2>
+<p>Team assumption: <strong>two Rust engineers</strong> (one with Monero internals experience) plus <strong>one operator/ops person</strong> half-time. The schedule below already carries slack for review cycles, hard-fork interruptions and the two-sided bootstrap; with a single engineer, P3 slips past month 18 and P4 becomes year 2. Weeks are from <strong>2026-09-14</strong>; months match the business doc (month 1 = October 2026).</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Phase</th>
+<th>Weeks (months)</th>
+<th>Scope</th>
+<th>Exit criteria</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>P0 — Spec &amp; core</strong></td>
+<td>1–8 (m1–2)</td>
+<td><code>mnr-spec</code> v0 (directory, session, metering, settlement, verification, fault records); <code>mnr-core</code> wire + hash + verify with fixtures from mainnet/stagenet; fuzz targets; policy table ported from the gateway plan.</td>
+<td>Every §3.4 rule has a passing test against real <code>monerod</code> responses; fuzzers run 1 h with no crashes; spec reviewed by ≥2 outside Monero developers.</td>
+</tr>
+<tr>
+<td><strong>P1-min — THORChain interface track</strong></td>
+<td>4–10 (m1–3)</td>
+<td>A deliberately minimal relayer for one customer class: THORChain interfaces and bots that will need a Monero daemon when XMR swaps are enabled (chain client shipped in v3.20 on 2026-08-25; enablement gated on a validator churn with inspection, then shadow liquidity — expected within weeks). Scope: token auth, policy table, SWR/immutable cache, dispatcher over our 3 operators, JSON-method verification (block/tx hash, header chain), <code>send_raw_transaction</code> fan-out, <code>get_blocks.bin</code> passthrough <strong>without</strong> stream verification (annotated <code>Mnr-Verify: none</code>), invoice storefront, clearnet + onion. No agent sessions yet (our operators are reached over WireGuard), no settlement.</td>
+<td>KYC.RIP-style integration test passes; two THORChain interface or bot teams on Business tokens by week 10; p95 <code>get_fee_estimate</code>/<code>get_outs</code> under 150 ms from EU/NA. This track is a <em>subset</em> of P1, not a fork: everything built here is P1 code shipped early.</td>
+</tr>
+<tr>
+<td><strong>P1 — Seed network</strong></td>
+<td>6–26 (m2–6)</td>
+<td><code>mnr-agent</code> v0.1 (session auth, metering, health, directory client, Tor ingress); <code>mnr-relay</code> v0.1 (auth, rate limit, policy, cache, dispatcher, verifier for JSON methods, prober, header chain); <code>mnr-directory</code> single-signer; deploy 3 own operators + 2 relayer boxes; <code>mnr-sim</code> with 5 nodes; storefront with invoices (no XMR402 yet).</td>
+<td>Stock CLI wallet syncs from scratch through the relayer; kill an operator → no client-visible failure; injected wrong block → fault record produced and operator deprioritised; dogfood tenants (KYC.RIP, Ripley) live.</td>
+</tr>
+<tr>
+<td><strong>P2 — Money &amp; strangers</strong></td>
+<td>24–44 (m6–10)</td>
+<td>Stream verification for <code>get_blocks.bin</code> (sampled + full); settlement engine (pool math, statements, payouts, dev fee line, <strong>affiliate payouts, payout splits, probation lane</strong>); agent statements viewer; XMR402 purchase flow; operator onboarding docs + <code>mnr-agent init/doctor</code>; fault-log publishing; diversity scoring; invited operator beta (10 external operators); <code>min_monerod_version</code> enforcement.</td>
+<td>Four consecutive weekly settlements paid on mainnet with &lt; 2% discrepancy for all external operators; sim run with 30 nodes and 3 hostile passes; external operator can join in ≤ 10 min following docs only.</td>
+</tr>
+<tr>
+<td><strong>P3 — Direct mode &amp; federation</strong></td>
+<td>44–65 (m11–15)</td>
+<td><code>mnr-client</code> (Rust + TS/Py) with direct-mode verification and local-proxy mode; agent optional <code>accepts_direct</code> with view-only wallet; second relayer operated by a partner using our binary; relayer records in directory; threshold-signed snapshots (3-of-5); <strong>work-weighted parameter votes (§3.7)</strong>; reorg/fork drill at a real hard-fork; I2P ingress prototype.</td>
+<td>A Feather user syncs via <code>mnr-client proxy</code> against 3 operators with no relayer; partner relayer settles its own operators; directory snapshot signed by 3 independent parties.</td>
+</tr>
+<tr>
+<td><strong>P4 — Hardening</strong></td>
+<td>65–78+ (m16–18, continuing)</td>
+<td>Performance (relayer to 5k rps light / 200 concurrent streams per box), Postgres backend, operator-side free-tier policy, <code>arti</code> evaluation, spec v1.0 freeze, security audit of <code>mnr-core</code> parsers.</td>
+<td>Spec v1.0 published; audit findings closed; ≥3 relayers, ≥40 operators live (see business doc for targets).</td>
+</tr>
+</tbody></table></div>
+<p>Definition of done per release: <code>cargo test</code>, fuzz smoke, <code>mnr-sim</code> nightly green, changelog, reproducible builds (musl, x86-64 + arm64), signed release artifacts, and docs regenerated from <code>policy</code>.</p>
+<hr>
+<h2>6. Development difficulties register</h2>
+<p>Ordered by how likely they are to cost the schedule. Each has a mitigation and an owner-type.</p>
+<h3>6.1 Monero serialization and hashing correctness (very likely, high cost)</h3>
+<p>The epee binary format and the block hashing blob have subtle rules (varints, nested sections, tx-tree hash for 1/2/n transactions, pruned tx hash composition). Existing Rust crates cover most of it but lag hard forks and have had divergence bugs. <strong>Mitigation:</strong> treat <code>mnr-core::wire</code>/<code>hash</code> as the highest-risk code; build a fixture corpus from real chain data (every hard-fork boundary block, blocks with 0/1/2/many txs, coinbase-only, pruned and unpruned tx forms); differential-test against <code>monerod</code> on every CI run; fuzz continuously; budget half of P0 here. Owner: the Monero-internals engineer.</p>
+<h3>6.2 Stream verification CPU cost (certain, medium cost)</h3>
+<p>Hashing every block in a <code>get_blocks.bin</code> stream at wallet-sync rates (tens of MB/s per client) costs real CPU; 200 concurrent syncs could saturate a relayer box. <strong>Mitigation:</strong> sampled verification (default 1-in-4 full hash, all linkage checks) with the level recorded in cache keys and headers; per-box concurrency cap on streams; measure at P2 and size relayer boxes from data. Direct mode moves this cost to the client, which is the correct long-term place for it.</p>
+<h3>6.3 Metering without proof (certain, medium cost, reputational)</h3>
+<p>There is no cryptographic proof that a request was served. Operators must trust relayer statements, checked against their own counters. <strong>Mitigation:</strong> dual metering with published statements, 2% tolerance, signed dispute records, and the social fact that relayers compete for operators. Do not attempt per-request signed receipts (they double latency and solve a problem the market solves). Document this honestly in the operator guide.</p>
+<h3>6.4 Two-sided bootstrap (certain, business-critical)</h3>
+<p>Operators join for income; income needs clients; clients need enough operators for diversity. <strong>Mitigation:</strong> the seed phase is us on both sides (3 operators, 1 relayer, 2 dogfood clients); external operators are <em>invited</em> first (10 known community node runners) with a guaranteed minimum pool for the first 3 months funded from relayer take; only then open registration. See business doc §6.</p>
+<h3>6.5 Directory centralisation (certain, political)</h3>
+<p>A single-signer directory is a central point, and the community will say so. <strong>Mitigation:</strong> records are operator-signed (the signer cannot forge), mirrors are independent, relayers survive on stale snapshots, and threshold signing with named independent signers ships by month 15. Say all of this on day one.</p>
+<h3>6.6 Hard forks with strangers&#39; nodes (certain around each fork)</h3>
+<p>Independent operators upgrade late. <strong>Mitigation:</strong> <code>min_monerod_version</code> + <code>fork_height</code> in the snapshot; agents warn 2 weeks ahead; relayers exclude stale operators from consensus checks at the fork height; a fork drill in <code>mnr-sim</code> before each real fork.</p>
+<h3>6.7 Tor performance for streams (likely)</h3>
+<p><code>get_blocks.bin</code> over Tor is slow (single-circuit throughput often &lt; 1 MB/s). <strong>Mitigation:</strong> relayers prefer clearnet-pinned operators for streams and Tor operators for light calls; onion operators are still valuable (mempool, broadcast, consensus votes). Clients using the relayer&#39;s <code>.onion</code> ingress get the Tor speed they chose.</p>
+<h3>6.8 XMR402 immaturity (likely)</h3>
+<p>XMR402 is a young protocol; its credit/receipt semantics may change. <strong>Mitigation:</strong> the storefront implements XMR402 behind a small adapter; our WU-credit token format is ours and stable; coordinate with Ripley&#39;s maintainers early (they are a dogfood tenant).</p>
+<h3>6.9 Hot-wallet risk in settlement (certain, security)</h3>
+<p>Weekly payouts need a spend-capable wallet online. <strong>Mitigation:</strong> capped float (one epoch + 10%), separate box, manual refill from cold, payout tx built and signed only by the settlement task, alerting on any outbound above the cap. Consider a 2-of-3 multisig with an offline co-signer when the pool exceeds ~20 XMR/epoch.</p>
+<h3>6.10 Operator privacy exposure (certain, communicative)</h3>
+<p>Operators see wallet-sync patterns of relayer clients. This is the standard remote-node exposure, and the network makes it <em>broader</em> (more parties) but <em>shallower</em> (no IP). <strong>Mitigation:</strong> relayer strips IPs; docs state it; direct-mode clients spread queries; the honest recommendation for high-privacy users is to run their own node — and <code>mnr-agent</code> makes that node earn money, which is the network&#39;s best privacy argument.</p>
+<h3>6.11 Abuse of free-tier and open registration (likely)</h3>
+<p>Junk operators (stale, pruned-when-claiming-full, flapping) and freeloading clients. <strong>Mitigation:</strong> probing before inclusion, fault log, capacity weighting only after 7 days of verified service, and a free tier that is a relayer policy (small WU allowance per token, one token per invoice page visit) rather than a network guarantee.</p>
+<h3>6.12 Legal shape of paying operators (unknown, jurisdiction-dependent)</h3>
+<p>Weekly XMR payouts to pseudonymous operators may look like a marketplace or a payment service in some jurisdictions. <strong>Mitigation:</strong> counsel review before P2 payouts go live; structure the relayer as the contracting party with operators under published terms; keep the protocol itself entity-less. Not a technical problem, but it can block P2.</p>
+<h3>6.13 THORChain traffic shape and timing (likely, schedule pressure)</h3>
+<p>Interfaces and bots on THORChain&#39;s XMR pools need <code>get_fee_estimate</code>, <code>get_outs.bin</code> (ring construction), <code>/get_transactions</code>, <code>send_raw_transaction</code>, and inbound-detection scans — bursty, latency-sensitive, and heavier on <code>get_outs</code> than wallet traffic. They will need it the week swaps are fully enabled — likely before the P1 relayer exists — and they will pick a provider during the shadow-liquidity period, not after. <strong>Mitigation:</strong> the P1-min track (§5) ships the subset they need in ~10 weeks over our own operators only; <code>get_outs</code> gets two-operator agreement from day one because it is exactly the data a swap interface cannot afford to get wrong. Do not stretch P1-min into P1: it exists to catch a window, and its unverified-stream mode is labelled as such in headers and docs. Risk on the other side: THORChain has paused chain integrations before, and the inspection-and-shadow sequence can slip; treat this demand as an accelerant, never as the base case for operator payouts.</p>
+<h3>6.14 Affiliate accounting (certain, low)</h3>
+<p>Affiliate payouts are a second weekly payment stream with its own statements and disputes. <strong>Mitigation:</strong> the same settlement engine and statement format as operators (an affiliate is a directory identity with a payout address); the share is paid only on revenue actually received, so there is nothing to claw back; self-referral is explicitly allowed so there is nothing to police.</p>
+<h3>6.15 Solo-developer risk (structural)</h3>
+<p>The plan assumes two engineers. If it is one person, P3 slips beyond month 18 and the spec review must lean on outside contributors. <strong>Mitigation:</strong> publish the spec and <code>mnr-core</code> early (end of P0) to attract contributors; the dev-fee line exists precisely so that maintenance has a funding floor that does not depend on grants.</p>
+<hr>
+<h2>7. Open questions for the founders</h2>
+<ol>
+<li>Name and domain (mnr is a placeholder).</li>
+<li>License confirmation: AGPL-3.0 for agent/relay, MIT/Apache for <code>mnr-core</code> and <code>mnr-client</code> (so wallets can embed them) — recommended split.</li>
+<li>Whether the reference relayer&#39;s <code>.onion</code> is the <em>primary</em> advertised endpoint or the clearnet one (affects marketing more than engineering).</li>
+<li>Whether to seek spec review from specific Monero developers before P1, and whether to submit <code>mnr-core</code> hashing tests upstream to the crates it depends on.</li>
+<li>Which 10 operators to invite for the P2 beta (community node runners with a track record).</li>
+<li>Counsel jurisdiction for §6.12 — the same open item as the gateway direction&#39;s ops doc.</li>
+<li>Which THORChain interfaces and bot operators to approach in week 1 for the P1-min track (their requirements shape the <code>get_outs</code> agreement rule and the burst limits).</li>
+<li>Affiliate default (15%) and probation weight (10%) — both are snapshot parameters, but the initial values set expectations.</li>
+</ol>
+<hr>
+<p><em>This document reuses the method policy, cache-safety rules, timeouts and token scheme from <code>Monero RPC Gateway - Development Plan v1.md</code> §3; those sections remain the reference for that material.</em></p>
+
+    </article>
+  </main>
+
+  <div class="rule"></div>
+
+  <!-- Footer -->
+  <footer class="wrap" style="padding: 48px 32px;">
+    <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px;">
+      <div style="display: flex; align-items: center; gap: 10px; font-size: 14px;" class="muted">
+        <span>mnr — an RPC network for Monero</span>
+        <span>·</span>
+        <a href="https://github.com/mnrnetwork/mnr" target="_blank" rel="noopener noreferrer" style="text-decoration: underline;">AGPL-3.0</a>
+      </div>
+      <div style="display: flex; gap: 24px; font-size: 14px;">
+        <a href="/">Home</a>
+        <a href="/docs/">Docs Hub</a>
+        <a href="/docs/method-policy/">Method Policy</a>
+        <a href="https://github.com/mnrnetwork/mnr" target="_blank" rel="noopener noreferrer">GitHub</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    (function () {
+      var btn = document.getElementById('theme-toggle');
+      var root = document.documentElement;
+      function current() {
+        var t = root.getAttribute('data-theme');
+        if (t === 'light' || t === 'dark') return t;
+        return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+      }
+      btn.addEventListener('click', function () {
+        var next = current() === 'dark' ? 'light' : 'dark';
+        root.setAttribute('data-theme', next);
+        try { localStorage.setItem('mnr-theme', next); } catch (e) {}
+      });
+    })();
+  </script>
+</body>
+</html>
