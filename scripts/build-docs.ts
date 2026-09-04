@@ -22,7 +22,7 @@ const DOCS: DocMeta[] = [
   {
     id: "hub",
     route: "/docs/",
-    title: "Documentation — mnr",
+    title: "Documentation",
     navTitle: "Overview",
     description:
       "Architecture, RPC method policies, gateway plans, and network protocol specifications for mnr, the verified Monero RPC proxy.",
