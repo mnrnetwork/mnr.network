@@ -11,7 +11,15 @@
   <meta property="og:url" content="https://mnr.network/">
   <meta name="theme-color" content="#FBFAF8" media="(prefers-color-scheme: light)">
   <meta name="theme-color" content="#141210" media="(prefers-color-scheme: dark)">
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='10' fill='%23F26822'/%3E%3C/svg%3E">
+  <meta property="og:image" content="https://mnr.network/og.png">
+  <meta property="og:image:width" content="1080">
+  <meta property="og:image:height" content="384">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png">
+  <link rel="icon" href="/favicon-16.png" sizes="16x16" type="image/png">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500&display=swap">
@@ -93,6 +101,7 @@
     .road { display: flex; gap: 16px; padding: 18px 20px; border: 1px solid var(--inverse-line); border-radius: 12px; }
     .inv-link { color: var(--inverse-strong); text-decoration: underline; } .inv-link:hover { color: var(--accent); }
     .footer-links a { display: block; }
+    .mark { display: block; flex: none; color: var(--fg); }
     @media (max-width: 720px) {
       .wrap { padding: 0 20px; }
       .h1 { font-size: 40px; } .h2 { font-size: 28px; } .lead { font-size: 18px; }
@@ -109,7 +118,7 @@
   <!-- Nav -->
   <header class="wrap" style="display: flex; align-items: center; justify-content: space-between; height: 76px;">
     <a href="#" style="display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 22px; letter-spacing: -0.02em;" aria-label="mnr home">
-      <span style="display: inline-block; width: 12px; height: 12px; border-radius: 50%; background: var(--accent);"></span>
+      <svg class="mark" width="24" height="24" viewBox="0 0 24 24" aria-hidden="true"><circle cx="16.5" cy="12" r="5.2" fill="var(--accent)"/><path d="M5.2 6.6 L11.9 10.1 M5.2 17.4 L11.9 13.9" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"/><circle cx="5.2" cy="6.6" r="2.1" fill="currentColor"/><circle cx="5.2" cy="17.4" r="2.1" fill="currentColor"/></svg>
       <span>mnr</span>
     </a>
     <nav class="navlinks" aria-label="Sections">
@@ -353,7 +362,7 @@
   <footer class="wrap" style="padding: 56px 32px 48px;">
     <div class="grid3" style="gap: 32px;">
       <div class="col" style="gap: 10px;">
-        <span style="font-weight: 700; font-size: 18px;">mnr</span>
+        <span style="display: inline-flex; align-items: center; gap: 8px; font-weight: 700; font-size: 18px;"><svg class="mark" width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><circle cx="16.5" cy="12" r="5.2" fill="var(--accent)"/><path d="M5.2 6.6 L11.9 10.1 M5.2 17.4 L11.9 13.9" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"/><circle cx="5.2" cy="6.6" r="2.1" fill="currentColor"/><circle cx="5.2" cy="17.4" r="2.1" fill="currentColor"/></svg><span>mnr</span></span>
         <span class="muted" style="font-size: 15px;">an RPC network for Monero</span>
         <span class="muted" style="font-size: 14px;">Open source, AGPL-3.0. <a href="https://github.com/mnrnetwork/mnr" style="text-decoration: underline;">github.com/mnrnetwork/mnr</a></span>
       </div>
