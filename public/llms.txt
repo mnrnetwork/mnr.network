@@ -1,0 +1,34 @@
+# mnr — an RPC network for Monero
+
+> One address for your Monero wallet. Every answer checked.
+
+mnr is a verified proxy for Monero wallets. It forwards RPC calls to public nodes and to dedicated infrastructure, verifying every block, transaction, and header against its cryptographic hash and multi-node consensus before answering.
+
+## Core Features
+- Zero account, zero email, zero KYC: A token is the entire relationship.
+- Cryptographic verification: Recomputed block and txid hashes; consensus checks across multiple upstream nodes.
+- Transparent upstreams: All public nodes listed with traffic rates and logged mismatches.
+- Full wallet compatibility: Works with Monero CLI (monero-wallet-cli), Monero GUI, Feather Wallet, Cake Wallet, and Monerujo.
+- Privacy & network access: Reachable over HTTPS and Tor hidden service (.onion). No IP logging, no request payload recording.
+- Open source: AGPL-3.0 licensed.
+
+## Daemon Endpoints
+- HTTPS: `https://rpc.mnr.network/v1/<token>/json_rpc`
+- Tor Onion: Published alongside public beta (October 2026)
+
+## CLI Usage Example
+```bash
+monero-wallet-cli \
+  --daemon-address rpc.mnr.network:443 \
+  --daemon-login mnr:<token>
+```
+
+## Pricing & Tiers
+- Free Tier: $0, 500,000 requests/month, 5 req/s burst, 1 wallet sync stream.
+- Pro Tier: $9/month (payable in XMR), 10,000,000 requests/month, 25 req/s burst, 3 wallet sync streams, dual-node get_outs verification.
+
+## Documentation & Developer Resources
+- Full Technical Specification: https://mnr.network/llms-full.txt
+- Official Documentation: https://github.com/mnrnetwork/mnr/tree/main/docs
+- Source Code: https://github.com/mnrnetwork/mnr
+- Network Protocol Architecture: https://github.com/mnrnetwork/mnr/blob/main/docs/stage2-network-protocol-architecture.md

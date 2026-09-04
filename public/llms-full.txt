@@ -1,0 +1,65 @@
+# mnr — Comprehensive Technical Specification & Protocol Architecture
+# https://mnr.network
+
+## 1. System Overview
+mnr is a high-availability, verified RPC proxy network designed for the Monero (XMR) cryptocurrency ecosystem. It allows Monero light wallets and daemon clients to connect to a single endpoint while transparently distributing load across a federated pool of public Monero daemon nodes and owned infrastructure. Every cryptographic artifact returned is verified before passing to the client.
+
+## 2. Verification Architecture
+Traditional Monero remote nodes require blind trust. mnr implements a verified proxy layer:
+1. Block Headers: Recomputed and verified against the agreed chain tip. Upstream consensus is required (e.g. 5/5 upstreams agreeing).
+2. Transaction Hashes (txids): Hashes of transaction blobs are recomputed from raw transactions.
+3. Tip Agreement: Reads are routed to the fastest healthy node matching the agreed chain tip.
+4. Output Lookups (get_outs): Free tier queries 1 node; Pro tier requires 2 independent nodes to agree.
+5. Mempool / Broadcast: Transactions (send_raw_transaction) are relayed to all healthy upstream nodes simultaneously.
+6. Mismatch Handling: Any upstream returning conflicting or invalid blocks/headers is automatically ejected for 24 hours and logged to the public upstreams ledger.
+
+## 3. Response Verification Headers
+Responses from the proxy include verification metadata headers:
+- `Mnr-Verify`: Cryptographic verification status (e.g. hash match, tip agreement).
+- `Mnr-Relayed`: Number of healthy upstream nodes that acknowledged transaction relay.
+
+## 4. Upstream Node Policy & Operator Protection
+mnr adheres to strict ethical proxy policies toward the Monero community:
+- Rate Capping: Maximum 5 requests per second and 2 wallet-sync streams per public node. Traffic exceeding caps is routed to mnr's owned nodes.
+- User-Agent Identification: Requests identify as `mnr-relay/0.x (+https://mnr.network/upstreams)`.
+- Opt-Out Mechanism: Node operators can opt out at any time by placing a `/.well-known/mnr-optout` file on their node or by contacting operators. Nodes are removed within 24 hours.
+- Owned Nodes: mnr runs dedicated full nodes carrying the heaviest sync and overflow load.
+
+## 5. Network Endpoints & Wallet Setup
+- HTTPS RPC Endpoint: `https://rpc.mnr.network/v1/<token>/json_rpc`
+- Port: 443
+- Tor Onion Service: Published with public beta release in October 2026.
+
+CLI Setup:
+```bash
+monero-wallet-cli \
+  --daemon-address rpc.mnr.network:443 \
+  --daemon-login mnr:<token>
+```
+
+Supported Wallets:
+- Monero CLI (`monero-wallet-cli`)
+- Monero GUI
+- Feather Wallet
+- Cake Wallet
+- Monerujo
+
+## 6. Privacy Guarantees
+- No Accounts: Authentication is conducted exclusively via an anonymous access token.
+- No KYC: No identity verification, phone numbers, or email addresses required.
+- Zero Logs: No IP logging, no path logging, no request payload persistence.
+
+## 7. Pricing Tiers
+- Free: $0. 500k requests/month, 5 requests/sec burst, 1 wallet-sync stream.
+- Pro: $9/month payable in Monero (XMR). 10M requests/month, 25 requests/sec burst, 3 wallet-sync streams, multi-node get_outs validation.
+
+## 8. Protocol Roadmap
+- Stage 0 (Current): Verified proxy combining public community nodes and mnr-owned nodes.
+- Stage 1 (Next): Dedicated owned mesh across multiple hosting providers with formal SLAs.
+- Stage 2 (Future): Decentralized open operator network where independent monerod operators receive weekly XMR payouts for verified computation.
+
+## 9. Official Links & Repository
+- Landing Page: https://mnr.network/
+- Documentation: https://github.com/mnrnetwork/mnr/tree/main/docs
+- Source Code: https://github.com/mnrnetwork/mnr (AGPL-3.0)
+- Protocol Design: https://github.com/mnrnetwork/mnr/blob/main/docs/stage2-network-protocol-architecture.md

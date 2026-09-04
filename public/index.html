@@ -3,31 +3,148 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>mnr — an RPC network for Monero</title>
-  <meta name="description" content="One address for your Monero wallet. Requests are forwarded to public nodes and to our own; every block, transaction and header is checked against its hash and against several nodes.">
-  <meta property="og:title" content="mnr — an RPC network for Monero">
+  <title>mnr — Verified RPC Network for Monero</title>
+  <meta name="description" content="One address for your Monero wallet. A verified proxy checking every block, tx and header against its hash and multiple nodes. Zero logs, Tor supported.">
+  <link rel="canonical" href="https://mnr.network/">
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+  <meta property="og:title" content="mnr — Verified RPC Network for Monero">
   <meta property="og:description" content="One address for your wallet. Every answer checked.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://mnr.network/">
+  <meta property="og:site_name" content="mnr">
+  <meta property="og:locale" content="en_US">
   <meta name="theme-color" content="#FBFAF8" media="(prefers-color-scheme: light)">
   <meta name="theme-color" content="#141210" media="(prefers-color-scheme: dark)">
   <meta property="og:image" content="https://mnr.network/og.png">
   <meta property="og:image:width" content="1080">
   <meta property="og:image:height" content="384">
   <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="mnr — Verified RPC Network for Monero">
+  <meta name="twitter:description" content="One address for your wallet. Every answer checked.">
+  <meta name="twitter:image" content="https://mnr.network/og.png">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
   <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png">
   <link rel="icon" href="/favicon-16.png" sizes="16x16" type="image/png">
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
   <link rel="manifest" href="/site.webmanifest">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500&display=swap">
+  <link rel="alternate" type="text/markdown" title="LLM context" href="/llms.txt">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebSite",
+        "@id": "https://mnr.network/#website",
+        "url": "https://mnr.network/",
+        "name": "mnr",
+        "description": "Verified RPC network and trustless proxy for Monero wallets",
+        "publisher": { "@id": "https://mnr.network/#organization" }
+      },
+      {
+        "@type": "Organization",
+        "@id": "https://mnr.network/#organization",
+        "name": "mnr network",
+        "url": "https://mnr.network/",
+        "logo": "https://mnr.network/favicon.svg",
+        "sameAs": [
+          "https://github.com/mnrnetwork/mnr"
+        ]
+      },
+      {
+        "@type": "SoftwareApplication",
+        "@id": "https://mnr.network/#software",
+        "name": "mnr Monero RPC Network",
+        "applicationCategory": "BlockchainApplication",
+        "operatingSystem": "All",
+        "url": "https://mnr.network/",
+        "license": "https://www.gnu.org/licenses/agpl-3.0.html",
+        "offers": [
+          {
+            "@type": "Offer",
+            "name": "Free Tier",
+            "price": "0",
+            "priceCurrency": "USD",
+            "description": "500k requests/month, 5 req/s burst, 1 wallet sync stream"
+          },
+          {
+            "@type": "Offer",
+            "name": "Pro Tier",
+            "price": "9",
+            "priceCurrency": "USD",
+            "description": "10M requests/month, 25 req/s burst, 3 wallet sync streams, paid in XMR"
+          }
+        ]
+      },
+      {
+        "@type": "FAQPage",
+        "@id": "https://mnr.network/#faq",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "What is mnr?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "mnr is a verified RPC proxy network for Monero. It forwards wallet requests to public nodes and our own node, verifying every block, transaction, and header against its cryptographic hash and consensus across several nodes before returning the answer."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Does mnr log IP addresses or wallet requests?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "No. mnr requires no accounts, no KYC, and no email. Requests are never logged on our side, and authentication is handled purely via a single token."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Which Monero wallets are compatible with mnr?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "mnr works with all standard Monero daemon clients including monero-wallet-cli, Monero GUI, Feather Wallet, Cake Wallet, and Monerujo."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Is mnr accessible over Tor?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes, mnr is reachable over both HTTPS (https://rpc.mnr.network/v1/<token>/json_rpc) and Tor onion services. The official .onion address is published alongside the public beta."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "How does mnr verify Monero blockchain data?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Block contents are recomputed to ensure they match the block hash, transactions are verified against their txids, headers are chained to the consensus tip, and consensus state is compared across multiple independent upstreams."
+            }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
   <script>
     // Apply a saved theme before first paint to avoid a flash.
     try { var t = localStorage.getItem('mnr-theme'); if (t === 'light' || t === 'dark') document.documentElement.setAttribute('data-theme', t); } catch (e) {}
   </script>
   <style>
+    @font-face {
+      font-family: "Geist";
+      font-style: normal;
+      font-weight: 100 900;
+      font-display: swap;
+      src: url("/fonts/geist-latin.woff2") format("woff2");
+      unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+    }
+    @font-face {
+      font-family: "Geist Mono";
+      font-style: normal;
+      font-weight: 100 900;
+      font-display: swap;
+      src: url("/fonts/geist-mono-latin.woff2") format("woff2");
+      unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+    }
     :root {
       --accent: #F26822;
       --bg: #FBFAF8; --bg-alt: #F3EFEA; --fg: #1B1917; --fg-2: #4A4541; --muted: #6B655F; --card: #FFFFFF;
@@ -117,7 +234,7 @@
 
   <!-- Nav -->
   <header class="wrap" style="display: flex; align-items: center; justify-content: space-between; height: 76px;">
-    <a href="#" style="display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 22px; letter-spacing: -0.02em;" aria-label="mnr home">
+    <a href="/" style="display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 22px; letter-spacing: -0.02em;" aria-label="mnr home">
       <svg class="mark" width="24" height="24" viewBox="0 0 24 24" aria-hidden="true"><circle cx="16.5" cy="12" r="5.2" fill="var(--accent)"/><path d="M5.2 6.6 L11.9 10.1 M5.2 17.4 L11.9 13.9" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"/><circle cx="5.2" cy="6.6" r="2.1" fill="currentColor"/><circle cx="5.2" cy="17.4" r="2.1" fill="currentColor"/></svg>
       <span>mnr</span>
     </a>
@@ -126,7 +243,7 @@
       <a href="#upstreams">Upstreams</a>
       <a href="#pricing">Pricing</a>
       <a href="#node">Run a node</a>
-      <a href="https://github.com/mnrnetwork/mnr/tree/main/docs" class="mono" style="font-weight: 500;">Docs</a>
+      <a href="https://github.com/mnrnetwork/mnr/tree/main/docs" target="_blank" rel="noopener noreferrer" class="mono" style="font-weight: 500;">Docs</a>
     </nav>
     <div style="display: flex; align-items: center; gap: 12px;">
       <button class="theme-btn" id="theme-toggle" type="button" title="Switch light / dark" aria-label="Switch light / dark">
@@ -165,17 +282,17 @@
     <div class="grid3">
       <div class="card col" style="gap: 14px;">
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l7 3v5c0 4.5-3 8.5-7 10-4-1.5-7-5.5-7-10V6l7-3z"></path><path d="M9 12l2 2 4-4"></path></svg>
-        <h3 class="h3">Verified, not trusted</h3>
+        <h2 class="h3">Verified, not trusted</h2>
         <p class="muted">A block's contents hash to its block hash. A transaction hashes to its txid. Headers chain to the tip. We check all of it before we answer, and compare consensus state across several nodes.</p>
       </div>
       <div class="card col" style="gap: 14px;">
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12s3.5-6 10-6 10 6 10 6-3.5 6-10 6S2 12 2 12z"></path><circle cx="12" cy="12" r="3"></circle></svg>
-        <h3 class="h3">Nothing hidden</h3>
+        <h2 class="h3">Nothing hidden</h2>
         <p class="muted">Every upstream node we use is listed, with our request rate to it and every wrong answer we caught. Most of these nodes are not ours. We say so.</p>
       </div>
       <div class="card col" style="gap: 14px;">
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="8" cy="12" r="4"></circle><path d="M12 12h9M18 12v3M21 12v2"></path></svg>
-        <h3 class="h3">No account</h3>
+        <h2 class="h3">No account</h2>
         <p class="muted">A token is the whole relationship. Free, or paid in XMR. No email, no KYC, and no request logs on our side.</p>
       </div>
     </div>
@@ -314,7 +431,7 @@
       <div class="col" style="gap: 14px;">
         <p class="muted">Free tokens and Pro invoices are issued here from the public beta in October 2026. Until then, the build is public.</p>
         <div style="display: flex; gap: 12px; align-items: center; flex-wrap: wrap;">
-          <a href="https://github.com/mnrnetwork/mnr" class="btn btn-primary">Follow the build on GitHub</a>
+          <a href="https://github.com/mnrnetwork/mnr" target="_blank" rel="noopener noreferrer" class="btn btn-primary">Follow the build on GitHub</a>
           <a href="#how" class="btn btn-secondary">How it works</a>
         </div>
       </div>
@@ -349,7 +466,7 @@
             <span class="step-num" style="color: #8C857E; padding-top: 3px;">THEN</span>
             <div class="col" style="gap: 4px;">
               <span style="font-weight: 600; color: var(--inverse-strong);">Run a node, get paid</span>
-              <span style="color: var(--inverse-muted); font-size: 15px;">Open operator network, weekly XMR payouts for verified work. <a href="https://github.com/mnrnetwork/mnr/blob/main/docs/stage2-network-protocol-architecture.md" class="inv-link">Read the design</a></span>
+              <span style="color: var(--inverse-muted); font-size: 15px;">Open operator network, weekly XMR payouts for verified work. <a href="https://github.com/mnrnetwork/mnr/blob/main/docs/stage2-network-protocol-architecture.md" target="_blank" rel="noopener noreferrer" class="inv-link">Read the design</a></span>
             </div>
           </div>
         </div>
@@ -364,11 +481,11 @@
       <div class="col" style="gap: 10px;">
         <span style="display: inline-flex; align-items: center; gap: 8px; font-weight: 700; font-size: 18px;"><svg class="mark" width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><circle cx="16.5" cy="12" r="5.2" fill="var(--accent)"/><path d="M5.2 6.6 L11.9 10.1 M5.2 17.4 L11.9 13.9" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"/><circle cx="5.2" cy="6.6" r="2.1" fill="currentColor"/><circle cx="5.2" cy="17.4" r="2.1" fill="currentColor"/></svg><span>mnr</span></span>
         <span class="muted" style="font-size: 15px;">an RPC network for Monero</span>
-        <span class="muted" style="font-size: 14px;">Open source, AGPL-3.0. <a href="https://github.com/mnrnetwork/mnr" style="text-decoration: underline;">github.com/mnrnetwork/mnr</a></span>
+        <span class="muted" style="font-size: 14px;">Open source, AGPL-3.0. <a href="https://github.com/mnrnetwork/mnr" target="_blank" rel="noopener noreferrer" style="text-decoration: underline;">github.com/mnrnetwork/mnr</a></span>
       </div>
       <div class="col footer-links" style="gap: 8px; font-size: 15px;">
         <span style="font-weight: 600;">Resources</span>
-        <a href="https://github.com/mnrnetwork/mnr/tree/main/docs">Docs</a>
+        <a href="https://github.com/mnrnetwork/mnr/tree/main/docs" target="_blank" rel="noopener noreferrer">Docs</a>
         <a href="#upstreams">Upstreams and what we caught</a>
         <a href="#start">Wallet setup guides</a>
         <a href="#upstreams">What we keep, what we don't</a>
