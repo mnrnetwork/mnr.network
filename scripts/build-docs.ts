@@ -25,49 +25,44 @@ const DOCS: DocMeta[] = [
     title: "Documentation",
     navTitle: "Overview",
     description:
-      "Architecture, RPC method policies, gateway plans, and network protocol specifications for mnr, the verified Monero RPC proxy.",
+      "How mnr verifies Monero RPC, the rules it follows toward public nodes, the per-method policy, and the roadmap.",
+  },
+  {
+    id: "how-it-works",
+    route: "/docs/how-it-works/",
+    sourceFile: "content/how-it-works.md",
+    title: "How mnr works",
+    navTitle: "How it works",
+    badge: "Live",
+    description:
+      "What the verified proxy checks, the seven rules it follows toward public Monero nodes, how the upstream pool is ranked, and how to connect a stock wallet.",
   },
   {
     id: "method-policy",
     route: "/docs/method-policy/",
-    sourceFile: "docs-raw/method-policy.md",
+    sourceFile: "content/method-policy.md",
     title: "Monero RPC Method Policy & Verification Rules",
     navTitle: "Method Policy",
-    badge: "RPC Spec",
+    badge: "Generated",
     description:
-      "Verification rules, cache bounds (SWR), upstream quorum requirements, and timeout budgets for every Monero daemon JSON-RPC and legacy method.",
+      "Verification rules, cache bounds, upstream quorum requirements and timeout budgets for every Monero daemon JSON-RPC and legacy method, generated from the relay's source code.",
   },
   {
-    id: "stage0-mvp",
-    route: "/docs/stage0-mvp/",
-    sourceFile: "docs-raw/stage0-mvp-plan.md",
-    title: "Stage 0 MVP Plan: Verified Proxy",
-    navTitle: "Stage 0 MVP",
-    badge: "Active",
+    id: "roadmap",
+    route: "/docs/roadmap/",
+    sourceFile: "content/roadmap.md",
+    title: "Roadmap",
+    navTitle: "Roadmap",
+    badge: "Stages 0–2",
     description:
-      "Engineering plan for Stage 0: single-binary Rust proxy over public Monero nodes and owned infrastructure, rate capping, and zero-log token authentication.",
-  },
-  {
-    id: "stage1-gateway",
-    route: "/docs/stage1-gateway/",
-    sourceFile: "docs-raw/stage1-gateway-development-plan.md",
-    title: "Stage 1 Gateway Development Plan",
-    navTitle: "Stage 1 Gateway",
-    badge: "Mesh & SLA",
-    description:
-      "Canonical engineering plan for the production Monero RPC Gateway: minimum 3-node independent quorum, DO alarm loops, and SLA commitments.",
-  },
-  {
-    id: "stage2-network",
-    route: "/docs/stage2-network/",
-    sourceFile: "docs-raw/stage2-network-protocol-architecture.md",
-    title: "Stage 2 Network Protocol Architecture",
-    navTitle: "Stage 2 Network",
-    badge: "Protocol",
-    description:
-      "Protocol and network architecture for mnr: permissionless monerod operators, cryptographic fault logging, and weekly XMR settlement without stake or slashing.",
+      "The three stages of mnr: the verified proxy that is live today, the owned mesh with an SLA, and the permissionless operator network paid in XMR.",
   },
 ];
+
+// The method policy is generated from mnr-core; when the code repo is
+// checked out next to this one, refresh the vendored copy at build time so
+// the page can never drift from the code.
+const METHOD_POLICY_SOURCE = "../mnr/docs/method-policy.md";
 
 function renderNavTabs(currentId: string): string {
   return `
@@ -474,86 +469,81 @@ function generateHubHtml(): string {
   return `
     <h1 style="font-size: 42px; margin-bottom: 12px;">mnr Documentation</h1>
     <p style="font-size: 19px; color: var(--fg-2); margin-bottom: 36px;">
-      Technical specifications, RPC method policies, and gateway architectures for the Monero RPC network.
+      What the verified proxy checks, the rules it follows toward the public nodes it uses, and where it is going.
     </p>
 
     <div class="hub-grid">
+      <a href="/docs/how-it-works/" class="hub-card">
+        <div style="display: flex; align-items: center; justify-content: space-between;">
+          <h3>How mnr works</h3>
+          <span class="tab-badge">Live</span>
+        </div>
+        <p>The seven rules toward public nodes, the upstream pool and quorum tip, what is verified and what is only annotated, and how to connect a stock wallet.</p>
+        <div class="hub-card-meta">
+          <span>Read how it works &rarr;</span>
+        </div>
+      </a>
+
       <a href="/docs/method-policy/" class="hub-card">
         <div style="display: flex; align-items: center; justify-content: space-between;">
           <h3>Method Policy & Verification</h3>
-          <span class="tab-badge">RPC Spec</span>
+          <span class="tab-badge">Generated</span>
         </div>
-        <p>Complete verification rules, SWR cache bounds, and quorum requirements for every Monero daemon JSON-RPC and legacy call.</p>
+        <p>Every Monero daemon method the relay serves, with its verification rule, cache bound, quorum and timeout. Generated from the relay's source code.</p>
         <div class="hub-card-meta">
-          <span>Read method policy &rarr;</span>
-          <span class="muted">~21 KB</span>
+          <span>Read the policy table &rarr;</span>
         </div>
       </a>
 
-      <a href="/docs/stage0-mvp/" class="hub-card">
+      <a href="/docs/roadmap/" class="hub-card">
         <div style="display: flex; align-items: center; justify-content: space-between;">
-          <h3>Stage 0: MVP Plan</h3>
-          <span class="tab-badge">Active</span>
+          <h3>Roadmap</h3>
+          <span class="tab-badge">Stages 0&ndash;2</span>
         </div>
-        <p>Verified proxy architecture combining public community nodes and mnr's owned node. Upstream rate capping, error ejection, and token auth.</p>
+        <p>The verified proxy that is live today, the owned mesh with an SLA, and the permissionless operator network where node runners are paid in XMR for verified work.</p>
         <div class="hub-card-meta">
-          <span>Read Stage 0 plan &rarr;</span>
-          <span class="muted">~15 KB</span>
+          <span>Read the roadmap &rarr;</span>
         </div>
       </a>
 
-      <a href="/docs/stage1-gateway/" class="hub-card">
+      <a href="https://github.com/mnrnetwork/mnr" class="hub-card" target="_blank" rel="noopener noreferrer">
         <div style="display: flex; align-items: center; justify-content: space-between;">
-          <h3>Stage 1: Gateway Plan</h3>
-          <span class="tab-badge">Mesh & SLA</span>
+          <h3>Source code</h3>
+          <span class="tab-badge">AGPL-3.0</span>
         </div>
-        <p>Canonical engineering plan for the production Monero RPC Gateway: minimum 3-node independent quorum, DO alarm loops, and SLA commitments.</p>
+        <p>The relay, the core verification crate with its fixtures and fuzz targets, and the full engineering plans behind each stage.</p>
         <div class="hub-card-meta">
-          <span>Read Stage 1 plan &rarr;</span>
-          <span class="muted">~34 KB</span>
-        </div>
-      </a>
-
-      <a href="/docs/stage2-network/" class="hub-card">
-        <div style="display: flex; align-items: center; justify-content: space-between;">
-          <h3>Stage 2: Protocol Architecture</h3>
-          <span class="tab-badge">Protocol</span>
-        </div>
-        <p>The permissionless network direction: independent monerod operators, cryptographic fault logging, and weekly XMR payouts without tokens or slashing.</p>
-        <div class="hub-card-meta">
-          <span>Read Stage 2 design &rarr;</span>
-          <span class="muted">~41 KB</span>
+          <span>github.com/mnrnetwork/mnr &rarr;</span>
         </div>
       </a>
     </div>
 
-    <h2>Architecture & Reading Order</h2>
-    <p>
-      The documentation is divided into progressive stages reflecting the protocol's evolution:
-    </p>
+    <h2>Reading order</h2>
     <ul>
-      <li><strong>Operational Ground Truth:</strong> Start with <a href="/docs/method-policy/">Method Policy</a> to understand how individual Monero daemon calls are validated, hashed, and cached.</li>
-      <li><strong>What is Live Today:</strong> Review <a href="/docs/stage0-mvp/">Stage 0 MVP</a> for the single-binary verified proxy and public node disclosure rules.</li>
-      <li><strong>The Next Phase:</strong> See <a href="/docs/stage1-gateway/">Stage 1 Gateway Plan</a> for the multi-provider owned mesh with SLAs.</li>
-      <li><strong>The Long-Term Protocol:</strong> Read <a href="/docs/stage2-network/">Stage 2 Network Architecture</a> for the permissionless node network where operators earn XMR for verified compute.</li>
+      <li><strong>Using mnr:</strong> <a href="/docs/how-it-works/">How mnr works</a> covers what you get, what is verified, and how to point a wallet at it.</li>
+      <li><strong>Running a public node:</strong> the <a href="/docs/how-it-works/#rules-toward-public-nodes">rules toward public nodes</a> say exactly how mnr treats your node and how to opt out.</li>
+      <li><strong>Building on it:</strong> the <a href="/docs/method-policy/">method policy</a> is the per-method contract: what is cached, for how long, and what <code>Mnr-Verify</code> will say.</li>
+      <li><strong>Where it goes:</strong> the <a href="/docs/roadmap/">roadmap</a> describes the two later stages and links to the full plans in the repository.</li>
     </ul>
-
-    <hr>
-
-    <h2>Open Source Codebase</h2>
-    <p>
-      All mnr software is open source under AGPL-3.0. The repository contains crates for the relayer, daemon proxies, and protocol simulators:
-    </p>
-    <p>
-      <a href="https://github.com/mnrnetwork/mnr" target="_blank" rel="noopener noreferrer" style="color: var(--accent); font-weight: 600;">
-        github.com/mnrnetwork/mnr &rarr;
-      </a>
-    </p>
   `;
+}
+
+/** GitHub-style heading ids so sections can be linked to. */
+function slugify(text: string): string {
+  return text
+    .replace(/<[^>]+>/g, "")
+    .replace(/&[a-z]+;|&#\d+;/g, "")
+    .toLowerCase()
+    .replace(/[^a-z0-9\s-]/g, "")
+    .trim()
+    .replace(/\s+/g, "-");
 }
 
 function processMarkdown(raw: string): string {
   let html = marked.parse(raw) as string;
+  html = html.replace(/<h([2-4])>([\s\S]*?)<\/h\1>/g, (_m, level, inner) => {
+    return `<h${level} id="${slugify(inner)}">${inner}</h${level}>`;
+  });
   html = html.replace(/<table>([\s\S]*?)<\/table>/g, (_match, inner) => {
     const firstRowMatch = inner.match(/<tr>([\s\S]*?)<\/tr>/);
     const thCount = firstRowMatch ? (firstRowMatch[1].match(/<th\b/g) || []).length : 0;
@@ -567,6 +557,13 @@ function processMarkdown(raw: string): string {
 
 function build() {
   console.log("Building onsite documentation...");
+
+  if (fs.existsSync(METHOD_POLICY_SOURCE)) {
+    fs.copyFileSync(METHOD_POLICY_SOURCE, "content/method-policy.md");
+    console.log(`✓ Refreshed content/method-policy.md from ${METHOD_POLICY_SOURCE}`);
+  } else {
+    console.log("· ../mnr not found, using the vendored content/method-policy.md");
+  }
 
   // 1. Build Hub (/docs/)
   const hubDoc = DOCS.find((d) => d.id === "hub")!;

@@ -61,7 +61,7 @@ Supported Wallets:
 ## 9. Official Documentation & Specifications
 - Docs Hub: https://mnr.network/docs/
 - Method Policy: https://mnr.network/docs/method-policy/
-- Stage 0 MVP Plan: https://mnr.network/docs/stage0-mvp/
-- Stage 1 Gateway Plan: https://mnr.network/docs/stage1-gateway/
-- Stage 2 Protocol Architecture: https://mnr.network/docs/stage2-network/
+- How mnr works: https://mnr.network/docs/how-it-works/
+- Roadmap: https://mnr.network/docs/roadmap/
+- Full engineering plans: https://github.com/mnrnetwork/mnr/tree/main/docs
 - Source Code: https://github.com/mnrnetwork/mnr (AGPL-3.0)

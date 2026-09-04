@@ -19,19 +19,13 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://mnr.network/docs/stage0-mvp/</loc>
+    <loc>https://mnr.network/docs/how-it-works/</loc>
     <lastmod>2026-09-04</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://mnr.network/docs/stage1-gateway/</loc>
-    <lastmod>2026-09-04</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://mnr.network/docs/stage2-network/</loc>
+    <loc>https://mnr.network/docs/roadmap/</loc>
     <lastmod>2026-09-04</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>

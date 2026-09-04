@@ -3,19 +3,19 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Documentation — mnr</title>
-  <meta name="description" content="How mnr verifies Monero RPC, the rules it follows toward public nodes, the per-method policy, and the roadmap.">
-  <link rel="canonical" href="https://mnr.network/docs/">
+  <title>How mnr works — mnr</title>
+  <meta name="description" content="What the verified proxy checks, the seven rules it follows toward public Monero nodes, how the upstream pool is ranked, and how to connect a stock wallet.">
+  <link rel="canonical" href="https://mnr.network/docs/how-it-works/">
   <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
-  <meta property="og:title" content="Documentation — mnr">
-  <meta property="og:description" content="How mnr verifies Monero RPC, the rules it follows toward public nodes, the per-method policy, and the roadmap.">
+  <meta property="og:title" content="How mnr works — mnr">
+  <meta property="og:description" content="What the verified proxy checks, the seven rules it follows toward public Monero nodes, how the upstream pool is ranked, and how to connect a stock wallet.">
   <meta property="og:type" content="article">
-  <meta property="og:url" content="https://mnr.network/docs/">
+  <meta property="og:url" content="https://mnr.network/docs/how-it-works/">
   <meta property="og:site_name" content="mnr">
   <meta property="og:image" content="https://mnr.network/og.png">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Documentation — mnr">
-  <meta name="twitter:description" content="How mnr verifies Monero RPC, the rules it follows toward public nodes, the per-method policy, and the roadmap.">
+  <meta name="twitter:title" content="How mnr works — mnr">
+  <meta name="twitter:description" content="What the verified proxy checks, the seven rules it follows toward public Monero nodes, how the upstream pool is ranked, and how to connect a stock wallet.">
   <meta name="twitter:image" content="https://mnr.network/og.png">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
   <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png">
@@ -29,10 +29,10 @@
   "@graph": [
     {
       "@type": "WebPage",
-      "@id": "https://mnr.network/docs/#webpage",
-      "url": "https://mnr.network/docs/",
-      "name": "Documentation",
-      "description": "How mnr verifies Monero RPC, the rules it follows toward public nodes, the per-method policy, and the roadmap.",
+      "@id": "https://mnr.network/docs/how-it-works/#webpage",
+      "url": "https://mnr.network/docs/how-it-works/",
+      "name": "How mnr works",
+      "description": "What the verified proxy checks, the seven rules it follows toward public Monero nodes, how the upstream pool is ranked, and how to connect a stock wallet.",
       "isPartOf": {
         "@type": "WebSite",
         "@id": "https://mnr.network/#website",
@@ -42,7 +42,7 @@
     },
     {
       "@type": "BreadcrumbList",
-      "@id": "https://mnr.network/docs/#breadcrumbs",
+      "@id": "https://mnr.network/docs/how-it-works/#breadcrumbs",
       "itemListElement": [
         {
           "@type": "ListItem",
@@ -55,6 +55,12 @@
           "position": 2,
           "name": "docs",
           "item": "https://mnr.network/docs/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "How it works",
+          "item": "https://mnr.network/docs/how-it-works/"
         }
       ]
     }
@@ -315,11 +321,11 @@
     <div class="wrap">
       
     <nav class="docs-tabs" aria-label="Documentation sections">
-      <a href="/docs/" class="doc-tab active">
+      <a href="/docs/" class="doc-tab ">
           <span>Overview</span>
           
         </a>
-      <a href="/docs/how-it-works/" class="doc-tab ">
+      <a href="/docs/how-it-works/" class="doc-tab active">
           <span>How it works</span>
           <span class="tab-badge">Live</span>
         </a>
@@ -342,70 +348,161 @@
       <a href="/">mnr</a>
       <span>/</span>
       <a href="/docs/">docs</a>
-      
+      <span>/</span><span>how-it-works</span>
     </div>
 
     <article class="prose">
-      
-    <h1 style="font-size: 42px; margin-bottom: 12px;">mnr Documentation</h1>
-    <p style="font-size: 19px; color: var(--fg-2); margin-bottom: 36px;">
-      What the verified proxy checks, the rules it follows toward the public nodes it uses, and where it is going.
-    </p>
+      <h1>How mnr works</h1>
+<p>mnr is a verified proxy for Monero daemon RPC. Point a wallet at <code>rpc.mnr.network</code> and its requests are forwarded to public Monero nodes run by community members, and to a full node we run and list publicly ourselves. Every answer that can be checked is checked: block and transaction hashes are recomputed, headers are matched against a header chain, and consensus state is taken from the majority of several nodes. The result is a better answer than any single public node gives.</p>
+<p>The nodes are mostly not ours, so there is no uptime promise. The promise is narrower and stated on every response: <strong>we tell you what we verified.</strong></p>
+<hr>
+<h2 id="rules-toward-public-nodes">Rules toward public nodes</h2>
+<p>These are the terms under which mnr uses nodes that other people run. They are fixed, published, and enforced in code.</p>
+<ol>
+<li><strong>Disclose.</strong> This page, the front page and the <code>User-Agent</code> say what mnr is. The upstream list is public at <a href="/#upstreams"><code>/upstreams</code></a>, with each node&#39;s current status and our request rate to it.</li>
+<li><strong>Contribute.</strong> Our own node is a full node, listed on the public node lists and open to everyone with the same restricted RPC every public node offers. It carries the heaviest traffic class, wallet-sync streams, by preference, so public nodes see light calls from us rather than floods.</li>
+<li><strong>Cap ourselves.</strong> Per upstream: 5 light requests per second, 2 concurrent <code>get_blocks.bin</code> streams, 10 MB/s. Above that, requests queue or go to our own node. These caps are configuration, published, and stricter than most public nodes would tolerate.</li>
+<li><strong>Identify.</strong> Every request to an upstream carries <code>User-Agent: mnr-relay/0.x (+https://mnr.network/upstreams)</code>, so an operator can see who we are and how to reach us.</li>
+<li><strong>Honour opt-out.</strong> Any operator who asks is removed within 24 hours, and the opt-out list is public. We also check <code>/.well-known/mnr-optout</code> on each upstream host daily, so operators can remove themselves without contacting us.</li>
+<li><strong>Never pass client identity.</strong> No client IP, no <code>X-Forwarded-For</code>, no token. Nothing but the RPC body reaches an upstream.</li>
+<li><strong>Restricted RPC only.</strong> The method allow-list below is enforced before dispatch. We never call admin methods on anyone&#39;s node.</li>
+</ol>
+<hr>
+<h2 id="the-upstream-pool">The upstream pool</h2>
+<div class="table-wrap"><table class="doc-table">
+<thead>
+<tr>
+<th>Aspect</th>
+<th>Rule</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Sources</td>
+<td>Public nodes from the well-known community lists, clearnet and <code>.onion</code>, mainnet. Nodes run by wallet teams or known community members are preferred. Every operator we can identify is told before their node is used, with the opt-out link.</td>
+</tr>
+<tr>
+<td>Our node</td>
+<td>A full node with restricted RPC, listed publicly and open to everyone. The relay reaches it over a private link and prefers it for streams and tie-breaks.</td>
+</tr>
+<tr>
+<td>Probing</td>
+<td>Every 15 seconds, with a 2 second timeout on clearnet and 8 seconds over Tor. We record latency, height, top block hash and whether the node reports itself synchronized.</td>
+</tr>
+<tr>
+<td>Quorum tip</td>
+<td>The highest height that at least three upstreams agree on, hash included. Without such agreement the relay enters degraded mode: it serves from our own node only and suspends cache writes.</td>
+</tr>
+<tr>
+<td>Ranking</td>
+<td>Healthy nodes on the quorum tip, ordered by latency, with a small preference for our own node. Onion nodes serve light calls only.</td>
+</tr>
+<tr>
+<td>Ejection</td>
+<td>An upstream that fails verification three times in an hour is removed from rotation for 24 hours, and the event is logged on the public upstreams page.</td>
+</tr>
+</tbody></table></div>
+<hr>
+<h2 id="what-is-verified">What is verified</h2>
+<div class="table-wrap"><table class="doc-table">
+<thead>
+<tr>
+<th>Data</th>
+<th>Check</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>get_block</code>, <code>get_block_header_*</code></td>
+<td>The block hash is recomputed from the blob and matched against the requested hash or our header chain.</td>
+</tr>
+<tr>
+<td><code>/get_transactions</code></td>
+<td>Each transaction blob is hashed and matched against its txid.</td>
+</tr>
+<tr>
+<td>Header chain</td>
+<td>Built by majority from upstreams, extended at the tip by agreement. A reorg bumps the cache epoch, so nothing from the old branch is served.</td>
+</tr>
+<tr>
+<td><code>get_info</code>, <code>get_height</code>, fee estimate</td>
+<td>Majority of at least three upstreams. Node-specific fields are normalised. Cached for a few seconds with stale-while-revalidate.</td>
+</tr>
+<tr>
+<td><code>/get_outs.bin</code></td>
+<td>Two-upstream agreement for Pro; single upstream, our own node preferred, for Free.</td>
+</tr>
+<tr>
+<td><code>/get_blocks.bin</code></td>
+<td>Not verified yet. Routed to our own node first, public nodes second, and marked <code>Mnr-Verify: none</code>.</td>
+</tr>
+<tr>
+<td>Mempool</td>
+<td>Not verifiable. Marked with <code>Mnr-Upstream</code>, an opaque number rather than the node&#39;s address.</td>
+</tr>
+<tr>
+<td><code>send_raw_transaction</code></td>
+<td>Fanned out to every healthy upstream in parallel. Success if any accepts, reported as <code>Mnr-Relayed: k/n</code>.</td>
+</tr>
+</tbody></table></div>
+<p>Nothing unverifiable is silently trusted. Every response carries <code>Mnr-Verify</code> saying what was checked, and the per-upstream verified and fault counts are the numbers on the public upstreams page. The full per-method rules, cache bounds and timeouts are in the <a href="/docs/method-policy/">method policy</a>, which is generated from the relay&#39;s source code.</p>
+<p>Blocks, headers and transactions within 10 blocks of the tip are never cached, because they may still be reorganised away.</p>
+<hr>
+<h2 id="connecting-a-wallet">Connecting a wallet</h2>
+<p>Stock wallets work with nothing but a daemon address. Two forms carry the same token:</p>
+<ul>
+<li><strong>Path token</strong>: <code>https://rpc.mnr.network/v1/&lt;token&gt;</code> as the daemon address.</li>
+<li><strong>Daemon login</strong>: <code>rpc.mnr.network:443</code> as the daemon address, with the token as the password of <code>--daemon-login</code>, for wallets that do not accept a path.</li>
+</ul>
+<p>Tokens are 256-bit and stored only as hashes. A token can be rotated, and the previous one keeps working for 24 hours. The relay keeps no request log: no paths, no tokens, no client addresses. Aggregate metrics only.</p>
+<div class="table-wrap"><table class="doc-table">
+<thead>
+<tr>
+<th></th>
+<th>Free</th>
+<th>Pro</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Allowance</td>
+<td>500k work units per month</td>
+<td>10M work units per month</td>
+</tr>
+<tr>
+<td>Burst</td>
+<td>5 requests per second</td>
+<td>25 requests per second</td>
+</tr>
+<tr>
+<td><code>get_outs</code></td>
+<td>single upstream</td>
+<td>two-upstream agreement</td>
+</tr>
+<tr>
+<td>Streams</td>
+<td>our node when available, else public; 1 concurrent</td>
+<td>our node preferred; 3 concurrent</td>
+</tr>
+<tr>
+<td>Promise</td>
+<td>none</td>
+<td>none</td>
+</tr>
+</tbody></table></div>
+<p>A work unit is one light request, or 20 per MB of a <code>get_blocks.bin</code> stream. Pricing is on the <a href="/#pricing">front page</a>.</p>
+<hr>
+<h2 id="architecture">Architecture</h2>
+<p>One Rust binary on one box, open source under AGPL-3.0 at <a href="https://github.com/mnrnetwork/mnr">github.com/mnrnetwork/mnr</a>.</p>
+<pre><code>clients ──▶ rpc.mnr.network (TLS)      ──┐
+clients ──▶ &lt;onion&gt;.onion (local Tor)  ───┤
+                                          ▼
+                     mnr-relay ──── auth ── limits ── policy ── cache ── verify
+                                          │
+                       ┌──────────────────┼───────────────────────┐
+                       ▼                  ▼                       ▼
+              our node (private link)  public clearnet nodes   public .onion nodes
+              full, public RPC         capped, identified      light calls only
+</code></pre>
+<p><code>mnr-core</code> holds the method policy, hashing, verification rules and header chain as pure functions with no I/O, fuzzed and tested against real mainnet blocks. <code>mnr-relay</code> is everything else: ingress, tokens, limits, the upstream pool, the cache and the metrics endpoint.</p>
 
-    <div class="hub-grid">
-      <a href="/docs/how-it-works/" class="hub-card">
-        <div style="display: flex; align-items: center; justify-content: space-between;">
-          <h3>How mnr works</h3>
-          <span class="tab-badge">Live</span>
-        </div>
-        <p>The seven rules toward public nodes, the upstream pool and quorum tip, what is verified and what is only annotated, and how to connect a stock wallet.</p>
-        <div class="hub-card-meta">
-          <span>Read how it works &rarr;</span>
-        </div>
-      </a>
-
-      <a href="/docs/method-policy/" class="hub-card">
-        <div style="display: flex; align-items: center; justify-content: space-between;">
-          <h3>Method Policy & Verification</h3>
-          <span class="tab-badge">Generated</span>
-        </div>
-        <p>Every Monero daemon method the relay serves, with its verification rule, cache bound, quorum and timeout. Generated from the relay's source code.</p>
-        <div class="hub-card-meta">
-          <span>Read the policy table &rarr;</span>
-        </div>
-      </a>
-
-      <a href="/docs/roadmap/" class="hub-card">
-        <div style="display: flex; align-items: center; justify-content: space-between;">
-          <h3>Roadmap</h3>
-          <span class="tab-badge">Stages 0&ndash;2</span>
-        </div>
-        <p>The verified proxy that is live today, the owned mesh with an SLA, and the permissionless operator network where node runners are paid in XMR for verified work.</p>
-        <div class="hub-card-meta">
-          <span>Read the roadmap &rarr;</span>
-        </div>
-      </a>
-
-      <a href="https://github.com/mnrnetwork/mnr" class="hub-card" target="_blank" rel="noopener noreferrer">
-        <div style="display: flex; align-items: center; justify-content: space-between;">
-          <h3>Source code</h3>
-          <span class="tab-badge">AGPL-3.0</span>
-        </div>
-        <p>The relay, the core verification crate with its fixtures and fuzz targets, and the full engineering plans behind each stage.</p>
-        <div class="hub-card-meta">
-          <span>github.com/mnrnetwork/mnr &rarr;</span>
-        </div>
-      </a>
-    </div>
-
-    <h2>Reading order</h2>
-    <ul>
-      <li><strong>Using mnr:</strong> <a href="/docs/how-it-works/">How mnr works</a> covers what you get, what is verified, and how to point a wallet at it.</li>
-      <li><strong>Running a public node:</strong> the <a href="/docs/how-it-works/#rules-toward-public-nodes">rules toward public nodes</a> say exactly how mnr treats your node and how to opt out.</li>
-      <li><strong>Building on it:</strong> the <a href="/docs/method-policy/">method policy</a> is the per-method contract: what is cached, for how long, and what <code>Mnr-Verify</code> will say.</li>
-      <li><strong>Where it goes:</strong> the <a href="/docs/roadmap/">roadmap</a> describes the two later stages and links to the full plans in the repository.</li>
-    </ul>
-  
     </article>
   </main>
 

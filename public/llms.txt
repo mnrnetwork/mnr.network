@@ -30,8 +30,8 @@ monero-wallet-cli \
 ## Documentation & Developer Resources
 - Onsite Documentation Hub: https://mnr.network/docs/
 - Monero RPC Method Policy: https://mnr.network/docs/method-policy/
-- Stage 0 MVP Plan: https://mnr.network/docs/stage0-mvp/
-- Stage 1 Gateway Plan: https://mnr.network/docs/stage1-gateway/
-- Stage 2 Protocol Architecture: https://mnr.network/docs/stage2-network/
+- How mnr works: https://mnr.network/docs/how-it-works/
+- Roadmap: https://mnr.network/docs/roadmap/
+- Full engineering plans: https://github.com/mnrnetwork/mnr/tree/main/docs
 - Full Technical Specification: https://mnr.network/llms-full.txt
 - Source Code: https://github.com/mnrnetwork/mnr

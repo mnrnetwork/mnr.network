@@ -3,19 +3,19 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Documentation — mnr</title>
-  <meta name="description" content="How mnr verifies Monero RPC, the rules it follows toward public nodes, the per-method policy, and the roadmap.">
-  <link rel="canonical" href="https://mnr.network/docs/">
+  <title>Roadmap — mnr</title>
+  <meta name="description" content="The three stages of mnr: the verified proxy that is live today, the owned mesh with an SLA, and the permissionless operator network paid in XMR.">
+  <link rel="canonical" href="https://mnr.network/docs/roadmap/">
   <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
-  <meta property="og:title" content="Documentation — mnr">
-  <meta property="og:description" content="How mnr verifies Monero RPC, the rules it follows toward public nodes, the per-method policy, and the roadmap.">
+  <meta property="og:title" content="Roadmap — mnr">
+  <meta property="og:description" content="The three stages of mnr: the verified proxy that is live today, the owned mesh with an SLA, and the permissionless operator network paid in XMR.">
   <meta property="og:type" content="article">
-  <meta property="og:url" content="https://mnr.network/docs/">
+  <meta property="og:url" content="https://mnr.network/docs/roadmap/">
   <meta property="og:site_name" content="mnr">
   <meta property="og:image" content="https://mnr.network/og.png">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Documentation — mnr">
-  <meta name="twitter:description" content="How mnr verifies Monero RPC, the rules it follows toward public nodes, the per-method policy, and the roadmap.">
+  <meta name="twitter:title" content="Roadmap — mnr">
+  <meta name="twitter:description" content="The three stages of mnr: the verified proxy that is live today, the owned mesh with an SLA, and the permissionless operator network paid in XMR.">
   <meta name="twitter:image" content="https://mnr.network/og.png">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
   <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png">
@@ -29,10 +29,10 @@
   "@graph": [
     {
       "@type": "WebPage",
-      "@id": "https://mnr.network/docs/#webpage",
-      "url": "https://mnr.network/docs/",
-      "name": "Documentation",
-      "description": "How mnr verifies Monero RPC, the rules it follows toward public nodes, the per-method policy, and the roadmap.",
+      "@id": "https://mnr.network/docs/roadmap/#webpage",
+      "url": "https://mnr.network/docs/roadmap/",
+      "name": "Roadmap",
+      "description": "The three stages of mnr: the verified proxy that is live today, the owned mesh with an SLA, and the permissionless operator network paid in XMR.",
       "isPartOf": {
         "@type": "WebSite",
         "@id": "https://mnr.network/#website",
@@ -42,7 +42,7 @@
     },
     {
       "@type": "BreadcrumbList",
-      "@id": "https://mnr.network/docs/#breadcrumbs",
+      "@id": "https://mnr.network/docs/roadmap/#breadcrumbs",
       "itemListElement": [
         {
           "@type": "ListItem",
@@ -55,6 +55,12 @@
           "position": 2,
           "name": "docs",
           "item": "https://mnr.network/docs/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Roadmap",
+          "item": "https://mnr.network/docs/roadmap/"
         }
       ]
     }
@@ -315,7 +321,7 @@
     <div class="wrap">
       
     <nav class="docs-tabs" aria-label="Documentation sections">
-      <a href="/docs/" class="doc-tab active">
+      <a href="/docs/" class="doc-tab ">
           <span>Overview</span>
           
         </a>
@@ -327,7 +333,7 @@
           <span>Method Policy</span>
           <span class="tab-badge">Generated</span>
         </a>
-      <a href="/docs/roadmap/" class="doc-tab ">
+      <a href="/docs/roadmap/" class="doc-tab active">
           <span>Roadmap</span>
           <span class="tab-badge">Stages 0–2</span>
         </a>
@@ -342,70 +348,40 @@
       <a href="/">mnr</a>
       <span>/</span>
       <a href="/docs/">docs</a>
-      
+      <span>/</span><span>roadmap</span>
     </div>
 
     <article class="prose">
-      
-    <h1 style="font-size: 42px; margin-bottom: 12px;">mnr Documentation</h1>
-    <p style="font-size: 19px; color: var(--fg-2); margin-bottom: 36px;">
-      What the verified proxy checks, the rules it follows toward the public nodes it uses, and where it is going.
-    </p>
+      <h1>Roadmap</h1>
+<p>mnr is built in three stages. Each stage is a working product on its own, and nothing built in one is thrown away in the next. The stage that is live is always the one described on <a href="/docs/how-it-works/">How mnr works</a>.</p>
+<hr>
+<h2 id="stage-0-verified-proxy-now">Stage 0 — Verified proxy (now)</h2>
+<p>One relay, on one box, in front of public community nodes and one full node we run ourselves. It verifies what can be verified, caps and identifies itself to every public node it uses, publishes its upstream list, and makes no uptime promise. Free, with a Pro tier for higher limits.</p>
+<p>What it proves: that wallets and backends want verification and convenience over nodes they could use for free, and that public node operators are comfortable with a proxy that plays by <a href="/docs/how-it-works/#rules-toward-public-nodes">published rules</a>.</p>
+<h2 id="stage-1-owned-mesh-with-an-sla">Stage 1 — Owned mesh with an SLA</h2>
+<p>A paid, authenticated endpoint backed by nodes we run on separate providers. The edge validates height agreement across them, caches what is safe, broadcasts transactions to every healthy node and fails over automatically. Customers point a stock wallet, a swap backend or an agent at one URL and stop running <code>monerod</code>.</p>
+<p>This is the first stage with a number attached: an availability commitment, priced accordingly. Public community nodes stay in the picture as the free tier&#39;s pool, under the same rules as today.</p>
+<p>Out of scope, permanently: <code>monero-wallet-rpc</code>. It holds keys and cannot be multiplexed at an edge.</p>
+<h2 id="stage-2-operator-network">Stage 2 — Operator network</h2>
+<p>A permissionless network in which independent operators run <code>monerod</code> behind a small agent, relayers aggregate many operators into one verified, cached, metered endpoint, and clients pay in XMR. The protocol, the operator agent, the relayer and the client library are open source. We participate as the first operators and the reference relayer; we do not own the network.</p>
+<p>Design principles, in order:</p>
+<ol>
+<li><strong>Verify, don&#39;t trust.</strong> Self-authenticating data is checked. Where verification is impossible, agreement across independent operators replaces trust.</li>
+<li><strong>No token, no stake, no slashing.</strong> Operators are paid in XMR for verified work. Bad work goes into a public, cryptographically verifiable fault log that anyone can weigh. Nothing is locked, nothing is confiscated.</li>
+<li><strong>Stock wallets must work</strong> with nothing more than a daemon address.</li>
+<li><strong>Hobbyist operators join in ten minutes</strong>, with a one-line install, no view key, and no public IP if they use Tor.</li>
+<li><strong>The reference relayer is replaceable.</strong> The operator directory, the fault log and the settlement statements are published in a form another relayer can consume.</li>
+<li><strong>Both sides of the market are paid from day one</strong>: operators through the pool, with a probation lane for newcomers, and distributors such as wallets and interfaces through an affiliate share.</li>
+</ol>
+<hr>
+<h2 id="the-full-plans">The full plans</h2>
+<p>The engineering plans behind each stage are public in the code repository. They are working documents written for the people building mnr, with schedules, cost models and open decisions, and they change as the work does.</p>
+<ul>
+<li><a href="https://github.com/mnrnetwork/mnr/blob/main/docs/stage0-mvp-plan.md">Stage 0 plan</a></li>
+<li><a href="https://github.com/mnrnetwork/mnr/blob/main/docs/stage1-gateway-development-plan.md">Stage 1 plan</a></li>
+<li><a href="https://github.com/mnrnetwork/mnr/blob/main/docs/stage2-network-protocol-architecture.md">Stage 2 architecture</a></li>
+</ul>
 
-    <div class="hub-grid">
-      <a href="/docs/how-it-works/" class="hub-card">
-        <div style="display: flex; align-items: center; justify-content: space-between;">
-          <h3>How mnr works</h3>
-          <span class="tab-badge">Live</span>
-        </div>
-        <p>The seven rules toward public nodes, the upstream pool and quorum tip, what is verified and what is only annotated, and how to connect a stock wallet.</p>
-        <div class="hub-card-meta">
-          <span>Read how it works &rarr;</span>
-        </div>
-      </a>
-
-      <a href="/docs/method-policy/" class="hub-card">
-        <div style="display: flex; align-items: center; justify-content: space-between;">
-          <h3>Method Policy & Verification</h3>
-          <span class="tab-badge">Generated</span>
-        </div>
-        <p>Every Monero daemon method the relay serves, with its verification rule, cache bound, quorum and timeout. Generated from the relay's source code.</p>
-        <div class="hub-card-meta">
-          <span>Read the policy table &rarr;</span>
-        </div>
-      </a>
-
-      <a href="/docs/roadmap/" class="hub-card">
-        <div style="display: flex; align-items: center; justify-content: space-between;">
-          <h3>Roadmap</h3>
-          <span class="tab-badge">Stages 0&ndash;2</span>
-        </div>
-        <p>The verified proxy that is live today, the owned mesh with an SLA, and the permissionless operator network where node runners are paid in XMR for verified work.</p>
-        <div class="hub-card-meta">
-          <span>Read the roadmap &rarr;</span>
-        </div>
-      </a>
-
-      <a href="https://github.com/mnrnetwork/mnr" class="hub-card" target="_blank" rel="noopener noreferrer">
-        <div style="display: flex; align-items: center; justify-content: space-between;">
-          <h3>Source code</h3>
-          <span class="tab-badge">AGPL-3.0</span>
-        </div>
-        <p>The relay, the core verification crate with its fixtures and fuzz targets, and the full engineering plans behind each stage.</p>
-        <div class="hub-card-meta">
-          <span>github.com/mnrnetwork/mnr &rarr;</span>
-        </div>
-      </a>
-    </div>
-
-    <h2>Reading order</h2>
-    <ul>
-      <li><strong>Using mnr:</strong> <a href="/docs/how-it-works/">How mnr works</a> covers what you get, what is verified, and how to point a wallet at it.</li>
-      <li><strong>Running a public node:</strong> the <a href="/docs/how-it-works/#rules-toward-public-nodes">rules toward public nodes</a> say exactly how mnr treats your node and how to opt out.</li>
-      <li><strong>Building on it:</strong> the <a href="/docs/method-policy/">method policy</a> is the per-method contract: what is cached, for how long, and what <code>Mnr-Verify</code> will say.</li>
-      <li><strong>Where it goes:</strong> the <a href="/docs/roadmap/">roadmap</a> describes the two later stages and links to the full plans in the repository.</li>
-    </ul>
-  
     </article>
   </main>
 
