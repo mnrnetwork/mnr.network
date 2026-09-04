@@ -168,6 +168,7 @@ function renderHtmlLayout(doc: DocMeta, contentHtml: string): string {
           "@id": "https://mnr.network/#website",
           url: "https://mnr.network/",
           name: "mnr",
+          alternateName: ["mnr network", "mnr.network"],
         },
       },
       {

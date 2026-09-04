@@ -37,7 +37,11 @@
         "@type": "WebSite",
         "@id": "https://mnr.network/#website",
         "url": "https://mnr.network/",
-        "name": "mnr"
+        "name": "mnr",
+        "alternateName": [
+          "mnr network",
+          "mnr.network"
+        ]
       }
     },
     {
@@ -419,7 +423,7 @@
 <td>Height/hash must match the quorum-tip chain (validated against the header chain).</td>
 <td>authenticated</td>
 <td>3000</td>
-<td>Range requests are split at the safety line.</td>
+<td>Every header checked against the header chain; a range that crosses the safety line is verified but not cached.</td>
 </tr>
 <tr>
 <td><code>on_get_block_hash</code></td>
@@ -615,7 +619,7 @@
 <td><code>/get_outs.bin</code></td>
 <td>legacy</td>
 <td>IMMUTABLE-CONDITIONAL</td>
-<td>Cache 24 h only if all requested indices belong to blocks &lt;= quorum_tip - TIP_SAFETY_DEPTH; else pass through.</td>
+<td>Cache 24 h only if all requested indices belong to blocks &lt;= quorum_tip - TIP_SAFETY_DEPTH; else pass through. Stage 0: only get_output_distribution with to_height &lt;= the safety line is cached (needs the distribution to map indices to heights for the rest).</td>
 <td>Single node on quorum tip.</td>
 <td>agreement free=1 pro=2</td>
 <td>10000</td>
@@ -625,7 +629,7 @@
 <td><code>/get_outs</code></td>
 <td>legacy</td>
 <td>IMMUTABLE-CONDITIONAL</td>
-<td>Cache 24 h only if all requested indices belong to blocks &lt;= quorum_tip - TIP_SAFETY_DEPTH; else pass through.</td>
+<td>Cache 24 h only if all requested indices belong to blocks &lt;= quorum_tip - TIP_SAFETY_DEPTH; else pass through. Stage 0: only get_output_distribution with to_height &lt;= the safety line is cached (needs the distribution to map indices to heights for the rest).</td>
 <td>Single node on quorum tip.</td>
 <td>agreement free=1 pro=2</td>
 <td>10000</td>
@@ -635,7 +639,7 @@
 <td><code>/get_o_indexes.bin</code></td>
 <td>legacy</td>
 <td>IMMUTABLE-CONDITIONAL</td>
-<td>Cache 24 h only if all requested indices belong to blocks &lt;= quorum_tip - TIP_SAFETY_DEPTH; else pass through.</td>
+<td>Cache 24 h only if all requested indices belong to blocks &lt;= quorum_tip - TIP_SAFETY_DEPTH; else pass through. Stage 0: only get_output_distribution with to_height &lt;= the safety line is cached (needs the distribution to map indices to heights for the rest).</td>
 <td>Single node on quorum tip.</td>
 <td>agreement free=1 pro=2</td>
 <td>10000</td>
@@ -645,7 +649,7 @@
 <td><code>/get_output_distribution.bin</code></td>
 <td>legacy</td>
 <td>IMMUTABLE-CONDITIONAL</td>
-<td>Cache 24 h only if all requested indices belong to blocks &lt;= quorum_tip - TIP_SAFETY_DEPTH; else pass through.</td>
+<td>Cache 24 h only if all requested indices belong to blocks &lt;= quorum_tip - TIP_SAFETY_DEPTH; else pass through. Stage 0: only get_output_distribution with to_height &lt;= the safety line is cached (needs the distribution to map indices to heights for the rest).</td>
 <td>Single node on quorum tip.</td>
 <td>agreement free=1 pro=2</td>
 <td>10000</td>
@@ -655,7 +659,7 @@
 <td><code>get_output_distribution</code></td>
 <td>json-rpc</td>
 <td>IMMUTABLE-CONDITIONAL</td>
-<td>Cache 24 h only if all requested indices belong to blocks &lt;= quorum_tip - TIP_SAFETY_DEPTH; else pass through.</td>
+<td>Cache 24 h only if all requested indices belong to blocks &lt;= quorum_tip - TIP_SAFETY_DEPTH; else pass through. Stage 0: only get_output_distribution with to_height &lt;= the safety line is cached (needs the distribution to map indices to heights for the rest).</td>
 <td>Single node on quorum tip.</td>
 <td>agreement free=1 pro=2</td>
 <td>10000</td>
@@ -665,7 +669,7 @@
 <td><code>get_output_histogram</code></td>
 <td>json-rpc</td>
 <td>IMMUTABLE-CONDITIONAL</td>
-<td>Cache 24 h only if all requested indices belong to blocks &lt;= quorum_tip - TIP_SAFETY_DEPTH; else pass through.</td>
+<td>Cache 24 h only if all requested indices belong to blocks &lt;= quorum_tip - TIP_SAFETY_DEPTH; else pass through. Stage 0: only get_output_distribution with to_height &lt;= the safety line is cached (needs the distribution to map indices to heights for the rest).</td>
 <td>Single node on quorum tip.</td>
 <td>agreement free=1 pro=2</td>
 <td>10000</td>

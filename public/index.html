@@ -37,15 +37,42 @@
         "@id": "https://mnr.network/#website",
         "url": "https://mnr.network/",
         "name": "mnr",
+        "alternateName": [
+          "mnr network",
+          "mnr.network"
+        ],
         "description": "Verified RPC network and trustless proxy for Monero wallets",
         "publisher": { "@id": "https://mnr.network/#organization" }
+      },
+      {
+        "@type": "WebPage",
+        "@id": "https://mnr.network/#webpage",
+        "url": "https://mnr.network/",
+        "name": "mnr — an RPC network for Monero",
+        "description": "Verified Monero RPC proxy. Recomputed hashes, consensus tips across independent nodes, and no request logs. Stock wallet compatible, free tier.",
+        "isPartOf": { "@id": "https://mnr.network/#website" },
+        "about": { "@id": "https://mnr.network/#software" },
+        "breadcrumb": { "@id": "https://mnr.network/#breadcrumbs" }
+      },
+      {
+        "@type": "BreadcrumbList",
+        "@id": "https://mnr.network/#breadcrumbs",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "mnr",
+            "item": "https://mnr.network/"
+          }
+        ]
       },
       {
         "@type": "Organization",
         "@id": "https://mnr.network/#organization",
         "name": "mnr network",
         "url": "https://mnr.network/",
-        "logo": "https://mnr.network/favicon.svg",
+        "logo": "https://mnr.network/apple-touch-icon.png",
+        "email": "dev@mnr.network",
         "sameAs": [
           "https://github.com/mnrnetwork/mnr"
         ]
