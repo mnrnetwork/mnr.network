@@ -68,3 +68,4 @@ Supported Wallets:
 - Stage 2 protocol architecture: https://mnr.network/docs/stage2-network/
 - Full engineering plans: https://github.com/mnrnetwork/mnr/tree/main/docs
 - Source Code: https://github.com/mnrnetwork/mnr (AGPL-3.0)
+- Contact: dev@mnr.network

@@ -38,3 +38,4 @@ monero-wallet-cli \
 - Full engineering plans: https://github.com/mnrnetwork/mnr/tree/main/docs
 - Full Technical Specification: https://mnr.network/llms-full.txt
 - Source Code: https://github.com/mnrnetwork/mnr
+- Contact: dev@mnr.network
