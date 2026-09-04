@@ -149,7 +149,8 @@
     .breadcrumbs span { color: var(--fg); }
 
     /* Prose Styling */
-    .prose { color: var(--fg); line-height: 1.7; word-break: break-word; }
+    .prose { color: var(--fg); line-height: 1.7; }
+    .prose p, .prose li, .prose blockquote { overflow-wrap: break-word; }
     .prose h1 { font-size: 38px; line-height: 1.15; letter-spacing: -0.02em; font-weight: 700; margin: 0 0 20px; }
     .prose h2 { font-size: 26px; line-height: 1.25; letter-spacing: -0.015em; font-weight: 600; margin: 48px 0 16px; padding-bottom: 8px; border-bottom: 1px solid var(--line); }
     .prose h3 { font-size: 20px; line-height: 1.35; font-weight: 600; margin: 32px 0 12px; }
@@ -184,12 +185,94 @@
     .prose pre code { background: transparent; padding: 0; border: 0; color: inherit; }
 
     /* Tables */
-    .prose .table-wrap { overflow-x: auto; margin: 28px 0; border: 1px solid var(--line); border-radius: 12px; background: var(--card); }
-    .prose table { width: 100%; border-collapse: collapse; font-size: 14.5px; margin: 0; text-align: left; }
-    .prose th { font-weight: 600; font-size: 12.5px; letter-spacing: 0.04em; text-transform: uppercase; color: var(--muted); padding: 12px 14px; background: var(--bg-alt); border-bottom: 1px solid var(--line-strong); }
-    .prose td { padding: 12px 14px; border-bottom: 1px solid var(--line); vertical-align: top; }
+    .prose .table-wrap {
+      overflow-x: auto;
+      margin: 28px 0;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: var(--card);
+      -webkit-overflow-scrolling: touch;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
+    }
+    .prose table.doc-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+      line-height: 1.55;
+      margin: 0;
+      text-align: left;
+    }
+    .prose table.table-wide {
+      min-width: 900px;
+    }
+    .prose table.table-ultra-wide {
+      min-width: 1240px;
+    }
+    .prose th,
+    .prose td {
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--line);
+      vertical-align: top;
+      word-break: normal;
+      overflow-wrap: normal;
+    }
+    .prose th {
+      font-weight: 600;
+      font-size: 12px;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: var(--muted);
+      background: var(--bg-alt);
+      border-bottom: 1px solid var(--line-strong);
+      white-space: nowrap;
+      vertical-align: bottom;
+    }
+    .prose td code {
+      white-space: nowrap;
+      font-size: 13px;
+    }
     .prose tbody tr:last-child td { border-bottom: 0; }
     .prose tbody tr:hover td { background: var(--bg-alt); }
+
+    /* Specific column rules for method policy table */
+    .prose table.table-ultra-wide th:nth-child(1),
+    .prose table.table-ultra-wide td:nth-child(1) {
+      white-space: nowrap;
+      min-width: 190px;
+    }
+    .prose table.table-ultra-wide th:nth-child(2),
+    .prose table.table-ultra-wide td:nth-child(2) {
+      white-space: nowrap;
+      min-width: 90px;
+    }
+    .prose table.table-ultra-wide th:nth-child(3),
+    .prose table.table-ultra-wide td:nth-child(3) {
+      white-space: nowrap;
+      min-width: 95px;
+    }
+    .prose table.table-ultra-wide th:nth-child(4),
+    .prose table.table-ultra-wide td:nth-child(4) {
+      min-width: 250px;
+    }
+    .prose table.table-ultra-wide th:nth-child(5),
+    .prose table.table-ultra-wide td:nth-child(5) {
+      min-width: 240px;
+    }
+    .prose table.table-ultra-wide th:nth-child(6),
+    .prose table.table-ultra-wide td:nth-child(6) {
+      white-space: nowrap;
+      min-width: 120px;
+    }
+    .prose table.table-ultra-wide th:nth-child(7),
+    .prose table.table-ultra-wide td:nth-child(7) {
+      white-space: nowrap;
+      min-width: 95px;
+      text-align: right;
+    }
+    .prose table.table-ultra-wide th:nth-child(8),
+    .prose table.table-ultra-wide td:nth-child(8) {
+      min-width: 240px;
+    }
 
     /* Hub Cards */
     .hub-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; margin: 32px 0 48px; }
@@ -275,7 +358,7 @@
     <article class="prose">
       <h1>mnr — Stage 0 MVP Plan</h1>
 <p><em>a verified proxy over public Monero nodes, plus one of our own</em></p>
-<div class="table-wrap"><table>
+<div class="table-wrap"><table class="doc-table">
 <thead>
 <tr>
 <th></th>
@@ -328,7 +411,7 @@
 </blockquote>
 <hr>
 <h2>3. Upstream pool</h2>
-<div class="table-wrap"><table>
+<div class="table-wrap"><table class="doc-table">
 <thead>
 <tr>
 <th>Aspect</th>
@@ -367,7 +450,7 @@
 <hr>
 <h2>4. Verification at Stage 0</h2>
 <p>Reused from the network doc §3.4, trimmed to what one box can do:</p>
-<div class="table-wrap"><table>
+<div class="table-wrap"><table class="doc-table">
 <thead>
 <tr>
 <th>Data</th>
@@ -425,7 +508,7 @@
 <li><strong>Auth:</strong> path token <code>/v1/&lt;token&gt;/…</code> and Basic auth alternative, 256-bit, hashed at rest in SQLite; rotation endpoint with 24 h grace. Free tokens are issued instantly from the site; no email.</li>
 <li><strong>Limits:</strong> in-process token bucket per token; daily WU quota in SQLite.</li>
 </ul>
-<div class="table-wrap"><table>
+<div class="table-wrap"><table class="doc-table">
 <thead>
 <tr>
 <th></th>
@@ -487,7 +570,7 @@ background: prober (15 s) · header-chain sync · cache epoch on reorg · invoic
 <p>Relayer box: 4 vCPU / 8 GB / 80 GB NVMe (header chain + SQLite + cache). Owned node: 8 vCPU / 32 GB / 1 TB NVMe on a different provider, in the sizing of the gateway plan §4.</p>
 <hr>
 <h2>7. Four-week build</h2>
-<div class="table-wrap"><table>
+<div class="table-wrap"><table class="doc-table">
 <thead>
 <tr>
 <th>Week</th>
@@ -524,7 +607,7 @@ background: prober (15 s) · header-chain sync · cache epoch on reorg · invoic
 <p>Exit criteria for &quot;MVP shipped&quot;: a stock CLI wallet and Feather sync from scratch through <code>rpc.mnr.network</code>; injected wrong-header test from a fake upstream produces an ejection and a public log entry; owned node listed on public node lists and serving outsiders; no request logs anywhere; upstream caps demonstrably enforced under load; at least 10 identified upstream operators informed, zero unresolved opt-outs.</p>
 <hr>
 <h2>8. Risks specific to Stage 0</h2>
-<div class="table-wrap"><table>
+<div class="table-wrap"><table class="doc-table">
 <thead>
 <tr>
 <th>Risk</th>
