@@ -663,6 +663,42 @@ function filterPlan(md: string, f: PlanFilter): string {
   return text;
 }
 
+function generateSitemap(): string {
+  const today = new Date().toISOString().split("T")[0];
+  const urls: { loc: string; lastmod: string; changefreq: string; priority: string }[] = [
+    {
+      loc: "https://mnr.network/",
+      lastmod: today,
+      changefreq: "weekly",
+      priority: "1.0",
+    },
+  ];
+
+  for (const doc of DOCS) {
+    urls.push({
+      loc: `https://mnr.network${doc.route}`,
+      lastmod: today,
+      changefreq: doc.id === "hub" ? "weekly" : "monthly",
+      priority: doc.id === "hub" ? "0.9" : "0.8",
+    });
+  }
+
+  return `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+${urls
+  .map(
+    (u) => `  <url>
+    <loc>${u.loc}</loc>
+    <lastmod>${u.lastmod}</lastmod>
+    <changefreq>${u.changefreq}</changefreq>
+    <priority>${u.priority}</priority>
+  </url>`
+  )
+  .join("\n")}
+</urlset>
+`;
+}
+
 function build() {
   console.log("Building onsite documentation...");
 
@@ -713,6 +749,11 @@ function build() {
     fs.writeFileSync(path.join(outDir, "index.html"), pageHtml);
     console.log(`✓ Created ${path.join(outDir, "index.html")}`);
   }
+
+  // 3. Generate Sitemap (/sitemap.xml)
+  const sitemapXml = generateSitemap();
+  fs.writeFileSync("public/sitemap.xml", sitemapXml);
+  console.log("✓ Updated public/sitemap.xml");
 
   console.log("Done building all documentation pages!");
 }
