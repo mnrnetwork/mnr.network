@@ -54,6 +54,26 @@ const DOCS: DocMeta[] = [
       "What the verified proxy checks, the seven rules it follows toward public Monero nodes, how the upstream pool is ranked, and how to connect a stock wallet.",
   },
   {
+    id: "connect-wallets",
+    route: "/docs/connect-wallets/",
+    sourceFile: "content/connect-wallets.md",
+    title: "Connect a Monero wallet to mnr",
+    navTitle: "Connect a wallet",
+    badge: "Guide",
+    description:
+      "Step-by-step settings for monero-wallet-cli, the GUI wallet, Feather, Cake, Monerujo and monero-wallet-rpc, with the path-token and daemon-login forms, and what the Mnr-Verify header tells you.",
+  },
+  {
+    id: "tokens",
+    route: "/docs/tokens/",
+    sourceFile: "content/tokens-and-billing.md",
+    title: "Tokens and billing",
+    navTitle: "Tokens & billing",
+    badge: "Guide",
+    description:
+      "Free and Pro tiers, work units, getting a token, paying a Pro invoice in XMR, renewing, rotating, and exactly what the relay knows about you.",
+  },
+  {
     id: "method-policy",
     route: "/docs/method-policy/",
     sourceFile: "content/method-policy.md",
@@ -672,6 +692,12 @@ function generateSitemap(): string {
       lastmod: today,
       changefreq: "weekly",
       priority: "1.0",
+    },
+    {
+      loc: "https://mnr.network/get-token/",
+      lastmod: today,
+      changefreq: "monthly",
+      priority: "0.9",
     },
   ];
 

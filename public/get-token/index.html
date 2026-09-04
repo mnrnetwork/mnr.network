@@ -1,0 +1,295 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Get a token — mnr</title>
+  <meta name="description" content="Get a Free token for mnr instantly, or buy a Pro token with an XMR invoice. No account, no email, no request logs.">
+  <link rel="canonical" href="https://mnr.network/get-token/">
+  <meta name="robots" content="index, follow">
+  <meta name="theme-color" content="#FBFAF8" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#141210" media="(prefers-color-scheme: dark)">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <style>
+    @font-face { font-family: "Geist"; font-style: normal; font-weight: 100 900; font-display: swap; src: url("/fonts/geist-latin.woff2") format("woff2"); }
+    @font-face { font-family: "Geist Mono"; font-style: normal; font-weight: 100 900; font-display: swap; src: url("/fonts/geist-mono-latin.woff2") format("woff2"); }
+    :root {
+      --accent: #F26822;
+      --bg: #FBFAF8; --bg-alt: #F3EFEA; --fg: #1B1917; --fg-2: #4A4541; --muted: #6B655F; --card: #FFFFFF;
+      --line: #E8E3DD; --line-strong: #DDD8D2; --log-bg: #1B1917; --log-fg: #E9E4DE; --pill-bg: #FFF4E5;
+      color-scheme: light;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root:not([data-theme="light"]) {
+        --bg: #141210; --bg-alt: #1B1917; --fg: #ECE7E1; --fg-2: #C9C2BA; --muted: #9A938B; --card: #1E1B18;
+        --line: #2E2A26; --line-strong: #3A3531; --log-bg: #0E0D0C; --log-fg: #E9E4DE; --pill-bg: #3A2A14;
+        color-scheme: dark;
+      }
+    }
+    :root[data-theme="dark"] {
+      --bg: #141210; --bg-alt: #1B1917; --fg: #ECE7E1; --fg-2: #C9C2BA; --muted: #9A938B; --card: #1E1B18;
+      --line: #2E2A26; --line-strong: #3A3531; --log-bg: #0E0D0C; --log-fg: #E9E4DE; --pill-bg: #3A2A14;
+      color-scheme: dark;
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; background: var(--bg); color: var(--fg); font-family: "Geist", "Helvetica Neue", Helvetica, Arial, sans-serif; font-size: 17px; line-height: 1.55; -webkit-font-smoothing: antialiased; }
+    a { color: var(--fg); text-decoration: none; } a:hover { color: #C2410C; }
+    p { margin: 0; }
+    .mono { font-family: "Geist Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace; }
+    .wrap { max-width: 1120px; margin: 0 auto; padding-left: 32px; padding-right: 32px; }
+    .h1 { font-size: 44px; line-height: 1.1; letter-spacing: -0.02em; font-weight: 600; margin: 0; text-wrap: balance; }
+    .h3 { font-size: 20px; line-height: 1.3; font-weight: 600; margin: 0; }
+    .lead { font-size: 19px; line-height: 1.5; color: var(--fg-2); margin: 0; text-wrap: pretty; }
+    .muted { color: var(--muted); }
+    .btn { display: inline-flex; align-items: center; justify-content: center; height: 48px; padding: 0 22px; border-radius: 10px; font-weight: 600; font-size: 16px; white-space: nowrap; border: 0; cursor: pointer; font-family: inherit; }
+    .btn-primary { background: var(--accent); color: #FFFFFF; } .btn-primary:hover { background: #C2410C; color: #FFFFFF; }
+    .btn-secondary { background: var(--card); border: 1px solid var(--line-strong); color: var(--fg); }
+    .btn-secondary:hover { border-color: var(--muted); }
+    .btn[disabled] { opacity: 0.6; cursor: default; }
+    .btn-sm { height: 42px; padding: 0 18px; font-size: 15px; }
+    .card { background: var(--card); border: 1px solid var(--line); border-radius: 16px; padding: 28px; }
+    .rule { height: 1px; background: var(--line); }
+    .grid2 { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 32px; align-items: start; }
+    .col { display: flex; flex-direction: column; }
+    .row { display: flex; }
+    .section { padding-top: 64px; padding-bottom: 96px; }
+    .log { background: var(--log-bg); color: var(--log-fg); border-radius: 14px; padding: 18px 20px; font-size: 13.5px; line-height: 1.7; overflow-x: auto; white-space: pre-wrap; word-break: break-all; margin: 0; }
+    .pill { display: inline-flex; align-items: center; gap: 8px; background: var(--pill-bg); border: 1px solid var(--line); border-radius: 999px; padding: 6px 12px; font-size: 14px; width: fit-content; }
+    .pill::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--accent); }
+    .field { display: flex; flex-direction: column; gap: 6px; font-size: 14px; color: var(--muted); }
+    .field input, .field select { font: inherit; font-size: 16px; color: var(--fg); background: var(--bg); border: 1px solid var(--line-strong); border-radius: 10px; padding: 10px 12px; }
+    .status { font-size: 15px; color: var(--muted); min-height: 1.5em; }
+    .status.bad { color: #C2410C; }
+    .token-box { display: flex; gap: 10px; align-items: stretch; }
+    .token-box .log { flex: 1; }
+    .copy { display: inline-flex; align-items: center; justify-content: center; padding: 0 14px; border-radius: 10px; border: 1px solid var(--line-strong); background: var(--card); color: var(--fg); cursor: pointer; font: inherit; font-size: 14px; }
+    .hidden { display: none !important; }
+    .theme-btn { display: inline-flex; align-items: center; justify-content: center; width: 42px; height: 42px; border-radius: 10px; border: 1px solid var(--line-strong); background: var(--card); color: var(--fg); cursor: pointer; }
+    .theme-btn .sun { display: none; } .theme-btn .moon { display: block; }
+    :root[data-theme="dark"] .theme-btn .sun { display: block; } :root[data-theme="dark"] .theme-btn .moon { display: none; }
+    @media (prefers-color-scheme: dark) {
+      :root:not([data-theme="light"]) .theme-btn .sun { display: block; }
+      :root:not([data-theme="light"]) .theme-btn .moon { display: none; }
+    }
+    .navlinks { display: flex; gap: 28px; align-items: center; font-size: 15px; font-weight: 500; }
+    @media (max-width: 760px) {
+      .wrap { padding-left: 20px; padding-right: 20px; }
+      .h1 { font-size: 32px; }
+      .grid2 { grid-template-columns: 1fr; }
+      .navlinks { display: none; }
+      .section { padding-top: 40px; padding-bottom: 56px; }
+    }
+  </style>
+</head>
+<body>
+  <header class="wrap" style="display: flex; align-items: center; justify-content: space-between; height: 76px;">
+    <a href="/" style="display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 22px; letter-spacing: -0.02em;" aria-label="mnr home">
+      <svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true"><circle cx="16.5" cy="12" r="5.2" fill="var(--accent)"/><path d="M5.2 6.6 L11.9 10.1 M5.2 17.4 L11.9 13.9" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg>
+      <span>mnr</span>
+    </a>
+    <nav class="navlinks" aria-label="Sections">
+      <a href="/#how">How it works</a>
+      <a href="/#upstreams">Upstreams</a>
+      <a href="/#pricing">Pricing</a>
+      <a href="/docs/" style="font-weight: 600;">Docs</a>
+    </nav>
+    <div style="display: flex; align-items: center; gap: 10px;">
+      <a href="/docs/connect-wallets/" class="btn btn-secondary btn-sm">Connect a wallet</a>
+      <button class="theme-btn" id="theme-toggle" type="button" title="Switch light / dark" aria-label="Switch light / dark">
+        <svg class="sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+        <svg class="moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+      </button>
+    </div>
+  </header>
+  <div class="rule"></div>
+
+  <main class="wrap section">
+    <div class="col" style="gap: 16px; max-width: 720px; margin-bottom: 48px;">
+      <span class="pill">No account. No email. No request logs.</span>
+      <h1 class="h1">Get a token</h1>
+      <p class="lead">A token is the whole relationship. Free is one click. Pro is an XMR invoice: a subaddress, ten confirmations, done. Either way the token appears once, here, and goes straight into your wallet.</p>
+    </div>
+
+    <div class="grid2">
+      <!-- Free -->
+      <section class="card col" style="gap: 18px;" aria-labelledby="free-h">
+        <div class="col" style="gap: 6px;">
+          <h2 class="h3" id="free-h">Free</h2>
+          <p class="muted">500k work units a month, 5 requests per second, one sync stream at a time. Enough for a wallet you use.</p>
+        </div>
+        <button class="btn btn-primary" id="free-btn" type="button">Issue a Free token</button>
+        <div id="free-status" class="status"></div>
+        <div id="free-result" class="col hidden" style="gap: 12px;">
+          <div class="token-box">
+            <pre class="log mono" id="free-token"></pre>
+            <button class="copy" type="button" data-copy="free-token">Copy</button>
+          </div>
+          <p class="muted" style="font-size: 14px;">Shown once. Copy it now; there is no way to look it up later.</p>
+          <div class="col" style="gap: 6px; font-size: 14px;">
+            <span class="muted">Daemon address, path form:</span>
+            <pre class="log mono" id="free-addr"></pre>
+            <span class="muted">Or host <span class="mono">rpc.mnr.network:443</span>, username <span class="mono">mnr</span>, password: the token. <a href="/docs/connect-wallets/" style="text-decoration: underline;">Per-wallet steps</a>.</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Pro -->
+      <section class="card col" style="gap: 18px;" aria-labelledby="pro-h">
+        <div class="col" style="gap: 6px;">
+          <h2 class="h3" id="pro-h">Pro</h2>
+          <p class="muted">10M work units a month, 25 requests per second, three streams, two-upstream agreement on ring data. About nine dollars a month, in XMR.</p>
+        </div>
+        <div class="row" style="gap: 12px; flex-wrap: wrap;">
+          <label class="field" style="flex: 1; min-width: 120px;">Months
+            <select id="pro-months">
+              <option value="1">1</option><option value="3">3</option><option value="6">6</option><option value="12">12</option>
+            </select>
+          </label>
+          <label class="field" style="flex: 3; min-width: 220px;">Renew an existing Pro token (optional)
+            <input id="pro-renew" class="mono" type="text" placeholder="sub_…" autocomplete="off" spellcheck="false">
+          </label>
+        </div>
+        <button class="btn btn-primary" id="pro-btn" type="button">Create an invoice</button>
+        <div id="pro-status" class="status"></div>
+        <div id="pro-invoice" class="col hidden" style="gap: 12px;">
+          <div class="col" style="gap: 6px; font-size: 14px;">
+            <span class="muted">Send exactly</span>
+            <pre class="log mono" id="pro-amount"></pre>
+            <span class="muted">to this address (yours alone for this invoice):</span>
+            <div class="token-box">
+              <pre class="log mono" id="pro-address"></pre>
+              <button class="copy" type="button" data-copy="pro-address">Copy</button>
+            </div>
+            <a id="pro-uri" class="btn btn-secondary btn-sm" href="#" style="width: fit-content;">Open in a wallet</a>
+          </div>
+          <div class="col" style="gap: 4px; font-size: 14px;">
+            <span class="muted">Status: <strong id="pro-state">pending</strong> · confirmations: <span id="pro-conf">0</span> of 10 · expires in <span id="pro-expires">24 h</span></span>
+            <span class="muted">Keep this page open, or save the link: <a id="pro-link" href="#" class="mono" style="text-decoration: underline; word-break: break-all;"></a></span>
+          </div>
+          <div id="pro-result" class="col hidden" style="gap: 10px;">
+            <span class="muted" style="font-size: 14px;">Paid. Your Pro token:</span>
+            <div class="token-box">
+              <pre class="log mono" id="pro-token"></pre>
+              <button class="copy" type="button" data-copy="pro-token">Copy</button>
+            </div>
+            <p class="muted" style="font-size: 14px;">Bookmark the invoice link above: it shows this token again; nothing else does.</p>
+          </div>
+          <div id="pro-renewed" class="col hidden" style="gap: 6px;">
+            <span class="muted" style="font-size: 14px;">Paid. The token you entered now runs longer. Nothing to copy.</span>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <p class="muted" style="margin-top: 32px; font-size: 15px; max-width: 720px;">What happens to your token, your payment and your address is written down in the <a href="/docs/tokens/" style="text-decoration: underline;">tokens and billing</a> page. Short version: the relay keeps a hash of the token and its monthly usage, the payment wallet is view-only, and there is no request log.</p>
+  </main>
+
+  <script>
+    (function () {
+      var btn = document.getElementById('theme-toggle');
+      var root = document.documentElement;
+      try { var saved = localStorage.getItem('mnr-theme'); if (saved === 'dark' || saved === 'light') root.setAttribute('data-theme', saved); } catch (e) {}
+      function current() {
+        var t = root.getAttribute('data-theme');
+        if (t) return t;
+        return window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+      }
+      btn.addEventListener('click', function () {
+        var next = current() === 'dark' ? 'light' : 'dark';
+        root.setAttribute('data-theme', next);
+        try { localStorage.setItem('mnr-theme', next); } catch (e) {}
+      });
+    })();
+
+    (function () {
+      var API = 'https://rpc.mnr.network/v1';
+      var $ = function (id) { return document.getElementById(id); };
+      function show(el) { el.classList.remove('hidden'); }
+      function hide(el) { el.classList.add('hidden'); }
+      function status(el, text, bad) { el.textContent = text; el.className = 'status' + (bad ? ' bad' : ''); }
+
+      document.querySelectorAll('.copy').forEach(function (b) {
+        b.addEventListener('click', function () {
+          var t = $(b.getAttribute('data-copy')).textContent;
+          if (navigator.clipboard) navigator.clipboard.writeText(t).then(function () { b.textContent = 'Copied'; setTimeout(function () { b.textContent = 'Copy'; }, 1500); });
+        });
+      });
+
+      async function call(path, opts) {
+        var r = await fetch(API + path, Object.assign({ mode: 'cors', cache: 'no-store' }, opts || {}));
+        var body = null;
+        try { body = await r.json(); } catch (e) {}
+        if (!r.ok) throw new Error((body && body.error) || ('HTTP ' + r.status));
+        return body;
+      }
+
+      // Free
+      $('free-btn').addEventListener('click', async function () {
+        var b = $('free-btn');
+        b.disabled = true;
+        status($('free-status'), 'Issuing…');
+        try {
+          var v = await call('/tokens/free', { method: 'POST' });
+          $('free-token').textContent = v.token;
+          $('free-addr').textContent = 'https://rpc.mnr.network/v1/' + v.token;
+          show($('free-result'));
+          status($('free-status'), '');
+        } catch (e) {
+          status($('free-status'), e.message === 'Failed to fetch' ? 'The relay is not reachable from here. Tokens are issued from the public beta onwards.' : e.message, true);
+          b.disabled = false;
+        }
+      });
+
+      // Pro
+      var poll = null;
+      function renderInvoice(v) {
+        $('pro-amount').textContent = v.amount_xmr + ' XMR';
+        $('pro-address').textContent = v.address;
+        $('pro-uri').href = v.uri;
+        $('pro-state').textContent = v.status;
+        $('pro-conf').textContent = v.confirmations;
+        var left = Math.max(0, v.expires_at * 1000 - Date.now());
+        $('pro-expires').textContent = left > 3600e3 ? Math.round(left / 3600e3) + ' h' : Math.round(left / 60e3) + ' min';
+        var link = location.origin + location.pathname + '?invoice=' + v.invoice_id;
+        $('pro-link').textContent = link; $('pro-link').href = link;
+        show($('pro-invoice'));
+        if (v.status === 'paid') {
+          if (v.token) { $('pro-token').textContent = v.token; show($('pro-result')); } else { show($('pro-renewed')); }
+          if (poll) { clearInterval(poll); poll = null; }
+        } else if (v.status === 'expired') {
+          status($('pro-status'), 'This invoice expired unpaid. Create a new one.', true);
+          if (poll) { clearInterval(poll); poll = null; }
+        }
+      }
+      async function refresh(id) {
+        try { renderInvoice(await call('/invoices/' + id)); } catch (e) { status($('pro-status'), e.message, true); }
+      }
+      function watch(id) {
+        if (poll) clearInterval(poll);
+        poll = setInterval(function () { refresh(id); }, 20000);
+      }
+      $('pro-btn').addEventListener('click', async function () {
+        var b = $('pro-btn');
+        b.disabled = true;
+        status($('pro-status'), 'Creating the invoice…');
+        var body = { months: parseInt($('pro-months').value, 10) };
+        var renew = $('pro-renew').value.trim();
+        if (renew) body.renew = renew;
+        try {
+          var v = await call('/invoices', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify(body) });
+          renderInvoice(v);
+          status($('pro-status'), '');
+          watch(v.invoice_id);
+        } catch (e) {
+          status($('pro-status'), e.message === 'Failed to fetch' ? 'The relay is not reachable from here. Invoices open with the public beta.' : e.message, true);
+        }
+        b.disabled = false;
+      });
+      var q = new URLSearchParams(location.search).get('invoice');
+      if (q && /^[0-9a-f]{32}$/.test(q)) { refresh(q); watch(q); }
+    })();
+  </script>
+</body>
+</html>

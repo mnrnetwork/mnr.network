@@ -3,19 +3,19 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Documentation — mnr</title>
-  <meta name="description" content="How mnr verifies Monero RPC, the rules it follows toward public nodes, the per-method policy, and the roadmap.">
-  <link rel="canonical" href="https://mnr.network/docs/">
+  <title>Tokens and billing — mnr</title>
+  <meta name="description" content="Free and Pro tiers, work units, getting a token, paying a Pro invoice in XMR, renewing, rotating, and exactly what the relay knows about you.">
+  <link rel="canonical" href="https://mnr.network/docs/tokens/">
   <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
-  <meta property="og:title" content="Documentation — mnr">
-  <meta property="og:description" content="How mnr verifies Monero RPC, the rules it follows toward public nodes, the per-method policy, and the roadmap.">
+  <meta property="og:title" content="Tokens and billing — mnr">
+  <meta property="og:description" content="Free and Pro tiers, work units, getting a token, paying a Pro invoice in XMR, renewing, rotating, and exactly what the relay knows about you.">
   <meta property="og:type" content="article">
-  <meta property="og:url" content="https://mnr.network/docs/">
+  <meta property="og:url" content="https://mnr.network/docs/tokens/">
   <meta property="og:site_name" content="mnr">
   <meta property="og:image" content="https://mnr.network/og.png">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Documentation — mnr">
-  <meta name="twitter:description" content="How mnr verifies Monero RPC, the rules it follows toward public nodes, the per-method policy, and the roadmap.">
+  <meta name="twitter:title" content="Tokens and billing — mnr">
+  <meta name="twitter:description" content="Free and Pro tiers, work units, getting a token, paying a Pro invoice in XMR, renewing, rotating, and exactly what the relay knows about you.">
   <meta name="twitter:image" content="https://mnr.network/og.png">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
   <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png">
@@ -29,10 +29,10 @@
   "@graph": [
     {
       "@type": "WebPage",
-      "@id": "https://mnr.network/docs/#webpage",
-      "url": "https://mnr.network/docs/",
-      "name": "Documentation",
-      "description": "How mnr verifies Monero RPC, the rules it follows toward public nodes, the per-method policy, and the roadmap.",
+      "@id": "https://mnr.network/docs/tokens/#webpage",
+      "url": "https://mnr.network/docs/tokens/",
+      "name": "Tokens and billing",
+      "description": "Free and Pro tiers, work units, getting a token, paying a Pro invoice in XMR, renewing, rotating, and exactly what the relay knows about you.",
       "isPartOf": {
         "@type": "WebSite",
         "@id": "https://mnr.network/#website",
@@ -46,7 +46,7 @@
     },
     {
       "@type": "BreadcrumbList",
-      "@id": "https://mnr.network/docs/#breadcrumbs",
+      "@id": "https://mnr.network/docs/tokens/#breadcrumbs",
       "itemListElement": [
         {
           "@type": "ListItem",
@@ -59,6 +59,12 @@
           "position": 2,
           "name": "docs",
           "item": "https://mnr.network/docs/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Tokens & billing",
+          "item": "https://mnr.network/docs/tokens/"
         }
       ]
     }
@@ -319,7 +325,7 @@
     <div class="wrap">
       
     <nav class="docs-tabs" aria-label="Documentation sections">
-      <a href="/docs/" class="doc-tab active">
+      <a href="/docs/" class="doc-tab ">
           <span>Overview</span>
           
         </a>
@@ -331,7 +337,7 @@
           <span>Connect a wallet</span>
           <span class="tab-badge">Guide</span>
         </a>
-      <a href="/docs/tokens/" class="doc-tab ">
+      <a href="/docs/tokens/" class="doc-tab active">
           <span>Tokens & billing</span>
           <span class="tab-badge">Guide</span>
         </a>
@@ -366,78 +372,70 @@
       <a href="/">mnr</a>
       <span>/</span>
       <a href="/docs/">docs</a>
-      
+      <span>/</span><span>tokens</span>
     </div>
 
     <article class="prose">
-      
-    <h1 style="font-size: 42px; margin-bottom: 12px;">mnr Documentation</h1>
-    <p style="font-size: 19px; color: var(--fg-2); margin-bottom: 36px;">
-      What the verified proxy checks, the rules it follows toward the public nodes it uses, and where it is going.
-    </p>
+      <h1>Tokens and billing</h1>
+<p>A token is the whole relationship. There is no account, no email, no name. The relay stores a hash of the token and how many work units it used this month, and nothing else about you.</p>
+<h2 id="two-tiers">Two tiers</h2>
+<div class="table-wrap"><table class="doc-table">
+<thead>
+<tr>
+<th></th>
+<th>Free</th>
+<th>Pro</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Price</td>
+<td>$0</td>
+<td>about $9 a month, paid in XMR</td>
+</tr>
+<tr>
+<td>Allowance</td>
+<td>500k work units per month</td>
+<td>10M work units per month</td>
+</tr>
+<tr>
+<td>Burst</td>
+<td>5 requests per second</td>
+<td>25 requests per second</td>
+</tr>
+<tr>
+<td><code>get_outs</code></td>
+<td>one upstream</td>
+<td>two upstreams must agree</td>
+</tr>
+<tr>
+<td>Streams (<code>get_blocks.bin</code>)</td>
+<td>1 at a time</td>
+<td>3 at a time</td>
+</tr>
+<tr>
+<td>Promise</td>
+<td>none</td>
+<td>none</td>
+</tr>
+</tbody></table></div>
+<p>A <strong>work unit</strong> is one light request, or 20 per megabyte of a <code>get_blocks.bin</code> sync stream. A wallet that syncs from scratch spends a few thousand; a wallet that is kept open spends a few hundred a day. Cached answers cost the same as fresh ones.</p>
+<p>Neither tier promises uptime. The promise is narrower and printed on every response: we tell you what we verified.</p>
+<h2 id="getting-a-free-token">Getting a Free token</h2>
+<p>One click on the <a href="/get-token/">token page</a>. The token appears once; copy it into your wallet. Three per hour per client, so make one and keep it.</p>
+<h2 id="buying-a-pro-token">Buying a Pro token</h2>
+<p>On the <a href="/get-token/">token page</a>, choose how many months and you get an invoice: a Monero address that is yours alone for that invoice, an amount, and 24 hours to pay. Send the amount from any wallet. After ten confirmations the page shows your Pro token. Keep the invoice link until the token is in your wallet: the invoice id is the only way to see the token again.</p>
+<p>Pay a little more and the difference is a tip. Pay less and the invoice waits for the rest until it expires.</p>
+<h2 id="renewing">Renewing</h2>
+<p>Give the token page an existing Pro token and it makes a renewal invoice to the same address as before. Payment extends the token&#39;s validity from where it currently ends, so renewing early loses nothing. An expired Pro token keeps its identity: renew it and it works again.</p>
+<h2 id="rotating-a-token">Rotating a token</h2>
+<p>If a token may have leaked, rotate it:</p>
+<pre><code>curl -X POST https://rpc.mnr.network/v1/&lt;token&gt;/rotate
+</code></pre>
+<p>The answer carries a new token. The old one keeps working for 24 hours so you can switch wallets without a gap. A rotated purchase token cannot be recovered from its invoice any more, so update the wallet first.</p>
+<h2 id="what-the-relay-knows">What the relay knows</h2>
+<p>For a Free token: its hash, when it was made, its usage this month. For a Pro token: the same, plus the invoice that paid for it (an address of ours, an amount, when). Not your address on the internet: token issuance is throttled with a key that is a hash of it with a random key that exists only while the relay runs. Not your Monero address: the wallet that watches for payment is view-only and sees only what arrives at its own subaddresses. Not your requests: there is no request log, only aggregate counters.</p>
+<p>The full rules are in the <a href="https://github.com/mnrnetwork/mnr/blob/main/spec/storefront.md">storefront spec</a>.</p>
 
-    <div class="hub-grid">
-      <a href="/docs/how-it-works/" class="hub-card">
-        <div style="display: flex; align-items: center; justify-content: space-between;">
-          <h3>How mnr works</h3>
-          <span class="tab-badge">Live</span>
-        </div>
-        <p>The seven rules toward public nodes, the upstream pool and quorum tip, what is verified and what is only annotated, and how to connect a stock wallet.</p>
-        <div class="hub-card-meta">
-          <span>Read how it works &rarr;</span>
-        </div>
-      </a>
-
-      <a href="/docs/method-policy/" class="hub-card">
-        <div style="display: flex; align-items: center; justify-content: space-between;">
-          <h3>Method Policy & Verification</h3>
-          <span class="tab-badge">Generated</span>
-        </div>
-        <p>Every Monero daemon method the relay serves, with its verification rule, cache bound, quorum and timeout. Generated from the relay's source code.</p>
-        <div class="hub-card-meta">
-          <span>Read the policy table &rarr;</span>
-        </div>
-      </a>
-
-      <a href="/docs/roadmap/" class="hub-card">
-        <div style="display: flex; align-items: center; justify-content: space-between;">
-          <h3>Roadmap</h3>
-          <span class="tab-badge">Stages 0&ndash;2</span>
-        </div>
-        <p>The verified proxy that is live today, the owned mesh with an SLA, and the permissionless operator network where node runners are paid in XMR for verified work.</p>
-        <div class="hub-card-meta">
-          <span>Read the roadmap &rarr;</span>
-        </div>
-      </a>
-
-      <a href="https://github.com/mnrnetwork/mnr" class="hub-card" target="_blank" rel="noopener noreferrer">
-        <div style="display: flex; align-items: center; justify-content: space-between;">
-          <h3>Source code</h3>
-          <span class="tab-badge">AGPL-3.0</span>
-        </div>
-        <p>The relay, the core verification crate with its fixtures and fuzz targets, and the full engineering plans behind each stage.</p>
-        <div class="hub-card-meta">
-          <span>github.com/mnrnetwork/mnr &rarr;</span>
-        </div>
-      </a>
-    </div>
-
-    <h2>Engineering notes</h2>
-    <p>The plans behind each stage, rendered from the code repository with schedules and internal decisions left out. Long, specific, and the place to look when the short pages above are not enough.</p>
-    <ul>
-      <li><a href="/docs/stage0-mvp/">Stage 0: verified proxy over public nodes</a> &mdash; rules toward public nodes, upstream pool and quorum tip, what is verified, method policy, caching, auth and limits, architecture, risks.</li>
-      <li><a href="/docs/stage1-gateway/">Stage 1: gateway architecture</a> &mdash; owned nodes on independent providers, the request path specification, node infrastructure, XMR billing and provisioning, testing and acceptance.</li>
-      <li><a href="/docs/stage2-network/">Stage 2: network protocol</a> &mdash; operators, relayers and clients, trust boundaries, the protocol specification, the fault log and settlement, component design.</li>
-    </ul>
-
-    <h2>Reading order</h2>
-    <ul>
-      <li><strong>Using mnr:</strong> <a href="/docs/how-it-works/">How mnr works</a> covers what you get, what is verified, and how to point a wallet at it.</li>
-      <li><strong>Running a public node:</strong> the <a href="/docs/how-it-works/#rules-toward-public-nodes">rules toward public nodes</a> say exactly how mnr treats your node and how to opt out.</li>
-      <li><strong>Building on it:</strong> the <a href="/docs/method-policy/">method policy</a> is the per-method contract: what is cached, for how long, and what <code>Mnr-Verify</code> will say.</li>
-      <li><strong>Where it goes:</strong> the <a href="/docs/roadmap/">roadmap</a> describes the two later stages and links to the full plans in the repository.</li>
-    </ul>
-  
     </article>
   </main>
 
