@@ -1,0 +1,8 @@
+{
+  "artboards": [
+    { "file": "Main.dc.html", "x": 0, "y": 0, "w": 1440, "h": 4700, "title": "mnr.network — light", "print": "flow" },
+    { "file": "Dark.dc.html", "x": 1560, "y": 0, "w": 1440, "h": 4700, "title": "mnr.network — dark", "print": "flow" },
+    { "file": "Mobile.dc.html", "x": 3120, "y": 0, "w": 390, "h": 7400, "title": "mnr.network — phone, dark", "print": "flow" }
+  ],
+  "launch": { "view": "canvas" }
+}

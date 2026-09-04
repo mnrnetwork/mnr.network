@@ -1,0 +1,14 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "mnr-network",
+  "compatibility_date": "2026-09-01",
+  "assets": {
+    "directory": "./public",
+    "html_handling": "auto-trailing-slash",
+    "not_found_handling": "404-page"
+  },
+  "routes": [
+    { "pattern": "mnr.network", "custom_domain": true },
+    { "pattern": "www.mnr.network", "custom_domain": true }
+  ]
+}

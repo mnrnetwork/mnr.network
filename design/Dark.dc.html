@@ -1,0 +1,346 @@
+<script data-dc-script data-props='{"accent":{"editor":"color","default":"#F26822","options":["#F26822","#FF6600","#C2410C","#1B1917"],"section":"Brand"},"theme":{"editor":"enum","options":["light","dark","auto"],"default":"dark","section":"Theme"},"$preview":{"width":1440,"height":4700}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const base = this.props.theme ?? 'light';
+    const theme = (this.state && this.state.override) || base;
+    const isDark = theme === 'dark';
+    return {
+      accent: this.props.accent ?? '#F26822',
+      themeClass: theme,
+      isDark: isDark,
+      isLight: !isDark,
+      toggleTheme: () => this.setState({ override: isDark ? 'light' : 'dark' })
+    };
+  }
+}
+</script><!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500&display=swap">
+  <style>
+    :root { --bg: #FBFAF8; --bg-alt: #F3EFEA; --fg: #1B1917; --fg-2: #4A4541; --muted: #6B655F; --card: #FFFFFF; --line: #E8E3DD; --line-strong: #DDD8D2; --log-bg: #1B1917; --log-fg: #E9E4DE; --inverse-bg: #1B1917; --inverse-fg: #E9E4DE; --inverse-strong: #FFFFFF; --inverse-muted: #B8B1A9; --inverse-line: #3A3531; --placeholder-bg: #FFF4E5; }
+    :root:has(.site.dark) { --bg: #141210; --bg-alt: #1B1917; --fg: #ECE7E1; --fg-2: #C9C2BA; --muted: #9A938B; --card: #1E1B18; --line: #2E2A26; --line-strong: #3A3531; --log-bg: #0E0D0C; --log-fg: #E9E4DE; --inverse-bg: #221F1B; --inverse-fg: #E9E4DE; --inverse-strong: #FFFFFF; --inverse-muted: #B8B1A9; --inverse-line: #3F3A35; --placeholder-bg: #3A2A14; }
+    @media (prefers-color-scheme: dark) {
+      :root:has(.site.auto) { --bg: #141210; --bg-alt: #1B1917; --fg: #ECE7E1; --fg-2: #C9C2BA; --muted: #9A938B; --card: #1E1B18; --line: #2E2A26; --line-strong: #3A3531; --log-bg: #0E0D0C; --log-fg: #E9E4DE; --inverse-bg: #221F1B; --inverse-fg: #E9E4DE; --inverse-strong: #FFFFFF; --inverse-muted: #B8B1A9; --inverse-line: #3F3A35; --placeholder-bg: #3A2A14; }
+    }
+    body { margin: 0; background: var(--bg); color: var(--fg); font-family: "Geist", "Helvetica Neue", Helvetica, Arial, sans-serif; font-size: 17px; line-height: 1.55; -webkit-font-smoothing: antialiased; }
+    a { color: var(--fg); text-decoration: none; } a:hover { color: #C2410C; }
+    .mono { font-family: "Geist Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace; }
+    .wrap { max-width: 1120px; margin: 0 auto; padding: 0 32px; }
+    .h1 { font-size: 64px; line-height: 1.05; letter-spacing: -0.02em; font-weight: 600; margin: 0; text-wrap: balance; }
+    .h2 { font-size: 36px; line-height: 1.15; letter-spacing: -0.015em; font-weight: 600; margin: 0; text-wrap: balance; }
+    .h3 { font-size: 20px; line-height: 1.3; font-weight: 600; margin: 0; }
+    .lead { font-size: 21px; line-height: 1.5; color: var(--fg-2); margin: 0; text-wrap: pretty; }
+    .muted { color: var(--muted); }
+    .btn { display: inline-flex; align-items: center; justify-content: center; height: 48px; padding: 0 22px; border-radius: 10px; font-weight: 600; font-size: 16px; white-space: nowrap; }
+    .btn-secondary { background: var(--card); border: 1px solid var(--line-strong); color: var(--fg); }
+    .btn-secondary:hover { border-color: var(--muted); color: var(--fg); }
+    .card { background: var(--card); border: 1px solid var(--line); border-radius: 16px; padding: 28px; }
+    .rule { height: 1px; background: var(--line); }
+    .grid3 { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; }
+    .grid2 { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 48px; align-items: start; }
+    .navlinks { display: flex; gap: 28px; align-items: center; font-size: 15px; font-weight: 500; }
+    .log { background: var(--log-bg); color: var(--log-fg); border-radius: 14px; padding: 22px 24px; font-size: 13.5px; line-height: 1.7; overflow-x: auto; white-space: pre; }
+    .ok { color: #7CC48A; } .warn { color: #F2A65A; } .bad { color: #F27B7B; } .dim { color: #8C857E; }
+    table { border-collapse: collapse; width: 100%; font-size: 16px; }
+    th, td { text-align: left; padding: 14px 16px; border-bottom: 1px solid var(--line); vertical-align: top; }
+    th { font-weight: 600; font-size: 14px; letter-spacing: 0.02em; text-transform: uppercase; color: var(--muted); }
+    .step-num { font-family: "Geist Mono", ui-monospace, monospace; font-size: 14px; font-weight: 500; letter-spacing: 0.06em; }
+    .section { padding: 96px 0; }
+    .placeholder { background: var(--placeholder-bg); border: 1px dashed #F2A65A; border-radius: 6px; padding: 0 6px; font-family: "Geist Mono", ui-monospace, monospace; font-size: 0.9em; }
+    @media (max-width: 720px) {
+      .wrap { padding: 0 20px; }
+      .h1 { font-size: 40px; } .h2 { font-size: 28px; } .lead { font-size: 18px; }
+      .grid3, .grid2 { grid-template-columns: repeat(1, minmax(0, 1fr)); gap: 20px; }
+      .navlinks { display: none; }
+      .section { padding: 64px 0; }
+      .hero-actions { flex-direction: column; align-items: stretch; }
+      table { font-size: 15px; } th, td { padding: 12px 10px; }
+    }
+  </style>
+</helmet>
+
+<div class="site {{themeClass}}" style="background: var(--bg); color: var(--fg); min-height: 100vh;">
+
+  <!-- Nav -->
+  <div class="wrap" style="display: flex; align-items: center; justify-content: space-between; height: 76px;">
+    <a href="#" style="display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 22px; letter-spacing: -0.02em;">
+      <span style="display: inline-block; width: 12px; height: 12px; border-radius: 50%; background: {{accent}};"></span>
+      <span>mnr</span>
+    </a>
+    <div class="navlinks">
+      <a href="#how">How it works</a>
+      <a href="#upstreams">Upstreams</a>
+      <a href="#pricing">Pricing</a>
+      <a href="#node">Run a node</a>
+      <a href="#" style="font-family: 'Geist Mono', ui-monospace, monospace; font-weight: 500;">Docs</a>
+    </div>
+    <div style="display: flex; align-items: center; gap: 12px;">
+      <button onClick="{{ toggleTheme }}" title="Switch light / dark" style="display: inline-flex; align-items: center; justify-content: center; width: 42px; height: 42px; border-radius: 10px; border: 1px solid var(--line-strong); background: var(--card); color: var(--fg); cursor: pointer; padding: 0;">
+        <sc-if value="{{ isDark }}" hint-placeholder-val="{{ false }}">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"></path></svg>
+        </sc-if>
+        <sc-if value="{{ isLight }}" hint-placeholder-val="{{ true }}">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"></path></svg>
+        </sc-if>
+      </button>
+      <a href="#" class="btn" style="background: {{accent}}; color: #FFFFFF; height: 42px; padding: 0 18px; font-size: 15px;">Get a free token</a>
+    </div>
+  </div>
+  <div class="rule"></div>
+
+  <!-- Hero -->
+  <div class="wrap section" style="padding-top: 104px; padding-bottom: 88px;">
+    <div style="display: flex; flex-direction: column; gap: 28px; max-width: 820px;">
+      <p class="step-num" style="margin: 0; color: {{accent}};">AN RPC NETWORK FOR MONERO</p>
+      <h1 class="h1">One address for your wallet. Every answer checked.</h1>
+      <p class="lead">Point any Monero wallet at mnr. We forward your requests to public nodes and to our own, verify each block, transaction and header against its hash and against several nodes, and tell you exactly what we could not check.</p>
+      <div class="hero-actions" style="display: flex; gap: 12px; align-items: center; flex-wrap: wrap;">
+        <a href="#" class="btn" style="background: {{accent}}; color: #FFFFFF;">Get a free token</a>
+        <a href="#how" class="btn btn-secondary">How it works</a>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 8px; margin-top: 8px;">
+        <div class="mono" style="display: inline-flex; align-items: center; gap: 12px; background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 12px 16px; font-size: 14px; width: fit-content; max-width: 100%; overflow-x: auto;">
+          <span class="muted">daemon</span>
+          <span>https://rpc.mnr.network/v1/&lt;token&gt;/json_rpc</span>
+        </div>
+        <p class="muted" style="margin: 0; font-size: 14px;">Also reachable over Tor at <span class="placeholder">[ONION ADDRESS]</span>. Works with the CLI, GUI, Feather, Cake and Monerujo.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Pillars -->
+  <div class="wrap" style="padding-bottom: 96px;">
+    <div class="grid3">
+      <div class="card" style="display: flex; flex-direction: column; gap: 14px;">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v5c0 4.5-3 8.5-7 10-4-1.5-7-5.5-7-10V6l7-3z"></path><path d="M9 12l2 2 4-4"></path></svg>
+        <h3 class="h3">Verified, not trusted</h3>
+        <p style="margin: 0;" class="muted">A block's contents hash to its block hash. A transaction hashes to its txid. Headers chain to the tip. We check all of it before we answer, and compare consensus state across several nodes.</p>
+      </div>
+      <div class="card" style="display: flex; flex-direction: column; gap: 14px;">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3.5-6 10-6 10 6 10 6-3.5 6-10 6S2 12 2 12z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+        <h3 class="h3">Nothing hidden</h3>
+        <p style="margin: 0;" class="muted">Every upstream node we use is listed, with our request rate to it and every wrong answer we caught. Most of these nodes are not ours. We say so.</p>
+      </div>
+      <div class="card" style="display: flex; flex-direction: column; gap: 14px;">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="12" r="4"></circle><path d="M12 12h9M18 12v3M21 12v2"></path></svg>
+        <h3 class="h3">No account</h3>
+        <p style="margin: 0;" class="muted">A token is the whole relationship. Free, or paid in XMR. No email, no KYC, and no request logs on our side.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- How it works -->
+  <div id="how" style="background: var(--bg-alt);">
+    <div class="wrap section">
+      <div class="grid2">
+        <div style="display: flex; flex-direction: column; gap: 36px;">
+          <h2 class="h2">How an answer gets to you</h2>
+          <div style="display: flex; flex-direction: column; gap: 28px;">
+            <div style="display: flex; gap: 20px;">
+              <span class="step-num" style="color: {{accent}}; padding-top: 4px;">01</span>
+              <div style="display: flex; flex-direction: column; gap: 6px;">
+                <h3 class="h3">Your wallet asks</h3>
+                <p class="muted" style="margin: 0;">A normal daemon RPC call arrives with your token in the path. We never log the path or your address.</p>
+              </div>
+            </div>
+            <div style="display: flex; gap: 20px;">
+              <span class="step-num" style="color: {{accent}}; padding-top: 4px;">02</span>
+              <div style="display: flex; flex-direction: column; gap: 6px;">
+                <h3 class="h3">We ask several nodes</h3>
+                <p class="muted" style="margin: 0;">Reads go to the fastest healthy node on the agreed chain tip. Transactions are broadcast to every healthy node at once.</p>
+              </div>
+            </div>
+            <div style="display: flex; gap: 20px;">
+              <span class="step-num" style="color: {{accent}}; padding-top: 4px;">03</span>
+              <div style="display: flex; flex-direction: column; gap: 6px;">
+                <h3 class="h3">We check, then answer</h3>
+                <p class="muted" style="margin: 0;">Hashes are recomputed, headers linked, consensus state compared. What we could verify is marked; what we could not is marked too.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 12px;">
+          <div class="log mono"><span class="dim">get_block_header_by_height 3401220</span>
+<span class="ok">✓</span> hash recomputed, matches chain · 5/5 upstreams agree
+<span class="ok">✓</span> cached (30d, below tip−10)
+
+<span class="dim">get_transactions [2 txids]</span>
+<span class="ok">✓</span> 2/2 txid hashes match
+<span class="warn">·</span> 1 in mempool via upstream #4 — unverifiable, not cached
+
+<span class="dim">send_raw_transaction</span>
+<span class="ok">✓</span> relayed 6/7 upstreams
+
+<span class="dim">upstream #2 · header 3401197</span>
+<span class="bad">✗</span> hash ≠ chain — ejected 24h, logged publicly</div>
+          <p class="muted" style="margin: 0; font-size: 13px;">Sample output. The real log for every upstream is on the upstreams page.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Disclosure / upstreams -->
+  <div id="upstreams" class="wrap section">
+    <div class="grid2">
+      <div style="display: flex; flex-direction: column; gap: 20px;">
+        <h2 class="h2">What mnr is, plainly</h2>
+        <p style="margin: 0; font-size: 18px; line-height: 1.6;">mnr is a verified proxy. Your wallet's requests are forwarded to public Monero nodes run by community members, and to our own public node. We check every block, transaction and header we return against its hash and against several nodes, so you get a better answer than any single node gives — but the nodes are not ours, and we make no uptime promise.</p>
+        <p style="margin: 0; font-size: 18px; line-height: 1.6;">We cap our traffic to each public node, identify ourselves to operators, honour opt-outs, and publish the full upstream list. If you need nodes we run ourselves, with an SLA, that is a separate paid service coming later.</p>
+      </div>
+      <div class="card" style="display: flex; flex-direction: column; gap: 0; padding: 8px 28px;">
+        <div style="display: flex; gap: 16px; padding: 18px 0; border-bottom: 1px solid var(--line);">
+          <span class="step-num muted" style="padding-top: 3px;">CAP</span>
+          <p style="margin: 0;">At most 5 requests per second and 2 wallet-sync streams to any public node. Overflow goes to our own node.</p>
+        </div>
+        <div style="display: flex; gap: 16px; padding: 18px 0; border-bottom: 1px solid var(--line);">
+          <span class="step-num muted" style="padding-top: 3px;">ID</span>
+          <p style="margin: 0;">Every upstream request identifies itself: <span class="mono" style="font-size: 14px;">mnr-relay/0.x (+https://mnr.network/upstreams)</span></p>
+        </div>
+        <div style="display: flex; gap: 16px; padding: 18px 0; border-bottom: 1px solid var(--line);">
+          <span class="step-num muted" style="padding-top: 3px;">OUT</span>
+          <p style="margin: 0;">Node operators can opt out at any time, by message or with a <span class="mono" style="font-size: 14px;">/.well-known/mnr-optout</span> file. Removal within 24 hours, listed publicly.</p>
+        </div>
+        <div style="display: flex; gap: 16px; padding: 18px 0;">
+          <span class="step-num muted" style="padding-top: 3px;">OWN</span>
+          <p style="margin: 0;">We run a full public node ourselves, listed like any other, and it carries the heaviest traffic.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Start using -->
+  <div style="background: var(--bg-alt);">
+    <div class="wrap section">
+      <div style="display: flex; flex-direction: column; gap: 40px;">
+        <h2 class="h2">Start in two minutes</h2>
+        <div class="grid3">
+          <div style="display: flex; flex-direction: column; gap: 12px;">
+            <span class="step-num" style="color: {{accent}};">01</span>
+            <h3 class="h3">Get a token</h3>
+            <p class="muted" style="margin: 0;">Free tokens are issued instantly on this site. Pro tokens are paid with an XMR invoice; a subaddress, ten confirmations, done.</p>
+          </div>
+          <div style="display: flex; flex-direction: column; gap: 12px;">
+            <span class="step-num" style="color: {{accent}};">02</span>
+            <h3 class="h3">Point your wallet at it</h3>
+            <p class="muted" style="margin: 0;">Set the daemon address in your wallet, or on the command line:</p>
+            <div class="log mono" style="padding: 14px 16px; font-size: 13px;">monero-wallet-cli \
+  --daemon-address rpc.mnr.network:443 \
+  --daemon-login mnr:&lt;token&gt;</div>
+          </div>
+          <div style="display: flex; flex-direction: column; gap: 12px;">
+            <span class="step-num" style="color: {{accent}};">03</span>
+            <h3 class="h3">See what was checked</h3>
+            <p class="muted" style="margin: 0;">Every response carries <span class="mono" style="font-size: 14px;">Mnr-Verify</span> and <span class="mono" style="font-size: 14px;">Mnr-Relayed</span> headers, and the upstreams page shows the running record.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Pricing -->
+  <div id="pricing" class="wrap section">
+    <div style="display: flex; flex-direction: column; gap: 32px;">
+      <div style="display: flex; flex-direction: column; gap: 12px; max-width: 720px;">
+        <h2 class="h2">Free, or nine dollars</h2>
+        <p class="lead">Neither comes with an uptime promise — we do not run most of the nodes. What you pay for is more room and a second check on the answers that matter most.</p>
+      </div>
+      <div class="card" style="padding: 0 8px;">
+        <table>
+          <thead>
+            <tr><th style="width: 36%;"></th><th>Free</th><th>Pro</th></tr>
+          </thead>
+          <tbody>
+            <tr><td style="font-weight: 600;">Price</td><td>$0</td><td>$9 / month, in XMR</td></tr>
+            <tr><td style="font-weight: 600;">Monthly allowance</td><td>500k requests</td><td>10M requests</td></tr>
+            <tr><td style="font-weight: 600;">Burst</td><td>5 per second</td><td>25 per second</td></tr>
+            <tr><td style="font-weight: 600;">Output lookups (<span class="mono" style="font-size: 14px;">get_outs</span>)</td><td>one node</td><td>two nodes must agree</td></tr>
+            <tr><td style="font-weight: 600;">Wallet sync streams</td><td>1 at a time</td><td>3 at a time, our node first</td></tr>
+            <tr><td style="font-weight: 600;">Uptime promise</td><td>none</td><td>none</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div style="display: flex; gap: 12px; align-items: center; flex-wrap: wrap;">
+        <a href="#" class="btn" style="background: {{accent}}; color: #FFFFFF;">Get a free token</a>
+        <a href="#" class="btn btn-secondary">Pay for Pro</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Roadmap / run a node -->
+  <div id="node" style="background: var(--inverse-bg); color: var(--inverse-fg);">
+    <div class="wrap section">
+      <div class="grid2">
+        <div style="display: flex; flex-direction: column; gap: 20px;">
+          <p class="step-num" style="margin: 0; color: {{accent}};">WHERE THIS IS GOING</p>
+          <h2 class="h2" style="color: var(--inverse-strong);">Today a proxy. Next, nodes we run. Then, nodes you run.</h2>
+          <p style="margin: 0; color: var(--inverse-muted); font-size: 18px; line-height: 1.6;">The verification layer you are using now is the same code that will front a mesh of nodes we operate with real uptime commitments, and after that an open network where anyone running <span class="mono" style="font-size: 15px;">monerod</span> can plug in and get paid in XMR for verified work. Same address for you the whole way.</p>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 14px;">
+          <div style="display: flex; gap: 16px; padding: 18px 20px; border: 1px solid var(--inverse-line); border-radius: 12px;">
+            <span class="step-num" style="color: #8C857E; padding-top: 3px;">NOW</span>
+            <div style="display: flex; flex-direction: column; gap: 4px;">
+              <span style="font-weight: 600; color: var(--inverse-strong);">Verified proxy</span>
+              <span style="color: var(--inverse-muted); font-size: 15px;">Public nodes plus one of ours. Free and Pro.</span>
+            </div>
+          </div>
+          <div style="display: flex; gap: 16px; padding: 18px 20px; border: 1px solid var(--inverse-line); border-radius: 12px;">
+            <span class="step-num" style="color: #8C857E; padding-top: 3px;">NEXT</span>
+            <div style="display: flex; flex-direction: column; gap: 4px;">
+              <span style="font-weight: 600; color: var(--inverse-strong);">Owned mesh with an SLA</span>
+              <span style="color: var(--inverse-muted); font-size: 15px;">Three nodes on three providers, for backends that need a number.</span>
+            </div>
+          </div>
+          <div style="display: flex; gap: 16px; padding: 18px 20px; border: 1px solid var(--inverse-line); border-radius: 12px;">
+            <span class="step-num" style="color: #8C857E; padding-top: 3px;">THEN</span>
+            <div style="display: flex; flex-direction: column; gap: 4px;">
+              <span style="font-weight: 600; color: var(--inverse-strong);">Run a node, get paid</span>
+              <span style="color: var(--inverse-muted); font-size: 15px;">Open operator network, weekly XMR payouts for verified work. <a href="#" style="color: var(--inverse-strong); text-decoration: underline;">node.mnr.network</a></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="wrap" style="padding: 56px 32px 48px;">
+    <div class="grid3" style="gap: 32px;">
+      <div style="display: flex; flex-direction: column; gap: 10px;">
+        <span style="font-weight: 700; font-size: 18px;">mnr</span>
+        <span class="muted" style="font-size: 15px;">an RPC network for Monero</span>
+        <span class="muted" style="font-size: 14px;">Open source, AGPL-3.0. <span class="placeholder">[REPO URL]</span></span>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 8px; font-size: 15px;">
+        <span style="font-weight: 600;">Resources</span>
+        <a href="#">Docs</a>
+        <a href="#">Upstreams and what we caught</a>
+        <a href="#">Wallet setup guides</a>
+        <a href="#">What we keep, what we don't</a>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 8px; font-size: 15px;">
+        <span style="font-weight: 600;">Reach out</span>
+        <span class="muted">Operators: opt out or say hello · <span class="placeholder">[CONTACT]</span></span>
+        <span class="muted">Community room · <span class="placeholder">[MATRIX ROOM]</span></span>
+        <span class="muted mono" style="font-size: 13px;">Tor: <span class="placeholder">[ONION ADDRESS]</span></span>
+      </div>
+    </div>
+  </div>
+
+</div>
+</x-dc>
+<script data-dc-script data-props='{"accent":{"editor":"color","default":"#F26822","options":["#F26822","#FF6600","#C2410C","#1B1917"],"section":"Brand"},"$preview":{"width":1440,"height":4700}}'>
+class Component extends DCLogic {
+  renderVals() {
+    return { accent: this.props.accent ?? '#F26822' };
+  }
+}
+</script>
+</body>
+</html>
