@@ -16,6 +16,22 @@ interface DocMeta {
   navTitle: string;
   badge?: string;
   description: string;
+  /** Engineering plans rendered from the code repo: which `## N.` sections
+   *  are public. Everything else (schedules, budgets, decisions) is dropped. */
+  plan?: PlanFilter;
+}
+
+interface PlanFilter {
+  /** Path in the code repo, relative to this repo's parent. */
+  upstream: string;
+  /** Section numbers to keep, by their `## N.` heading. */
+  keepSections: number[];
+  /** Intro shown above the rendered plan. */
+  lead: string;
+  /** Lines matching any of these are dropped (people, tenants, internal refs). */
+  dropLineIf?: RegExp[];
+  /** Phrase rewrites so the text reads for the public, not for the team. */
+  replace?: [RegExp, string][];
 }
 
 const DOCS: DocMeta[] = [
@@ -56,6 +72,63 @@ const DOCS: DocMeta[] = [
     badge: "Stages 0–2",
     description:
       "The three stages of mnr: the verified proxy that is live today, the owned mesh with an SLA, and the permissionless operator network paid in XMR.",
+  },
+  {
+    id: "stage0-mvp",
+    route: "/docs/stage0-mvp/",
+    sourceFile: "content/stage0-mvp-plan.md",
+    title: "Verified Monero RPC proxy over public nodes: rules, upstream pool, verification (Stage 0)",
+    navTitle: "Stage 0 plan",
+    badge: "Plan",
+    description:
+      "Engineering notes for the Stage 0 verified proxy: the seven rules toward public Monero nodes, upstream probing and quorum tip, block and transaction hash verification, method policy, caching, token auth, limits, and the single-binary architecture.",
+    plan: {
+      upstream: "../mnr/docs/stage0-mvp-plan.md",
+      keepSections: [1, 2, 3, 4, 5, 6, 8],
+      lead:
+        "The engineering notes behind Stage 0, the verified proxy that is live today. Rendered from the [plan in the code repository](https://github.com/mnrnetwork/mnr/blob/main/docs/stage0-mvp-plan.md) with the build schedule and internal decisions left out. For the short version, read [How mnr works](/docs/how-it-works/).",
+      dropLineIf: [/Ripley|KYC\.RIP/],
+      replace: [
+        [/Seed list curated by B from/g, "Seed list curated from"],
+        [/but B emails or messages every operator/g, "but we contact every operator"],
+        [/, and the gate to each is in §9\./g, "."],
+        [/\$9 is deliberately a supporter price\. It pays the two boxes at ~15 subscribers, and it tests the only question Stage 0 needs to answer: \*(.*?)\*/g, "$9 is deliberately a supporter price. It tests one question: *$1*"],
+      ],
+    },
+  },
+  {
+    id: "stage1-gateway",
+    route: "/docs/stage1-gateway/",
+    sourceFile: "content/stage1-gateway-development-plan.md",
+    title: "Monero RPC gateway architecture: quorum, caching, verification and XMR billing (Stage 1)",
+    navTitle: "Stage 1 plan",
+    badge: "Plan",
+    description:
+      "Engineering notes for the Stage 1 gateway: owned monerod nodes on independent providers, edge authentication with path tokens and Basic auth, rate limiting, per-method policy and cache safety, node infrastructure, and view-only wallet billing with XMR invoices.",
+    plan: {
+      upstream: "../mnr/docs/stage1-gateway-development-plan.md",
+      keepSections: [1, 2, 3, 4, 5, 8],
+      lead:
+        "The engineering notes behind Stage 1, the owned mesh with an SLA. Rendered from the [plan in the code repository](https://github.com/mnrnetwork/mnr/blob/main/docs/stage1-gateway-development-plan.md) with milestones, cost model and internal decisions left out. See the [roadmap](/docs/roadmap/) for where this sits.",
+      dropLineIf: [/Ripley|KYC\.RIP|dogfood/i],
+    },
+  },
+  {
+    id: "stage2-network",
+    route: "/docs/stage2-network/",
+    sourceFile: "content/stage2-network-protocol-architecture.md",
+    title: "mnr network protocol: monerod operators, relayers, fault log and XMR settlement (Stage 2)",
+    navTitle: "Stage 2 protocol",
+    badge: "Protocol",
+    description:
+      "Protocol and architecture notes for the Stage 2 operator network: roles and trust boundaries, session auth and metering, verification and agreement rules, the cryptographic fault log, the operator directory, and weekly XMR settlement without stake or slashing.",
+    plan: {
+      upstream: "../mnr/docs/stage2-network-protocol-architecture.md",
+      keepSections: [1, 2, 3, 4],
+      lead:
+        "The protocol and component design behind Stage 2, the permissionless operator network. Rendered from the [architecture document in the code repository](https://github.com/mnrnetwork/mnr/blob/main/docs/stage2-network-protocol-architecture.md) with the build plan and internal decisions left out. See the [roadmap](/docs/roadmap/) for the principles in brief.",
+      dropLineIf: [/Ripley|KYC\.RIP/],
+    },
   },
 ];
 
@@ -518,6 +591,14 @@ function generateHubHtml(): string {
       </a>
     </div>
 
+    <h2>Engineering notes</h2>
+    <p>The plans behind each stage, rendered from the code repository with schedules and internal decisions left out. Long, specific, and the place to look when the short pages above are not enough.</p>
+    <ul>
+      <li><a href="/docs/stage0-mvp/">Stage 0: verified proxy over public nodes</a> &mdash; rules toward public nodes, upstream pool and quorum tip, what is verified, method policy, caching, auth and limits, architecture, risks.</li>
+      <li><a href="/docs/stage1-gateway/">Stage 1: gateway architecture</a> &mdash; owned nodes on independent providers, the request path specification, node infrastructure, XMR billing and provisioning, testing and acceptance.</li>
+      <li><a href="/docs/stage2-network/">Stage 2: network protocol</a> &mdash; operators, relayers and clients, trust boundaries, the protocol specification, the fault log and settlement, component design.</li>
+    </ul>
+
     <h2>Reading order</h2>
     <ul>
       <li><strong>Using mnr:</strong> <a href="/docs/how-it-works/">How mnr works</a> covers what you get, what is verified, and how to point a wallet at it.</li>
@@ -555,8 +636,50 @@ function processMarkdown(raw: string): string {
   return html;
 }
 
+/**
+ * Keep the title, the italic subtitle and the listed `## N.` sections of an
+ * engineering plan; drop the metadata table, every other section and any
+ * line the filter names. Sections are matched by number so a renumbering
+ * upstream is caught by the smoke check in `build()`.
+ */
+function filterPlan(md: string, f: PlanFilter): string {
+  const out: string[] = [];
+  let keep = true;
+  let inPreamble = true;
+  for (const line of md.split("\n")) {
+    const h2 = line.match(/^## (\d+)\./);
+    if (h2) {
+      inPreamble = false;
+      keep = f.keepSections.includes(Number(h2[1]));
+      if (keep && out.length && out[out.length - 1] !== "---") out.push("---", "");
+    }
+    if (!keep) continue;
+    if (inPreamble && (line.startsWith("|") || line === "---")) continue;
+    if (f.dropLineIf?.some((re) => re.test(line))) continue;
+    out.push(line);
+  }
+  let text = out.join("\n").replace(/\n{3,}/g, "\n\n").replace(/(---\n\n)+---/g, "---");
+  for (const [re, to] of f.replace ?? []) text = text.replace(re, to);
+  return text;
+}
+
 function build() {
   console.log("Building onsite documentation...");
+
+  // Engineering plans: refresh the vendored copies from the code repo when
+  // it is checked out next to this one, then keep only the public sections.
+  for (const doc of DOCS) {
+    if (!doc.plan || !doc.sourceFile) continue;
+    if (fs.existsSync(doc.plan.upstream)) {
+      fs.copyFileSync(doc.plan.upstream, doc.sourceFile);
+      console.log(`✓ Refreshed ${doc.sourceFile} from ${doc.plan.upstream}`);
+    }
+    const raw = fs.readFileSync(doc.sourceFile, "utf-8");
+    const found = [...raw.matchAll(/^## (\d+)\./gm)].map((m) => Number(m[1]));
+    for (const n of doc.plan.keepSections) {
+      if (!found.includes(n)) throw new Error(`${doc.sourceFile}: section ${n} not found (renumbered upstream?)`);
+    }
+  }
 
   if (fs.existsSync(METHOD_POLICY_SOURCE)) {
     fs.copyFileSync(METHOD_POLICY_SOURCE, "content/method-policy.md");
@@ -575,7 +698,13 @@ function build() {
   // 2. Build Sub-Docs
   for (const doc of DOCS) {
     if (!doc.sourceFile) continue;
-    const rawMd = fs.readFileSync(doc.sourceFile, "utf-8");
+    let rawMd = fs.readFileSync(doc.sourceFile, "utf-8");
+    if (doc.plan) {
+      rawMd = filterPlan(rawMd, doc.plan);
+      // Title and subtitle first, then the lead, then the sections.
+      const cut = rawMd.indexOf("\n\n");
+      rawMd = `${rawMd.slice(0, cut)}\n\n> ${doc.plan.lead}\n${rawMd.slice(cut)}`;
+    }
     const parsedHtml = processMarkdown(rawMd);
     const pageHtml = renderHtmlLayout(doc, parsedHtml);
 
