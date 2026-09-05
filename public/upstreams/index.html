@@ -218,12 +218,17 @@
     .faq-a { font-size: 14.5px; color: var(--fg-2); line-height: 1.55; margin: 0; }
 
     .grid2 { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 32px; align-items: start; }
-    .site-footer { padding-top: 56px; padding-bottom: 48px; }
-    .footer-links a { display: block; }
+    .grid3 { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 32px; }
+    .site-footer { padding-top: 56px; padding-bottom: 56px; }
+    .site-footer a { color: var(--fg); text-decoration: none; }
+    .site-footer a:hover { color: var(--accent); }
+    .footer-links a { display: block; color: var(--muted); text-decoration: none; }
+    .footer-links a:hover { color: var(--accent); }
 
     @media (max-width: 900px) {
       .stats { grid-template-columns: repeat(2, minmax(0, 1fr)); }
       .grid2 { grid-template-columns: 1fr; }
+      .grid3 { grid-template-columns: 1fr; gap: 32px; }
       .faq-grid { grid-template-columns: 1fr; }
       .navlinks { display: none; }
     }
