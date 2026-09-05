@@ -128,9 +128,9 @@
           </div>
           <p class="muted" style="font-size: 14px;">Shown once. Copy it now; there is no way to look it up later.</p>
           <div class="col" style="gap: 6px; font-size: 14px;">
-            <span class="muted">Daemon address, path form:</span>
+            <span class="muted">In your wallet: node <span class="mono">rpc.mnr.network:443</span>, SSL on, <strong>username = the token</strong>, password anything. Command line:</span>
             <pre class="log mono" id="free-addr"></pre>
-            <span class="muted">Or host <span class="mono">rpc.mnr.network:443</span>, username <span class="mono">mnr</span>, password: the token. <a href="/docs/connect-wallets/" style="text-decoration: underline;">Per-wallet steps</a>.</span>
+            <span class="muted">Scripts can use the path form <span class="mono">https://rpc.mnr.network/v1/&lt;token&gt;/json_rpc</span>. <a href="/docs/connect-wallets/" style="text-decoration: underline;">Per-wallet steps</a>.</span>
           </div>
         </div>
       </section>
@@ -233,7 +233,7 @@
         try {
           var v = await call('/tokens/free', { method: 'POST' });
           $('free-token').textContent = v.token;
-          $('free-addr').textContent = 'https://rpc.mnr.network/v1/' + v.token;
+          $('free-addr').textContent = 'monero-wallet-cli --daemon-address rpc.mnr.network:443 --daemon-login ' + v.token + ':x --daemon-ssl enabled';
           show($('free-result'));
           status($('free-status'), '');
         } catch (e) {

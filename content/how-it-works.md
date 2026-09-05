@@ -54,10 +54,13 @@ Blocks, headers and transactions within 10 blocks of the tip are never cached, b
 
 ## Connecting a wallet
 
-Stock wallets work with nothing but a daemon address. Two forms carry the same token:
+Stock wallets work with nothing but a daemon address and a login. The token is the **username**; the password is anything:
 
-- **Path token**: `https://rpc.mnr.network/v1/<token>` as the daemon address.
-- **Daemon login**: `rpc.mnr.network:443` as the daemon address, with the token as the password of `--daemon-login`, for wallets that do not accept a path.
+- Address `rpc.mnr.network:443`, SSL on, username `<token>`, password `x`.
+- Over Tor: `mnrrpcvbopaykx7um32r4iyamontteidypjd33fhzvuy2hwfu5c4ifad.onion:80` with a Tor proxy; over I2P: `misxlqjfq3wshjbn47fhzaqiagavaow2mgbfqrvxzdlybm7xtbvq.b32.i2p` (`mnr.i2p`).
+- Scripts and `curl` can use the path form instead: `https://rpc.mnr.network/v1/<token>/json_rpc`.
+
+Wallets authenticate with HTTP Digest, which needs the server to know the password; mnr stores only token hashes, so it reads the token from the username and ignores the password. Per-wallet steps are in [Connect a wallet](/docs/connect-wallets/).
 
 Tokens are 256-bit and stored only as hashes. A token can be rotated, and the previous one keeps working for 24 hours. The relay keeps no request log: no paths, no tokens, no client addresses. Aggregate metrics only.
 

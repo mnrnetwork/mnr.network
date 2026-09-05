@@ -377,60 +377,65 @@
 
     <article class="prose">
       <h1>Connect a wallet</h1>
-<p>Every Monero wallet that can use a remote node can use mnr. You need one thing: a token. Get one on the <a href="/get-token/">token page</a>, then point the wallet at the relay in one of two ways.</p>
-<p><strong>Path token.</strong> The token is part of the daemon address:</p>
-<pre><code>https://rpc.mnr.network/v1/&lt;token&gt;
-</code></pre>
-<p><strong>Daemon login.</strong> The daemon address is plain and the token is the password:</p>
+<p>Every Monero wallet that can use a remote node can use mnr. You need one thing: a token. Get one on the <a href="/get-token/">token page</a>, then give the wallet the relay as its node with the token as the <strong>login username</strong>:</p>
 <pre><code>address:  rpc.mnr.network:443   (SSL on)
-username: mnr
-password: &lt;token&gt;
+username: &lt;token&gt;
+password: x                      (anything; it is not checked)
 </code></pre>
-<p>Both forms carry the same token and get the same answers. Use the path form where a wallet accepts a URL with a path; use the login form where it only takes host and port. Never paste a token into a chat or a screenshot: it is the whole credential.</p>
+<p>The token goes in the username slot, not the password slot. Stock wallets authenticate with HTTP Digest, which cannot check a password against a server that stores only hashes, so mnr reads the token from the username and ignores the password. The token still travels only inside TLS. Never paste a token into a chat or a screenshot: it is the whole credential.</p>
+<p>For scripts, <code>curl</code> and anything that accepts a URL there is also the path form: <code>https://rpc.mnr.network/v1/&lt;token&gt;/json_rpc</code>. Stock wallets keep only the host and port of a daemon address and drop the path, so do not use the path form in a wallet.</p>
 <hr>
 <h2 id="monero-wallet-cli">monero-wallet-cli</h2>
 <pre><code>monero-wallet-cli \
   --daemon-address rpc.mnr.network:443 \
-  --daemon-login mnr:&lt;token&gt; \
+  --daemon-login &lt;token&gt;:x \
   --daemon-ssl enabled \
-  --trusted-daemon
+  --daemon-ssl-ca-certificates /etc/ssl/certs/ca-certificates.crt
 </code></pre>
-<p>Or, with the token in the address:</p>
-<pre><code>monero-wallet-cli --daemon-address https://rpc.mnr.network/v1/&lt;token&gt;
-</code></pre>
-<p><code>--trusted-daemon</code> only changes what the wallet is willing to ask the node for; it does not send anything extra. Use it if you would use it with your own node.</p>
+<p>The CA bundle path is Debian and Ubuntu&#39;s; on Fedora it is <code>/etc/pki/tls/certs/ca-bundle.crt</code>, on macOS with Homebrew <code>$(brew --prefix)/etc/ca-certificates/cert.pem</code>. With <code>--daemon-ssl enabled</code> the wallet insists on a way to verify the certificate; pointing it at the system bundle is that way. <code>--daemon-ssl-allow-any-cert</code> also works but turns off certificate checking, so only use it to diagnose.</p>
+<p>Tested with the official 0.18.5.1 release.</p>
 <h2 id="monero-wallet-gui">monero-wallet-gui</h2>
 <p>Settings → Node → <strong>Remote node</strong>.</p>
 <ul>
 <li>Address: <code>rpc.mnr.network</code>, Port: <code>443</code></li>
-<li>Daemon username: <code>mnr</code>, Daemon password: <code>&lt;token&gt;</code></li>
-<li>Tick <strong>Use SSL</strong> (the GUI calls it &quot;Daemon SSL&quot; in some versions)</li>
+<li>Daemon username: <code>&lt;token&gt;</code>, Daemon password: <code>x</code></li>
+<li>Tick <strong>Use SSL</strong> (some versions call it &quot;Daemon SSL&quot;)</li>
 </ul>
-<p>Or put <code>https://rpc.mnr.network/v1/&lt;token&gt;</code> in the address field and leave the port empty, if your version accepts a URL there.</p>
 <h2 id="feather">Feather</h2>
-<p>Settings → Network → <strong>Custom node</strong>: <code>https://rpc.mnr.network/v1/&lt;token&gt;</code>.</p>
-<p>Feather accepts a full URL, so the path token is the easiest form. Leave the login fields empty. If you prefer the login form, use <code>rpc.mnr.network:443</code> with username <code>mnr</code> and the token as password.</p>
+<p>Settings → Network → <strong>Custom node</strong>: address <code>rpc.mnr.network:443</code>, username <code>&lt;token&gt;</code>, password <code>x</code>, SSL on. Feather shows a URL field, but it keeps only the host and port, so the login form is the one to use.</p>
 <h2 id="cake-wallet">Cake Wallet</h2>
 <p>Settings → Connection and sync → <strong>Add node</strong>.</p>
 <ul>
 <li>Node address: <code>rpc.mnr.network</code>, Port: <code>443</code></li>
-<li>Login: <code>mnr</code>, Password: <code>&lt;token&gt;</code></li>
+<li>Login: <code>&lt;token&gt;</code>, Password: <code>x</code></li>
 <li>Turn on <strong>Use SSL</strong></li>
 </ul>
-<p>Cake takes host and port separately, so use the login form.</p>
 <h2 id="monerujo">Monerujo</h2>
 <p>Settings → Node → add a node.</p>
 <ul>
 <li>Host: <code>rpc.mnr.network</code>, Port: <code>443</code></li>
-<li>Username: <code>mnr</code>, Password: <code>&lt;token&gt;</code></li>
+<li>Username: <code>&lt;token&gt;</code>, Password: <code>x</code></li>
 </ul>
-<p>Monerujo talks to the node over SSL when the port is 443.</p>
+<p>Monerujo uses SSL when the port is 443.</p>
 <h2 id="monero-wallet-rpc-and-backends">monero-wallet-rpc and backends</h2>
 <pre><code>monero-wallet-rpc \
-  --daemon-address https://rpc.mnr.network/v1/&lt;token&gt; \
+  --daemon-address rpc.mnr.network:443 --daemon-login &lt;token&gt;:x \
+  --daemon-ssl enabled --daemon-ssl-ca-certificates /etc/ssl/certs/ca-certificates.crt \
   --wallet-file … --rpc-bind-port 18082 --disable-rpc-login
 </code></pre>
-<p>Anything that speaks daemon JSON-RPC or the <code>.bin</code> endpoints works the same way: POST to <code>https://rpc.mnr.network/v1/&lt;token&gt;/json_rpc</code> or <code>/v1/&lt;token&gt;/get_height</code> and so on. The full list of methods, what is verified and what is cached is in the <a href="/docs/method-policy/">method policy</a>.</p>
+<p>Anything that speaks daemon JSON-RPC or the <code>.bin</code> endpoints directly can use the path form: POST to <code>https://rpc.mnr.network/v1/&lt;token&gt;/json_rpc</code> or <code>/v1/&lt;token&gt;/get_height</code> and so on. The full list of methods, what is verified and what is cached is in the <a href="/docs/method-policy/">method policy</a>.</p>
+<h2 id="over-tor-or-i2p">Over Tor or I2P</h2>
+<p>The same relay, without the clearnet or TLS. Plain HTTP is fine here: the network layer carries the encryption.</p>
+<ul>
+<li>Tor: <code>mnrrpcvbopaykx7um32r4iyamontteidypjd33fhzvuy2hwfu5c4ifad.onion:80</code></li>
+<li>I2P: <code>misxlqjfq3wshjbn47fhzaqiagavaow2mgbfqrvxzdlybm7xtbvq.b32.i2p</code> (also <code>mnr.i2p</code> in address books)</li>
+</ul>
+<pre><code>monero-wallet-cli \
+  --daemon-address mnrrpcvbopaykx7um32r4iyamontteidypjd33fhzvuy2hwfu5c4ifad.onion:80 \
+  --daemon-login &lt;token&gt;:x \
+  --proxy 127.0.0.1:9050
+</code></pre>
+<p>For I2P, point <code>--proxy</code> at your I2P router&#39;s HTTP or SOCKS proxy. Feather has built-in Tor routing; Cake and Monerujo can use a Tor proxy from their network settings.</p>
 <hr>
 <h2 id="what-changes-and-what-does-not">What changes, and what does not</h2>
 <p>Nothing in the wallet&#39;s behaviour changes. Sync, sending, receiving and fee estimates go through exactly the daemon calls the wallet makes today. What changes is behind the address: blocks and transactions are re-hashed, headers are matched against the relay&#39;s own header chain, and consensus state comes from a majority of nodes rather than one. Every response says what was checked in an <code>Mnr-Verify</code> header; a wallet does not read it, but a script or a curious human can:</p>
@@ -444,8 +449,10 @@ mnr-tier: free
 <p>The meaning of every value is in the spec: <a href="https://github.com/mnrnetwork/mnr/blob/main/spec/headers.md">headers</a>, <a href="https://github.com/mnrnetwork/mnr/blob/main/spec/verification.md">verification rules</a>.</p>
 <h2 id="if-something-does-not-work">If something does not work</h2>
 <ul>
-<li><strong>401 unknown token</strong> — the token is mistyped, was rotated more than 24 hours ago, or is not a token. Get a new one.</li>
-<li><strong>403 subscription expired</strong> — a Pro token past its month. Renew it on the <a href="/get-token/">token page</a>, the same token keeps working afterwards.</li>
+<li><strong>Bad server response for authentication</strong> — the token is in the password slot. Put it in the username: <code>--daemon-login &lt;token&gt;:x</code>.</li>
+<li><strong>SSL: certificate verify failed / wants <code>--daemon-ssl-allow-any-cert</code></strong> — add <code>--daemon-ssl-ca-certificates</code> with your system bundle (paths above).</li>
+<li><strong>401 unknown token</strong> — mistyped, rotated more than 24 hours ago, or not a token. Get a new one.</li>
+<li><strong>403 subscription expired</strong> — a Pro token past its month. Renew it on the <a href="/get-token/">token page</a>; the same token keeps working afterwards.</li>
 <li><strong>429 rate limited</strong> — the tier&#39;s burst (5 requests per second on Free, 25 on Pro) or the monthly allowance. Wallets retry on their own.</li>
 <li><strong>502 / 503</strong> — no upstream could answer, or none could be verified. The relay says which in the JSON body. Sync resumes on the next attempt.</li>
 </ul>

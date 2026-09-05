@@ -135,7 +135,7 @@
             "name": "Is mnr accessible over Tor?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "Yes, mnr is reachable over both HTTPS (https://rpc.mnr.network/v1/<token>/json_rpc) and Tor onion services. The official .onion address is published alongside the public beta."
+              "text": "Yes. HTTPS at rpc.mnr.network:443, Tor at mnrrpcvbopaykx7um32r4iyamontteidypjd33fhzvuy2hwfu5c4ifad.onion and I2P at mnr.i2p (misxlqjfq3wshjbn47fhzaqiagavaow2mgbfqrvxzdlybm7xtbvq.b32.i2p). The same token works on all three."
             }
           },
           {
@@ -555,7 +555,7 @@
             <p class="muted">Set the daemon address in your wallet (<a href="/docs/connect-wallets/" style="text-decoration: underline;">per-wallet steps</a>), or on the command line:</p>
 <pre class="log mono" style="padding: 14px 16px; font-size: 13px;">monero-wallet-cli \
   --daemon-address rpc.mnr.network:443 \
-  --daemon-login mnr:&lt;token&gt;</pre>
+  --daemon-login &lt;token&gt;:x --daemon-ssl enabled</pre>
           </div>
           <div class="col" style="gap: 12px;">
             <span class="step-num accent">03</span>
@@ -661,7 +661,8 @@
         <a href="mailto:dev@mnr.network" class="muted">dev@mnr.network</a>
         <span class="muted">Operators: opt out or say hello. Security reports welcome.</span>
         <span class="muted">Community room · coming with the beta</span>
-        <span class="muted mono" style="font-size: 13px;">Tor: onion address published with the beta</span>
+        <span class="muted mono" style="font-size: 12px; word-break: break-all;">Tor: mnrrpcvbopaykx7um32r4iyamontteidypjd33fhzvuy2hwfu5c4ifad.onion</span>
+        <span class="muted mono" style="font-size: 12px; word-break: break-all;">I2P: mnr.i2p · misxlqjfq3wshjbn47fhzaqiagavaow2mgbfqrvxzdlybm7xtbvq.b32.i2p</span>
       </div>
     </div>
   </footer>

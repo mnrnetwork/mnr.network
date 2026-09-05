@@ -496,7 +496,7 @@
 <ul>
 <li><strong>Method policy:</strong> the gateway plan §3.3 table as-is, compiled into <code>mnr-core::policy</code>.</li>
 <li><strong>Cache:</strong> in-memory (<code>moka</code>, 1 GB cap) for SWR and immutable-below-tip−10; on-disk store deferred to Stage 1.</li>
-<li><strong>Auth:</strong> path token <code>/v1/&lt;token&gt;/…</code> and Basic auth alternative, 256-bit, hashed at rest in SQLite; rotation endpoint with 24 h grace. Free tokens are issued instantly from the site; no email.</li>
+<li><strong>Auth:</strong> 256-bit token, hashed at rest in SQLite; rotation endpoint with 24 h grace. Stock wallets use <code>--daemon-login &lt;token&gt;:x</code> (they speak Digest only and drop any path, found in the beta; the token is the Digest username, the password is ignored); the path form <code>/v1/&lt;token&gt;/…</code> and Basic auth serve curl, scripts and URL-taking clients. Free tokens are issued instantly from the site; no email.</li>
 <li><strong>Limits:</strong> in-process token bucket per token; daily WU quota in SQLite.</li>
 </ul>
 <div class="table-wrap"><table class="doc-table">
