@@ -426,7 +426,12 @@
       <div class="faq-grid">
         <div class="faq-item">
           <h3 class="faq-q">Why does mnr query my node?</h3>
-          <p class="faq-a">mnr discovers public Monero nodes broadcasting open RPC services (ports 18081 and 18089) on the Monero P2P network. We distribute read-only verification queries across multiple nodes to establish quorum consensus.</p>
+          <p class="faq-a">We do not scan the network. mnr's upstream pool is a small curated list built from the well-known public node lists (monero.fail, the wallet-maintained lists) plus a full node we run ourselves, and every operator we can identify is told before their node is used. We distribute read-only verification queries across the pool to establish quorum consensus, staying within the published per-node caps.</p>
+        </div>
+
+        <div class="faq-item">
+          <h3 class="faq-q">What about privacy-sensitive requests?</h3>
+          <p class="faq-a">The queries that reveal what a wallet is looking at — outputs, transactions, key images — are routed to our own node first, so a third-party node does not see them while our node is up. The honest limits of that are on the <a href="/docs/privacy/" style="text-decoration: underline;">privacy page</a>.</p>
         </div>
 
         <div class="faq-item">
@@ -436,7 +441,7 @@
 
         <div class="faq-item">
           <h3 class="faq-q">How does the automated opt-out work?</h3>
-          <p class="faq-a">If you host a web server on the same IP or domain, configure it to return HTTP 200 for <span class="mono">/.well-known/mnr-optout</span>. Our scanner polls this daily and immediately drops your node from rotation.</p>
+          <p class="faq-a">If you host a web server on the same IP or domain, configure it to return HTTP 200 for <span class="mono">/.well-known/mnr-optout</span>. Our relay checks this daily and immediately drops your node from rotation.</p>
         </div>
 
         <div class="faq-item">

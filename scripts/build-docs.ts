@@ -70,6 +70,17 @@ const DOCS: DocMeta[] = [
     keywords: ["wallet", "remote node", "digest auth", "tokens", "feather", "cake", "gui", "monerujo", "ripley", "ripleyos", "terminal", "cli", "tor", "i2p", "onion"],
   },
   {
+    id: "privacy",
+    route: "/docs/privacy/",
+    sourceFile: "content/privacy.md",
+    title: "Privacy and public nodes",
+    navTitle: "Privacy",
+    badge: "Reference",
+    description:
+      "What mnr does and does not change about your privacy as a Monero remote node: what a node can see, which queries stay on our own node, and where no proxy can help you.",
+    keywords: ["privacy", "public node", "spy nodes", "monero.fail", "outputs", "key images", "tor", "own node", "advisory", "ip"],
+  },
+  {
     id: "wallet-feather",
     route: "/docs/wallets/feather/",
     sourceFile: "content/wallets/feather.md",

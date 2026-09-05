@@ -52,6 +52,7 @@ Supported Wallets & Dedicated Guides:
 - No Accounts: Authentication is conducted exclusively via an anonymous access token.
 - No KYC: No identity verification, phone numbers, or email addresses required.
 - Zero Logs: No IP logging, no path logging, no request payload persistence.
+- Honest limits and what mnr does not change: https://mnr.network/docs/privacy/
 
 ## 7. Pricing Tiers
 - Free: $0. 500k requests/month, 5 requests/sec burst, 1 wallet-sync stream.
@@ -73,6 +74,7 @@ Supported Wallets & Dedicated Guides:
   - Ripley Terminal: https://mnr.network/docs/wallets/ripley/
 - Method Policy: https://mnr.network/docs/method-policy/
 - How mnr works: https://mnr.network/docs/how-it-works/
+- Privacy and public nodes (honest limits, what mnr does and does not change): https://mnr.network/docs/privacy/
 - Roadmap: https://mnr.network/docs/roadmap/
 - Stage 0 engineering notes (verified proxy): https://mnr.network/docs/stage0-mvp/
 - Stage 1 engineering notes (gateway architecture): https://mnr.network/docs/stage1-gateway/

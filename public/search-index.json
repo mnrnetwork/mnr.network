@@ -40,6 +40,25 @@
     "featured": false
   },
   {
+    "title": "Privacy and public nodes",
+    "route": "/docs/privacy/",
+    "description": "What mnr does and does not change about your privacy as a Monero remote node: what a node can see, which queries stay on our own node, and where no proxy can help you.",
+    "category": "Guide",
+    "keywords": [
+      "privacy",
+      "public node",
+      "spy nodes",
+      "monero.fail",
+      "outputs",
+      "key images",
+      "tor",
+      "own node",
+      "advisory",
+      "ip"
+    ],
+    "featured": false
+  },
+  {
     "title": "Connect Feather Wallet to mnr",
     "route": "/docs/wallets/feather/",
     "description": "Step-by-step setup for Feather Wallet with mnr, HTTP Digest token authentication, native Tor onion routing, and verification status checks.",
