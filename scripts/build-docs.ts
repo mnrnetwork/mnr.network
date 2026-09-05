@@ -931,6 +931,21 @@ function generateSearchIndex(): string {
       featured: true,
     },
     {
+      title: "Upstream Nodes & Live Telemetry",
+      route: "/upstreams/",
+      description: "Live status, tip height, latency, request caps, verified answers, fault logs, and operator opt-out rules for all Monero upstreams.",
+      category: "Nodes",
+      keywords: ["upstreams", "nodes", "status", "quorum", "fault log", "opt out", "telemetry", "health", "latency", "user-agent", "pool"],
+      featured: true,
+    },
+    {
+      title: "Operator Opt-Out (/.well-known/mnr-optout)",
+      route: "/upstreams/#opt-out",
+      description: "How public Monero node operators can opt out of mnr proxy traffic within 24 hours via well-known file or email.",
+      category: "Nodes",
+      keywords: ["opt-out", "operator", "well-known", "remove node", "block", "crawling"],
+    },
+    {
       title: "Tor Onion & I2P Endpoints",
       route: "/docs/connect-wallets/#tor-and-i2p-endpoints",
       description: "Connect over Tor at mnrrpcvbopaykx7um32r4iyamontteidypjd33fhzvuy2hwfu5c4ifad.onion:80 or I2P at mnr.i2p.",
