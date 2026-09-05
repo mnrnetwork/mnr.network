@@ -279,6 +279,7 @@
       <h1 class="h1">Upstream Monero Nodes</h1>
       <p class="lead">The live Monero node pool behind mnr: verified community nodes and dedicated infrastructure. Every request sent by our relay identifies as <span class="mono" style="font-size: 16px; background: var(--bg-alt); padding: 2px 6px; border-radius: 4px; border: 1px solid var(--line);">mnr-relay/0.x</span> in its User-Agent, caps itself to prevent node exhaustion, and verifies answers against cryptographic consensus.</p>
       <p class="status" id="status">Connecting to relay telemetry…</p>
+      <p class="mono" id="relay-info" style="font-size: 13px; color: var(--muted); margin: 0;"></p>
     </div>
 
     <!-- Live Telemetry Stat Cards -->
@@ -578,6 +579,15 @@
         if (!first) {
           first = { t: now, requests: {} };
           d.upstreams.forEach(function (u) { first.requests[u.name] = u.requests; });
+        }
+
+        var r = d.relay;
+        if (r && r.version) {
+          var up = r.started_at ? ' · up ' + ago(r.started_at) : '';
+          var c = r.commit && r.commit !== 'unknown' ? ' · commit ' + r.commit : '';
+          $('relay-info').textContent = 'relay v' + r.version + c + up + (r.self_reported ? ' · self-reported' : '');
+        } else {
+          $('relay-info').textContent = 'relay version unknown (pre-0.1.5)';
         }
 
         var healthy = d.upstreams.filter(function (u) { return u.ok && !u.ejected && !u.opted_out; }).length;
