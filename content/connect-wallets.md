@@ -14,7 +14,21 @@ For scripts, `curl` and anything that accepts a URL there is also the path form:
 
 ---
 
-## monero-wallet-cli
+## Dedicated wallet guides
+
+For step-by-step screenshots, mobile background sync settings, and OS-specific certificate instructions, consult the dedicated guide for your client:
+
+- [**Feather Wallet Guide**](/docs/wallets/feather/) — Desktop lightweight wallet with native Tor hidden service routing.
+- [**Cake Wallet Guide**](/docs/wallets/cake-wallet/) — Mobile iOS & Android setup, Tor toggling, and background sync pacing.
+- [**Monero GUI Guide**](/docs/wallets/monero-gui/) — Reference desktop client in Simple and Advanced Remote Node modes.
+- [**Monerujo Guide**](/docs/wallets/monerujo/) — Android client with NetCipher and Orbot proxy integration.
+- [**CLI & RPC Guide**](/docs/wallets/cli/) — `monero-wallet-cli` flags, CA cert bundles across Linux/macOS/Windows, and `monero-wallet-rpc` backend services.
+
+---
+
+## Quick configuration reference
+
+### monero-wallet-cli
 
 ```
 monero-wallet-cli \
@@ -24,40 +38,36 @@ monero-wallet-cli \
   --daemon-ssl-ca-certificates /etc/ssl/certs/ca-certificates.crt
 ```
 
-The CA bundle path is Debian and Ubuntu's; on Fedora it is `/etc/pki/tls/certs/ca-bundle.crt`, on macOS with Homebrew `$(brew --prefix)/etc/ca-certificates/cert.pem`. With `--daemon-ssl enabled` the wallet insists on a way to verify the certificate; pointing it at the system bundle is that way. `--daemon-ssl-allow-any-cert` also works but turns off certificate checking, so only use it to diagnose.
+The CA bundle path is Debian and Ubuntu's; on Fedora it is `/etc/pki/tls/certs/ca-bundle.crt`, on macOS with Homebrew `$(brew --prefix)/etc/ca-certificates/cert.pem`. See the [CLI & RPC Guide](/docs/wallets/cli/) for full options.
 
-Tested with the official 0.18.5.1 release.
-
-## monero-wallet-gui
+### monero-wallet-gui
 
 Settings → Node → **Remote node**.
-
 - Address: `rpc.mnr.network`, Port: `443`
 - Daemon username: `<token>`, Daemon password: `x`
 - Tick **Use SSL** (some versions call it "Daemon SSL")
+- Detailed walkthrough: [Monero GUI Guide](/docs/wallets/monero-gui/)
 
-## Feather
+### Feather
 
-Settings → Network → **Custom node**: address `rpc.mnr.network:443`, username `<token>`, password `x`, SSL on. Feather shows a URL field, but it keeps only the host and port, so the login form is the one to use.
+Settings → Network → **Custom node**: address `rpc.mnr.network:443`, username `<token>`, password `x`, SSL on. Detailed walkthrough: [Feather Wallet Guide](/docs/wallets/feather/)
 
-## Cake Wallet
+### Cake Wallet
 
-Settings → Connection and sync → **Add node**.
-
+Settings → Connection and sync → **Add node**:
 - Node address: `rpc.mnr.network`, Port: `443`
 - Login: `<token>`, Password: `x`
 - Turn on **Use SSL**
+- Detailed walkthrough: [Cake Wallet Guide](/docs/wallets/cake-wallet/)
 
-## Monerujo
+### Monerujo
 
-Settings → Node → add a node.
-
+Settings → Node → add a node:
 - Host: `rpc.mnr.network`, Port: `443`
 - Username: `<token>`, Password: `x`
+- Monerujo uses SSL automatically when the port is 443. Detailed walkthrough: [Monerujo Guide](/docs/wallets/monerujo/)
 
-Monerujo uses SSL when the port is 443.
-
-## monero-wallet-rpc and backends
+### monero-wallet-rpc and backends
 
 ```
 monero-wallet-rpc \

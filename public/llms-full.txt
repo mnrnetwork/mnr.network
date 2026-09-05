@@ -28,21 +28,24 @@ mnr adheres to strict ethical proxy policies toward the Monero community:
 ## 5. Network Endpoints & Wallet Setup
 - HTTPS RPC Endpoint: `https://rpc.mnr.network/v1/<token>/json_rpc`
 - Port: 443
-- Tor Onion Service: Published with public beta release in October 2026.
+- Tor Onion Service: `mnrrpcvbopaykx7um32r4iyamontteidypjd33fhzvuy2hwfu5c4ifad.onion:80` (HTTP, no SSL needed over Tor)
+- I2P Address: `misxlqjfq3wshjbn47fhzaqiagavaow2mgbfqrvxzdlybm7xtbvq.b32.i2p` (or `mnr.i2p`)
 
 CLI Setup:
 ```bash
 monero-wallet-cli \
   --daemon-address rpc.mnr.network:443 \
-  --daemon-login mnr:<token>
+  --daemon-login <token>:x \
+  --daemon-ssl enabled
 ```
 
-Supported Wallets:
-- Monero CLI (`monero-wallet-cli`)
-- Monero GUI
-- Feather Wallet
-- Cake Wallet
-- Monerujo
+Supported Wallets & Dedicated Guides:
+- Feather Wallet: https://mnr.network/docs/wallets/feather/
+- Cake Wallet: https://mnr.network/docs/wallets/cake-wallet/
+- Monero GUI: https://mnr.network/docs/wallets/monero-gui/
+- Monerujo: https://mnr.network/docs/wallets/monerujo/
+- Monero CLI & RPC: https://mnr.network/docs/wallets/cli/
+- Connect a Wallet Overview: https://mnr.network/docs/connect-wallets/
 
 ## 6. Privacy Guarantees
 - No Accounts: Authentication is conducted exclusively via an anonymous access token.
@@ -60,6 +63,12 @@ Supported Wallets:
 
 ## 9. Official Documentation & Specifications
 - Docs Hub: https://mnr.network/docs/
+- Dedicated Wallet Guides:
+  - Feather: https://mnr.network/docs/wallets/feather/
+  - Cake Wallet: https://mnr.network/docs/wallets/cake-wallet/
+  - Monero GUI: https://mnr.network/docs/wallets/monero-gui/
+  - Monerujo: https://mnr.network/docs/wallets/monerujo/
+  - CLI & RPC: https://mnr.network/docs/wallets/cli/
 - Method Policy: https://mnr.network/docs/method-policy/
 - How mnr works: https://mnr.network/docs/how-it-works/
 - Roadmap: https://mnr.network/docs/roadmap/

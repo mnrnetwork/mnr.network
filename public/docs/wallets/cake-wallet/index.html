@@ -3,19 +3,19 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Verified Monero RPC proxy over public nodes: rules, upstream pool, verification (Stage 0) — mnr</title>
-  <meta name="description" content="Engineering notes for the Stage 0 verified proxy: the seven rules toward public Monero nodes, upstream probing and quorum tip, block and transaction hash verification, method policy, caching, token auth, limits, and the single-binary architecture.">
-  <link rel="canonical" href="https://mnr.network/docs/stage0-mvp/">
+  <title>Connect Cake Wallet to mnr — mnr</title>
+  <meta name="description" content="How to connect Cake Wallet on iOS and Android to mnr with SSL encryption, HTTP Digest token login, and mobile Tor routing.">
+  <link rel="canonical" href="https://mnr.network/docs/wallets/cake-wallet/">
   <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
-  <meta property="og:title" content="Verified Monero RPC proxy over public nodes: rules, upstream pool, verification (Stage 0) — mnr">
-  <meta property="og:description" content="Engineering notes for the Stage 0 verified proxy: the seven rules toward public Monero nodes, upstream probing and quorum tip, block and transaction hash verification, method policy, caching, token auth, limits, and the single-binary architecture.">
+  <meta property="og:title" content="Connect Cake Wallet to mnr — mnr">
+  <meta property="og:description" content="How to connect Cake Wallet on iOS and Android to mnr with SSL encryption, HTTP Digest token login, and mobile Tor routing.">
   <meta property="og:type" content="article">
-  <meta property="og:url" content="https://mnr.network/docs/stage0-mvp/">
+  <meta property="og:url" content="https://mnr.network/docs/wallets/cake-wallet/">
   <meta property="og:site_name" content="mnr">
   <meta property="og:image" content="https://mnr.network/og.png">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Verified Monero RPC proxy over public nodes: rules, upstream pool, verification (Stage 0) — mnr">
-  <meta name="twitter:description" content="Engineering notes for the Stage 0 verified proxy: the seven rules toward public Monero nodes, upstream probing and quorum tip, block and transaction hash verification, method policy, caching, token auth, limits, and the single-binary architecture.">
+  <meta name="twitter:title" content="Connect Cake Wallet to mnr — mnr">
+  <meta name="twitter:description" content="How to connect Cake Wallet on iOS and Android to mnr with SSL encryption, HTTP Digest token login, and mobile Tor routing.">
   <meta name="twitter:image" content="https://mnr.network/og.png">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
   <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png">
@@ -30,10 +30,10 @@
   "@graph": [
     {
       "@type": "WebPage",
-      "@id": "https://mnr.network/docs/stage0-mvp/#webpage",
-      "url": "https://mnr.network/docs/stage0-mvp/",
-      "name": "Verified Monero RPC proxy over public nodes: rules, upstream pool, verification (Stage 0)",
-      "description": "Engineering notes for the Stage 0 verified proxy: the seven rules toward public Monero nodes, upstream probing and quorum tip, block and transaction hash verification, method policy, caching, token auth, limits, and the single-binary architecture.",
+      "@id": "https://mnr.network/docs/wallets/cake-wallet/#webpage",
+      "url": "https://mnr.network/docs/wallets/cake-wallet/",
+      "name": "Connect Cake Wallet to mnr",
+      "description": "How to connect Cake Wallet on iOS and Android to mnr with SSL encryption, HTTP Digest token login, and mobile Tor routing.",
       "isPartOf": {
         "@type": "WebSite",
         "@id": "https://mnr.network/#website",
@@ -47,7 +47,7 @@
     },
     {
       "@type": "BreadcrumbList",
-      "@id": "https://mnr.network/docs/stage0-mvp/#breadcrumbs",
+      "@id": "https://mnr.network/docs/wallets/cake-wallet/#breadcrumbs",
       "itemListElement": [
         {
           "@type": "ListItem",
@@ -64,8 +64,57 @@
         {
           "@type": "ListItem",
           "position": 3,
-          "name": "Stage 0 plan",
-          "item": "https://mnr.network/docs/stage0-mvp/"
+          "name": "Wallets",
+          "item": "https://mnr.network/docs/connect-wallets/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 4,
+          "name": "Cake Wallet",
+          "item": "https://mnr.network/docs/wallets/cake-wallet/"
+        }
+      ]
+    },
+    {
+      "@type": "HowTo",
+      "@id": "https://mnr.network/docs/wallets/cake-wallet/#howto",
+      "name": "Connect Cake Wallet to mnr",
+      "description": "How to connect Cake Wallet on iOS and Android to mnr with SSL encryption, HTTP Digest token login, and mobile Tor routing.",
+      "step": [
+        {
+          "@type": "HowToStep",
+          "position": 1,
+          "name": "Obtain an mnr token",
+          "text": "Generate an access token on mnr.network/get-token/.",
+          "url": "https://mnr.network/docs/wallets/cake-wallet/#step-1"
+        },
+        {
+          "@type": "HowToStep",
+          "position": 2,
+          "name": "Open Node settings",
+          "text": "In Cake Wallet, navigate to Settings → Connection and sync → Nodes.",
+          "url": "https://mnr.network/docs/wallets/cake-wallet/#step-2"
+        },
+        {
+          "@type": "HowToStep",
+          "position": 3,
+          "name": "Add mnr node",
+          "text": "Tap Add node, set address to rpc.mnr.network, port to 443, and toggle Use SSL to On.",
+          "url": "https://mnr.network/docs/wallets/cake-wallet/#step-3"
+        },
+        {
+          "@type": "HowToStep",
+          "position": 4,
+          "name": "Enter Login token",
+          "text": "Paste your token into the Login field and enter x into Password.",
+          "url": "https://mnr.network/docs/wallets/cake-wallet/#step-4"
+        },
+        {
+          "@type": "HowToStep",
+          "position": 5,
+          "name": "Save and activate",
+          "text": "Save the node and select it as your active remote node.",
+          "url": "https://mnr.network/docs/wallets/cake-wallet/#step-5"
         }
       ]
     }
@@ -339,7 +388,7 @@
           <span>How it works</span>
           <span class="tab-badge">Live</span>
         </a>
-      <a href="/docs/connect-wallets/" class="doc-tab ">
+      <a href="/docs/connect-wallets/" class="doc-tab active">
           <span>Connect a wallet</span>
           <span class="tab-badge">Guide</span>
         </a>
@@ -355,7 +404,7 @@
           <span>Roadmap</span>
           <span class="tab-badge">Stages 0–2</span>
         </a>
-      <a href="/docs/stage0-mvp/" class="doc-tab active">
+      <a href="/docs/stage0-mvp/" class="doc-tab ">
           <span>Stage 0 plan</span>
           <span class="tab-badge">Plan</span>
         </a>
@@ -378,227 +427,74 @@
       <a href="/">mnr</a>
       <span>/</span>
       <a href="/docs/">docs</a>
-      <span>/</span><span>stage0-mvp</span>
+      <span>/</span><a href="/docs/connect-wallets/">wallets</a><span>/</span><span>cake wallet</span>
     </div>
 
     <article class="prose">
-      <h1>mnr — Stage 0 MVP Plan</h1>
-<p><em>a verified proxy over public Monero nodes, plus one of our own</em></p>
-<blockquote>
-<p>The engineering notes behind Stage 0, the verified proxy that is live today. Rendered from the <a href="https://github.com/mnrnetwork/mnr/blob/main/docs/stage0-mvp-plan.md">plan in the code repository</a> with the build schedule and internal decisions left out. For the short version, read <a href="/docs/how-it-works/">How mnr works</a>.</p>
-</blockquote>
+      <h1>Connect Cake Wallet to mnr</h1>
+<p>Cake Wallet is the most widely used open-source mobile Monero wallet for iOS and Android. Configuring Cake Wallet to use mnr routes your mobile sync traffic through cryptographic multi-node verification, shielding your phone from poisoned public nodes while consuming zero mobile logging and zero telemetry.</p>
 <hr>
-<h2 id="1-what-stage-0-is-in-one-paragraph">1. What Stage 0 is, in one paragraph</h2>
-<p>A single Rust binary, <code>mnr-relay</code>, on one VPS. It accepts Monero daemon RPC at <code>rpc.mnr.network</code> (and a <code>.onion</code>), authenticates a path token, applies the method policy from the gateway plan, caches what is safe to cache, fans out writes, and forwards everything else to a pool of upstreams. The pool is <strong>public nodes that already serve the community, plus one node we run and list publicly ourselves</strong>. Every answer that can be checked is checked — block and tx hashes, header linkage, height agreement across upstreams — so the proxy is <em>more</em> trustworthy than any single public node a wallet would otherwise pick blindly. It says exactly this on its front page. It is free, with a cheap Pro tier for people who want higher limits, and it makes no availability promise, because we do not run most of the nodes.</p>
-<p>What it is <strong>not</strong>: not a gateway (no SLA, no owned mesh), not a network (no operator agent, no settlement), not a way to resell other people&#39;s nodes at Business prices. Those are Stages 1 and 2.</p>
-<hr>
-<h2 id="2-rules-toward-public-nodes-non-negotiable-they-are-the-ethics-of-stage-0">2. Rules toward public nodes (non-negotiable; they are the ethics of Stage 0)</h2>
-<ol>
-<li><strong>Disclose.</strong> The front page, the docs and the <code>User-Agent</code> say what this is. Upstream list is public at <code>mnr.network/upstreams</code> with each node&#39;s current status and our request rate to it.</li>
-<li><strong>Contribute.</strong> Our own node is a full node, listed on the public node lists, open to the public with the same restricted RPC everyone else offers, and it carries the heaviest traffic class (wallet-sync streams) by preference so public nodes see light calls from us, not floods.</li>
-<li><strong>Cap ourselves.</strong> Per-upstream ceilings: 5 rps light calls, 2 concurrent <code>get_blocks.bin</code> streams, 10 MB/s. Above that, requests queue or go to our own node. These caps are config, published, and stricter than what most public nodes would tolerate.</li>
-<li><strong>Identify.</strong> <code>User-Agent: mnr-relay/0.x (+https://mnr.network/upstreams)</code> on every upstream request so an operator can see who we are and how to reach us.</li>
-<li><strong>Honour opt-out.</strong> Any node operator who asks is removed within 24 hours; the opt-out list is public. We also check a <code>/.well-known/mnr-optout</code> on each upstream host daily so operators can remove themselves without contacting us.</li>
-<li><strong>Never pass client identity.</strong> No client IP, no <code>X-Forwarded-For</code>, no token, nothing but the RPC body reaches an upstream.</li>
-<li><strong>Use restricted RPC only.</strong> The policy table&#39;s allow-list is enforced before dispatch; we never call admin methods on anyone&#39;s node.</li>
-</ol>
-<p>The disclosure paragraph for the front page, verbatim:</p>
-<blockquote>
-<p>mnr is a verified proxy. Your wallet&#39;s requests are forwarded to public Monero nodes run by community members, and to our own public node. We check every block, transaction and header we return against its hash and against several nodes, so you get a better answer than any single node gives — but the nodes are not ours, and we make no uptime promise. We cap our traffic to each public node, identify ourselves to operators, honour opt-outs, and publish the full upstream list. If you need nodes we run ourselves, with an SLA, that is a separate paid service coming later.</p>
-</blockquote>
-<hr>
-<h2 id="3-upstream-pool">3. Upstream pool</h2>
-<div class="table-wrap"><table class="doc-table">
-<thead>
-<tr>
-<th>Aspect</th>
-<th>Rule</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>Sources</td>
-<td>Seed list curated from the well-known public node lists (monero.fail and wallet-maintained lists), clearnet and <code>.onion</code>, mainnet only for now. Target: 8–12 clearnet + 3–5 onion at launch. Nodes run by wallet teams or known community members preferred; anonymous VPS nodes allowed but weighted lower.</td>
-</tr>
-<tr>
-<td>Consent</td>
-<td>Not required by convention (these nodes are public), but we contact every operator we can identify in week 1 to say we are doing it, with the opt-out link. Anyone who says no is never added.</td>
-</tr>
-<tr>
-<td>Our node</td>
-<td>Full node, NVMe, <code>--restricted-rpc --public-node</code>, listed publicly, reached by the relayer over a private link (WireGuard) <em>and</em> used as a public node by everyone else. It is <code>tier: owned</code> in config and preferred for streams and tie-breaks.</td>
-</tr>
-<tr>
-<td>Probing</td>
-<td>Every 15 s: <code>get_info</code> + <code>get_last_block_header</code>, 2 s timeout clearnet, 8 s onion (via the box&#39;s local Tor SOCKS). Records RTT (EMA), height, top hash, <code>synchronized</code>, restricted-RPC check.</td>
-</tr>
-<tr>
-<td>Quorum tip</td>
-<td>Highest height reported by ≥3 upstreams that agree on the hash at that height. If fewer than 3 agree, degraded mode (serve highest-height <em>owned</em> node; cache writes suspended).</td>
-</tr>
-<tr>
-<td>Ranking</td>
-<td>Healthy, on quorum tip, sorted by EMA latency; owned node gets a small bonus; onion nodes serve light calls only.</td>
-</tr>
-<tr>
-<td>Ejection</td>
-<td>Any upstream that fails verification (§4) three times in an hour is removed from rotation for 24 h and the event logged publicly on the upstreams page.</td>
-</tr>
-</tbody></table></div>
-<hr>
-<h2 id="4-verification-at-stage-0">4. Verification at Stage 0</h2>
-<p>Reused from the network doc §3.4, trimmed to what one box can do:</p>
-<div class="table-wrap"><table class="doc-table">
-<thead>
-<tr>
-<th>Data</th>
-<th>Check</th>
-<th>Cost</th>
-</tr>
-</thead>
-<tbody><tr>
-<td><code>get_block</code>, <code>get_block_header_*</code></td>
-<td>Recompute block hash from blob; match requested hash or our header chain</td>
-<td>Cheap</td>
-</tr>
-<tr>
-<td><code>/get_transactions</code></td>
-<td>Keccak(tx blob) = txid; height ≤ tip</td>
-<td>Cheap</td>
-</tr>
-<tr>
-<td>Header chain</td>
-<td>Built once by majority from upstreams (≈ 280 MB on disk), extended at the tip by agreement; reorg detection → cache epoch bump</td>
-<td>One-time sync ≈ hours</td>
-</tr>
-<tr>
-<td><code>get_info</code>, <code>get_height</code>, fee estimate</td>
-<td>Majority of ≥3 upstreams; node-specific fields normalised; SWR cache 1/5/15 s</td>
-<td>Cheap</td>
-</tr>
-<tr>
-<td><code>/get_outs.bin</code></td>
-<td>Two-upstream agreement for <strong>Pro</strong> tokens; single upstream (owned node preferred) for Free</td>
-<td>Moderate</td>
-</tr>
-<tr>
-<td><code>/get_blocks.bin</code></td>
-<td><strong>Not verified</strong> in Stage 0; routed to the owned node first, public nodes second; response header <code>Mnr-Verify: none</code></td>
-<td>—</td>
-</tr>
-<tr>
-<td>Mempool</td>
-<td>Not verifiable; header <code>Mnr-Upstream: &lt;n&gt;</code> (an opaque number, not the node&#39;s URL, so we do not advertise which node saw what)</td>
-<td>—</td>
-</tr>
-<tr>
-<td><code>send_raw_transaction</code></td>
-<td>Fan out to all healthy upstreams; success if ≥1 OK; <code>Mnr-Relayed: k/n</code></td>
-<td>—</td>
-</tr>
-</tbody></table></div>
-<p>Verified request counts and fault counts per upstream are the numbers on the public upstreams page. This is the feature: &quot;we caught node X serving a wrong header on Tuesday, here&#39;s the proof&quot; is what makes people trust the proxy over a raw public node.</p>
-<hr>
-<h2 id="5-method-policy-caching-auth-limits">5. Method policy, caching, auth, limits</h2>
-<ul>
-<li><strong>Method policy:</strong> the gateway plan §3.3 table as-is, compiled into <code>mnr-core::policy</code>.</li>
-<li><strong>Cache:</strong> in-memory (<code>moka</code>, 1 GB cap) for SWR and immutable-below-tip−10; on-disk store deferred to Stage 1.</li>
-<li><strong>Auth:</strong> 256-bit token, hashed at rest in SQLite; rotation endpoint with 24 h grace. Stock wallets use <code>--daemon-login &lt;token&gt;:x</code> (they speak Digest only and drop any path, found in the beta; the token is the Digest username, the password is ignored); the path form <code>/v1/&lt;token&gt;/…</code> and Basic auth serve curl, scripts and URL-taking clients. Free tokens are issued instantly from the site; no email.</li>
-<li><strong>Limits:</strong> in-process token bucket per token; daily WU quota in SQLite.</li>
-</ul>
-<div class="table-wrap"><table class="doc-table">
-<thead>
-<tr>
-<th></th>
-<th>Free</th>
-<th>Pro</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>Price</td>
-<td>$0</td>
-<td><strong>$9/month</strong>, XMR invoice</td>
-</tr>
-<tr>
-<td>Allowance</td>
-<td>500k WU/month</td>
-<td>10M WU/month</td>
-</tr>
-<tr>
-<td>Burst</td>
-<td>5 rps</td>
-<td>25 rps</td>
-</tr>
-<tr>
-<td><code>get_outs</code></td>
-<td>single upstream</td>
-<td>two-upstream agreement</td>
-</tr>
-<tr>
-<td>Streams</td>
-<td>owned node when available, else public, 1 concurrent</td>
-<td>owned node preferred, 3 concurrent</td>
-</tr>
-<tr>
-<td>Promise</td>
-<td>none</td>
-<td>none — &quot;we will tell you what we verified&quot; is the whole promise</td>
-</tr>
-</tbody></table></div>
-<p>$9 is deliberately a supporter price. It tests one question: <em>will anyone pay for verification and convenience over nodes they could use for free?</em></p>
-<ul>
-<li><strong>Logging:</strong> no request logs; aggregate metrics only; token hash prefix in error samples. The gateway plan §3.6 policy applies.</li>
-</ul>
-<hr>
-<h2 id="6-architecture-one-binary-one-box">6. Architecture (one binary, one box)</h2>
-<pre><code>clients ──▶ rpc.mnr.network (TLS, axum) ──┐
-clients ──▶ &lt;onion&gt;.onion (local tor)  ───┤
-                                          ▼
-                     mnr-relay ──── auth (SQLite) ── limits ── policy ── cache ── verify
-                                          │
-                       ┌──────────────────┼───────────────────────┐
-                       ▼                  ▼                       ▼
-              owned node (WireGuard)   public clearnet nodes   public .onion nodes (via tor SOCKS)
-              full, --public-node      HTTPS/HTTP, capped      light calls only, 8 s timeout
-
-background: prober (15 s) · header-chain sync · cache epoch on reorg · invoice watcher (wallet-rpc) · metrics (/metrics, Prometheus)
+<h2 id="quick-configuration">Quick configuration</h2>
+<p>In Cake Wallet, go to <strong>Settings → Connection and sync → Add node</strong>:</p>
+<pre><code>Node address:     rpc.mnr.network
+Port:             443
+Login (username): &lt;token&gt;
+Password:         x
+Use SSL:          On (enabled)
 </code></pre>
-<p>Crates: <code>mnr-core</code> (policy, hash, verify, header chain — the same crate the network doc specifies) and <code>mnr-relay</code> (everything else). No agent, no directory, no settlement. Config is one TOML file; upstreams are a list with <code>kind: owned | public</code>, <code>transport: https | http | onion</code>, and per-node caps.</p>
-<p>Relayer box: 4 vCPU / 8 GB / 80 GB NVMe (header chain + SQLite + cache). Owned node: 8 vCPU / 32 GB / 1 TB NVMe on a different provider, in the sizing of the gateway plan §4.</p>
+<blockquote>
+<p><strong>Note</strong>: Place your token in the <strong>Login</strong> field. Cake Wallet uses HTTP Digest authentication. Because mnr stores tokens strictly hashed and does not store plaintext secrets, the token is extracted from the login username and the password is bypassed.</p>
+</blockquote>
 <hr>
-<h2 id="8-risks-specific-to-stage-0">8. Risks specific to Stage 0</h2>
-<div class="table-wrap"><table class="doc-table">
-<thead>
-<tr>
-<th>Risk</th>
-<th>Response</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>A public-node operator objects publicly (&quot;they&#39;re reselling our node&quot;)</td>
-<td>The disclosure, the caps, the identification header, the opt-out, and our own public node are the answer; respond within the day, remove on request, link the upstreams page. This is the scenario the reviews warned about, and the rules in §2 exist so the answer is already true when it is asked.</td>
-</tr>
-<tr>
-<td>Public nodes are inconsistent (pruned vs full, old versions, odd <code>get_info</code>)</td>
-<td>Verification and normalisation handle data; the prober&#39;s restricted-RPC and version checks handle capability; anything weird is ejected and logged rather than papered over.</td>
-</tr>
-<tr>
-<td>Public nodes rate-limit or ban us</td>
-<td>Caps keep us under typical limits; the owned node absorbs overflow; ejection is automatic. If it becomes common, that is the signal to move to Stage 1.</td>
-</tr>
-<tr>
-<td>Owned node becomes the real workhorse and public nodes decorative</td>
-<td>Acceptable — it means demand exists and Stage 1 (two more nodes) is justified. Track the share of WU served by the owned node; above 60% for 4 weeks is a Stage 1 trigger.</td>
-</tr>
-<tr>
-<td>Nobody pays $9</td>
-<td>Then the verification layer is a public good and the business is Stage 1 with owned nodes and SLAs sold to backends — the code is unchanged.</td>
-</tr>
-<tr>
-<td>Header-chain sync from public nodes is poisoned</td>
-<td>Built by majority of ≥5 upstreams including our own node; spot-checked against two block explorers as an advisory signal; any disagreement halts the build and alerts.</td>
-</tr>
-</tbody></table></div>
+<h2 id="step-by-step-setup">Step-by-step setup</h2>
+<ol>
+<li><strong>Obtain your token</strong>: Get a free token at <a href="/get-token/">mnr.network/get-token/</a> or use your Pro token.</li>
+<li><strong>Open Node Settings</strong>: In Cake Wallet, tap the <strong>Settings</strong> gear icon (bottom right or side drawer).</li>
+<li><strong>Select Connection &amp; Sync</strong>: Tap <strong>Connection and sync</strong> → <strong>Nodes</strong> → <strong>Add node</strong> (+ icon).</li>
+<li><strong>Fill In Node Details</strong>:<ul>
+<li><strong>Node Address</strong>: <code>rpc.mnr.network</code></li>
+<li><strong>Node Port</strong>: <code>443</code></li>
+<li><strong>Use SSL</strong>: Toggle to <strong>On</strong></li>
+<li><strong>Login</strong>: Paste your <code>&lt;token&gt;</code></li>
+<li><strong>Password</strong>: Enter <code>x</code></li>
+</ul>
+</li>
+<li><strong>Save and Activate</strong>: Tap <strong>Save</strong> (or <strong>Test Connection</strong>). Tap on <code>rpc.mnr.network:443</code> in your node list to switch active sync to it. The status indicator will turn green once authenticated.</li>
+</ol>
 <hr>
+<h2 id="mobile-tor-routing-android-ios">Mobile Tor Routing (Android &amp; iOS)</h2>
+<p>Cake Wallet supports onion routing on both platforms:</p>
+<pre><code>Node address:     mnrrpcvbopaykx7um32r4iyamontteidypjd33fhzvuy2hwfu5c4ifad.onion
+Port:             80
+Login:            &lt;token&gt;
+Password:         x
+Use SSL:          Off (disabled)
+</code></pre>
+<ol>
+<li><strong>Enable Tor in Cake Wallet</strong>: Go to <strong>Settings → Security and privacy → Tor</strong> (or <strong>Connection settings</strong>) and toggle <strong>Enable Tor</strong>.</li>
+<li><strong>Add Onion Node</strong>:<ul>
+<li>Address: <code>mnrrpcvbopaykx7um32r4iyamontteidypjd33fhzvuy2hwfu5c4ifad.onion</code></li>
+<li>Port: <code>80</code></li>
+<li>Toggle <strong>Use SSL</strong> off.</li>
+</ul>
+</li>
+<li>Save and select the onion node. All communication remains fully anonymous and end-to-end encrypted within the Tor v3 circuit.</li>
+</ol>
+<hr>
+<h2 id="performance-background-sync">Performance &amp; Background Sync</h2>
+<ul>
+<li><strong>Sync Streams</strong>: Monero block scanning generates batch queries for outputs (<code>/get_outs.bin</code>) and block blobs (<code>/get_blocks.bin</code>). Free tier accounts support 1 sync stream; Pro tier accounts unlock up to 3 concurrent streams for faster initial sync.</li>
+<li><strong>Battery Optimization</strong>: On mobile devices, keep Cake Wallet in the foreground during an initial full wallet restoration from block 0 or your restore date to avoid OS background throttling.</li>
+<li><strong>Quota Tracking</strong>: Normal daily transactions consume negligible Work Units (WU). 500k monthly requests on Free is more than enough for routine mobile wallet operations.</li>
+</ul>
+<hr>
+<h2 id="troubleshooting">Troubleshooting</h2>
+<ul>
+<li><strong>Connection refused / Cannot connect</strong>: Ensure <strong>Use SSL</strong> is switched ON for port 443. Clearnet connections without SSL will be rejected.</li>
+<li><strong>Authentication failed</strong>: Double check that the token is in the <strong>Login</strong> field and password contains <code>x</code>.</li>
+<li><strong>429 Rate limited</strong>: If Cake Wallet is syncing rapidly on Free tier, it may briefly hit the 5 req/s burst limit. Cake will automatically retry with exponential backoff.</li>
+<li><strong>Slow scan over Tor</strong>: Tor routing introduces higher latency (typically 400–900 ms RTT). For faster catch-up, sync recent blocks on clearnet HTTPS first, then switch to the <code>.onion</code> endpoint for daily transaction broadcast.</li>
+</ul>
 
     </article>
   </main>

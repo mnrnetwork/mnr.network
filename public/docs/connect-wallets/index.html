@@ -23,6 +23,7 @@
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
   <link rel="manifest" href="/site.webmanifest">
   <link rel="alternate" type="text/markdown" title="LLM context" href="/llms.txt">
+  <link rel="stylesheet" href="/search.css">
   <script type="application/ld+json">
   {
   "@context": "https://schema.org",
@@ -310,7 +311,12 @@
       <a href="/docs/" style="color: var(--accent); font-weight: 600;">Docs</a>
       <a href="https://github.com/mnrnetwork/mnr" target="_blank" rel="noopener noreferrer" class="mono" style="font-weight: 500;">GitHub</a>
     </nav>
-    <div style="display: flex; align-items: center; gap: 12px;">
+    <div style="display: flex; align-items: center; gap: 10px;">
+      <button class="search-trigger" id="docsearch-trigger" type="button" aria-label="Search documentation" title="Search (⌘K or /)">
+        <svg class="search-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+        <span class="search-trigger-text">Search docs...</span>
+        <kbd class="search-kbd">⌘K</kbd>
+      </button>
       <button class="theme-btn" id="theme-toggle" type="button" title="Switch light / dark" aria-label="Switch light / dark">
         <svg class="sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"></path></svg>
         <svg class="moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"></path></svg>
@@ -385,39 +391,51 @@ password: x                      (anything; it is not checked)
 <p>The token goes in the username slot, not the password slot. Stock wallets authenticate with HTTP Digest, which cannot check a password against a server that stores only hashes, so mnr reads the token from the username and ignores the password. The token still travels only inside TLS. Never paste a token into a chat or a screenshot: it is the whole credential.</p>
 <p>For scripts, <code>curl</code> and anything that accepts a URL there is also the path form: <code>https://rpc.mnr.network/v1/&lt;token&gt;/json_rpc</code>. Stock wallets keep only the host and port of a daemon address and drop the path, so do not use the path form in a wallet.</p>
 <hr>
-<h2 id="monero-wallet-cli">monero-wallet-cli</h2>
+<h2 id="dedicated-wallet-guides">Dedicated wallet guides</h2>
+<p>For step-by-step screenshots, mobile background sync settings, and OS-specific certificate instructions, consult the dedicated guide for your client:</p>
+<ul>
+<li><a href="/docs/wallets/feather/"><strong>Feather Wallet Guide</strong></a> — Desktop lightweight wallet with native Tor hidden service routing.</li>
+<li><a href="/docs/wallets/cake-wallet/"><strong>Cake Wallet Guide</strong></a> — Mobile iOS &amp; Android setup, Tor toggling, and background sync pacing.</li>
+<li><a href="/docs/wallets/monero-gui/"><strong>Monero GUI Guide</strong></a> — Reference desktop client in Simple and Advanced Remote Node modes.</li>
+<li><a href="/docs/wallets/monerujo/"><strong>Monerujo Guide</strong></a> — Android client with NetCipher and Orbot proxy integration.</li>
+<li><a href="/docs/wallets/cli/"><strong>CLI &amp; RPC Guide</strong></a> — <code>monero-wallet-cli</code> flags, CA cert bundles across Linux/macOS/Windows, and <code>monero-wallet-rpc</code> backend services.</li>
+</ul>
+<hr>
+<h2 id="quick-configuration-reference">Quick configuration reference</h2>
+<h3 id="monero-wallet-cli">monero-wallet-cli</h3>
 <pre><code>monero-wallet-cli \
   --daemon-address rpc.mnr.network:443 \
   --daemon-login &lt;token&gt;:x \
   --daemon-ssl enabled \
   --daemon-ssl-ca-certificates /etc/ssl/certs/ca-certificates.crt
 </code></pre>
-<p>The CA bundle path is Debian and Ubuntu&#39;s; on Fedora it is <code>/etc/pki/tls/certs/ca-bundle.crt</code>, on macOS with Homebrew <code>$(brew --prefix)/etc/ca-certificates/cert.pem</code>. With <code>--daemon-ssl enabled</code> the wallet insists on a way to verify the certificate; pointing it at the system bundle is that way. <code>--daemon-ssl-allow-any-cert</code> also works but turns off certificate checking, so only use it to diagnose.</p>
-<p>Tested with the official 0.18.5.1 release.</p>
-<h2 id="monero-wallet-gui">monero-wallet-gui</h2>
+<p>The CA bundle path is Debian and Ubuntu&#39;s; on Fedora it is <code>/etc/pki/tls/certs/ca-bundle.crt</code>, on macOS with Homebrew <code>$(brew --prefix)/etc/ca-certificates/cert.pem</code>. See the <a href="/docs/wallets/cli/">CLI &amp; RPC Guide</a> for full options.</p>
+<h3 id="monero-wallet-gui">monero-wallet-gui</h3>
 <p>Settings → Node → <strong>Remote node</strong>.</p>
 <ul>
 <li>Address: <code>rpc.mnr.network</code>, Port: <code>443</code></li>
 <li>Daemon username: <code>&lt;token&gt;</code>, Daemon password: <code>x</code></li>
 <li>Tick <strong>Use SSL</strong> (some versions call it &quot;Daemon SSL&quot;)</li>
+<li>Detailed walkthrough: <a href="/docs/wallets/monero-gui/">Monero GUI Guide</a></li>
 </ul>
-<h2 id="feather">Feather</h2>
-<p>Settings → Network → <strong>Custom node</strong>: address <code>rpc.mnr.network:443</code>, username <code>&lt;token&gt;</code>, password <code>x</code>, SSL on. Feather shows a URL field, but it keeps only the host and port, so the login form is the one to use.</p>
-<h2 id="cake-wallet">Cake Wallet</h2>
-<p>Settings → Connection and sync → <strong>Add node</strong>.</p>
+<h3 id="feather">Feather</h3>
+<p>Settings → Network → <strong>Custom node</strong>: address <code>rpc.mnr.network:443</code>, username <code>&lt;token&gt;</code>, password <code>x</code>, SSL on. Detailed walkthrough: <a href="/docs/wallets/feather/">Feather Wallet Guide</a></p>
+<h3 id="cake-wallet">Cake Wallet</h3>
+<p>Settings → Connection and sync → <strong>Add node</strong>:</p>
 <ul>
 <li>Node address: <code>rpc.mnr.network</code>, Port: <code>443</code></li>
 <li>Login: <code>&lt;token&gt;</code>, Password: <code>x</code></li>
 <li>Turn on <strong>Use SSL</strong></li>
+<li>Detailed walkthrough: <a href="/docs/wallets/cake-wallet/">Cake Wallet Guide</a></li>
 </ul>
-<h2 id="monerujo">Monerujo</h2>
-<p>Settings → Node → add a node.</p>
+<h3 id="monerujo">Monerujo</h3>
+<p>Settings → Node → add a node:</p>
 <ul>
 <li>Host: <code>rpc.mnr.network</code>, Port: <code>443</code></li>
 <li>Username: <code>&lt;token&gt;</code>, Password: <code>x</code></li>
+<li>Monerujo uses SSL automatically when the port is 443. Detailed walkthrough: <a href="/docs/wallets/monerujo/">Monerujo Guide</a></li>
 </ul>
-<p>Monerujo uses SSL when the port is 443.</p>
-<h2 id="monero-wallet-rpc-and-backends">monero-wallet-rpc and backends</h2>
+<h3 id="monero-wallet-rpc-and-backends">monero-wallet-rpc and backends</h3>
 <pre><code>monero-wallet-rpc \
   --daemon-address rpc.mnr.network:443 --daemon-login &lt;token&gt;:x \
   --daemon-ssl enabled --daemon-ssl-ca-certificates /etc/ssl/certs/ca-certificates.crt \
@@ -480,6 +498,7 @@ mnr-tier: free
     </div>
   </footer>
 
+  <script src="/search.js" defer></script>
   <script>
     (function () {
       var btn = document.getElementById('theme-toggle');

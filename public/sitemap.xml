@@ -31,6 +31,36 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://mnr.network/docs/wallets/feather/</loc>
+    <lastmod>2026-09-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://mnr.network/docs/wallets/cake-wallet/</loc>
+    <lastmod>2026-09-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://mnr.network/docs/wallets/monero-gui/</loc>
+    <lastmod>2026-09-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://mnr.network/docs/wallets/monerujo/</loc>
+    <lastmod>2026-09-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://mnr.network/docs/wallets/cli/</loc>
+    <lastmod>2026-09-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
     <loc>https://mnr.network/docs/tokens/</loc>
     <lastmod>2026-09-05</lastmod>
     <changefreq>monthly</changefreq>

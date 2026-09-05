@@ -19,6 +19,11 @@ interface DocMeta {
   /** Engineering plans rendered from the code repo: which `## N.` sections
    *  are public. Everything else (schedules, budgets, decisions) is dropped. */
   plan?: PlanFilter;
+  hiddenFromTabs?: boolean;
+  category?: string;
+  howToSteps?: { name: string; text: string }[];
+  keywords?: string[];
+  featured?: boolean;
 }
 
 interface PlanFilter {
@@ -62,6 +67,111 @@ const DOCS: DocMeta[] = [
     badge: "Guide",
     description:
       "Step-by-step settings for monero-wallet-cli, the GUI wallet, Feather, Cake, Monerujo and monero-wallet-rpc, with the path-token and daemon-login forms, and what the Mnr-Verify header tells you.",
+    keywords: ["wallet", "remote node", "digest auth", "tokens", "feather", "cake", "gui", "monerujo", "cli", "tor", "i2p", "onion"],
+  },
+  {
+    id: "wallet-feather",
+    route: "/docs/wallets/feather/",
+    sourceFile: "content/wallets/feather.md",
+    title: "Connect Feather Wallet to mnr",
+    navTitle: "Feather Wallet",
+    badge: "Wallet Guide",
+    category: "Wallets",
+    description:
+      "Step-by-step setup for Feather Wallet with mnr, HTTP Digest token authentication, native Tor onion routing, and verification status checks.",
+    hiddenFromTabs: true,
+    featured: true,
+    keywords: ["feather", "feather wallet", "desktop", "tails", "tor", "onion", "digest auth", "custom node", "ssl", "port 443"],
+    howToSteps: [
+      { name: "Obtain an mnr token", text: "Generate an anonymous access token at mnr.network/get-token/." },
+      { name: "Open Network settings", text: "In Feather, go to Settings → Network tab." },
+      { name: "Configure Custom node", text: "Select Custom node, set address to rpc.mnr.network:443, and enable Use SSL." },
+      { name: "Enter credentials", text: "Paste your token into Daemon username and enter x into Daemon password." },
+      { name: "Connect and sync", text: "Click Apply to begin verified blockchain synchronization." },
+    ],
+  },
+  {
+    id: "wallet-cake",
+    route: "/docs/wallets/cake-wallet/",
+    sourceFile: "content/wallets/cake-wallet.md",
+    title: "Connect Cake Wallet to mnr",
+    navTitle: "Cake Wallet",
+    badge: "Wallet Guide",
+    category: "Wallets",
+    description:
+      "How to connect Cake Wallet on iOS and Android to mnr with SSL encryption, HTTP Digest token login, and mobile Tor routing.",
+    hiddenFromTabs: true,
+    featured: true,
+    keywords: ["cake", "cake wallet", "ios", "android", "mobile", "tor", "onion", "digest auth", "node settings", "ssl", "port 443"],
+    howToSteps: [
+      { name: "Obtain an mnr token", text: "Generate an access token on mnr.network/get-token/." },
+      { name: "Open Node settings", text: "In Cake Wallet, navigate to Settings → Connection and sync → Nodes." },
+      { name: "Add mnr node", text: "Tap Add node, set address to rpc.mnr.network, port to 443, and toggle Use SSL to On." },
+      { name: "Enter Login token", text: "Paste your token into the Login field and enter x into Password." },
+      { name: "Save and activate", text: "Save the node and select it as your active remote node." },
+    ],
+  },
+  {
+    id: "wallet-gui",
+    route: "/docs/wallets/monero-gui/",
+    sourceFile: "content/wallets/monero-gui.md",
+    title: "Connect Monero GUI Wallet to mnr",
+    navTitle: "Monero GUI",
+    badge: "Wallet Guide",
+    category: "Wallets",
+    description:
+      "Configure the official Monero GUI desktop wallet to use mnr as a verified remote node with Daemon SSL and Tor SOCKS5 proxy support.",
+    hiddenFromTabs: true,
+    featured: true,
+    keywords: ["monero gui", "gui", "official wallet", "desktop", "remote node", "daemon ssl", "socks5", "tor", "port 443"],
+    howToSteps: [
+      { name: "Obtain an mnr token", text: "Generate a token on mnr.network/get-token/." },
+      { name: "Open Node settings", text: "Go to Settings → Node and choose Remote node." },
+      { name: "Enter connection details", text: "Set address to rpc.mnr.network, port to 443, and check Use SSL." },
+      { name: "Enter Daemon username", text: "Set Daemon username to your token and Daemon password to x." },
+      { name: "Connect", text: "Click Connect and wait for the bottom-left status icon to turn green." },
+    ],
+  },
+  {
+    id: "wallet-monerujo",
+    route: "/docs/wallets/monerujo/",
+    sourceFile: "content/wallets/monerujo.md",
+    title: "Connect Monerujo (Android) to mnr",
+    navTitle: "Monerujo",
+    badge: "Wallet Guide",
+    category: "Wallets",
+    description:
+      "Step-by-step connection guide for Monerujo on Android, automatic port 443 SSL enforcement, and NetCipher / Orbot Tor integration.",
+    hiddenFromTabs: true,
+    featured: true,
+    keywords: ["monerujo", "android", "f-droid", "mobile", "orbot", "netcipher", "tor", "onion", "remote node", "port 443"],
+    howToSteps: [
+      { name: "Obtain an mnr token", text: "Get your token on mnr.network/get-token/." },
+      { name: "Open Node manager", text: "Open Monerujo and tap the menu → Nodes." },
+      { name: "Add custom node", text: "Tap + and enter Host: rpc.mnr.network, Port: 443." },
+      { name: "Enter Username", text: "Set Username to your token and Password to x." },
+      { name: "Test and save", text: "Tap Test to verify connectivity, then tap Save and set as active node." },
+    ],
+  },
+  {
+    id: "wallet-cli",
+    route: "/docs/wallets/cli/",
+    sourceFile: "content/wallets/cli.md",
+    title: "Connect monero-wallet-cli & monero-wallet-rpc to mnr",
+    navTitle: "CLI & RPC",
+    badge: "Wallet Guide",
+    category: "Wallets",
+    description:
+      "Command line flags, CA certificate bundles across Linux, macOS, and Windows, monero-wallet-rpc configuration, and Tor/I2P proxying.",
+    hiddenFromTabs: true,
+    featured: true,
+    keywords: ["cli", "monero-wallet-cli", "monero-wallet-rpc", "rpc", "daemon-login", "daemon-ssl", "ca-certificates", "tor", "i2p", "curl", "headless"],
+    howToSteps: [
+      { name: "Obtain an mnr token", text: "Generate a token on mnr.network/get-token/." },
+      { name: "Locate CA bundle", text: "Identify your operating system certificate bundle path (/etc/ssl/certs/ca-certificates.crt on Debian/Ubuntu, or brew on macOS)." },
+      { name: "Run CLI with flags", text: "Execute monero-wallet-cli with --daemon-address rpc.mnr.network:443 --daemon-login <token>:x --daemon-ssl enabled --daemon-ssl-ca-certificates <path>." },
+      { name: "Verify headers", text: "Verify connection metadata using curl -si https://rpc.mnr.network/v1/<token>/get_height." },
+    ],
   },
   {
     id: "tokens",
@@ -72,6 +182,7 @@ const DOCS: DocMeta[] = [
     badge: "Guide",
     description:
       "Free and Pro tiers, work units, getting a token, paying a Pro invoice in XMR, renewing, rotating, and exactly what the relay knows about you.",
+    keywords: ["tokens", "billing", "free tier", "pro tier", "work units", "wu", "xmr invoice", "renew", "rotate"],
   },
   {
     id: "method-policy",
@@ -82,6 +193,7 @@ const DOCS: DocMeta[] = [
     badge: "Generated",
     description:
       "Verification rules, cache bounds, upstream quorum requirements and timeout budgets for every Monero daemon JSON-RPC and legacy method, generated from the relay's source code.",
+    keywords: ["method policy", "rpc", "json-rpc", "verification", "cache", "swr", "quorum", "get_block", "get_outs", "send_raw_transaction"],
   },
   {
     id: "roadmap",
@@ -92,6 +204,7 @@ const DOCS: DocMeta[] = [
     badge: "Stages 0–2",
     description:
       "The three stages of mnr: the verified proxy that is live today, the owned mesh with an SLA, and the permissionless operator network paid in XMR.",
+    keywords: ["roadmap", "stage 0", "stage 1", "stage 2", "mesh", "operator network", "payouts"],
   },
   {
     id: "stage0-mvp",
@@ -158,10 +271,11 @@ const DOCS: DocMeta[] = [
 const METHOD_POLICY_SOURCE = "../mnr/docs/method-policy.md";
 
 function renderNavTabs(currentId: string): string {
+  const visibleDocs = DOCS.filter((d) => !d.hiddenFromTabs);
   return `
     <nav class="docs-tabs" aria-label="Documentation sections">
-      ${DOCS.map((d) => {
-        const isActive = d.id === currentId;
+      ${visibleDocs.map((d) => {
+        const isActive = d.id === currentId || (d.id === "connect-wallets" && currentId.startsWith("wallet-"));
         return `<a href="${d.route}" class="doc-tab ${isActive ? "active" : ""}">
           <span>${d.navTitle}</span>
           ${d.badge ? `<span class="tab-badge">${d.badge}</span>` : ""}
@@ -174,52 +288,86 @@ function renderNavTabs(currentId: string): string {
 function renderHtmlLayout(doc: DocMeta, contentHtml: string): string {
   const canonicalUrl = `https://mnr.network${doc.route}`;
 
+  const breadcrumbItems: any[] = [
+    {
+      "@type": "ListItem",
+      position: 1,
+      name: "mnr",
+      item: "https://mnr.network/",
+    },
+    {
+      "@type": "ListItem",
+      position: 2,
+      name: "docs",
+      item: "https://mnr.network/docs/",
+    },
+  ];
+
+  if (doc.category === "Wallets" || doc.id.startsWith("wallet-")) {
+    breadcrumbItems.push(
+      {
+        "@type": "ListItem",
+        position: 3,
+        name: "Wallets",
+        item: "https://mnr.network/docs/connect-wallets/",
+      },
+      {
+        "@type": "ListItem",
+        position: 4,
+        name: doc.navTitle,
+        item: canonicalUrl,
+      }
+    );
+  } else if (doc.id !== "hub") {
+    breadcrumbItems.push({
+      "@type": "ListItem",
+      position: 3,
+      name: doc.navTitle,
+      item: canonicalUrl,
+    });
+  }
+
+  const graph: any[] = [
+    {
+      "@type": "WebPage",
+      "@id": `${canonicalUrl}#webpage`,
+      url: canonicalUrl,
+      name: doc.title,
+      description: doc.description,
+      isPartOf: {
+        "@type": "WebSite",
+        "@id": "https://mnr.network/#website",
+        url: "https://mnr.network/",
+        name: "mnr",
+        alternateName: ["mnr network", "mnr.network"],
+      },
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": `${canonicalUrl}#breadcrumbs`,
+      itemListElement: breadcrumbItems,
+    },
+  ];
+
+  if (doc.howToSteps && doc.howToSteps.length > 0) {
+    graph.push({
+      "@type": "HowTo",
+      "@id": `${canonicalUrl}#howto`,
+      name: doc.title,
+      description: doc.description,
+      step: doc.howToSteps.map((step, idx) => ({
+        "@type": "HowToStep",
+        position: idx + 1,
+        name: step.name,
+        text: step.text,
+        url: `${canonicalUrl}#step-${idx + 1}`,
+      })),
+    });
+  }
+
   const jsonLd = {
     "@context": "https://schema.org",
-    "@graph": [
-      {
-        "@type": "WebPage",
-        "@id": `${canonicalUrl}#webpage`,
-        url: canonicalUrl,
-        name: doc.title,
-        description: doc.description,
-        isPartOf: {
-          "@type": "WebSite",
-          "@id": "https://mnr.network/#website",
-          url: "https://mnr.network/",
-          name: "mnr",
-          alternateName: ["mnr network", "mnr.network"],
-        },
-      },
-      {
-        "@type": "BreadcrumbList",
-        "@id": `${canonicalUrl}#breadcrumbs`,
-        itemListElement: [
-          {
-            "@type": "ListItem",
-            position: 1,
-            name: "mnr",
-            item: "https://mnr.network/",
-          },
-          {
-            "@type": "ListItem",
-            position: 2,
-            name: "docs",
-            item: "https://mnr.network/docs/",
-          },
-          ...(doc.id !== "hub"
-            ? [
-                {
-                  "@type": "ListItem",
-                  position: 3,
-                  name: doc.navTitle,
-                  item: canonicalUrl,
-                },
-              ]
-            : []),
-        ],
-      },
-    ],
+    "@graph": graph,
   };
 
   return `<!doctype html>
@@ -247,6 +395,7 @@ function renderHtmlLayout(doc: DocMeta, contentHtml: string): string {
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
   <link rel="manifest" href="/site.webmanifest">
   <link rel="alternate" type="text/markdown" title="LLM context" href="/llms.txt">
+  <link rel="stylesheet" href="/search.css">
   <script type="application/ld+json">
   ${JSON.stringify(jsonLd, null, 2)}
   </script>
@@ -489,7 +638,12 @@ function renderHtmlLayout(doc: DocMeta, contentHtml: string): string {
       <a href="/docs/" style="color: var(--accent); font-weight: 600;">Docs</a>
       <a href="https://github.com/mnrnetwork/mnr" target="_blank" rel="noopener noreferrer" class="mono" style="font-weight: 500;">GitHub</a>
     </nav>
-    <div style="display: flex; align-items: center; gap: 12px;">
+    <div style="display: flex; align-items: center; gap: 10px;">
+      <button class="search-trigger" id="docsearch-trigger" type="button" aria-label="Search documentation" title="Search (⌘K or /)">
+        <svg class="search-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+        <span class="search-trigger-text">Search docs...</span>
+        <kbd class="search-kbd">⌘K</kbd>
+      </button>
       <button class="theme-btn" id="theme-toggle" type="button" title="Switch light / dark" aria-label="Switch light / dark">
         <svg class="sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"></path></svg>
         <svg class="moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"></path></svg>
@@ -512,7 +666,13 @@ function renderHtmlLayout(doc: DocMeta, contentHtml: string): string {
       <a href="/">mnr</a>
       <span>/</span>
       <a href="/docs/">docs</a>
-      ${doc.id !== "hub" ? `<span>/</span><span>${doc.id}</span>` : ""}
+      ${
+        doc.id === "hub"
+          ? ""
+          : (doc.category === "Wallets" || doc.id.startsWith("wallet-"))
+          ? `<span>/</span><a href="/docs/connect-wallets/">wallets</a><span>/</span><span>${doc.navTitle.toLowerCase()}</span>`
+          : `<span>/</span><span>${doc.id}</span>`
+      }
     </div>
 
     <article class="prose">
@@ -539,6 +699,7 @@ function renderHtmlLayout(doc: DocMeta, contentHtml: string): string {
     </div>
   </footer>
 
+  <script src="/search.js" defer></script>
   <script>
     (function () {
       var btn = document.getElementById('theme-toggle');
@@ -609,6 +770,51 @@ function generateHubHtml(): string {
         <div class="hub-card-meta">
           <span>github.com/mnrnetwork/mnr &rarr;</span>
         </div>
+      </a>
+    </div>
+
+    <h2>Dedicated wallet guides</h2>
+    <p>Step-by-step connection walkthroughs, Digest authentication configs, and onion/I2P routing for stock Monero wallets:</p>
+    <div class="hub-grid" style="grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));">
+      <a href="/docs/wallets/feather/" class="hub-card">
+        <div style="display: flex; align-items: center; justify-content: space-between;">
+          <h3>Feather Wallet</h3>
+          <span class="tab-badge">Native Tor</span>
+        </div>
+        <p>Built-in Tor onion proxying, custom node port 443, and Digest credentials.</p>
+        <div class="hub-card-meta"><span>Read guide &rarr;</span></div>
+      </a>
+      <a href="/docs/wallets/cake-wallet/" class="hub-card">
+        <div style="display: flex; align-items: center; justify-content: space-between;">
+          <h3>Cake Wallet</h3>
+          <span class="tab-badge">iOS & Android</span>
+        </div>
+        <p>Mobile setup, background sync pacing, and Orbot / Tor daemon toggling.</p>
+        <div class="hub-card-meta"><span>Read guide &rarr;</span></div>
+      </a>
+      <a href="/docs/wallets/monero-gui/" class="hub-card">
+        <div style="display: flex; align-items: center; justify-content: space-between;">
+          <h3>Monero GUI</h3>
+          <span class="tab-badge">Official GUI</span>
+        </div>
+        <p>Simple vs Advanced Remote Node mode, SOCKS5 proxy, and daemon SSL.</p>
+        <div class="hub-card-meta"><span>Read guide &rarr;</span></div>
+      </a>
+      <a href="/docs/wallets/monerujo/" class="hub-card">
+        <div style="display: flex; align-items: center; justify-content: space-between;">
+          <h3>Monerujo</h3>
+          <span class="tab-badge">Android</span>
+        </div>
+        <p>Port 443 auto-SSL, NetCipher Orbot integration, and node health testing.</p>
+        <div class="hub-card-meta"><span>Read guide &rarr;</span></div>
+      </a>
+      <a href="/docs/wallets/cli/" class="hub-card">
+        <div style="display: flex; align-items: center; justify-content: space-between;">
+          <h3>CLI & RPC</h3>
+          <span class="tab-badge">Headless</span>
+        </div>
+        <p>Command line flags, CA bundles on Linux/macOS/Windows, and monero-wallet-rpc.</p>
+        <div class="hub-card-meta"><span>Read guide &rarr;</span></div>
       </a>
     </div>
 
@@ -684,6 +890,115 @@ function filterPlan(md: string, f: PlanFilter): string {
   return text;
 }
 
+function generateSearchIndex(): string {
+  const items: Array<{
+    title: string;
+    route: string;
+    description: string;
+    category: string;
+    keywords: string[];
+    featured?: boolean;
+  }> = [];
+
+  // 1. Add all documentation routes from DOCS
+  for (const doc of DOCS) {
+    items.push({
+      title: doc.title,
+      route: doc.route,
+      description: doc.description,
+      category: doc.category || (doc.badge === "Plan" ? "Plan" : doc.badge === "Protocol" ? "Protocol" : "Guide"),
+      keywords: doc.keywords || [],
+      featured: doc.featured || false,
+    });
+  }
+
+  // 2. Add high-intent sub-sections & key RPC methods
+  items.push(
+    {
+      title: "Get a free token",
+      route: "/get-token/",
+      description: "Generate a 100,000 WU/month free bearer token instantly without signup, email, or KYC.",
+      category: "Tokens",
+      keywords: ["free token", "generate token", "get token", "bearer token", "signup", "no-kyc"],
+      featured: true,
+    },
+    {
+      title: "Digest Authentication (<token>:x)",
+      route: "/docs/connect-wallets/#authentication-the-token-goes-in-the-username-slot",
+      description: "Stock Monero wallets authenticate using HTTP Digest; mnr extracts your bearer token from the username slot.",
+      category: "Auth",
+      keywords: ["digest auth", "http digest", "username slot", "password x", "credentials", "401 unauthorized"],
+      featured: true,
+    },
+    {
+      title: "Tor Onion & I2P Endpoints",
+      route: "/docs/connect-wallets/#tor-and-i2p-endpoints",
+      description: "Connect over Tor at mnrrpcvbopaykx7um32r4iyamontteidypjd33fhzvuy2hwfu5c4ifad.onion:80 or I2P at mnr.i2p.",
+      category: "Privacy",
+      keywords: ["tor", "onion", "hidden service", "i2p", "b32.i2p", "socks5", "orbot", "port 80"],
+      featured: true,
+    },
+    {
+      title: "Mnr-Verify Response Header",
+      route: "/docs/connect-wallets/#what-the-mnr-verify-header-tells-you",
+      description: "Inspect header values: verified, quorum_verified, unverified_upstream, cached, or bypassed.",
+      category: "Verification",
+      keywords: ["mnr-verify", "header", "cryptographic proof", "quorum", "unverified", "verified"],
+    },
+    {
+      title: "Work Units & Limits",
+      route: "/docs/tokens/#what-is-a-work-unit",
+      description: "Free tier offers 100k WU/mo at 20 req/min; Pro tier offers 5M WU/mo at 120 req/min for $9/mo paid in XMR.",
+      category: "Billing",
+      keywords: ["work units", "wu", "rate limit", "pro tier", "pricing", "cost", "free tier"],
+    },
+    {
+      title: "Seven Rules Toward Public Nodes",
+      route: "/docs/how-it-works/#rules-toward-public-nodes",
+      description: "Read-only probing, opt-out via User-Agent or IP, fair scheduling, and zero disruption to public nodes.",
+      category: "Nodes",
+      keywords: ["rules", "public nodes", "opt-out", "crawling", "probing", "pool"],
+    },
+    {
+      title: "get_block RPC Method",
+      route: "/docs/method-policy/#get-block",
+      description: "Fetch block header and transaction hashes; verified against block hash and upstream quorum.",
+      category: "RPC Policy",
+      keywords: ["get_block", "block", "hash", "json-rpc", "verification", "cache"],
+    },
+    {
+      title: "get_info RPC Method",
+      route: "/docs/method-policy/#get-info",
+      description: "Daemon network status, top block height, and synchronized peers; annotated quorum verification.",
+      category: "RPC Policy",
+      keywords: ["get_info", "height", "target", "difficulty", "sync", "status"],
+    },
+    {
+      title: "send_raw_transaction RPC Method",
+      route: "/docs/method-policy/#send-raw-transaction",
+      description: "Broadcast signed transaction to upstream nodes; always routed to live healthy upstreams, never cached.",
+      category: "RPC Policy",
+      keywords: ["send_raw_transaction", "broadcast", "tx", "relay", "spend"],
+    },
+    {
+      title: "get_outs / get_outputs RPC Method",
+      route: "/docs/method-policy/#get-outs",
+      description: "Fetch ring decoy outputs; verified against cryptographic output indices.",
+      category: "RPC Policy",
+      keywords: ["get_outs", "get_outputs", "decoys", "ring signatures", "outs"],
+    },
+    {
+      title: "get_fee_estimate RPC Method",
+      route: "/docs/method-policy/#get-fee-estimate",
+      description: "Query per-byte fee recommendations; cached for 60s with upstream quorum consistency check.",
+      category: "RPC Policy",
+      keywords: ["get_fee_estimate", "fees", "fee per byte", "dynamic fee"],
+    }
+  );
+
+  return JSON.stringify(items, null, 2);
+}
+
 function generateSitemap(): string {
   const today = new Date().toISOString().split("T")[0];
   const urls: { loc: string; lastmod: string; changefreq: string; priority: string }[] = [
@@ -702,11 +1017,17 @@ function generateSitemap(): string {
   ];
 
   for (const doc of DOCS) {
+    const priority =
+      doc.id === "hub"
+        ? "0.9"
+        : doc.category === "Wallets"
+        ? "0.85"
+        : "0.8";
     urls.push({
       loc: `https://mnr.network${doc.route}`,
       lastmod: today,
       changefreq: doc.id === "hub" ? "weekly" : "monthly",
-      priority: doc.id === "hub" ? "0.9" : "0.8",
+      priority,
     });
   }
 
@@ -781,6 +1102,11 @@ function build() {
   const sitemapXml = generateSitemap();
   fs.writeFileSync("public/sitemap.xml", sitemapXml);
   console.log("✓ Updated public/sitemap.xml");
+
+  // 4. Generate Search Index (/search-index.json)
+  const searchIndexJson = generateSearchIndex();
+  fs.writeFileSync("public/search-index.json", searchIndexJson);
+  console.log("✓ Created public/search-index.json");
 
   console.log("Done building all documentation pages!");
 }

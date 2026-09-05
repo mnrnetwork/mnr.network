@@ -1,0 +1,368 @@
+[
+  {
+    "title": "Documentation",
+    "route": "/docs/",
+    "description": "How mnr verifies Monero RPC, the rules it follows toward public nodes, the per-method policy, and the roadmap.",
+    "category": "Guide",
+    "keywords": [],
+    "featured": false
+  },
+  {
+    "title": "How mnr works",
+    "route": "/docs/how-it-works/",
+    "description": "What the verified proxy checks, the seven rules it follows toward public Monero nodes, how the upstream pool is ranked, and how to connect a stock wallet.",
+    "category": "Guide",
+    "keywords": [],
+    "featured": false
+  },
+  {
+    "title": "Connect a Monero wallet to mnr",
+    "route": "/docs/connect-wallets/",
+    "description": "Step-by-step settings for monero-wallet-cli, the GUI wallet, Feather, Cake, Monerujo and monero-wallet-rpc, with the path-token and daemon-login forms, and what the Mnr-Verify header tells you.",
+    "category": "Guide",
+    "keywords": [
+      "wallet",
+      "remote node",
+      "digest auth",
+      "tokens",
+      "feather",
+      "cake",
+      "gui",
+      "monerujo",
+      "cli",
+      "tor",
+      "i2p",
+      "onion"
+    ],
+    "featured": false
+  },
+  {
+    "title": "Connect Feather Wallet to mnr",
+    "route": "/docs/wallets/feather/",
+    "description": "Step-by-step setup for Feather Wallet with mnr, HTTP Digest token authentication, native Tor onion routing, and verification status checks.",
+    "category": "Wallets",
+    "keywords": [
+      "feather",
+      "feather wallet",
+      "desktop",
+      "tails",
+      "tor",
+      "onion",
+      "digest auth",
+      "custom node",
+      "ssl",
+      "port 443"
+    ],
+    "featured": true
+  },
+  {
+    "title": "Connect Cake Wallet to mnr",
+    "route": "/docs/wallets/cake-wallet/",
+    "description": "How to connect Cake Wallet on iOS and Android to mnr with SSL encryption, HTTP Digest token login, and mobile Tor routing.",
+    "category": "Wallets",
+    "keywords": [
+      "cake",
+      "cake wallet",
+      "ios",
+      "android",
+      "mobile",
+      "tor",
+      "onion",
+      "digest auth",
+      "node settings",
+      "ssl",
+      "port 443"
+    ],
+    "featured": true
+  },
+  {
+    "title": "Connect Monero GUI Wallet to mnr",
+    "route": "/docs/wallets/monero-gui/",
+    "description": "Configure the official Monero GUI desktop wallet to use mnr as a verified remote node with Daemon SSL and Tor SOCKS5 proxy support.",
+    "category": "Wallets",
+    "keywords": [
+      "monero gui",
+      "gui",
+      "official wallet",
+      "desktop",
+      "remote node",
+      "daemon ssl",
+      "socks5",
+      "tor",
+      "port 443"
+    ],
+    "featured": true
+  },
+  {
+    "title": "Connect Monerujo (Android) to mnr",
+    "route": "/docs/wallets/monerujo/",
+    "description": "Step-by-step connection guide for Monerujo on Android, automatic port 443 SSL enforcement, and NetCipher / Orbot Tor integration.",
+    "category": "Wallets",
+    "keywords": [
+      "monerujo",
+      "android",
+      "f-droid",
+      "mobile",
+      "orbot",
+      "netcipher",
+      "tor",
+      "onion",
+      "remote node",
+      "port 443"
+    ],
+    "featured": true
+  },
+  {
+    "title": "Connect monero-wallet-cli & monero-wallet-rpc to mnr",
+    "route": "/docs/wallets/cli/",
+    "description": "Command line flags, CA certificate bundles across Linux, macOS, and Windows, monero-wallet-rpc configuration, and Tor/I2P proxying.",
+    "category": "Wallets",
+    "keywords": [
+      "cli",
+      "monero-wallet-cli",
+      "monero-wallet-rpc",
+      "rpc",
+      "daemon-login",
+      "daemon-ssl",
+      "ca-certificates",
+      "tor",
+      "i2p",
+      "curl",
+      "headless"
+    ],
+    "featured": true
+  },
+  {
+    "title": "Tokens and billing",
+    "route": "/docs/tokens/",
+    "description": "Free and Pro tiers, work units, getting a token, paying a Pro invoice in XMR, renewing, rotating, and exactly what the relay knows about you.",
+    "category": "Guide",
+    "keywords": [
+      "tokens",
+      "billing",
+      "free tier",
+      "pro tier",
+      "work units",
+      "wu",
+      "xmr invoice",
+      "renew",
+      "rotate"
+    ],
+    "featured": false
+  },
+  {
+    "title": "Monero RPC Method Policy & Verification Rules",
+    "route": "/docs/method-policy/",
+    "description": "Verification rules, cache bounds, upstream quorum requirements and timeout budgets for every Monero daemon JSON-RPC and legacy method, generated from the relay's source code.",
+    "category": "Guide",
+    "keywords": [
+      "method policy",
+      "rpc",
+      "json-rpc",
+      "verification",
+      "cache",
+      "swr",
+      "quorum",
+      "get_block",
+      "get_outs",
+      "send_raw_transaction"
+    ],
+    "featured": false
+  },
+  {
+    "title": "Roadmap",
+    "route": "/docs/roadmap/",
+    "description": "The three stages of mnr: the verified proxy that is live today, the owned mesh with an SLA, and the permissionless operator network paid in XMR.",
+    "category": "Guide",
+    "keywords": [
+      "roadmap",
+      "stage 0",
+      "stage 1",
+      "stage 2",
+      "mesh",
+      "operator network",
+      "payouts"
+    ],
+    "featured": false
+  },
+  {
+    "title": "Verified Monero RPC proxy over public nodes: rules, upstream pool, verification (Stage 0)",
+    "route": "/docs/stage0-mvp/",
+    "description": "Engineering notes for the Stage 0 verified proxy: the seven rules toward public Monero nodes, upstream probing and quorum tip, block and transaction hash verification, method policy, caching, token auth, limits, and the single-binary architecture.",
+    "category": "Plan",
+    "keywords": [],
+    "featured": false
+  },
+  {
+    "title": "Monero RPC gateway architecture: quorum, caching, verification and XMR billing (Stage 1)",
+    "route": "/docs/stage1-gateway/",
+    "description": "Engineering notes for the Stage 1 gateway: owned monerod nodes on independent providers, edge authentication with path tokens and Basic auth, rate limiting, per-method policy and cache safety, node infrastructure, and view-only wallet billing with XMR invoices.",
+    "category": "Plan",
+    "keywords": [],
+    "featured": false
+  },
+  {
+    "title": "mnr network protocol: monerod operators, relayers, fault log and XMR settlement (Stage 2)",
+    "route": "/docs/stage2-network/",
+    "description": "Protocol and architecture notes for the Stage 2 operator network: roles and trust boundaries, session auth and metering, verification and agreement rules, the cryptographic fault log, the operator directory, and weekly XMR settlement without stake or slashing.",
+    "category": "Protocol",
+    "keywords": [],
+    "featured": false
+  },
+  {
+    "title": "Get a free token",
+    "route": "/get-token/",
+    "description": "Generate a 100,000 WU/month free bearer token instantly without signup, email, or KYC.",
+    "category": "Tokens",
+    "keywords": [
+      "free token",
+      "generate token",
+      "get token",
+      "bearer token",
+      "signup",
+      "no-kyc"
+    ],
+    "featured": true
+  },
+  {
+    "title": "Digest Authentication (<token>:x)",
+    "route": "/docs/connect-wallets/#authentication-the-token-goes-in-the-username-slot",
+    "description": "Stock Monero wallets authenticate using HTTP Digest; mnr extracts your bearer token from the username slot.",
+    "category": "Auth",
+    "keywords": [
+      "digest auth",
+      "http digest",
+      "username slot",
+      "password x",
+      "credentials",
+      "401 unauthorized"
+    ],
+    "featured": true
+  },
+  {
+    "title": "Tor Onion & I2P Endpoints",
+    "route": "/docs/connect-wallets/#tor-and-i2p-endpoints",
+    "description": "Connect over Tor at mnrrpcvbopaykx7um32r4iyamontteidypjd33fhzvuy2hwfu5c4ifad.onion:80 or I2P at mnr.i2p.",
+    "category": "Privacy",
+    "keywords": [
+      "tor",
+      "onion",
+      "hidden service",
+      "i2p",
+      "b32.i2p",
+      "socks5",
+      "orbot",
+      "port 80"
+    ],
+    "featured": true
+  },
+  {
+    "title": "Mnr-Verify Response Header",
+    "route": "/docs/connect-wallets/#what-the-mnr-verify-header-tells-you",
+    "description": "Inspect header values: verified, quorum_verified, unverified_upstream, cached, or bypassed.",
+    "category": "Verification",
+    "keywords": [
+      "mnr-verify",
+      "header",
+      "cryptographic proof",
+      "quorum",
+      "unverified",
+      "verified"
+    ]
+  },
+  {
+    "title": "Work Units & Limits",
+    "route": "/docs/tokens/#what-is-a-work-unit",
+    "description": "Free tier offers 100k WU/mo at 20 req/min; Pro tier offers 5M WU/mo at 120 req/min for $9/mo paid in XMR.",
+    "category": "Billing",
+    "keywords": [
+      "work units",
+      "wu",
+      "rate limit",
+      "pro tier",
+      "pricing",
+      "cost",
+      "free tier"
+    ]
+  },
+  {
+    "title": "Seven Rules Toward Public Nodes",
+    "route": "/docs/how-it-works/#rules-toward-public-nodes",
+    "description": "Read-only probing, opt-out via User-Agent or IP, fair scheduling, and zero disruption to public nodes.",
+    "category": "Nodes",
+    "keywords": [
+      "rules",
+      "public nodes",
+      "opt-out",
+      "crawling",
+      "probing",
+      "pool"
+    ]
+  },
+  {
+    "title": "get_block RPC Method",
+    "route": "/docs/method-policy/#get-block",
+    "description": "Fetch block header and transaction hashes; verified against block hash and upstream quorum.",
+    "category": "RPC Policy",
+    "keywords": [
+      "get_block",
+      "block",
+      "hash",
+      "json-rpc",
+      "verification",
+      "cache"
+    ]
+  },
+  {
+    "title": "get_info RPC Method",
+    "route": "/docs/method-policy/#get-info",
+    "description": "Daemon network status, top block height, and synchronized peers; annotated quorum verification.",
+    "category": "RPC Policy",
+    "keywords": [
+      "get_info",
+      "height",
+      "target",
+      "difficulty",
+      "sync",
+      "status"
+    ]
+  },
+  {
+    "title": "send_raw_transaction RPC Method",
+    "route": "/docs/method-policy/#send-raw-transaction",
+    "description": "Broadcast signed transaction to upstream nodes; always routed to live healthy upstreams, never cached.",
+    "category": "RPC Policy",
+    "keywords": [
+      "send_raw_transaction",
+      "broadcast",
+      "tx",
+      "relay",
+      "spend"
+    ]
+  },
+  {
+    "title": "get_outs / get_outputs RPC Method",
+    "route": "/docs/method-policy/#get-outs",
+    "description": "Fetch ring decoy outputs; verified against cryptographic output indices.",
+    "category": "RPC Policy",
+    "keywords": [
+      "get_outs",
+      "get_outputs",
+      "decoys",
+      "ring signatures",
+      "outs"
+    ]
+  },
+  {
+    "title": "get_fee_estimate RPC Method",
+    "route": "/docs/method-policy/#get-fee-estimate",
+    "description": "Query per-byte fee recommendations; cached for 60s with upstream quorum consistency check.",
+    "category": "RPC Policy",
+    "keywords": [
+      "get_fee_estimate",
+      "fees",
+      "fee per byte",
+      "dynamic fee"
+    ]
+  }
+]
