@@ -10,7 +10,7 @@ The nodes are mostly not ours, so there is no uptime promise. The promise is nar
 
 These are the terms under which mnr uses nodes that other people run. They are fixed, published, and enforced in code.
 
-1. **Disclose.** This page, the front page and the `User-Agent` say what mnr is. The upstream list is public at [`/upstreams`](/#upstreams), with each node's current status and our request rate to it.
+1. **Disclose.** This page, the front page and the `User-Agent` say what mnr is. The upstream list is public at [`/upstreams`](/upstreams/), with each node's current status and our request rate to it.
 2. **Contribute.** Our own node is a full node, listed on the public node lists and open to everyone with the same restricted RPC every public node offers. It carries the heaviest traffic class, wallet-sync streams, by preference, so public nodes see light calls from us rather than floods.
 3. **Cap ourselves.** Per upstream: 5 light requests per second, 2 concurrent `get_blocks.bin` streams, 10 MB/s. Above that, requests queue or go to our own node. These caps are configuration, published, and stricter than most public nodes would tolerate.
 4. **Identify.** Every request to an upstream carries `User-Agent: mnr-relay/0.x (+https://mnr.network/upstreams)`, so an operator can see who we are and how to reach us.

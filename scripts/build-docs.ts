@@ -633,7 +633,7 @@ function renderHtmlLayout(doc: DocMeta, contentHtml: string): string {
     </a>
     <nav class="navlinks" aria-label="Sections">
       <a href="/#how">How it works</a>
-      <a href="/#upstreams">Upstreams</a>
+      <a href="/upstreams/">Upstreams</a>
       <a href="/#pricing">Pricing</a>
       <a href="/docs/" style="color: var(--accent); font-weight: 600;">Docs</a>
       <a href="https://github.com/mnrnetwork/mnr" target="_blank" rel="noopener noreferrer" class="mono" style="font-weight: 500;">GitHub</a>
@@ -1013,6 +1013,12 @@ function generateSitemap(): string {
       lastmod: today,
       changefreq: "monthly",
       priority: "0.9",
+    },
+    {
+      loc: "https://mnr.network/upstreams/",
+      lastmod: today,
+      changefreq: "daily",
+      priority: "0.8",
     },
   ];
 

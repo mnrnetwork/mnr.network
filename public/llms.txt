@@ -40,6 +40,7 @@ monero-wallet-cli \
 - Monero RPC Method Policy: https://mnr.network/docs/method-policy/
 - How mnr works: https://mnr.network/docs/how-it-works/
 - Get a token (Free instantly, Pro by XMR invoice): https://mnr.network/get-token/
+- Upstreams, live status of every node we relay to and our request rate to each: https://mnr.network/upstreams/
 - Tokens and billing: https://mnr.network/docs/tokens/
 - Roadmap: https://mnr.network/docs/roadmap/
 - Stage 0 engineering notes (verified proxy): https://mnr.network/docs/stage0-mvp/

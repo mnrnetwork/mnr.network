@@ -306,7 +306,7 @@
     </a>
     <nav class="navlinks" aria-label="Sections">
       <a href="/#how">How it works</a>
-      <a href="/#upstreams">Upstreams</a>
+      <a href="/upstreams/">Upstreams</a>
       <a href="/#pricing">Pricing</a>
       <a href="/docs/" style="color: var(--accent); font-weight: 600;">Docs</a>
       <a href="https://github.com/mnrnetwork/mnr" target="_blank" rel="noopener noreferrer" class="mono" style="font-weight: 500;">GitHub</a>
@@ -389,7 +389,7 @@
 <h2 id="rules-toward-public-nodes">Rules toward public nodes</h2>
 <p>These are the terms under which mnr uses nodes that other people run. They are fixed, published, and enforced in code.</p>
 <ol>
-<li><strong>Disclose.</strong> This page, the front page and the <code>User-Agent</code> say what mnr is. The upstream list is public at <a href="/#upstreams"><code>/upstreams</code></a>, with each node&#39;s current status and our request rate to it.</li>
+<li><strong>Disclose.</strong> This page, the front page and the <code>User-Agent</code> say what mnr is. The upstream list is public at <a href="/upstreams/"><code>/upstreams</code></a>, with each node&#39;s current status and our request rate to it.</li>
 <li><strong>Contribute.</strong> Our own node is a full node, listed on the public node lists and open to everyone with the same restricted RPC every public node offers. It carries the heaviest traffic class, wallet-sync streams, by preference, so public nodes see light calls from us rather than floods.</li>
 <li><strong>Cap ourselves.</strong> Per upstream: 5 light requests per second, 2 concurrent <code>get_blocks.bin</code> streams, 10 MB/s. Above that, requests queue or go to our own node. These caps are configuration, published, and stricter than most public nodes would tolerate.</li>
 <li><strong>Identify.</strong> Every request to an upstream carries <code>User-Agent: mnr-relay/0.x (+https://mnr.network/upstreams)</code>, so an operator can see who we are and how to reach us.</li>
