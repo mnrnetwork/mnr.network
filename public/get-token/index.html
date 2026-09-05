@@ -566,12 +566,17 @@
           <p>Command line flags, CA bundles across Linux/macOS/Windows, RPC daemon.</p>
           <span class="wallet-link">CLI guide &rarr;</span>
         </a>
+        <a href="/docs/wallets/ripley/" class="wallet-card">
+          <h4>Ripley Terminal</h4>
+          <p>RipleyOS light wallet, local view key scanning, Clearnet path uplink.</p>
+          <span class="wallet-link">Ripley guide &rarr;</span>
+        </a>
       </div>
 
       <div class="card" style="margin-top: 24px; border-left: 4px solid var(--accent);">
         <h4 style="margin: 0 0 6px; font-size: 16px;">Authentication Invariant</h4>
         <p style="margin: 0; font-size: 14.5px; color: var(--fg-2);">
-          Stock Monero wallets authenticate using HTTP Digest. mnr extracts your bearer token from the <strong>Username</strong> slot and ignores the password (<span class="mono">&lt;token&gt;:x</span>). Always place your token in the Username field!
+          Stock Monero wallets authenticate using HTTP Digest; mnr extracts your bearer token from the <strong>Username</strong> slot and ignores the password (<span class="mono">&lt;token&gt;:x</span>). Light clients like Ripley Terminal use the path-token format (<span class="mono">https://rpc.mnr.network/v1/&lt;token&gt;</span>).
         </p>
       </div>
     </section>

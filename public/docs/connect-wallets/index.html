@@ -4,18 +4,18 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Connect a Monero wallet to mnr — mnr</title>
-  <meta name="description" content="Step-by-step settings for monero-wallet-cli, the GUI wallet, Feather, Cake, Monerujo and monero-wallet-rpc, with the path-token and daemon-login forms, and what the Mnr-Verify header tells you.">
+  <meta name="description" content="Step-by-step settings for Feather, Cake Wallet, Monero GUI, Monerujo, Ripley Terminal, monero-wallet-cli and monero-wallet-rpc with verification details.">
   <link rel="canonical" href="https://mnr.network/docs/connect-wallets/">
   <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
   <meta property="og:title" content="Connect a Monero wallet to mnr — mnr">
-  <meta property="og:description" content="Step-by-step settings for monero-wallet-cli, the GUI wallet, Feather, Cake, Monerujo and monero-wallet-rpc, with the path-token and daemon-login forms, and what the Mnr-Verify header tells you.">
+  <meta property="og:description" content="Step-by-step settings for Feather, Cake Wallet, Monero GUI, Monerujo, Ripley Terminal, monero-wallet-cli and monero-wallet-rpc with verification details.">
   <meta property="og:type" content="article">
   <meta property="og:url" content="https://mnr.network/docs/connect-wallets/">
   <meta property="og:site_name" content="mnr">
   <meta property="og:image" content="https://mnr.network/og.png">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Connect a Monero wallet to mnr — mnr">
-  <meta name="twitter:description" content="Step-by-step settings for monero-wallet-cli, the GUI wallet, Feather, Cake, Monerujo and monero-wallet-rpc, with the path-token and daemon-login forms, and what the Mnr-Verify header tells you.">
+  <meta name="twitter:description" content="Step-by-step settings for Feather, Cake Wallet, Monero GUI, Monerujo, Ripley Terminal, monero-wallet-cli and monero-wallet-rpc with verification details.">
   <meta name="twitter:image" content="https://mnr.network/og.png">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
   <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png">
@@ -33,7 +33,7 @@
       "@id": "https://mnr.network/docs/connect-wallets/#webpage",
       "url": "https://mnr.network/docs/connect-wallets/",
       "name": "Connect a Monero wallet to mnr",
-      "description": "Step-by-step settings for monero-wallet-cli, the GUI wallet, Feather, Cake, Monerujo and monero-wallet-rpc, with the path-token and daemon-login forms, and what the Mnr-Verify header tells you.",
+      "description": "Step-by-step settings for Feather, Cake Wallet, Monero GUI, Monerujo, Ripley Terminal, monero-wallet-cli and monero-wallet-rpc with verification details.",
       "isPartOf": {
         "@type": "WebSite",
         "@id": "https://mnr.network/#website",
@@ -398,6 +398,7 @@ password: x                      (anything; it is not checked)
 <li><a href="/docs/wallets/cake-wallet/"><strong>Cake Wallet Guide</strong></a> — Mobile iOS &amp; Android setup, Tor toggling, and background sync pacing.</li>
 <li><a href="/docs/wallets/monero-gui/"><strong>Monero GUI Guide</strong></a> — Reference desktop client in Simple and Advanced Remote Node modes.</li>
 <li><a href="/docs/wallets/monerujo/"><strong>Monerujo Guide</strong></a> — Android client with NetCipher and Orbot proxy integration.</li>
+<li><a href="/docs/wallets/ripley/"><strong>Ripley Terminal Guide</strong></a> — Sovereign terminal shell &amp; light wallet with client-side view key scanning and path-token uplink.</li>
 <li><a href="/docs/wallets/cli/"><strong>CLI &amp; RPC Guide</strong></a> — <code>monero-wallet-cli</code> flags, CA cert bundles across Linux/macOS/Windows, and <code>monero-wallet-rpc</code> backend services.</li>
 </ul>
 <hr>
@@ -435,6 +436,21 @@ password: x                      (anything; it is not checked)
 <li>Username: <code>&lt;token&gt;</code>, Password: <code>x</code></li>
 <li>Monerujo uses SSL automatically when the port is 443. Detailed walkthrough: <a href="/docs/wallets/monerujo/">Monerujo Guide</a></li>
 </ul>
+<h3 id="ripley-terminal-ripleyos">Ripley Terminal (RipleyOS)</h3>
+<p>Ripley Terminal is a Monero wallet + private OS shell. It scans the chain itself (a light wallet with its own view key), so it only needs a daemon RPC endpoint — your mnr token URL works as that endpoint.</p>
+<ol>
+<li>Get a token above (free tier is enough: a wallet sync is a few hundred requests).</li>
+<li>In Ripley open <strong>Settings</strong> and scroll to <strong>Uplink_Protocols</strong>.</li>
+<li>Under <strong>Uplink_Routing</strong> pick <strong>Clearnet</strong>.</li>
+<li>In <strong>Manual_Uplink_Address</strong> paste your endpoint:<pre><code>https://rpc.mnr.network/v1/&lt;token&gt;
+</code></pre>
+Keep the <code>https://</code> and the <code>/v1/&lt;token&gt;</code> path, no trailing <code>/json_rpc</code>.</li>
+<li>Save. The log should show <code>🔗 Connecting to pinned node…</code> followed by <code>✅ Fastest node: custom (https://rpc.mnr.network)</code>, then <code>⚡ Fast sync ON — bulk get_blocks.bin, trusting custom</code>.</li>
+</ol>
+<p>That&#39;s it — sync, decoy selection and broadcasting all go through mnr from then on.</p>
+<p><strong>Tor / I2P:</strong> not yet. Ripley&#39;s Tor and custom-SOCKS routing modes dial <code>host:port</code> only and drop the URL path, so the token can&#39;t travel in the URL there and Ripley has no daemon-login field. Until Ripley gains daemon-login (Basic auth) support, use Clearnet mode with mnr; the connection is still TLS to <code>rpc.mnr.network</code>, and Ripley&#39;s own Tor mode is the alternative if you&#39;d rather not pin a node at all.</p>
+<p><strong>Privacy notes.</strong> Ripley never sends your view key or address to the node — it downloads blocks in bulk and scans locally. What mnr sees is what any node sees. Ripley redacts the token from its own logs (it logs <code>https://rpc.mnr.network</code>, never the path).</p>
+<p><strong>Requirements.</strong> A Ripley Terminal build newer than 2.1.0 (2.1.0 and earlier fail to connect to mnr — see the <a href="/docs/wallets/ripley/">Ripley Terminal Guide</a>).</p>
 <h3 id="monero-wallet-rpc-and-backends">monero-wallet-rpc and backends</h3>
 <pre><code>monero-wallet-rpc \
   --daemon-address rpc.mnr.network:443 --daemon-login &lt;token&gt;:x \

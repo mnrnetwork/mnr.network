@@ -45,6 +45,7 @@ Supported Wallets & Dedicated Guides:
 - Monero GUI: https://mnr.network/docs/wallets/monero-gui/
 - Monerujo: https://mnr.network/docs/wallets/monerujo/
 - Monero CLI & RPC: https://mnr.network/docs/wallets/cli/
+- Ripley Terminal (RipleyOS): https://mnr.network/docs/wallets/ripley/
 - Connect a Wallet Overview: https://mnr.network/docs/connect-wallets/
 
 ## 6. Privacy Guarantees
@@ -69,6 +70,7 @@ Supported Wallets & Dedicated Guides:
   - Monero GUI: https://mnr.network/docs/wallets/monero-gui/
   - Monerujo: https://mnr.network/docs/wallets/monerujo/
   - CLI & RPC: https://mnr.network/docs/wallets/cli/
+  - Ripley Terminal: https://mnr.network/docs/wallets/ripley/
 - Method Policy: https://mnr.network/docs/method-policy/
 - How mnr works: https://mnr.network/docs/how-it-works/
 - Roadmap: https://mnr.network/docs/roadmap/

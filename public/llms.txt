@@ -8,7 +8,7 @@ mnr is a verified proxy for Monero wallets. It forwards RPC calls to public node
 - Zero account, zero email, zero KYC: A token is the entire relationship.
 - Cryptographic verification: Recomputed block and txid hashes; consensus checks across multiple upstream nodes.
 - Transparent upstreams: All public nodes listed with traffic rates and logged mismatches.
-- Full wallet compatibility: Works with Monero CLI (monero-wallet-cli), Monero GUI, Feather Wallet, Cake Wallet, and Monerujo.
+- Full wallet compatibility: Works with Monero CLI (monero-wallet-cli), Monero GUI, Feather Wallet, Cake Wallet, Monerujo, and Ripley Terminal (RipleyOS).
 - Privacy & network access: Reachable over HTTPS and Tor hidden service (.onion). No IP logging, no request payload recording.
 - Open source: AGPL-3.0 licensed.
 
@@ -36,6 +36,7 @@ monero-wallet-cli \
 - Monero GUI Guide: https://mnr.network/docs/wallets/monero-gui/
 - Monerujo Guide: https://mnr.network/docs/wallets/monerujo/
 - Monero CLI & RPC Guide: https://mnr.network/docs/wallets/cli/
+- Ripley Terminal Guide: https://mnr.network/docs/wallets/ripley/
 - Connect a wallet (Overview): https://mnr.network/docs/connect-wallets/
 - Monero RPC Method Policy: https://mnr.network/docs/method-policy/
 - How mnr works: https://mnr.network/docs/how-it-works/

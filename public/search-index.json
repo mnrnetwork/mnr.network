@@ -18,7 +18,7 @@
   {
     "title": "Connect a Monero wallet to mnr",
     "route": "/docs/connect-wallets/",
-    "description": "Step-by-step settings for monero-wallet-cli, the GUI wallet, Feather, Cake, Monerujo and monero-wallet-rpc, with the path-token and daemon-login forms, and what the Mnr-Verify header tells you.",
+    "description": "Step-by-step settings for Feather, Cake Wallet, Monero GUI, Monerujo, Ripley Terminal, monero-wallet-cli and monero-wallet-rpc with verification details.",
     "category": "Guide",
     "keywords": [
       "wallet",
@@ -29,6 +29,9 @@
       "cake",
       "gui",
       "monerujo",
+      "ripley",
+      "ripleyos",
+      "terminal",
       "cli",
       "tor",
       "i2p",
@@ -129,6 +132,25 @@
       "i2p",
       "curl",
       "headless"
+    ],
+    "featured": true
+  },
+  {
+    "title": "Connect Ripley Terminal (RipleyOS) to mnr",
+    "route": "/docs/wallets/ripley/",
+    "description": "Step-by-step guide for Ripley Terminal / RipleyOS: client-side view key scanning, Clearnet path-token manual uplink, and monero-oxide compatibility.",
+    "category": "Wallets",
+    "keywords": [
+      "ripley",
+      "ripley terminal",
+      "ripleyos",
+      "terminal",
+      "light wallet",
+      "view key",
+      "manual uplink",
+      "clearnet",
+      "customnodeaddress",
+      "monero-oxide"
     ],
     "featured": true
   },

@@ -55,6 +55,7 @@
           <button type="button" class="search-chip" data-query="Cake Wallet">Cake</button>
           <button type="button" class="search-chip" data-query="Monero GUI">GUI</button>
           <button type="button" class="search-chip" data-query="Monerujo">Monerujo</button>
+          <button type="button" class="search-chip" data-query="Ripley">Ripley</button>
           <button type="button" class="search-chip" data-query="CLI">CLI</button>
           <button type="button" class="search-chip" data-query="Tor">Tor / .onion</button>
           <button type="button" class="search-chip" data-query="get_block">get_block</button>

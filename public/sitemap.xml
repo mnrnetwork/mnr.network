@@ -67,6 +67,12 @@
     <priority>0.85</priority>
   </url>
   <url>
+    <loc>https://mnr.network/docs/wallets/ripley/</loc>
+    <lastmod>2026-09-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
     <loc>https://mnr.network/docs/tokens/</loc>
     <lastmod>2026-09-05</lastmod>
     <changefreq>monthly</changefreq>

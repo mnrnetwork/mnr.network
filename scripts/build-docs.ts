@@ -66,8 +66,8 @@ const DOCS: DocMeta[] = [
     navTitle: "Connect a wallet",
     badge: "Guide",
     description:
-      "Step-by-step settings for monero-wallet-cli, the GUI wallet, Feather, Cake, Monerujo and monero-wallet-rpc, with the path-token and daemon-login forms, and what the Mnr-Verify header tells you.",
-    keywords: ["wallet", "remote node", "digest auth", "tokens", "feather", "cake", "gui", "monerujo", "cli", "tor", "i2p", "onion"],
+      "Step-by-step settings for Feather, Cake Wallet, Monero GUI, Monerujo, Ripley Terminal, monero-wallet-cli and monero-wallet-rpc with verification details.",
+    keywords: ["wallet", "remote node", "digest auth", "tokens", "feather", "cake", "gui", "monerujo", "ripley", "ripleyos", "terminal", "cli", "tor", "i2p", "onion"],
   },
   {
     id: "wallet-feather",
@@ -171,6 +171,27 @@ const DOCS: DocMeta[] = [
       { name: "Locate CA bundle", text: "Identify your operating system certificate bundle path (/etc/ssl/certs/ca-certificates.crt on Debian/Ubuntu, or brew on macOS)." },
       { name: "Run CLI with flags", text: "Execute monero-wallet-cli with --daemon-address rpc.mnr.network:443 --daemon-login <token>:x --daemon-ssl enabled --daemon-ssl-ca-certificates <path>." },
       { name: "Verify headers", text: "Verify connection metadata using curl -si https://rpc.mnr.network/v1/<token>/get_height." },
+    ],
+  },
+  {
+    id: "wallet-ripley",
+    route: "/docs/wallets/ripley/",
+    sourceFile: "content/wallets/ripley.md",
+    title: "Connect Ripley Terminal (RipleyOS) to mnr",
+    navTitle: "Ripley Terminal",
+    badge: "Wallet Guide",
+    category: "Wallets",
+    description:
+      "Step-by-step guide for Ripley Terminal / RipleyOS: client-side view key scanning, Clearnet path-token manual uplink, and monero-oxide compatibility.",
+    hiddenFromTabs: true,
+    featured: true,
+    keywords: ["ripley", "ripley terminal", "ripleyos", "terminal", "light wallet", "view key", "manual uplink", "clearnet", "customnodeaddress", "monero-oxide"],
+    howToSteps: [
+      { name: "Obtain an mnr token", text: "Generate an access token on mnr.network/get-token/." },
+      { name: "Open Uplink settings", text: "In Ripley Terminal, navigate to Settings → Uplink_Protocols." },
+      { name: "Select Clearnet routing", text: "Set Uplink_Routing to Clearnet." },
+      { name: "Enter Manual Uplink Address", text: "Paste https://rpc.mnr.network/v1/<token> into Manual_Uplink_Address without trailing /json_rpc." },
+      { name: "Save and sync", text: "Save the settings to initiate fast block sync via bulk get_blocks.bin." },
     ],
   },
   {
@@ -814,6 +835,14 @@ function generateHubHtml(): string {
           <span class="tab-badge">Headless</span>
         </div>
         <p>Command line flags, CA bundles on Linux/macOS/Windows, and monero-wallet-rpc.</p>
+        <div class="hub-card-meta"><span>Read guide &rarr;</span></div>
+      </a>
+      <a href="/docs/wallets/ripley/" class="hub-card">
+        <div style="display: flex; align-items: center; justify-content: space-between;">
+          <h3>Ripley Terminal</h3>
+          <span class="tab-badge">RipleyOS</span>
+        </div>
+        <p>Local view key scanning, Clearnet path-token uplink, and bulk get_blocks sync.</p>
         <div class="hub-card-meta"><span>Read guide &rarr;</span></div>
       </a>
     </div>

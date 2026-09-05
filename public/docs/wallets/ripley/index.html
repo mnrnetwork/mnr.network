@@ -3,19 +3,19 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Documentation — mnr</title>
-  <meta name="description" content="How mnr verifies Monero RPC, the rules it follows toward public nodes, the per-method policy, and the roadmap.">
-  <link rel="canonical" href="https://mnr.network/docs/">
+  <title>Connect Ripley Terminal (RipleyOS) to mnr — mnr</title>
+  <meta name="description" content="Step-by-step guide for Ripley Terminal / RipleyOS: client-side view key scanning, Clearnet path-token manual uplink, and monero-oxide compatibility.">
+  <link rel="canonical" href="https://mnr.network/docs/wallets/ripley/">
   <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
-  <meta property="og:title" content="Documentation — mnr">
-  <meta property="og:description" content="How mnr verifies Monero RPC, the rules it follows toward public nodes, the per-method policy, and the roadmap.">
+  <meta property="og:title" content="Connect Ripley Terminal (RipleyOS) to mnr — mnr">
+  <meta property="og:description" content="Step-by-step guide for Ripley Terminal / RipleyOS: client-side view key scanning, Clearnet path-token manual uplink, and monero-oxide compatibility.">
   <meta property="og:type" content="article">
-  <meta property="og:url" content="https://mnr.network/docs/">
+  <meta property="og:url" content="https://mnr.network/docs/wallets/ripley/">
   <meta property="og:site_name" content="mnr">
   <meta property="og:image" content="https://mnr.network/og.png">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Documentation — mnr">
-  <meta name="twitter:description" content="How mnr verifies Monero RPC, the rules it follows toward public nodes, the per-method policy, and the roadmap.">
+  <meta name="twitter:title" content="Connect Ripley Terminal (RipleyOS) to mnr — mnr">
+  <meta name="twitter:description" content="Step-by-step guide for Ripley Terminal / RipleyOS: client-side view key scanning, Clearnet path-token manual uplink, and monero-oxide compatibility.">
   <meta name="twitter:image" content="https://mnr.network/og.png">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
   <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png">
@@ -30,10 +30,10 @@
   "@graph": [
     {
       "@type": "WebPage",
-      "@id": "https://mnr.network/docs/#webpage",
-      "url": "https://mnr.network/docs/",
-      "name": "Documentation",
-      "description": "How mnr verifies Monero RPC, the rules it follows toward public nodes, the per-method policy, and the roadmap.",
+      "@id": "https://mnr.network/docs/wallets/ripley/#webpage",
+      "url": "https://mnr.network/docs/wallets/ripley/",
+      "name": "Connect Ripley Terminal (RipleyOS) to mnr",
+      "description": "Step-by-step guide for Ripley Terminal / RipleyOS: client-side view key scanning, Clearnet path-token manual uplink, and monero-oxide compatibility.",
       "isPartOf": {
         "@type": "WebSite",
         "@id": "https://mnr.network/#website",
@@ -47,7 +47,7 @@
     },
     {
       "@type": "BreadcrumbList",
-      "@id": "https://mnr.network/docs/#breadcrumbs",
+      "@id": "https://mnr.network/docs/wallets/ripley/#breadcrumbs",
       "itemListElement": [
         {
           "@type": "ListItem",
@@ -60,6 +60,61 @@
           "position": 2,
           "name": "docs",
           "item": "https://mnr.network/docs/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Wallets",
+          "item": "https://mnr.network/docs/connect-wallets/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 4,
+          "name": "Ripley Terminal",
+          "item": "https://mnr.network/docs/wallets/ripley/"
+        }
+      ]
+    },
+    {
+      "@type": "HowTo",
+      "@id": "https://mnr.network/docs/wallets/ripley/#howto",
+      "name": "Connect Ripley Terminal (RipleyOS) to mnr",
+      "description": "Step-by-step guide for Ripley Terminal / RipleyOS: client-side view key scanning, Clearnet path-token manual uplink, and monero-oxide compatibility.",
+      "step": [
+        {
+          "@type": "HowToStep",
+          "position": 1,
+          "name": "Obtain an mnr token",
+          "text": "Generate an access token on mnr.network/get-token/.",
+          "url": "https://mnr.network/docs/wallets/ripley/#step-1"
+        },
+        {
+          "@type": "HowToStep",
+          "position": 2,
+          "name": "Open Uplink settings",
+          "text": "In Ripley Terminal, navigate to Settings → Uplink_Protocols.",
+          "url": "https://mnr.network/docs/wallets/ripley/#step-2"
+        },
+        {
+          "@type": "HowToStep",
+          "position": 3,
+          "name": "Select Clearnet routing",
+          "text": "Set Uplink_Routing to Clearnet.",
+          "url": "https://mnr.network/docs/wallets/ripley/#step-3"
+        },
+        {
+          "@type": "HowToStep",
+          "position": 4,
+          "name": "Enter Manual Uplink Address",
+          "text": "Paste https://rpc.mnr.network/v1/<token> into Manual_Uplink_Address without trailing /json_rpc.",
+          "url": "https://mnr.network/docs/wallets/ripley/#step-4"
+        },
+        {
+          "@type": "HowToStep",
+          "position": 5,
+          "name": "Save and sync",
+          "text": "Save the settings to initiate fast block sync via bulk get_blocks.bin.",
+          "url": "https://mnr.network/docs/wallets/ripley/#step-5"
         }
       ]
     }
@@ -325,7 +380,7 @@
     <div class="wrap">
       
     <nav class="docs-tabs" aria-label="Documentation sections">
-      <a href="/docs/" class="doc-tab active">
+      <a href="/docs/" class="doc-tab ">
           <span>Overview</span>
           
         </a>
@@ -333,7 +388,7 @@
           <span>How it works</span>
           <span class="tab-badge">Live</span>
         </a>
-      <a href="/docs/connect-wallets/" class="doc-tab ">
+      <a href="/docs/connect-wallets/" class="doc-tab active">
           <span>Connect a wallet</span>
           <span class="tab-badge">Guide</span>
         </a>
@@ -372,131 +427,99 @@
       <a href="/">mnr</a>
       <span>/</span>
       <a href="/docs/">docs</a>
-      
+      <span>/</span><a href="/docs/connect-wallets/">wallets</a><span>/</span><span>ripley terminal</span>
     </div>
 
     <article class="prose">
-      
-    <h1 style="font-size: 42px; margin-bottom: 12px;">mnr Documentation</h1>
-    <p style="font-size: 19px; color: var(--fg-2); margin-bottom: 36px;">
-      What the verified proxy checks, the rules it follows toward the public nodes it uses, and where it is going.
-    </p>
+      <h1>Connect Ripley Terminal (RipleyOS) to mnr</h1>
+<p>Ripley Terminal (<a href="https://ripley.run/terminal">ripley.run/terminal</a>) is an air-gapped / hardened Monero wallet and sovereign private OS shell. It operates as a local light wallet with client-side view key scanning: it never sends your private view key or wallet address to any daemon. Instead, it pulls block data in bulk (<code>/get_blocks.bin</code>) and scans transactions locally on your machine.</p>
+<p>Because Ripley Terminal only needs a daemon RPC endpoint, your mnr token URL functions directly as that verified endpoint.</p>
+<hr>
+<h2 id="quick-configuration">Quick configuration</h2>
+<p>In Ripley Terminal, navigate to <strong>Settings &rarr; Uplink_Protocols</strong>:</p>
+<pre><code>Uplink_Routing:         Clearnet
+Manual_Uplink_Address:  https://rpc.mnr.network/v1/&lt;token&gt;
+</code></pre>
+<blockquote>
+<p><strong>Important</strong>: Keep the <code>https://</code> scheme and the <code>/v1/&lt;token&gt;</code> path exactly as shown. Do not append <code>/json_rpc</code>. Ripley posts each route as <code>&lt;base&gt;/&lt;route&gt;</code> (<code>json_rpc</code>, <code>get_blocks.bin</code>, <code>get_height</code>, etc.).</p>
+</blockquote>
+<hr>
+<h2 id="step-by-step-setup">Step-by-step setup</h2>
+<ol>
+<li><strong>Obtain an mnr token</strong>: Generate an instant access token on the <a href="/get-token/">token page</a>. The Free tier (500,000 requests/month) is more than enough for regular wallet balance scanning and daily transactions without any signup, email, or KYC.</li>
+<li><strong>Open Uplink Protocols Settings</strong>: In Ripley Terminal, press <code>Esc</code> or open <strong>Settings</strong> and scroll down to <strong>Uplink_Protocols</strong>.</li>
+<li><strong>Select Clearnet Routing</strong>: Under <strong>Uplink_Routing</strong>, choose <strong>Clearnet</strong>.</li>
+<li><strong>Enter Manual Uplink Address</strong>: In the <strong>Manual_Uplink_Address</strong> field, paste your mnr token URL:<pre><code>https://rpc.mnr.network/v1/&lt;token&gt;
+</code></pre>
+Ensure there are no trailing spaces or <code>/json_rpc</code> appended to the path.</li>
+<li><strong>Save &amp; Connect</strong>: Save your settings. The terminal log will confirm the connection:<pre><code class="language-text">🔗 Connecting to pinned node…
+✅ Fastest node: custom (https://rpc.mnr.network)
+⚡ Fast sync ON — bulk get_blocks.bin, trusting custom
+</code></pre>
+</li>
+</ol>
+<p>From then on, blockchain synchronization, decoy selection, and transaction broadcasting are proxied and verified through mnr.</p>
+<hr>
+<h2 id="tor-i2p-routing-limitation">Tor &amp; I2P routing limitation</h2>
+<p><strong>Clearnet mode is required for mnr at this time.</strong></p>
+<p>Ripley&#39;s native Tor and custom-SOCKS routing modes dial <code>host:port</code> directly and strip the URL path component. Because Ripley currently lacks a dedicated daemon-login field (HTTP Basic/Digest auth), the bearer token cannot travel in the URL path over Ripley&#39;s internal Tor proxy.</p>
+<p>Until upstream Ripley adds daemon-login (<code>&lt;token&gt;:x</code>) support:</p>
+<ul>
+<li>Use <strong>Clearnet</strong> mode with mnr. The transport is fully TLS-encrypted to <code>rpc.mnr.network</code>.</li>
+<li>If you strictly prefer Tor onion routing and do not need to pin a specific mnr token, Ripley&#39;s native onion mode can be used to connect to random public onion nodes.</li>
+</ul>
+<hr>
+<h2 id="privacy-security-guarantees">Privacy &amp; security guarantees</h2>
+<ul>
+<li><strong>Client-side scanning</strong>: Ripley never sends your private view key or Monero address to mnr or any daemon. It downloads blocks in bulk and tests outputs locally.</li>
+<li><strong>Log redaction</strong>: Ripley automatically redacts bearer tokens from its local logs and session journals (it logs <code>https://rpc.mnr.network</code>, never the token path).</li>
+<li><strong>Daemon metadata</strong>: What mnr sees is only what any remote daemon sees: requested block ranges, output distributions, and decoys when transmitting a transaction.</li>
+<li><strong>Consensus verification</strong>: Every block header, transaction hash, and quorum height returned by mnr is verified across multiple independent upstream nodes.</li>
+</ul>
+<hr>
+<h2 id="technical-specifications-facts">Technical specifications &amp; facts</h2>
+<ul>
+<li><strong>Configuration key</strong>: Written to <code>customNodeAddress</code> in Ripley&#39;s <code>config.json</code>. A bare <code>host:port</code> is prefixed with <code>http://</code>; a full <code>https://…/v1/&lt;token&gt;</code> is preserved as-is.</li>
+<li><strong>Upstream routes used</strong>: Every route Ripley uses is on mnr&#39;s allow-list:<ul>
+<li><code>/get_height</code></li>
+<li><code>json_rpc: get_info</code></li>
+<li><code>json_rpc: get_fee_estimate</code></li>
+<li><code>json_rpc: get_block</code></li>
+<li><code>json_rpc: on_get_block_hash</code> (monero-oxide batch probe)</li>
+<li><code>/get_blocks.bin</code> (bulk sync)</li>
+<li><code>/get_output_distribution.bin</code></li>
+<li><code>/get_outs.bin</code></li>
+<li><code>/get_o_indexes.bin</code></li>
+<li><code>/get_transactions</code></li>
+<li><code>/is_key_image_spent</code></li>
+<li><code>/send_raw_transaction</code></li>
+<li>Nothing from mnr&#39;s restricted deny-list (<code>get_transaction_pool</code>, <code>relay_tx</code>, <code>sync_info</code>, etc.) is ever called.</li>
+</ul>
+</li>
+<li><strong>User-Agent handling</strong>: Cloudflare protects <code>rpc.mnr.network</code> from generic automated scrapers (e.g. Python urllib is blocked with 403). Ripley&#39;s custom transport sends no User-Agent header, which passes cleanly through edge filtering.</li>
+<li><strong>Build requirement</strong>: <strong>Ripley Terminal build &gt; 2.1.0 is required</strong>. Earlier builds (2.1.0 and below) fail because monero-oxide&#39;s <code>MoneroDaemon::new</code> probes batch support by POSTing a JSON array <code>[]</code> to <code>/json_rpc</code>. While monerod returns HTTP 200 with a parse error, standard HTTP proxies return HTTP 400. Ripley builds after 2.1.0 inspect 4xx response bodies for JSON-RPC error envelopes and establish the uplink successfully.</li>
+</ul>
+<hr>
+<h2 id="response-verification-check">Response verification check</h2>
+<p>You can verify the connection status and multi-node consensus headers in any terminal:</p>
+<pre><code class="language-bash">curl -si -X POST https://rpc.mnr.network/v1/&lt;token&gt;/get_info -d &#39;{}&#39; | grep -i ^mnr-
+</code></pre>
+<p>Expected response headers:</p>
+<pre><code class="language-http">mnr-verify: majority
+mnr-agreeing: 5/5
+mnr-cache: hit
+mnr-tier: free
+</code></pre>
+<hr>
+<h2 id="troubleshooting">Troubleshooting</h2>
+<ul>
+<li><strong>Connection fails immediately on startup</strong>: Verify you are running Ripley Terminal build <strong>&gt; 2.1.0</strong>. Builds 2.1.0 and earlier fail during monero-oxide&#39;s batch probe when receiving HTTP 400.</li>
+<li><strong>401 Unauthorized</strong>: Ensure your token was copied accurately into <code>Manual_Uplink_Address</code>. Check for accidental whitespace or quotes.</li>
+<li><strong>Connection hangs when Tor is toggled</strong>: Ripley&#39;s Tor mode drops the URL path token. Switch <strong>Uplink_Routing</strong> back to <strong>Clearnet</strong>.</li>
+<li><strong>Trailing /json_rpc error</strong>: If you entered <code>https://rpc.mnr.network/v1/&lt;token&gt;/json_rpc</code>, Ripley will attempt to query <code>https://rpc.mnr.network/v1/&lt;token&gt;/json_rpc/get_blocks.bin</code> which fails. Remove <code>/json_rpc</code> from the address.</li>
+<li><strong>429 Rate Limited</strong>: You have reached the burst rate cap (5 req/s on Free, 25 req/s on Pro). Ripley will back off and retry automatically.</li>
+</ul>
 
-    <div class="hub-grid">
-      <a href="/docs/how-it-works/" class="hub-card">
-        <div style="display: flex; align-items: center; justify-content: space-between;">
-          <h3>How mnr works</h3>
-          <span class="tab-badge">Live</span>
-        </div>
-        <p>The seven rules toward public nodes, the upstream pool and quorum tip, what is verified and what is only annotated, and how to connect a stock wallet.</p>
-        <div class="hub-card-meta">
-          <span>Read how it works &rarr;</span>
-        </div>
-      </a>
-
-      <a href="/docs/method-policy/" class="hub-card">
-        <div style="display: flex; align-items: center; justify-content: space-between;">
-          <h3>Method Policy & Verification</h3>
-          <span class="tab-badge">Generated</span>
-        </div>
-        <p>Every Monero daemon method the relay serves, with its verification rule, cache bound, quorum and timeout. Generated from the relay's source code.</p>
-        <div class="hub-card-meta">
-          <span>Read the policy table &rarr;</span>
-        </div>
-      </a>
-
-      <a href="/docs/roadmap/" class="hub-card">
-        <div style="display: flex; align-items: center; justify-content: space-between;">
-          <h3>Roadmap</h3>
-          <span class="tab-badge">Stages 0&ndash;2</span>
-        </div>
-        <p>The verified proxy that is live today, the owned mesh with an SLA, and the permissionless operator network where node runners are paid in XMR for verified work.</p>
-        <div class="hub-card-meta">
-          <span>Read the roadmap &rarr;</span>
-        </div>
-      </a>
-
-      <a href="https://github.com/mnrnetwork/mnr" class="hub-card" target="_blank" rel="noopener noreferrer">
-        <div style="display: flex; align-items: center; justify-content: space-between;">
-          <h3>Source code</h3>
-          <span class="tab-badge">AGPL-3.0</span>
-        </div>
-        <p>The relay, the core verification crate with its fixtures and fuzz targets, and the full engineering plans behind each stage.</p>
-        <div class="hub-card-meta">
-          <span>github.com/mnrnetwork/mnr &rarr;</span>
-        </div>
-      </a>
-    </div>
-
-    <h2>Dedicated wallet guides</h2>
-    <p>Step-by-step connection walkthroughs, Digest authentication configs, and onion/I2P routing for stock Monero wallets:</p>
-    <div class="hub-grid" style="grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));">
-      <a href="/docs/wallets/feather/" class="hub-card">
-        <div style="display: flex; align-items: center; justify-content: space-between;">
-          <h3>Feather Wallet</h3>
-          <span class="tab-badge">Native Tor</span>
-        </div>
-        <p>Built-in Tor onion proxying, custom node port 443, and Digest credentials.</p>
-        <div class="hub-card-meta"><span>Read guide &rarr;</span></div>
-      </a>
-      <a href="/docs/wallets/cake-wallet/" class="hub-card">
-        <div style="display: flex; align-items: center; justify-content: space-between;">
-          <h3>Cake Wallet</h3>
-          <span class="tab-badge">iOS & Android</span>
-        </div>
-        <p>Mobile setup, background sync pacing, and Orbot / Tor daemon toggling.</p>
-        <div class="hub-card-meta"><span>Read guide &rarr;</span></div>
-      </a>
-      <a href="/docs/wallets/monero-gui/" class="hub-card">
-        <div style="display: flex; align-items: center; justify-content: space-between;">
-          <h3>Monero GUI</h3>
-          <span class="tab-badge">Official GUI</span>
-        </div>
-        <p>Simple vs Advanced Remote Node mode, SOCKS5 proxy, and daemon SSL.</p>
-        <div class="hub-card-meta"><span>Read guide &rarr;</span></div>
-      </a>
-      <a href="/docs/wallets/monerujo/" class="hub-card">
-        <div style="display: flex; align-items: center; justify-content: space-between;">
-          <h3>Monerujo</h3>
-          <span class="tab-badge">Android</span>
-        </div>
-        <p>Port 443 auto-SSL, NetCipher Orbot integration, and node health testing.</p>
-        <div class="hub-card-meta"><span>Read guide &rarr;</span></div>
-      </a>
-      <a href="/docs/wallets/cli/" class="hub-card">
-        <div style="display: flex; align-items: center; justify-content: space-between;">
-          <h3>CLI & RPC</h3>
-          <span class="tab-badge">Headless</span>
-        </div>
-        <p>Command line flags, CA bundles on Linux/macOS/Windows, and monero-wallet-rpc.</p>
-        <div class="hub-card-meta"><span>Read guide &rarr;</span></div>
-      </a>
-      <a href="/docs/wallets/ripley/" class="hub-card">
-        <div style="display: flex; align-items: center; justify-content: space-between;">
-          <h3>Ripley Terminal</h3>
-          <span class="tab-badge">RipleyOS</span>
-        </div>
-        <p>Local view key scanning, Clearnet path-token uplink, and bulk get_blocks sync.</p>
-        <div class="hub-card-meta"><span>Read guide &rarr;</span></div>
-      </a>
-    </div>
-
-    <h2>Engineering notes</h2>
-    <p>The plans behind each stage, rendered from the code repository with schedules and internal decisions left out. Long, specific, and the place to look when the short pages above are not enough.</p>
-    <ul>
-      <li><a href="/docs/stage0-mvp/">Stage 0: verified proxy over public nodes</a> &mdash; rules toward public nodes, upstream pool and quorum tip, what is verified, method policy, caching, auth and limits, architecture, risks.</li>
-      <li><a href="/docs/stage1-gateway/">Stage 1: gateway architecture</a> &mdash; owned nodes on independent providers, the request path specification, node infrastructure, XMR billing and provisioning, testing and acceptance.</li>
-      <li><a href="/docs/stage2-network/">Stage 2: network protocol</a> &mdash; operators, relayers and clients, trust boundaries, the protocol specification, the fault log and settlement, component design.</li>
-    </ul>
-
-    <h2>Reading order</h2>
-    <ul>
-      <li><strong>Using mnr:</strong> <a href="/docs/how-it-works/">How mnr works</a> covers what you get, what is verified, and how to point a wallet at it.</li>
-      <li><strong>Running a public node:</strong> the <a href="/docs/how-it-works/#rules-toward-public-nodes">rules toward public nodes</a> say exactly how mnr treats your node and how to opt out.</li>
-      <li><strong>Building on it:</strong> the <a href="/docs/method-policy/">method policy</a> is the per-method contract: what is cached, for how long, and what <code>Mnr-Verify</code> will say.</li>
-      <li><strong>Where it goes:</strong> the <a href="/docs/roadmap/">roadmap</a> describes the two later stages and links to the full plans in the repository.</li>
-    </ul>
-  
     </article>
   </main>
 
