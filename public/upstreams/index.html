@@ -142,7 +142,10 @@
 
     .card { background: var(--card); border: 1px solid var(--line); border-radius: 16px; padding: 24px 28px; }
     .rule { height: 1px; background: var(--line); }
-    .col { display: flex; flex-direction: column; }
+    .col { display: flex; flex-direction: column; min-width: 0; }
+    /* Grid and flex items default to min-width:auto, which lets a <pre> with long lines widen the whole column past the viewport instead of scrolling inside it. */
+    .grid2 > *, .grid3 > *, .col > * { min-width: 0; }
+    .log { max-width: 100%; }
     .row { display: flex; }
     .section { padding-top: 56px; padding-bottom: 80px; }
 
