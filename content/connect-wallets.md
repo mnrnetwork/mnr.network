@@ -64,6 +64,7 @@ Settings → Connection and sync → **Add node**:
 - Login: `<token>`, Password: `x`
 - Turn on **Use SSL**
 - Detailed walkthrough: [Cake Wallet Guide](/docs/wallets/cake-wallet/)
+- Confirmed with Monero.com, Cake's Monero-only sibling built from the same code; Cake itself not yet run by us.
 
 ### Monerujo
 
@@ -71,6 +72,7 @@ Settings → Node → add a node:
 - Host: `rpc.mnr.network`, Port: `443`
 - Username: `<token>`, Password: `x`
 - Monerujo uses SSL automatically when the port is 443. Detailed walkthrough: [Monerujo Guide](/docs/wallets/monerujo/)
+- Not yet confirmed by us (no Android device at hand). Monerujo uses the same wallet library as the CLI and GUI, so the login form is expected to work; if you try it, tell us at dev@mnr.network either way.
 
 ### Ripley Terminal (RipleyOS)
 

@@ -17,6 +17,8 @@ Password:         x
 
 > **Note**: Monerujo automatically enforces TLS/SSL encryption when connecting on port `443`. As with other stock Monero wallets, the token belongs in the **Username** field.
 
+> **Status**: not yet confirmed by us (no Android device at hand). Monerujo is built on the same wallet library as monero-wallet-cli and the GUI, both of which sync through mnr, so this form is expected to work. If you try it, tell us at dev@mnr.network whether it did.
+
 ---
 
 ## Step-by-step setup
