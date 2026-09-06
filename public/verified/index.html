@@ -3,19 +3,19 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Documentation — mnr</title>
-  <meta name="description" content="How mnr verifies Monero RPC, the rules it follows toward public nodes, the per-method policy, and the roadmap.">
-  <link rel="canonical" href="https://mnr.network/docs/">
+  <title>What we verified, what we caught — mnr</title>
+  <meta name="description" content="Weekly, generated from the relay's public numbers: answers verified, wrong answers caught and ejected, opt-outs and pool changes.">
+  <link rel="canonical" href="https://mnr.network/verified/">
   <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
-  <meta property="og:title" content="Documentation — mnr">
-  <meta property="og:description" content="How mnr verifies Monero RPC, the rules it follows toward public nodes, the per-method policy, and the roadmap.">
+  <meta property="og:title" content="What we verified, what we caught — mnr">
+  <meta property="og:description" content="Weekly, generated from the relay's public numbers: answers verified, wrong answers caught and ejected, opt-outs and pool changes.">
   <meta property="og:type" content="article">
-  <meta property="og:url" content="https://mnr.network/docs/">
+  <meta property="og:url" content="https://mnr.network/verified/">
   <meta property="og:site_name" content="mnr">
   <meta property="og:image" content="https://mnr.network/og.png">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Documentation — mnr">
-  <meta name="twitter:description" content="How mnr verifies Monero RPC, the rules it follows toward public nodes, the per-method policy, and the roadmap.">
+  <meta name="twitter:title" content="What we verified, what we caught — mnr">
+  <meta name="twitter:description" content="Weekly, generated from the relay's public numbers: answers verified, wrong answers caught and ejected, opt-outs and pool changes.">
   <meta name="twitter:image" content="https://mnr.network/og.png">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
   <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png">
@@ -30,10 +30,10 @@
   "@graph": [
     {
       "@type": "WebPage",
-      "@id": "https://mnr.network/docs/#webpage",
-      "url": "https://mnr.network/docs/",
-      "name": "Documentation",
-      "description": "How mnr verifies Monero RPC, the rules it follows toward public nodes, the per-method policy, and the roadmap.",
+      "@id": "https://mnr.network/verified/#webpage",
+      "url": "https://mnr.network/verified/",
+      "name": "What we verified, what we caught",
+      "description": "Weekly, generated from the relay's public numbers: answers verified, wrong answers caught and ejected, opt-outs and pool changes.",
       "isPartOf": {
         "@type": "WebSite",
         "@id": "https://mnr.network/#website",
@@ -47,7 +47,7 @@
     },
     {
       "@type": "BreadcrumbList",
-      "@id": "https://mnr.network/docs/#breadcrumbs",
+      "@id": "https://mnr.network/verified/#breadcrumbs",
       "itemListElement": [
         {
           "@type": "ListItem",
@@ -60,6 +60,12 @@
           "position": 2,
           "name": "docs",
           "item": "https://mnr.network/docs/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Verified weekly",
+          "item": "https://mnr.network/verified/"
         }
       ]
     }
@@ -325,7 +331,7 @@
     <div class="wrap">
       
     <nav class="docs-tabs" aria-label="Documentation sections">
-      <a href="/docs/" class="doc-tab active">
+      <a href="/docs/" class="doc-tab ">
           <span>Overview</span>
           
         </a>
@@ -376,142 +382,19 @@
       <a href="/">mnr</a>
       <span>/</span>
       <a href="/docs/">docs</a>
-      
+      <span>/</span><span>verified</span>
     </div>
 
     <article class="prose">
-      
-    <h1 style="font-size: 42px; margin-bottom: 12px;">mnr Documentation</h1>
-    <p style="font-size: 19px; color: var(--fg-2); margin-bottom: 36px;">
-      What the verified proxy checks, the rules it follows toward the public nodes it uses, and where it is going.
-    </p>
+      <h1>What we verified, what we caught</h1>
+<p>Every week the relay&#39;s public numbers are read twice, a week apart, and the
+difference is written down here: how many answers were checked, which nodes
+served a wrong one and were ejected, who opted out, what changed in the
+pool. The text is generated from the <a href="/upstreams/">upstreams feed</a> and the
+relay&#39;s metrics; nothing in it is an opinion. What the labels mean is in the
+<a href="/docs/method-policy/">method policy</a>.</p>
+<p><em>No week has been closed yet.</em></p>
 
-    <div class="hub-grid">
-      <a href="/docs/how-it-works/" class="hub-card">
-        <div style="display: flex; align-items: center; justify-content: space-between;">
-          <h3>How mnr works</h3>
-          <span class="tab-badge">Live</span>
-        </div>
-        <p>The seven rules toward public nodes, the upstream pool and quorum tip, what is verified and what is only annotated, and how to connect a stock wallet.</p>
-        <div class="hub-card-meta">
-          <span>Read how it works &rarr;</span>
-        </div>
-      </a>
-
-      <a href="/docs/method-policy/" class="hub-card">
-        <div style="display: flex; align-items: center; justify-content: space-between;">
-          <h3>Method Policy & Verification</h3>
-          <span class="tab-badge">Generated</span>
-        </div>
-        <p>Every Monero daemon method the relay serves, with its verification rule, cache bound, quorum and timeout. Generated from the relay's source code.</p>
-        <div class="hub-card-meta">
-          <span>Read the policy table &rarr;</span>
-        </div>
-      </a>
-
-      <a href="/docs/roadmap/" class="hub-card">
-        <div style="display: flex; align-items: center; justify-content: space-between;">
-          <h3>Roadmap</h3>
-          <span class="tab-badge">Stages 0&ndash;2</span>
-        </div>
-        <p>The verified proxy that is live today, the owned mesh with an SLA, and the permissionless operator network where node runners are paid in XMR for verified work.</p>
-        <div class="hub-card-meta">
-          <span>Read the roadmap &rarr;</span>
-        </div>
-      </a>
-
-      <a href="/verified/" class="hub-card">
-        <div style="display: flex; align-items: center; justify-content: space-between;">
-          <h3>What we verified, what we caught</h3>
-          <span class="tab-badge">Weekly</span>
-        </div>
-        <p>Every week, generated from the relay's own numbers: answers checked, wrong answers caught and the nodes ejected for them, opt-outs and changes to the pool.</p>
-        <div class="hub-card-meta">
-          <span>Read the weekly record &rarr;</span>
-        </div>
-      </a>
-
-      <a href="https://github.com/mnrnetwork/mnr" class="hub-card" target="_blank" rel="noopener noreferrer">
-        <div style="display: flex; align-items: center; justify-content: space-between;">
-          <h3>Source code</h3>
-          <span class="tab-badge">AGPL-3.0</span>
-        </div>
-        <p>The relay, the core verification crate with its fixtures and fuzz targets, and the full engineering plans behind each stage.</p>
-        <div class="hub-card-meta">
-          <span>github.com/mnrnetwork/mnr &rarr;</span>
-        </div>
-      </a>
-    </div>
-
-    <h2>Dedicated wallet guides</h2>
-    <p>Step-by-step connection walkthroughs, Digest authentication configs, and onion/I2P routing for stock Monero wallets:</p>
-    <div class="hub-grid" style="grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));">
-      <a href="/docs/wallets/feather/" class="hub-card">
-        <div style="display: flex; align-items: center; justify-content: space-between;">
-          <h3>Feather Wallet</h3>
-          <span class="tab-badge">Native Tor</span>
-        </div>
-        <p>Single-line URI format (user:password@host:port), port 443 auto-TLS, and native Tor.</p>
-        <div class="hub-card-meta"><span>Read guide &rarr;</span></div>
-      </a>
-      <a href="/docs/wallets/cake-wallet/" class="hub-card">
-        <div style="display: flex; align-items: center; justify-content: space-between;">
-          <h3>Cake Wallet</h3>
-          <span class="tab-badge">iOS & Android</span>
-        </div>
-        <p>Mobile setup, background sync pacing, and Orbot / Tor daemon toggling.</p>
-        <div class="hub-card-meta"><span>Read guide &rarr;</span></div>
-      </a>
-      <a href="/docs/wallets/monero-gui/" class="hub-card">
-        <div style="display: flex; align-items: center; justify-content: space-between;">
-          <h3>Monero GUI</h3>
-          <span class="tab-badge">Official GUI</span>
-        </div>
-        <p>Simple vs Advanced Remote Node mode, SOCKS5 proxy, and daemon SSL.</p>
-        <div class="hub-card-meta"><span>Read guide &rarr;</span></div>
-      </a>
-      <a href="/docs/wallets/monerujo/" class="hub-card">
-        <div style="display: flex; align-items: center; justify-content: space-between;">
-          <h3>Monerujo</h3>
-          <span class="tab-badge">Android</span>
-        </div>
-        <p>Port 443 auto-SSL, NetCipher Orbot integration, and node health testing.</p>
-        <div class="hub-card-meta"><span>Read guide &rarr;</span></div>
-      </a>
-      <a href="/docs/wallets/cli/" class="hub-card">
-        <div style="display: flex; align-items: center; justify-content: space-between;">
-          <h3>CLI & RPC</h3>
-          <span class="tab-badge">Headless</span>
-        </div>
-        <p>Command line flags, CA bundles on Linux/macOS/Windows, and monero-wallet-rpc.</p>
-        <div class="hub-card-meta"><span>Read guide &rarr;</span></div>
-      </a>
-      <a href="/docs/wallets/ripley/" class="hub-card">
-        <div style="display: flex; align-items: center; justify-content: space-between;">
-          <h3>Ripley Terminal</h3>
-          <span class="tab-badge">RipleyOS</span>
-        </div>
-        <p>Local view key scanning, Clearnet path-token uplink, and bulk get_blocks sync.</p>
-        <div class="hub-card-meta"><span>Read guide &rarr;</span></div>
-      </a>
-    </div>
-
-    <h2>Engineering notes</h2>
-    <p>The plans behind each stage, rendered from the code repository with schedules and internal decisions left out. Long, specific, and the place to look when the short pages above are not enough.</p>
-    <ul>
-      <li><a href="/docs/stage0-mvp/">Stage 0: verified proxy over public nodes</a> &mdash; rules toward public nodes, upstream pool and quorum tip, what is verified, method policy, caching, auth and limits, architecture, risks.</li>
-      <li><a href="/docs/stage1-gateway/">Stage 1: gateway architecture</a> &mdash; owned nodes on independent providers, the request path specification, node infrastructure, XMR billing and provisioning, testing and acceptance.</li>
-      <li><a href="/docs/stage2-network/">Stage 2: network protocol</a> &mdash; operators, relayers and clients, trust boundaries, the protocol specification, the fault log and settlement, component design.</li>
-    </ul>
-
-    <h2>Reading order</h2>
-    <ul>
-      <li><strong>Using mnr:</strong> <a href="/docs/how-it-works/">How mnr works</a> covers what you get, what is verified, and how to point a wallet at it.</li>
-      <li><strong>Running a public node:</strong> the <a href="/docs/how-it-works/#rules-toward-public-nodes">rules toward public nodes</a> say exactly how mnr treats your node and how to opt out.</li>
-      <li><strong>Building on it:</strong> the <a href="/docs/method-policy/">method policy</a> is the per-method contract: what is cached, for how long, and what <code>Mnr-Verify</code> will say.</li>
-      <li><strong>Where it goes:</strong> the <a href="/docs/roadmap/">roadmap</a> describes the two later stages and links to the full plans in the repository.</li>
-    </ul>
-  
     </article>
   </main>
 

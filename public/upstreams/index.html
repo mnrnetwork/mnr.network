@@ -329,13 +329,14 @@
             <th class="num" title="Share of probe rounds in the last 24 hours in which the node answered and was on the quorum tip; lifetime figure on hover">Up 24h</th>
             <th class="num">Our Rate</th>
             <th class="num">Our Cap</th>
-            <th class="num" title="Requests our relay has sent this node since its counters began: light calls and block streams alike">Requests</th>
+            <th class="num" title="Requests our relay has sent this node since its counters began: light calls, block streams and probe rounds alike">Requests</th>
+            <th class="num" title="Load this node carried in the relay's work units: one per RPC call (probe rounds excluded) plus 20 per MB of block stream. Streams go to our own node first, so this is the honest share of the work, where Requests is not">WU</th>
             <th class="num" title="Answers that passed relay-side verification: hash or chain checks, majority agreement, outputs agreement. Block streams cannot be verified in Stage 0, so a node carrying streams shows far more requests than verified answers">Verified</th>
             <th class="num">Faults</th>
           </tr>
         </thead>
         <tbody id="rows">
-          <tr><td colspan="10" class="muted" style="text-align: center; padding: 24px;">Waiting for relay response…</td></tr>
+          <tr><td colspan="11" class="muted" style="text-align: center; padding: 24px;">Waiting for relay response…</td></tr>
         </tbody>
       </table>
     </div>
@@ -475,6 +476,7 @@
         <span style="font-weight: 600;">Documentation</span>
         <a href="/docs/">Docs Hub</a>
         <a href="/docs/how-it-works/">How mnr works</a>
+        <a href="/verified/">Weekly: what we verified</a>
         <a href="/docs/connect-wallets/">Connect a wallet</a>
         <a href="/docs/tokens/">Tokens &amp; billing</a>
         <a href="/docs/method-policy/">Method Policy &amp; Verification</a>
@@ -565,13 +567,14 @@
             '<td class="num mono">' + rate + '</td>' +
             '<td class="num mono">' + u.caps.rps_light + '/s · ' + u.caps.max_streams + ' streams</td>' +
             '<td class="num mono">' + fmt(u.requests) + '</td>' +
+            '<td class="num mono"' + (u.stream_bytes != null ? ' title="' + fmt(u.stream_bytes) + ' bytes streamed"' : '') + '>' + (u.wu != null ? fmt(u.wu) : '—') + '</td>' +
             '<td class="num mono">' + fmt(u.verified) + '</td>' +
             '<td class="num mono">' + fmt(u.faults) + '</td>' +
             '</tr>';
         });
 
         if (!rowsHtml.length) {
-          $('rows').innerHTML = '<tr><td colspan="10" class="muted" style="text-align: center; padding: 24px;">No nodes match "' + esc(filterQuery) + '".</td></tr>';
+          $('rows').innerHTML = '<tr><td colspan="11" class="muted" style="text-align: center; padding: 24px;">No nodes match "' + esc(filterQuery) + '".</td></tr>';
         } else {
           $('rows').innerHTML = rowsHtml.join('');
         }

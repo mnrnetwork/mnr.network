@@ -251,6 +251,21 @@
     "featured": false
   },
   {
+    "title": "What we verified, what we caught",
+    "route": "/verified/",
+    "description": "Weekly, generated from the relay's public numbers: answers verified, wrong answers caught and ejected, opt-outs and pool changes.",
+    "category": "Verified",
+    "keywords": [
+      "verified",
+      "weekly",
+      "what we caught",
+      "faults",
+      "ejections",
+      "transparency"
+    ],
+    "featured": true
+  },
+  {
     "title": "Get a free token",
     "route": "/get-token/",
     "description": "Generate a 100,000 WU/month free bearer token instantly without signup, email, or KYC.",
