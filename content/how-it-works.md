@@ -72,7 +72,7 @@ Tokens are 256-bit and stored only as hashes. A token can be rotated, and the pr
 | Streams | our node when available, else public; 1 concurrent | our node preferred; 3 concurrent |
 | Promise | none | none |
 
-A work unit is one light request, or 20 per MB of a `get_blocks.bin` stream. Pricing is on the [front page](/#pricing).
+A work unit is one light request, or 20 per MB of a `get_blocks.bin` stream. Pricing is on the [token & pricing page](/get-token/).
 
 ---
 
