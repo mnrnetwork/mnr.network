@@ -326,12 +326,13 @@
             <th class="num" title="Share of probe rounds in the last 24 hours in which the node answered and was on the quorum tip; lifetime figure on hover">Up 24h</th>
             <th class="num">Our Rate</th>
             <th class="num">Our Cap</th>
-            <th class="num">Verified</th>
+            <th class="num" title="Requests our relay has sent this node since its counters began: light calls and block streams alike">Requests</th>
+            <th class="num" title="Answers that passed relay-side verification: hash or chain checks, majority agreement, outputs agreement. Block streams cannot be verified in Stage 0, so a node carrying streams shows far more requests than verified answers">Verified</th>
             <th class="num">Faults</th>
           </tr>
         </thead>
         <tbody id="rows">
-          <tr><td colspan="9" class="muted" style="text-align: center; padding: 24px;">Waiting for relay response…</td></tr>
+          <tr><td colspan="10" class="muted" style="text-align: center; padding: 24px;">Waiting for relay response…</td></tr>
         </tbody>
       </table>
     </div>
@@ -560,13 +561,14 @@
             '<td class="num mono"' + (u.up_total != null ? ' title="lifetime ' + (u.up_total * 100).toFixed(2) + '% over ' + fmt(u.probes_total || 0) + ' rounds"' : '') + '>' + (u.up_24h != null ? (u.up_24h * 100).toFixed(u.up_24h > 0.999 ? 2 : 1) + '%' : '—') + '</td>' +
             '<td class="num mono">' + rate + '</td>' +
             '<td class="num mono">' + u.caps.rps_light + '/s · ' + u.caps.max_streams + ' streams</td>' +
+            '<td class="num mono">' + fmt(u.requests) + '</td>' +
             '<td class="num mono">' + fmt(u.verified) + '</td>' +
             '<td class="num mono">' + fmt(u.faults) + '</td>' +
             '</tr>';
         });
 
         if (!rowsHtml.length) {
-          $('rows').innerHTML = '<tr><td colspan="9" class="muted" style="text-align: center; padding: 24px;">No nodes match "' + esc(filterQuery) + '".</td></tr>';
+          $('rows').innerHTML = '<tr><td colspan="10" class="muted" style="text-align: center; padding: 24px;">No nodes match "' + esc(filterQuery) + '".</td></tr>';
         } else {
           $('rows').innerHTML = rowsHtml.join('');
         }
