@@ -3,18 +3,18 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Upstream Nodes & Live Telemetry — mnr</title>
+  <title>Monero Node Pool & Live Status — Upstream Telemetry | mnr</title>
   <meta name="description" content="Live status, tip height, latency, request caps, verified answers, fault logs, and operator opt-out rules for all Monero upstreams relayed by mnr.">
   <link rel="canonical" href="https://mnr.network/upstreams/">
   <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
-  <meta property="og:title" content="Upstream Nodes & Live Telemetry — mnr">
+  <meta property="og:title" content="Monero Node Pool & Live Status — Upstream Telemetry | mnr">
   <meta property="og:description" content="Live status, tip height, latency, request caps, verified answers, fault logs, and operator opt-out rules for all Monero upstreams relayed by mnr.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://mnr.network/upstreams/">
   <meta property="og:site_name" content="mnr">
   <meta property="og:image" content="https://mnr.network/og.png">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Upstream Nodes & Live Telemetry — mnr">
+  <meta name="twitter:title" content="Monero Node Pool & Live Status — Upstream Telemetry | mnr">
   <meta name="twitter:description" content="Live status, tip height, latency, request caps, verified answers, fault logs, and operator opt-out rules for all Monero upstreams relayed by mnr.">
   <meta name="twitter:image" content="https://mnr.network/og.png">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
@@ -71,6 +71,52 @@
           "name": "mnr",
           "url": "https://mnr.network/"
         }
+      },
+      {
+        "@type": "FAQPage",
+        "@id": "https://mnr.network/upstreams/#faq",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "Why does mnr query my node?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "We do not scan the network. mnr's upstream pool is a small curated list built from well-known public node lists (monero.fail, wallet-maintained lists) plus an owned node, and operators we identify are contacted before use. We distribute read-only verification queries to establish quorum consensus, staying strictly within published per-node caps."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What about privacy-sensitive requests?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Queries revealing what a wallet is looking at — outputs, transactions, key images — are routed to our owned node first, so third-party nodes do not see them while our node is up."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "How can I inspect mnr's traffic in my logs?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Filter daemon access or reverse-proxy logs by User-Agent: mnr-relay/0.*. You will observe light, evenly paced queries adhering strictly to our published request caps."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "How does the automated opt-out work?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "If you host a web server on the same IP or domain, configure it to return HTTP 200 for /.well-known/mnr-optout. Our relay checks daily and drops opted-out nodes immediately from rotation."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What raw telemetry API is available?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "The live data powering this dashboard is available as JSON at rpc.mnr.network/upstreams.json, including per-node RTT, verification counters, and fault details."
+            }
+          }
+        ]
       }
     ]
   }

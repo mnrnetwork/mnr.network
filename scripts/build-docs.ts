@@ -43,20 +43,20 @@ const DOCS: DocMeta[] = [
   {
     id: "hub",
     route: "/docs/",
-    title: "Documentation",
+    title: "Monero RPC Proxy Documentation & Guides",
     navTitle: "Overview",
     description:
-      "How mnr verifies Monero RPC, the rules it follows toward public nodes, the per-method policy, and the roadmap.",
+      "How mnr verifies Monero RPC, multi-node consensus, public node rules, method policy, wallet setup guides, and roadmap.",
   },
   {
     id: "how-it-works",
     route: "/docs/how-it-works/",
     sourceFile: "content/how-it-works.md",
-    title: "How mnr works",
+    title: "How mnr Works: Verified Monero RPC Proxy & Quorum Consensus",
     navTitle: "How it works",
     badge: "Live",
     description:
-      "What the verified proxy checks, the seven rules it follows toward public Monero nodes, how the upstream pool is ranked, and how to connect a stock wallet.",
+      "What the verified proxy checks, the seven rules it follows toward public Monero nodes, how the upstream pool is ranked, and how to connect a wallet.",
   },
   {
     id: "connect-wallets",
@@ -73,11 +73,11 @@ const DOCS: DocMeta[] = [
     id: "privacy",
     route: "/docs/privacy/",
     sourceFile: "content/privacy.md",
-    title: "Privacy and public nodes",
+    title: "Monero RPC Privacy Guarantees & Public Node Risks",
     navTitle: "Privacy",
     badge: "Reference",
     description:
-      "What mnr does and does not change about your privacy as a Monero remote node: what a node can see, which queries stay on our own node, and where no proxy can help you.",
+      "What mnr changes about your privacy as a Monero remote node: what a node can see, which queries stay on our own node, and where no proxy can help you.",
     keywords: ["privacy", "public node", "spy nodes", "monero.fail", "outputs", "key images", "tor", "own node", "advisory", "ip"],
   },
   {
@@ -208,11 +208,11 @@ const DOCS: DocMeta[] = [
     id: "tokens",
     route: "/docs/tokens/",
     sourceFile: "content/tokens-and-billing.md",
-    title: "Tokens and billing",
+    title: "Monero RPC Tokens & Pricing: Free Tier & XMR Invoices",
     navTitle: "Tokens & billing",
     badge: "Guide",
     description:
-      "Free and Pro tiers, work units, getting a token, paying a Pro invoice in XMR, renewing, rotating, and exactly what the relay knows about you.",
+      "Free and Pro tiers, work units, instant anonymous token generation, paying Pro invoices in XMR, renewing, and rotating.",
     keywords: ["tokens", "billing", "free tier", "pro tier", "work units", "wu", "xmr invoice", "renew", "rotate"],
   },
   {
@@ -223,29 +223,29 @@ const DOCS: DocMeta[] = [
     navTitle: "Method Policy",
     badge: "Generated",
     description:
-      "Verification rules, cache bounds, upstream quorum requirements and timeout budgets for every Monero daemon JSON-RPC and legacy method, generated from the relay's source code.",
+      "Verification rules, cache bounds, upstream quorum requirements and timeouts for every Monero daemon JSON-RPC and legacy method, generated from source code.",
     keywords: ["method policy", "rpc", "json-rpc", "verification", "cache", "swr", "quorum", "get_block", "get_outs", "send_raw_transaction"],
   },
   {
     id: "roadmap",
     route: "/docs/roadmap/",
     sourceFile: "content/roadmap.md",
-    title: "Roadmap",
+    title: "mnr Protocol Roadmap: Stages 0 to 2 — Monero RPC Mesh",
     navTitle: "Roadmap",
     badge: "Stages 0–2",
     description:
-      "The three stages of mnr: the verified proxy that is live today, the owned mesh with an SLA, and the permissionless operator network paid in XMR.",
+      "The three stages of mnr: live verified proxy (Stage 0), owned mesh with SLA (Stage 1), and permissionless operator network (Stage 2).",
     keywords: ["roadmap", "stage 0", "stage 1", "stage 2", "mesh", "operator network", "payouts"],
   },
   {
     id: "stage0-mvp",
     route: "/docs/stage0-mvp/",
     sourceFile: "content/stage0-mvp-plan.md",
-    title: "Verified Monero RPC proxy over public nodes: rules, upstream pool, verification (Stage 0)",
+    title: "Stage 0 Plan: Verified Monero RPC Proxy Over Public Nodes",
     navTitle: "Stage 0 plan",
     badge: "Plan",
     description:
-      "Engineering notes for the Stage 0 verified proxy: the seven rules toward public Monero nodes, upstream probing and quorum tip, block and transaction hash verification, method policy, caching, token auth, limits, and the single-binary architecture.",
+      "Engineering notes for the Stage 0 verified proxy: rules toward public nodes, upstream pool and quorum tip, verification, method policy, and limits.",
     plan: {
       upstream: "../mnr/docs/stage0-mvp-plan.md",
       keepSections: [1, 2, 3, 4, 5, 6, 8],
@@ -264,11 +264,11 @@ const DOCS: DocMeta[] = [
     id: "stage1-gateway",
     route: "/docs/stage1-gateway/",
     sourceFile: "content/stage1-gateway-development-plan.md",
-    title: "Monero RPC gateway architecture: quorum, caching, verification and XMR billing (Stage 1)",
+    title: "Stage 1 Plan: Monero RPC Gateway Architecture & Mesh",
     navTitle: "Stage 1 plan",
     badge: "Plan",
     description:
-      "Engineering notes for the Stage 1 gateway: owned monerod nodes on independent providers, edge authentication with path tokens and Basic auth, rate limiting, per-method policy and cache safety, node infrastructure, and view-only wallet billing with XMR invoices.",
+      "Engineering notes for the Stage 1 gateway: owned monerod nodes on independent providers, edge authentication with path tokens and Basic auth, and XMR billing.",
     plan: {
       upstream: "../mnr/docs/stage1-gateway-development-plan.md",
       keepSections: [1, 2, 3, 4, 5, 8],
@@ -281,11 +281,11 @@ const DOCS: DocMeta[] = [
     id: "stage2-network",
     route: "/docs/stage2-network/",
     sourceFile: "content/stage2-network-protocol-architecture.md",
-    title: "mnr network protocol: monerod operators, relayers, fault log and XMR settlement (Stage 2)",
+    title: "Stage 2 Plan: mnr Network Protocol & Operator Settlement",
     navTitle: "Stage 2 protocol",
     badge: "Protocol",
     description:
-      "Protocol and architecture notes for the Stage 2 operator network: roles and trust boundaries, session auth and metering, verification and agreement rules, the cryptographic fault log, the operator directory, and weekly XMR settlement without stake or slashing.",
+      "Protocol notes for Stage 2: permissionless operator network, roles, session auth, verification rules, cryptographic fault log, and weekly XMR settlement.",
     plan: {
       upstream: "../mnr/docs/stage2-network-protocol-architecture.md",
       keepSections: [1, 2, 3, 4],
@@ -393,6 +393,30 @@ function renderHtmlLayout(doc: DocMeta, contentHtml: string): string {
         text: step.text,
         url: `${canonicalUrl}#step-${idx + 1}`,
       })),
+    });
+  } else if (doc.id !== "hub") {
+    graph.push({
+      "@type": "TechArticle",
+      "@id": `${canonicalUrl}#article`,
+      headline: doc.title,
+      description: doc.description,
+      url: canonicalUrl,
+      inLanguage: "en",
+      proficiencyLevel: "Expert",
+      author: {
+        "@type": "Organization",
+        name: "mnr",
+        url: "https://mnr.network/",
+      },
+      publisher: {
+        "@type": "Organization",
+        name: "mnr",
+        url: "https://mnr.network/",
+        logo: {
+          "@type": "ImageObject",
+          url: "https://mnr.network/favicon-192.png",
+        },
+      },
     });
   }
 

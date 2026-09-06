@@ -3,19 +3,19 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Get a token — mnr</title>
-  <meta name="description" content="Issue an anonymous Free token instantly or get a Pro token with an XMR invoice. Zero accounts, zero KYC, no email, and no request logs.">
+  <title>Get a Free Monero RPC Token — Instant, Anonymous, No KYC | mnr</title>
+  <meta name="description" content="Generate an anonymous bearer token for mnr's verified Monero RPC proxy. Instant free tier (500k WU/mo) with zero signup, no email, and no KYC.">
   <link rel="canonical" href="https://mnr.network/get-token/">
   <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
-  <meta property="og:title" content="Get a token — mnr">
-  <meta property="og:description" content="Issue an anonymous Free token instantly or get a Pro token with an XMR invoice. Zero accounts, zero KYC, no email, and no request logs.">
+  <meta property="og:title" content="Get a Free Monero RPC Token — Instant, Anonymous, No KYC | mnr">
+  <meta property="og:description" content="Generate an anonymous bearer token for mnr's verified Monero RPC proxy. Instant free tier (500k WU/mo) with zero signup, no email, and no KYC.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://mnr.network/get-token/">
   <meta property="og:site_name" content="mnr">
   <meta property="og:image" content="https://mnr.network/og.png">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Get a token — mnr">
-  <meta name="twitter:description" content="Issue an anonymous Free token instantly or get a Pro token with an XMR invoice. Zero accounts, zero KYC, no email, and no request logs.">
+  <meta name="twitter:title" content="Get a Free Monero RPC Token — Instant, Anonymous, No KYC | mnr">
+  <meta name="twitter:description" content="Generate an anonymous bearer token for mnr's verified Monero RPC proxy. Instant free tier (500k WU/mo) with zero signup, no email, and no KYC.">
   <meta name="twitter:image" content="https://mnr.network/og.png">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
   <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png">
@@ -32,8 +32,8 @@
         "@type": "WebPage",
         "@id": "https://mnr.network/get-token/#webpage",
         "url": "https://mnr.network/get-token/",
-        "name": "Get an mnr Access Token",
-        "description": "Issue an anonymous Free token instantly or purchase a Pro token with an on-chain Monero (XMR) invoice.",
+        "name": "Get a Free Monero RPC Token — Instant, Anonymous, No KYC",
+        "description": "Generate an anonymous bearer token for mnr's verified Monero RPC proxy. Instant free tier (500k WU/mo) with zero signup, no email, and no KYC.",
         "isPartOf": {
           "@type": "WebSite",
           "@id": "https://mnr.network/#website",
@@ -62,14 +62,23 @@
       },
       {
         "@type": "Product",
+        "@id": "https://mnr.network/get-token/#product",
         "name": "mnr RPC Access Token",
         "description": "Cryptographically verified Monero RPC proxy access tokens.",
+        "image": "https://mnr.network/og.png",
+        "brand": {
+          "@type": "Brand",
+          "name": "mnr"
+        },
+        "url": "https://mnr.network/get-token/",
         "offers": [
           {
             "@type": "Offer",
             "name": "Free Tier",
             "price": "0",
             "priceCurrency": "USD",
+            "url": "https://mnr.network/get-token/",
+            "availability": "https://schema.org/InStock",
             "description": "500,000 WU/month, 5 req/s burst, 1 wallet sync stream, zero KYC."
           },
           {
@@ -77,7 +86,47 @@
             "name": "Pro Tier",
             "price": "9",
             "priceCurrency": "USD",
+            "url": "https://mnr.network/get-token/",
+            "availability": "https://schema.org/InStock",
             "description": "10,000,000 WU/month, 25 req/s burst, 3 wallet sync streams, dual-node get_outs verification, payable in XMR."
+          }
+        ]
+      },
+      {
+        "@type": "FAQPage",
+        "@id": "https://mnr.network/get-token/#faq",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "Where do I input the token in my wallet?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "In your wallet's Remote Node settings, set Host to rpc.mnr.network, Port to 443, check Use SSL, and enter your token in the Username / Daemon Login field. The password field can be anything (e.g. x). For light clients like Ripley Terminal, use https://rpc.mnr.network/v1/<token> in the manual uplink field."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What if I lose my token?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "mnr stores only a one-way cryptographic hash (SHA-256) of your token for authentication. We cannot recover lost tokens. If you lose a Free token, simply generate a new one here in one click. If you purchase a Pro token, bookmark your unique invoice link."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "How do renewals work?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "When purchasing Pro, enter your existing sub_... token into the 'Renew existing token' field before generating an invoice. Once 10 block confirmations are detected, the expiration of your token is automatically extended."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Does mnr log IP addresses or transactions?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "No. mnr operates under strict anti-surveillance principles: no IP logging, no path logging, and zero request payload persistence. Requests over Tor and I2P provide further transport layer anonymity."
+            }
           }
         ]
       }

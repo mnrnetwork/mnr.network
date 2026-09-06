@@ -1,16 +1,16 @@
 [
   {
-    "title": "Documentation",
+    "title": "Monero RPC Proxy Documentation & Guides",
     "route": "/docs/",
-    "description": "How mnr verifies Monero RPC, the rules it follows toward public nodes, the per-method policy, and the roadmap.",
+    "description": "How mnr verifies Monero RPC, multi-node consensus, public node rules, method policy, wallet setup guides, and roadmap.",
     "category": "Guide",
     "keywords": [],
     "featured": false
   },
   {
-    "title": "How mnr works",
+    "title": "How mnr Works: Verified Monero RPC Proxy & Quorum Consensus",
     "route": "/docs/how-it-works/",
-    "description": "What the verified proxy checks, the seven rules it follows toward public Monero nodes, how the upstream pool is ranked, and how to connect a stock wallet.",
+    "description": "What the verified proxy checks, the seven rules it follows toward public Monero nodes, how the upstream pool is ranked, and how to connect a wallet.",
     "category": "Guide",
     "keywords": [],
     "featured": false
@@ -40,9 +40,9 @@
     "featured": false
   },
   {
-    "title": "Privacy and public nodes",
+    "title": "Monero RPC Privacy Guarantees & Public Node Risks",
     "route": "/docs/privacy/",
-    "description": "What mnr does and does not change about your privacy as a Monero remote node: what a node can see, which queries stay on our own node, and where no proxy can help you.",
+    "description": "What mnr changes about your privacy as a Monero remote node: what a node can see, which queries stay on our own node, and where no proxy can help you.",
     "category": "Guide",
     "keywords": [
       "privacy",
@@ -174,9 +174,9 @@
     "featured": true
   },
   {
-    "title": "Tokens and billing",
+    "title": "Monero RPC Tokens & Pricing: Free Tier & XMR Invoices",
     "route": "/docs/tokens/",
-    "description": "Free and Pro tiers, work units, getting a token, paying a Pro invoice in XMR, renewing, rotating, and exactly what the relay knows about you.",
+    "description": "Free and Pro tiers, work units, instant anonymous token generation, paying Pro invoices in XMR, renewing, and rotating.",
     "category": "Guide",
     "keywords": [
       "tokens",
@@ -194,7 +194,7 @@
   {
     "title": "Monero RPC Method Policy & Verification Rules",
     "route": "/docs/method-policy/",
-    "description": "Verification rules, cache bounds, upstream quorum requirements and timeout budgets for every Monero daemon JSON-RPC and legacy method, generated from the relay's source code.",
+    "description": "Verification rules, cache bounds, upstream quorum requirements and timeouts for every Monero daemon JSON-RPC and legacy method, generated from source code.",
     "category": "Guide",
     "keywords": [
       "method policy",
@@ -211,9 +211,9 @@
     "featured": false
   },
   {
-    "title": "Roadmap",
+    "title": "mnr Protocol Roadmap: Stages 0 to 2 — Monero RPC Mesh",
     "route": "/docs/roadmap/",
-    "description": "The three stages of mnr: the verified proxy that is live today, the owned mesh with an SLA, and the permissionless operator network paid in XMR.",
+    "description": "The three stages of mnr: live verified proxy (Stage 0), owned mesh with SLA (Stage 1), and permissionless operator network (Stage 2).",
     "category": "Guide",
     "keywords": [
       "roadmap",
@@ -227,25 +227,25 @@
     "featured": false
   },
   {
-    "title": "Verified Monero RPC proxy over public nodes: rules, upstream pool, verification (Stage 0)",
+    "title": "Stage 0 Plan: Verified Monero RPC Proxy Over Public Nodes",
     "route": "/docs/stage0-mvp/",
-    "description": "Engineering notes for the Stage 0 verified proxy: the seven rules toward public Monero nodes, upstream probing and quorum tip, block and transaction hash verification, method policy, caching, token auth, limits, and the single-binary architecture.",
+    "description": "Engineering notes for the Stage 0 verified proxy: rules toward public nodes, upstream pool and quorum tip, verification, method policy, and limits.",
     "category": "Plan",
     "keywords": [],
     "featured": false
   },
   {
-    "title": "Monero RPC gateway architecture: quorum, caching, verification and XMR billing (Stage 1)",
+    "title": "Stage 1 Plan: Monero RPC Gateway Architecture & Mesh",
     "route": "/docs/stage1-gateway/",
-    "description": "Engineering notes for the Stage 1 gateway: owned monerod nodes on independent providers, edge authentication with path tokens and Basic auth, rate limiting, per-method policy and cache safety, node infrastructure, and view-only wallet billing with XMR invoices.",
+    "description": "Engineering notes for the Stage 1 gateway: owned monerod nodes on independent providers, edge authentication with path tokens and Basic auth, and XMR billing.",
     "category": "Plan",
     "keywords": [],
     "featured": false
   },
   {
-    "title": "mnr network protocol: monerod operators, relayers, fault log and XMR settlement (Stage 2)",
+    "title": "Stage 2 Plan: mnr Network Protocol & Operator Settlement",
     "route": "/docs/stage2-network/",
-    "description": "Protocol and architecture notes for the Stage 2 operator network: roles and trust boundaries, session auth and metering, verification and agreement rules, the cryptographic fault log, the operator directory, and weekly XMR settlement without stake or slashing.",
+    "description": "Protocol notes for Stage 2: permissionless operator network, roles, session auth, verification rules, cryptographic fault log, and weekly XMR settlement.",
     "category": "Protocol",
     "keywords": [],
     "featured": false
