@@ -323,6 +323,7 @@
             <th>Status</th>
             <th class="num">Height</th>
             <th class="num">Latency</th>
+            <th class="num" title="Share of probe rounds in the last 24 hours in which the node answered and was on the quorum tip; lifetime figure on hover">Up 24h</th>
             <th class="num">Our Rate</th>
             <th class="num">Our Cap</th>
             <th class="num">Verified</th>
@@ -330,7 +331,7 @@
           </tr>
         </thead>
         <tbody id="rows">
-          <tr><td colspan="8" class="muted" style="text-align: center; padding: 24px;">Waiting for relay response…</td></tr>
+          <tr><td colspan="9" class="muted" style="text-align: center; padding: 24px;">Waiting for relay response…</td></tr>
         </tbody>
       </table>
     </div>
@@ -556,6 +557,7 @@
             '<td><span class="dot ' + st[0] + '"></span>' + esc(st[1]) + '</td>' +
             '<td class="num mono">' + (u.height != null ? fmt(u.height) : '—') + '</td>' +
             '<td class="num mono">' + (u.rtt_ms != null ? u.rtt_ms + ' ms' : '—') + '</td>' +
+            '<td class="num mono"' + (u.up_total != null ? ' title="lifetime ' + (u.up_total * 100).toFixed(2) + '% over ' + fmt(u.probes_total || 0) + ' rounds"' : '') + '>' + (u.up_24h != null ? (u.up_24h * 100).toFixed(u.up_24h > 0.999 ? 2 : 1) + '%' : '—') + '</td>' +
             '<td class="num mono">' + rate + '</td>' +
             '<td class="num mono">' + u.caps.rps_light + '/s · ' + u.caps.max_streams + ' streams</td>' +
             '<td class="num mono">' + fmt(u.verified) + '</td>' +
@@ -564,7 +566,7 @@
         });
 
         if (!rowsHtml.length) {
-          $('rows').innerHTML = '<tr><td colspan="8" class="muted" style="text-align: center; padding: 24px;">No nodes match "' + esc(filterQuery) + '".</td></tr>';
+          $('rows').innerHTML = '<tr><td colspan="9" class="muted" style="text-align: center; padding: 24px;">No nodes match "' + esc(filterQuery) + '".</td></tr>';
         } else {
           $('rows').innerHTML = rowsHtml.join('');
         }
