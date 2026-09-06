@@ -51,7 +51,11 @@ Settings → Node → **Remote node**.
 
 ### Feather
 
-Settings → Network → **Custom node**: address `rpc.mnr.network:443`, username `<token>`, password `x`, SSL on. Detailed walkthrough: [Feather Wallet Guide](/docs/wallets/feather/)
+Settings → Node → click **Add node**:
+```
+<token>:x@rpc.mnr.network:443
+```
+Feather accepts nodes in `user:password@host:port` format. Over Tor: `<token>:x@mnrrpcvbopaykx7um32r4iyamontteidypjd33fhzvuy2hwfu5c4ifad.onion:80`. Detailed walkthrough: [Feather Wallet Guide](/docs/wallets/feather/)
 
 ### Cake Wallet
 

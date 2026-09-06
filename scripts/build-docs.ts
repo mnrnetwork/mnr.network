@@ -95,10 +95,9 @@ const DOCS: DocMeta[] = [
     keywords: ["feather", "feather wallet", "desktop", "tails", "tor", "onion", "digest auth", "custom node", "ssl", "port 443"],
     howToSteps: [
       { name: "Obtain an mnr token", text: "Generate an anonymous access token at mnr.network/get-token/." },
-      { name: "Open Network settings", text: "In Feather, go to Settings → Network tab." },
-      { name: "Configure Custom node", text: "Select Custom node, set address to rpc.mnr.network:443, and enable Use SSL." },
-      { name: "Enter credentials", text: "Paste your token into Daemon username and enter x into Daemon password." },
-      { name: "Connect and sync", text: "Click Apply to begin verified blockchain synchronization." },
+      { name: "Open Node settings", text: "In Feather, go to Settings → Node and click Add node." },
+      { name: "Enter custom node URI", text: "In the Add custom node(s) box, paste <token>:x@rpc.mnr.network:443 (or the onion address for Tor)." },
+      { name: "Connect and sync", text: "Click OK, select the custom node, and click Apply to begin verified blockchain synchronization." },
     ],
   },
   {
@@ -813,7 +812,7 @@ function generateHubHtml(): string {
           <h3>Feather Wallet</h3>
           <span class="tab-badge">Native Tor</span>
         </div>
-        <p>Built-in Tor onion proxying, custom node port 443, and Digest credentials.</p>
+        <p>Single-line URI format (user:password@host:port), port 443 auto-TLS, and native Tor.</p>
         <div class="hub-card-meta"><span>Read guide &rarr;</span></div>
       </a>
       <a href="/docs/wallets/cake-wallet/" class="hub-card">

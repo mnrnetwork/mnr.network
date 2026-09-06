@@ -91,30 +91,23 @@
         {
           "@type": "HowToStep",
           "position": 2,
-          "name": "Open Network settings",
-          "text": "In Feather, go to Settings → Network tab.",
+          "name": "Open Node settings",
+          "text": "In Feather, go to Settings → Node and click Add node.",
           "url": "https://mnr.network/docs/wallets/feather/#step-2"
         },
         {
           "@type": "HowToStep",
           "position": 3,
-          "name": "Configure Custom node",
-          "text": "Select Custom node, set address to rpc.mnr.network:443, and enable Use SSL.",
+          "name": "Enter custom node URI",
+          "text": "In the Add custom node(s) box, paste <token>:x@rpc.mnr.network:443 (or the onion address for Tor).",
           "url": "https://mnr.network/docs/wallets/feather/#step-3"
         },
         {
           "@type": "HowToStep",
           "position": 4,
-          "name": "Enter credentials",
-          "text": "Paste your token into Daemon username and enter x into Daemon password.",
-          "url": "https://mnr.network/docs/wallets/feather/#step-4"
-        },
-        {
-          "@type": "HowToStep",
-          "position": 5,
           "name": "Connect and sync",
-          "text": "Click Apply to begin verified blockchain synchronization.",
-          "url": "https://mnr.network/docs/wallets/feather/#step-5"
+          "text": "Click OK, select the custom node, and click Apply to begin verified blockchain synchronization.",
+          "url": "https://mnr.network/docs/wallets/feather/#step-4"
         }
       ]
     }
@@ -437,46 +430,40 @@
     <article class="prose">
       <h1>Connect Feather Wallet to mnr</h1>
 <p>Feather is a lightweight desktop Monero wallet designed for privacy, speed, and Tails/Tor compatibility. Connecting Feather to mnr gives you multi-node consensus verification on every block header and transaction while keeping Feather completely stateless with zero personal accounts and zero request logging.</p>
+<p>Feather accepts custom nodes in a direct <code>user:password@host:port</code> format.</p>
 <hr>
 <h2 id="quick-configuration">Quick configuration</h2>
-<p>In Feather, navigate to <strong>Settings → Network → Node</strong>:</p>
-<pre><code>Mode:             Custom node
-Node address:     rpc.mnr.network:443
-Daemon username:  &lt;token&gt;
-Daemon password:  x
-Use SSL:          Checked (enabled)
+<p>In Feather, open <strong>Settings &rarr; Node</strong> and click <strong>Add node</strong> (or right-click in the custom node list &rarr; <strong>Add</strong>). In the <strong>Add custom node(s)</strong> dialog, paste:</p>
+<pre><code>&lt;token&gt;:x@rpc.mnr.network:443
+</code></pre>
+<p>For Tor hidden service (.onion):</p>
+<pre><code>&lt;token&gt;:x@mnrrpcvbopaykx7um32r4iyamontteidypjd33fhzvuy2hwfu5c4ifad.onion:80
 </code></pre>
 <blockquote>
-<p><strong>Important</strong>: Put your token in the <strong>username</strong> field, not the password field. Stock Monero wallets authenticate using HTTP Digest auth, which cannot check passwords against a server that only stores secure hashes. The relay reads the token from the username and ignores the password.</p>
+<p><strong>Syntax note</strong>: Feather expects <code>user:password@host:port</code> (one node per line).
+Your bearer token goes in the <code>user</code> slot (<code>&lt;token&gt;</code>), and <code>x</code> (or any single character) goes in the <code>password</code> slot. mnr reads the token from the user slot and ignores the password.</p>
 </blockquote>
 <hr>
 <h2 id="step-by-step-setup">Step-by-step setup</h2>
 <ol>
 <li><strong>Obtain an mnr token</strong>: Generate an instant access token on the <a href="/get-token/">token page</a>. Free tier requires no signup, no email, and no credit card.</li>
-<li><strong>Open Network Settings</strong>: In Feather, click <strong>Settings</strong> (gear icon) in the bottom-left or top menu, and switch to the <strong>Network</strong> tab.</li>
-<li><strong>Select Custom Node</strong>: Under the <strong>Node</strong> section, choose <strong>Connect to a remote node</strong> and select or add a <strong>Custom node</strong>.</li>
-<li><strong>Enter Connection Parameters</strong>:<ul>
-<li><strong>URL / Host</strong>: <code>rpc.mnr.network:443</code> (or <code>rpc.mnr.network</code> with port <code>443</code>).</li>
-<li>Tick the <strong>Use SSL</strong> checkbox.</li>
-<li>Enter your token into the <strong>Daemon username</strong> field.</li>
-<li>Enter <code>x</code> (or any single character) into the <strong>Daemon password</strong> field.</li>
-</ul>
-</li>
-<li><strong>Apply &amp; Connect</strong>: Click <strong>Apply</strong> or <strong>Connect</strong>. Feather will connect to <code>rpc.mnr.network</code>, authenticate via Digest with your token, and immediately begin syncing from your wallet&#39;s restore height.</li>
+<li><strong>Open Node Settings</strong>: In Feather, click <strong>Settings</strong> (gear icon) in the bottom-left or menu bar, and switch to the <strong>Node</strong> tab.</li>
+<li><strong>Open the &quot;Add custom node(s)&quot; Dialog</strong>: Under the <strong>Custom nodes</strong> section, click the <strong>Add node</strong> button (or right-click anywhere in the custom node table and choose <strong>Add</strong>).</li>
+<li><strong>Enter Node URI</strong>: In the dialog text box, paste your connection string:<pre><code>&lt;token&gt;:x@rpc.mnr.network:443
+</code></pre>
+Replace <code>&lt;token&gt;</code> with your actual token (e.g. <code>sub_...</code>). Port <code>443</code> automatically engages TLS encryption in Feather.</li>
+<li><strong>Save &amp; Connect</strong>: Click <strong>OK</strong>. Feather will add the node to your custom node list. Select it or ensure it is checked, then click <strong>Apply</strong> / connect. Feather authenticates via HTTP Digest and immediately begins syncing from your wallet&#39;s restore height.</li>
 </ol>
 <hr>
 <h2 id="connecting-over-tor-onion">Connecting over Tor (.onion)</h2>
 <p>Feather has native, built-in Tor support and does not require a local Tor daemon if you use Feather&#39;s internal Tor routing.</p>
-<pre><code>Node address:     mnrrpcvbopaykx7um32r4iyamontteidypjd33fhzvuy2hwfu5c4ifad.onion:80
-Daemon username:  &lt;token&gt;
-Daemon password:  x
-Use SSL:          Unchecked (disabled)
-</code></pre>
 <ol>
-<li>Go to <strong>Settings → Network → Tor</strong>.</li>
-<li>Select <strong>Enabled</strong> (or <strong>Use system Tor</strong> if on Tails / Whonix).</li>
-<li>Set the remote node address to <code>mnrrpcvbopaykx7um32r4iyamontteidypjd33fhzvuy2hwfu5c4ifad.onion:80</code>.</li>
-<li>Turn <strong>Use SSL</strong> off (Tor hidden services provide end-to-end onion encryption natively without clearnet TLS).</li>
+<li>Go to <strong>Settings &rarr; Network &rarr; Tor</strong> and ensure Tor is <strong>Enabled</strong> (or <strong>Use system Tor</strong> if running Tails or Whonix).</li>
+<li>Go to <strong>Settings &rarr; Node</strong> and click <strong>Add node</strong>.</li>
+<li>Enter the mnr onion endpoint:<pre><code>&lt;token&gt;:x@mnrrpcvbopaykx7um32r4iyamontteidypjd33fhzvuy2hwfu5c4ifad.onion:80
+</code></pre>
+</li>
+<li>Click <strong>OK</strong> and set the onion node as active. Tor hidden services provide end-to-end onion encryption natively without clearnet TLS certificates.</li>
 </ol>
 <hr>
 <h2 id="verification-response-headers">Verification &amp; Response Headers</h2>
@@ -498,9 +485,9 @@ mnr-tier: free
 <hr>
 <h2 id="troubleshooting">Troubleshooting</h2>
 <ul>
-<li><strong>Bad server response for authentication</strong>: Make sure your token is entered into the <strong>username</strong> field, with a placeholder like <code>x</code> in the password field.</li>
-<li><strong>Certificate verify failed</strong>: Ensure Feather&#39;s <strong>Use SSL</strong> is checked when connecting to port <code>443</code> on clearnet.</li>
-<li><strong>401 Unknown Token</strong>: Verify there are no trailing spaces copied with your token. If your token was generated more than 24 hours ago and was never activated, create a new one.</li>
+<li><strong>Malformed URI / Node not parsed</strong>: Ensure the format is strictly <code>&lt;token&gt;:x@rpc.mnr.network:443</code> without spaces. The colon separates token from dummy password, and <code>@</code> separates credentials from host.</li>
+<li><strong>Bad server response for authentication</strong>: Make sure your token is placed before <code>:x@</code>. If you place <code>:x</code> before the token, authentication will fail.</li>
+<li><strong>401 Unknown Token</strong>: Verify there are no trailing spaces or quotes copied with your token. If your token was generated more than 24 hours ago and was never activated, create a new one.</li>
 <li><strong>429 Rate Limited</strong>: Feather is sending requests faster than your tier&#39;s burst cap (5 req/s on Free, 25 req/s on Pro). Feather will automatically back off and retry.</li>
 </ul>
 
