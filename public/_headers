@@ -4,6 +4,7 @@
   Referrer-Policy: no-referrer
   Permissions-Policy: camera=(), microphone=(), geolocation=()
   Strict-Transport-Security: max-age=31536000; includeSubDomains
+  Vary: Accept
 
 /
   Cache-Control: public, max-age=0, s-maxage=3600, stale-while-revalidate=86400

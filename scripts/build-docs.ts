@@ -449,6 +449,7 @@ function renderHtmlLayout(doc: DocMeta, contentHtml: string): string {
   <link rel="icon" href="/favicon-16.png" sizes="16x16" type="image/png">
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
   <link rel="manifest" href="/site.webmanifest">
+  <link rel="alternate" type="text/markdown" href="${doc.route}index.md">
   <link rel="alternate" type="text/markdown" title="LLM context" href="/llms.txt">
   <link rel="stylesheet" href="/search.css">
   <script type="application/ld+json">
@@ -1208,7 +1209,8 @@ function registerVerified(): void {
   };
   DOCS.push(indexDoc);
   fs.writeFileSync("public/verified/index.html", renderHtmlLayout(indexDoc, processMarkdown(index)));
-  console.log(`✓ Created public/verified/index.html (${entries.length} weeks)`);
+  fs.writeFileSync("public/verified/index.md", index);
+  console.log(`✓ Created public/verified/index.html and index.md (${entries.length} weeks)`);
 }
 
 function build() {
@@ -1260,7 +1262,8 @@ function build() {
     const outDir = path.join("public", doc.route);
     fs.mkdirSync(outDir, { recursive: true });
     fs.writeFileSync(path.join(outDir, "index.html"), pageHtml);
-    console.log(`✓ Created ${path.join(outDir, "index.html")}`);
+    fs.writeFileSync(path.join(outDir, "index.md"), rawMd);
+    console.log(`✓ Created ${path.join(outDir, "index.html")} and index.md`);
   }
 
   // 3. Generate Sitemap (/sitemap.xml)
