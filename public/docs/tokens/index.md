@@ -6,7 +6,7 @@ A token is the whole relationship. There is no account, no email, no name. The r
 
 | | Free | Pro |
 |---|---|---|
-| Price | $0 | about $9 a month, paid in XMR |
+| Price | $0 | $9 a month, paid in XMR at the rate when your invoice is created |
 | Allowance | 500k work units per month | 10M work units per month |
 | Burst | 5 requests per second | 25 requests per second |
 | `get_outs` | one upstream | two upstreams must agree |
@@ -23,7 +23,7 @@ One click on the [token page](/get-token/). The token appears once; copy it into
 
 ## Buying a Pro token
 
-On the [token page](/get-token/), choose how many months and you get an invoice: a Monero address that is yours alone for that invoice, an amount, and 24 hours to pay. Send the amount from any wallet. After ten confirmations the page shows your Pro token. Keep the invoice link until the token is in your wallet: the invoice id is the only way to see the token again.
+On the [token page](/get-token/), choose how many months and you get an invoice: a Monero address that is yours alone for that invoice, an amount, and 24 hours to pay. The amount is $9 a month converted at the median of five public XMR/USD sources at that moment (the invoice names the rate and the sources), rounded up to the next 0.0001 XMR, and fixed for the 24 hours. Send the amount from any wallet. After ten confirmations the page shows your Pro token. Keep the invoice link until the token is in your wallet: the invoice id is the only way to see the token again.
 
 Pay a little more and the difference is a tip. Pay less and the invoice waits for the rest until it expires.
 

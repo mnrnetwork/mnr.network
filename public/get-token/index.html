@@ -766,6 +766,10 @@
       var poll = null;
       function renderInvoice(v) {
         $('pro-amount').textContent = v.amount_xmr + ' XMR';
+        if (v.price_usd != null && v.rate_usd_per_xmr != null) {
+          $('pro-amount').title = '$' + v.price_usd + ' at ' + v.rate_usd_per_xmr + ' USD/XMR' + (v.rate_sources ? ', median of ' + v.rate_sources.join(', ') : '') + ', fixed for this invoice';
+          $('pro-amount').textContent += ' ($' + v.price_usd + ' at ' + v.rate_usd_per_xmr + ')';
+        }
         $('pro-address').textContent = v.address;
         $('pro-uri').href = v.uri;
         $('pro-state').textContent = v.status;
