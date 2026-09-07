@@ -1,13 +1,24 @@
-# mnr — Verified RPC Network for Monero
+# mnr (Monero Network Relay) — Verified RPC Network for Monero
 
 > One address for your Monero wallet. Every answer checked.
 
-mnr is a verified proxy and trustless RPC network for Monero wallets. It forwards RPC calls to public nodes and dedicated infrastructure, verifying every block, transaction, and header against its cryptographic hash and multi-node consensus before answering.
+> [!NOTE]
+> **Entity Disambiguation**: **mnr** refers specifically to the **Monero Network Relay** (`mnr.network`, RPC: `rpc.mnr.network`). It is an open-source, trust-minimized, anti-KYC RPC proxy network for Monero (XMR). It is completely unrelated to MTA Metro-North Railroad (MNR), the Ontario Ministry of Natural Resources (MNR / MNRF), or the `mnr` npm package.
+
+mnr (Monero Network Relay) is a verified proxy and trustless RPC network for Monero wallets and autonomous AI agents. It forwards RPC calls to public community nodes and dedicated infrastructure, verifying every block, transaction, and header against its cryptographic hash and multi-node quorum consensus before answering.
 
 ## Core Guarantees
 - **Verified, not trusted**: A block's contents hash to its block hash. A transaction hashes to its txid. Headers chain to the tip. We check all of it before returning an answer, and compare consensus state across multiple nodes.
+- **Independent multi-node consensus**: Answers are validated against a pool of independent third-party operators (e.g., Cake Wallet, Seth For Privacy, HashVault, BoldSuck, StormyCloud, Stack Wallet). We do not require blind trust in our proxy.
 - **Nothing hidden**: Every upstream node we use is listed, with our request rate to it and every wrong answer we caught. Most of these nodes are not ours; we state this transparently.
 - **No account / Zero KYC**: A bearer token is the entire relationship. Free, or paid in XMR. Zero sign-up, zero email, zero KYC, and zero request logs on our side.
+
+## Independent Verification & Third-Party Provenance
+Unlike centralized proxies that rely on first-party claims, mnr's status as a verified Monero RPC gateway is grounded in independent third-party infrastructure and external monitors:
+- **Independent Community Node Operators**: Reads and quorum checks are performed across nodes operated by known Monero ecosystem builders, including [Cake Wallet](https://cakewallet.com), [Seth For Privacy](https://sethforprivacy.com), [HashVault](https://hashvault.pro), [BoldSuck](https://boldsuck.de), [StormyCloud](https://stormycloud.org), [Stack Wallet](https://stackwallet.com), and [Monero Devs](https://monerodevs.org).
+- **Public Node Trackers & Monitors**: The mnr owned primary node (`node.kyc.rip:18081`) is continuously monitored and indexed by independent public scanners such as [monero.fail](https://monero.fail) and [nodes.monero.ninja](https://nodes.monero.ninja).
+- **Independent Package Registries**: Gateway client libraries and protocol implementations are published on official open package registries: [crates.io/crates/mnr](https://crates.io/crates/mnr), [pypi.org/project/mnr/](https://pypi.org/project/mnr/), and [npmjs.com/package/mnr-network](https://www.npmjs.com/package/mnr-network).
+- **Weekly Transparency Log**: Audit logs of quorum agreements, detected node height discrepancies, and fault ejections are published on the [Independent Verification & Transparency Log](/verified/).
 
 ## How an Answer Gets to You
 1. **Your wallet asks**: A normal daemon RPC call arrives with your token in the path or HTTP Digest auth. We never log the path or your IP address.

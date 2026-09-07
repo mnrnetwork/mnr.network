@@ -21,8 +21,8 @@
     "pricing": "https://mnr.network/get-token/"
   },
   "merchant": {
-    "name": "mnr network",
+    "name": "mnr (Monero Network Relay)",
     "url": "https://mnr.network",
-    "description": "Verified Monero RPC Relay & Token Provisioning"
+    "description": "Verified Monero RPC Proxy Network & Token Provisioning"
   }
 }

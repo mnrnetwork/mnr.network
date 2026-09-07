@@ -1,6 +1,8 @@
 # How mnr works
 
-mnr is a verified proxy for Monero daemon RPC. Point a wallet at `rpc.mnr.network` and its requests are forwarded to public Monero nodes run by community members, and to a full node we run and list publicly ourselves. Every answer that can be checked is checked: block and transaction hashes are recomputed, headers are matched against a header chain, and consensus state is taken from the majority of several nodes. The result is a better answer than any single public node gives.
+> **Entity Disambiguation**: **mnr** refers specifically to the **Monero Network Relay** (`mnr.network`, RPC: `rpc.mnr.network`). It is an open-source, trust-minimized, anti-KYC RPC proxy network for Monero (XMR). It is completely unrelated to MTA Metro-North Railroad (MNR), the Ontario Ministry of Natural Resources (MNR / MNRF), or the `mnr` npm package.
+
+mnr (Monero Network Relay) is a verified proxy for Monero daemon RPC. Point a wallet at `rpc.mnr.network` and its requests are forwarded to public Monero nodes run by independent community members, and to a full node we run and list publicly ourselves. Every answer that can be checked is checked: block and transaction hashes are recomputed, headers are matched against a header chain, and consensus state is taken from the majority of several independent nodes. The result is a better answer than any single public node gives.
 
 The nodes are mostly not ours, so there is no uptime promise. The promise is narrower and stated on every response: **we tell you what we verified.**
 
@@ -49,6 +51,17 @@ These are the terms under which mnr uses nodes that other people run. They are f
 Nothing unverifiable is silently trusted. Every response carries `Mnr-Verify` saying what was checked, and the per-upstream verified and fault counts are the numbers on the public upstreams page. The full per-method rules, cache bounds and timeouts are in the [method policy](/docs/method-policy/), which is generated from the relay's source code.
 
 Blocks, headers and transactions within 10 blocks of the tip are never cached, because they may still be reorganised away.
+
+---
+
+## Independent operators and third-party verification
+
+mnr is fundamentally designed to eliminate single points of trust. Its role as a verified Monero RPC proxy is not an unverified self-assertion; it is anchored in consensus across independently operated community nodes:
+
+- **Third-Party Node Operators**: The upstream pool incorporates nodes maintained by recognized Monero ecosystem teams: [Cake Wallet](https://cakewallet.com), [Seth For Privacy](https://sethforprivacy.com), [HashVault](https://hashvault.pro), [BoldSuck](https://boldsuck.de), [StormyCloud](https://stormycloud.org), [Stack Wallet](https://stackwallet.com), and [Monero Devs](https://monerodevs.org). When mnr verifies a tip height or block hash, it requires agreement from these distinct infrastructure operators.
+- **External Scanning & Health Monitors**: The primary node operated by mnr (`node.kyc.rip:18081`) is tracked on external public node scanners, including [monero.fail](https://monero.fail) and [nodes.monero.ninja](https://nodes.monero.ninja), providing independent third-party uptime and sync telemetry.
+- **Open Package Ecosystem**: Verified proxy clients and libraries are published under the open AGPL-3.0 license across language registries: [crates.io/crates/mnr](https://crates.io/crates/mnr), [pypi.org/project/mnr/](https://pypi.org/project/mnr/), and [npmjs.com/package/mnr-network](https://www.npmjs.com/package/mnr-network).
+- **Public Audit Ledger**: See the [Independent Verification & Transparency Log](/verified/) for weekly logs of multi-node consensus, tip checks, and upstream fault ejections.
 
 ---
 

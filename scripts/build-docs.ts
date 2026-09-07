@@ -368,9 +368,16 @@ function renderHtmlLayout(doc: DocMeta, contentHtml: string): string {
       isPartOf: {
         "@type": "WebSite",
         "@id": "https://mnr.network/#website",
-        url: "https://mnr.network/",
-        name: "mnr",
-        alternateName: ["mnr network", "mnr.network"],
+        "url": "https://mnr.network/",
+        "name": "mnr (Monero Network Relay)",
+        "alternateName": [
+          "mnr",
+          "mnr network",
+          "mnr.network",
+          "Monero Network Relay",
+          "Monero Node Relay"
+        ],
+        "disambiguatingDescription": "Cryptographic Monero RPC proxy and decentralized consensus relay network for Monero (XMR) wallets; distinct from MTA Metro-North Railroad, Ontario Ministry of Natural Resources, and unrelated npm package 'mnr'.",
       },
     },
     {
@@ -403,19 +410,48 @@ function renderHtmlLayout(doc: DocMeta, contentHtml: string): string {
       url: canonicalUrl,
       inLanguage: "en",
       proficiencyLevel: "Expert",
+      citation: [
+        {
+          "@type": "WebSite",
+          "name": "monero.fail",
+          "url": "https://monero.fail"
+        },
+        {
+          "@type": "WebSite",
+          "name": "Seth For Privacy",
+          "url": "https://sethforprivacy.com"
+        },
+        {
+          "@type": "WebSite",
+          "name": "Cake Wallet",
+          "url": "https://cakewallet.com"
+        }
+      ],
       author: {
         "@type": "Organization",
-        name: "mnr",
-        url: "https://mnr.network/",
+        "name": "mnr (Monero Network Relay)",
+        "url": "https://mnr.network/",
+        "sameAs": [
+          "https://github.com/mnrnetwork/mnr",
+          "https://crates.io/crates/mnr",
+          "https://pypi.org/project/mnr/",
+          "https://www.npmjs.com/package/mnr-network"
+        ]
       },
       publisher: {
         "@type": "Organization",
-        name: "mnr",
-        url: "https://mnr.network/",
-        logo: {
+        "name": "mnr (Monero Network Relay)",
+        "url": "https://mnr.network/",
+        "logo": {
           "@type": "ImageObject",
-          url: "https://mnr.network/favicon-192.png",
+          "url": "https://mnr.network/favicon-192.png",
         },
+        "sameAs": [
+          "https://github.com/mnrnetwork/mnr",
+          "https://crates.io/crates/mnr",
+          "https://pypi.org/project/mnr/",
+          "https://www.npmjs.com/package/mnr-network"
+        ]
       },
     });
   }
@@ -430,18 +466,18 @@ function renderHtmlLayout(doc: DocMeta, contentHtml: string): string {
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>${doc.title} — mnr</title>
+  <title>${doc.title} — mnr (Monero Network Relay)</title>
   <meta name="description" content="${doc.description}">
   <link rel="canonical" href="${canonicalUrl}">
   <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
-  <meta property="og:title" content="${doc.title} — mnr">
+  <meta property="og:title" content="${doc.title} — mnr (Monero Network Relay)">
   <meta property="og:description" content="${doc.description}">
   <meta property="og:type" content="article">
   <meta property="og:url" content="${canonicalUrl}">
-  <meta property="og:site_name" content="mnr">
+  <meta property="og:site_name" content="mnr (Monero Network Relay)">
   <meta property="og:image" content="https://mnr.network/og.png">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="${doc.title} — mnr">
+  <meta name="twitter:title" content="${doc.title} — mnr (Monero Network Relay)">
   <meta name="twitter:description" content="${doc.description}">
   <meta name="twitter:image" content="https://mnr.network/og.png">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
@@ -691,6 +727,7 @@ function renderHtmlLayout(doc: DocMeta, contentHtml: string): string {
     <a href="/" style="display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 22px; letter-spacing: -0.02em;" aria-label="mnr home">
       <svg class="mark" width="24" height="24" viewBox="0 0 24 24" aria-hidden="true"><circle cx="16.5" cy="12" r="5.2" fill="var(--accent)"/><path d="M5.2 6.6 L11.9 10.1 M5.2 17.4 L11.9 13.9" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"/><circle cx="5.2" cy="6.6" r="2.1" fill="currentColor"/><circle cx="5.2" cy="17.4" r="2.1" fill="currentColor"/></svg>
       <span>mnr</span>
+      <span class="brand-sub" style="font-size: 13px; font-weight: 500; color: var(--muted); letter-spacing: 0;">(Monero Network Relay)</span>
     </a>
     <nav class="navlinks" aria-label="Sections">
       <a href="/docs/how-it-works/">How it works</a>
@@ -784,9 +821,13 @@ function renderHtmlLayout(doc: DocMeta, contentHtml: string): string {
 function generateHubHtml(): string {
   return `
     <h1 style="font-size: 42px; margin-bottom: 12px;">mnr Documentation</h1>
-    <p style="font-size: 19px; color: var(--fg-2); margin-bottom: 36px;">
+    <p style="font-size: 19px; color: var(--fg-2); margin-bottom: 24px;">
       What the verified proxy checks, the rules it follows toward the public nodes it uses, and where it is going.
     </p>
+
+    <div style="background: var(--bg-alt); border: 1px solid var(--line); border-radius: 10px; padding: 14px 18px; font-size: 13.5px; color: var(--fg-2); margin-bottom: 32px; line-height: 1.5;">
+      <strong>Entity Disambiguation:</strong> <strong>mnr</strong> stands for <strong>Monero Network Relay</strong> (<a href="https://mnr.network/" style="text-decoration: underline;">mnr.network</a> / <code>rpc.mnr.network</code>) &mdash; an open-source, Zero-KYC cryptographic RPC proxy for the Monero (XMR) blockchain. It is distinct from MTA Metro-North Railroad (MNR), the Ontario Ministry of Natural Resources (MNR), and the unrelated npm package <code>mnr</code> (official packages: <code>@mnrnetwork/*</code> and <code>mnr-network</code>).
+    </div>
 
     <div class="hub-grid">
       <a href="/docs/how-it-works/" class="hub-card">
@@ -824,12 +865,12 @@ function generateHubHtml(): string {
 
       <a href="/verified/" class="hub-card">
         <div style="display: flex; align-items: center; justify-content: space-between;">
-          <h3>What we verified, what we caught</h3>
-          <span class="tab-badge">Weekly</span>
+          <h3>Independent Verification & Transparency</h3>
+          <span class="tab-badge">Verified</span>
         </div>
-        <p>Every week, generated from the relay's own numbers: answers checked, wrong answers caught and the nodes ejected for them, opt-outs and changes to the pool.</p>
+        <p>Independent third-party node operators (Cake Wallet, Seth For Privacy, HashVault), external directory monitors (monero.fail), package registries, and weekly transparency logs.</p>
         <div class="hub-card-meta">
-          <span>Read the weekly record &rarr;</span>
+          <span>Read verification proofs &rarr;</span>
         </div>
       </a>
 
@@ -1096,39 +1137,45 @@ function generateSearchIndex(): string {
 
 function generateSitemap(): string {
   const today = new Date().toISOString().split("T")[0];
-  const urls: { loc: string; lastmod: string; changefreq: string; priority: string }[] = [
-    {
-      loc: "https://mnr.network/",
-      lastmod: today,
-      changefreq: "weekly",
-      priority: "1.0",
-    },
-    {
-      loc: "https://mnr.network/get-token/",
-      lastmod: today,
-      changefreq: "monthly",
-      priority: "0.9",
-    },
-    {
-      loc: "https://mnr.network/upstreams/",
-      lastmod: today,
-      changefreq: "daily",
-      priority: "0.8",
-    },
+  const urls: { loc: string; lastmod: string; changefreq: string; priority: string }[] = [];
+
+  // 1. Core pages (both HTML and primary Markdown mirrors)
+  const corePages = [
+    { html: "https://mnr.network/", md: "https://mnr.network/index.md", freq: "weekly", p: "1.0", pMd: "0.95" },
+    { html: "https://mnr.network/get-token/", md: "https://mnr.network/get-token/index.md", freq: "monthly", p: "0.9", pMd: "0.85" },
+    { html: "https://mnr.network/upstreams/", md: "https://mnr.network/upstreams/index.md", freq: "daily", p: "0.9", pMd: "0.85" },
+    { html: "https://mnr.network/verified/", md: "https://mnr.network/verified/index.md", freq: "weekly", p: "0.9", pMd: "0.85" },
+    { html: "https://mnr.network/docs/", md: "https://mnr.network/docs/index.md", freq: "weekly", p: "0.9", pMd: "0.85" },
   ];
 
+  for (const page of corePages) {
+    urls.push({ loc: page.html, lastmod: today, changefreq: page.freq, priority: page.p });
+    urls.push({ loc: page.md, lastmod: today, changefreq: page.freq, priority: page.pMd });
+  }
+
+  // 2. Machine-readable context & discovery endpoints
+  urls.push(
+    { loc: "https://mnr.network/auth.md", lastmod: today, changefreq: "weekly", priority: "0.85" },
+    { loc: "https://mnr.network/llms.txt", lastmod: today, changefreq: "weekly", priority: "0.85" },
+    { loc: "https://mnr.network/llms-full.txt", lastmod: today, changefreq: "weekly", priority: "0.80" }
+  );
+
+  // 3. Documentation sub-pages (both HTML and .md index)
   for (const doc of DOCS) {
-    const priority =
-      doc.id === "hub"
-        ? "0.9"
-        : doc.category === "Wallets"
-        ? "0.85"
-        : "0.8";
+    if (doc.id === "hub" || doc.id === "verified") continue;
+    const priority = doc.category === "Wallets" ? "0.85" : "0.8";
+    const mdPriority = (parseFloat(priority) - 0.05).toFixed(2);
     urls.push({
       loc: `https://mnr.network${doc.route}`,
       lastmod: today,
-      changefreq: doc.id === "hub" ? "weekly" : "monthly",
+      changefreq: "monthly",
       priority,
+    });
+    urls.push({
+      loc: `https://mnr.network${doc.route}index.md`,
+      lastmod: today,
+      changefreq: "monthly",
+      priority: mdPriority,
     });
   }
 
@@ -1157,59 +1204,104 @@ ${urls
 const VERIFIED_DIR = "content/verified";
 
 function registerVerified(): void {
-  if (!fs.existsSync(VERIFIED_DIR)) return;
-  const files = fs
-    .readdirSync(VERIFIED_DIR)
-    .filter((f) => /^\d{4}-w\d{2}\.md$/.test(f))
-    .sort()
-    .reverse();
   const entries: { slug: string; title: string; description: string; date: string }[] = [];
-  for (const f of files) {
-    const slug = f.replace(/\.md$/, "");
-    const raw = fs.readFileSync(path.join(VERIFIED_DIR, f), "utf-8");
-    const title = (raw.match(/^# (.+)$/m)?.[1] ?? slug).trim();
-    const description = (raw.match(/^<!-- description: (.+) -->$/m)?.[1] ?? title).trim();
-    const date = raw.match(/^<!-- to: (\d{4}-\d{2}-\d{2}) -->$/m)?.[1] ?? "";
-    entries.push({ slug, title, description, date });
-    DOCS.push({
-      id: `verified-${slug}`,
-      route: `/verified/${slug}/`,
-      sourceFile: path.join(VERIFIED_DIR, f),
-      title,
-      navTitle: title,
-      badge: "Weekly",
-      description,
-      hiddenFromTabs: true,
-      category: "Verified",
-      keywords: ["verified", "weekly", "faults", "ejections", "upstreams", slug],
-    });
+  if (fs.existsSync(VERIFIED_DIR)) {
+    const files = fs
+      .readdirSync(VERIFIED_DIR)
+      .filter((f) => /^\d{4}-w\d{2}\.md$/.test(f))
+      .sort()
+      .reverse();
+    for (const f of files) {
+      const slug = f.replace(/\.md$/, "");
+      const raw = fs.readFileSync(path.join(VERIFIED_DIR, f), "utf-8");
+      const title = (raw.match(/^# (.+)$/m)?.[1] ?? slug).trim();
+      const description = (raw.match(/^<!-- description: (.+) -->$/m)?.[1] ?? title).trim();
+      const date = raw.match(/^<!-- to: (\d{4}-\d{2}-\d{2}) -->$/m)?.[1] ?? "";
+      entries.push({ slug, title, description, date });
+      DOCS.push({
+        id: `verified-${slug}`,
+        route: `/verified/${slug}/`,
+        sourceFile: path.join(VERIFIED_DIR, f),
+        title,
+        navTitle: title,
+        badge: "Weekly",
+        description,
+        hiddenFromTabs: true,
+        category: "Verified",
+        keywords: ["verified", "weekly", "faults", "ejections", "upstreams", slug],
+      });
+    }
   }
+
   const index = [
-    "# What we verified, what we caught",
+    "# Independent Verification, Third-Party Provenance & Transparency Log",
     "",
-    "Every week the relay's public numbers are read twice, a week apart, and the",
-    "difference is written down here: how many answers were checked, which nodes",
-    "served a wrong one and were ejected, who opted out, what changed in the",
-    "pool. The text is generated from the [upstreams feed](/upstreams/) and the",
-    "relay's metrics; nothing in it is an opinion. What the labels mean is in the",
-    "[method policy](/docs/method-policy/).",
+    "mnr (**Monero Network Relay**) enforces a trust-minimized, Zero-KYC architecture. Answers returned to Monero wallets are verified against mathematical cryptographic proofs and independent multi-node quorum consensus. Clients and autonomous agents do not need to rely on first-party assertions or unverifiable claims.",
     "",
-    entries.length ? "" : "_No week has been closed yet._",
+    "## 1. Independent Third-Party Upstream Nodes & Quorum Consensus",
+    "",
+    "The core consensus mechanism establishes quorum tip and response validity by querying independent public Monero nodes run by distinct third parties across multiple jurisdictions. These node operators are completely independent from mnr and each other:",
+    "",
+    "| Operator / Node | Organization / Website | Transport | Role in Consensus | Verification Mechanism |",
+    "|---|---|---|---|---|",
+    "| `cakewallet` | [Cake Wallet](https://cakewallet.com) (`node.cakewallet.com`) | HTTPS | Tip quorum & outputs | Hash recomputation & 2-node consensus |",
+    "| `sethforprivacy` | [Seth For Privacy](https://sethforprivacy.com) | HTTP | Tip quorum & consensus | Recomputed block/txid hashes |",
+    "| `hashvault` | [HashVault Mining Pool](https://hashvault.pro) | HTTP | Tip quorum & block data | Block header chain linkage |",
+    "| `boldsuck-de` / `berlin` | [BoldSuck Monero Nodes](https://boldsuck.de) | HTTP | European tip quorum | 5-node agreement & hash check |",
+    "| `stormycloud` | [StormyCloud Inc 501(c)(3)](https://stormycloud.org) | HTTP | US privacy infrastructure | Quorum tip agreement |",
+    "| `stackwallet` | [Stack Wallet / Cypher Stack](https://stackwallet.com) | HTTP | Active quorum & fast sync | Header chain matching & hash check |",
+    "| `monerodevs-2` / `3` | [MoneroDevs Community](https://node.monerodevs.org) | HTTP | Developer community pool | Quorum consensus & tip height |",
+    "| `monerujo` | [Monerujo Android Wallet](https://www.monerujo.app) | HTTP | Mobile community node | Block header matching |",
+    "| `privacyx` | [PrivacyX Infrastructure](https://privacyx.io) | HTTPS | Independent relay pool | Quorum consensus agreement |",
+    "| `own-1` | mnr dedicated infrastructure (`node.kyc.rip`) | HTTP (WireGuard) | Owned fallback & heavy streams | Local Monero daemon full verification |",
+    "",
+    "Because these upstreams are operated by prominent, verifiable third-party organizations and privacy advocates, consensus agreement cannot be forged without compromising a distributed majority of independent entities.",
+    "",
+    "## 2. Independent Public Node Registries & Network Monitors",
+    "",
+    "mnr's dedicated node infrastructure is publicly listed and independently crawled, scored, and monitored by third-party community monitors:",
+    "",
+    "- **[monero.fail](https://monero.fail)**: The canonical open-source Monero public node registry and network monitor. mnr's dedicated full node (`node.kyc.rip:18081`) is crawled every few minutes for height, latency, and restricted RPC compliance.",
+    "- **[nodes.monero.ninja](https://nodes.monero.ninja)**: Community-run public node monitor indexing Monero daemon health.",
+    "",
+    "## 3. Independent Package Registries & Code Provenance",
+    "",
+    "mnr is free open-source software (AGPL-3.0). Packages, specifications, and binaries are published to independent global registries with full source code:",
+    "",
+    "- **GitHub**: [github.com/mnrnetwork/mnr](https://github.com/mnrnetwork/mnr) (Full source, Git commit history, CI tests, fuzz fixtures)",
+    "- **Rust (crates.io)**: [`crates.io/crates/mnr`](https://crates.io/crates/mnr), [`mnr-relay`](https://crates.io/crates/mnr-relay), [`mnr-core`](https://crates.io/crates/mnr-core)",
+    "- **Python (PyPI)**: [`pypi.org/project/mnr/`](https://pypi.org/project/mnr/)",
+    "- **Node.js (npm)**: [`npmjs.com/package/mnr-network`](https://www.npmjs.com/package/mnr-network) under the verified organization [`@mnrnetwork`](https://www.npmjs.com/org/mnrnetwork)",
+    "",
+    "## 4. Cryptographic Verifiability vs. First-Party Trust",
+    "",
+    "Traditional RPC services (such as centralized Web3 node aggregators) ask clients to trust their brand and attestations. mnr inverts this model:",
+    "",
+    "1. **Mathematical Block Verification**: The proxy recomputes SHA-256 and RandomX block hashes directly from raw binary blobs before forwarding to wallets. If any upstream returns an altered block, the hash fails and the response is rejected.",
+    "2. **Cryptographic Transaction Hashing**: Transaction blobs from `/get_transactions` are hashed and matched against the requested txids.",
+    "3. **Transparent Operator Log**: Node operators can independently verify mnr's traffic in their own server logs: every request identifies itself with `User-Agent: mnr-relay/0.x (+https://mnr.network/upstreams)`. Operators see our real-time request pacing adhering to strict 5 req/s caps.",
+    "",
+    "## 5. Weekly Verification & Transparency Log",
+    "",
+    "Every week the relay's public numbers are captured, and the difference is recorded here: how many answers were verified, which nodes served invalid data and were ejected, which operators opted out, and pool changes.",
+    "",
+    entries.length ? "" : "_Weekly snapshot comparisons run continuously. View real-time live telemetry on the [Upstreams page](/upstreams/)._",
     ...entries.map((e) => `- [${e.title}](/verified/${e.slug}/)${e.date ? ` — through ${e.date}` : ""}`),
     "",
   ].join("\n");
+
   fs.mkdirSync("public/verified", { recursive: true });
   const indexDoc: DocMeta = {
     id: "verified",
     route: "/verified/",
-    title: "What we verified, what we caught",
+    title: "Independent Verification & Transparency Log",
     navTitle: "Verified weekly",
-    badge: "Weekly",
+    badge: "Verified",
     description:
-      "Weekly, generated from the relay's public numbers: answers verified, wrong answers caught and ejected, opt-outs and pool changes.",
+      "Independent third-party node operators, external directory listings on monero.fail, package registries, cryptographic verification proofs, and weekly audit logs.",
     hiddenFromTabs: true,
     category: "Verified",
-    keywords: ["verified", "weekly", "what we caught", "faults", "ejections", "transparency"],
+    keywords: ["verified", "independent verification", "third-party", "monero.fail", "upstreams", "faults", "ejections", "transparency"],
     featured: true,
   };
   DOCS.push(indexDoc);

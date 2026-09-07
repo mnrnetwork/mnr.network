@@ -1,6 +1,9 @@
-# auth.md — Agent Registration & Authentication
+# auth.md — Agent Registration & Authentication for mnr (Monero Network Relay)
 
-Welcome to the **mnr** verified Monero RPC network. This document specifies authentication, registration, and discovery protocols for autonomous AI agents, LLMs, and client software.
+Welcome to the **mnr (Monero Network Relay)** verified Monero RPC network (`mnr.network`). This document specifies authentication, registration, and discovery protocols for autonomous AI agents, LLMs, and client software.
+
+> [!NOTE]
+> **Entity Disambiguation**: **mnr** refers specifically to the **Monero Network Relay** (`mnr.network`, RPC: `rpc.mnr.network`). It is an open-source, trust-minimized, anti-KYC RPC proxy network for Monero (XMR). It is completely unrelated to MTA Metro-North Railroad (MNR), the Ontario Ministry of Natural Resources (MNR / MNRF), or the `mnr` npm package.
 
 ## Agent Audience
 
@@ -90,7 +93,9 @@ Agents can programmatically discover network capabilities and authorization endp
 - **RFC 9727 API Catalog**: https://mnr.network/.well-known/api-catalog
 - **OpenAPI 3.1 Specification**: https://mnr.network/openapi.json
 - **Agentic Commerce Protocol (ACP)**: https://mnr.network/.well-known/acp.json
+- **Independent Verification & Transparency Log**: https://mnr.network/verified/
 - **Agent Context**: https://mnr.network/llms.txt
+- **Package Registries**: [crates.io/crates/mnr](https://crates.io/crates/mnr), [pypi.org/project/mnr/](https://pypi.org/project/mnr/), [npmjs.com/package/mnr-network](https://www.npmjs.com/package/mnr-network)
 
 ---
 

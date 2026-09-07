@@ -6,7 +6,7 @@
         {
           "href": "https://mnr.network/openapi.json",
           "type": "application/vnd.oai.openapi+json",
-          "title": "mnr Monero RPC Gateway OpenAPI 3.1 Specification"
+          "title": "mnr (Monero Network Relay) Monero RPC Gateway OpenAPI 3.1 Specification"
         }
       ],
       "service-doc": [
@@ -26,6 +26,11 @@
           "href": "https://mnr.network/upstreams/",
           "type": "text/html",
           "title": "Monero Node Pool & Live Status Telemetry"
+        },
+        {
+          "href": "https://mnr.network/verified/",
+          "type": "text/html",
+          "title": "Independent Multi-Node Verification & Transparency Log"
         }
       ]
     },
@@ -35,7 +40,7 @@
         {
           "href": "https://mnr.network/openapi.json",
           "type": "application/vnd.oai.openapi+json",
-          "title": "mnr Token Provisioning API Specification"
+          "title": "mnr (Monero Network Relay) Token Provisioning API Specification"
         }
       ],
       "service-doc": [

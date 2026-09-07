@@ -3,15 +3,15 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>mnr — Verified RPC Network for Monero</title>
-  <meta name="description" content="One address for your Monero wallet. A verified proxy checking every block, tx and header against its hash and multiple nodes. Zero logs, Tor supported.">
+  <title>mnr (Monero Network Relay) — Verified RPC Network for Monero</title>
+  <meta name="description" content="One address for your Monero wallet. mnr (Monero Network Relay) is a verified proxy checking every block, tx and header against multi-node consensus. Zero logs, Tor supported.">
   <link rel="canonical" href="https://mnr.network/">
   <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
-  <meta property="og:title" content="mnr — Verified RPC Network for Monero">
-  <meta property="og:description" content="One address for your wallet. Every answer checked.">
+  <meta property="og:title" content="mnr (Monero Network Relay) — Verified RPC Network for Monero">
+  <meta property="og:description" content="One address for your Monero wallet. mnr (Monero Network Relay) verifies every block, tx and header against multi-node consensus.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://mnr.network/">
-  <meta property="og:site_name" content="mnr">
+  <meta property="og:site_name" content="mnr (Monero Network Relay)">
   <meta property="og:locale" content="en_US">
   <meta name="theme-color" content="#FBFAF8" media="(prefers-color-scheme: light)">
   <meta name="theme-color" content="#141210" media="(prefers-color-scheme: dark)">
@@ -19,8 +19,8 @@
   <meta property="og:image:width" content="1080">
   <meta property="og:image:height" content="384">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="mnr — Verified RPC Network for Monero">
-  <meta name="twitter:description" content="One address for your wallet. Every answer checked.">
+  <meta name="twitter:title" content="mnr (Monero Network Relay) — Verified RPC Network for Monero">
+  <meta name="twitter:description" content="One address for your Monero wallet. mnr (Monero Network Relay) verifies every block, tx and header against multi-node consensus.">
   <meta name="twitter:image" content="https://mnr.network/og.png">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
   <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png">
@@ -43,11 +43,15 @@
         "@type": "WebSite",
         "@id": "https://mnr.network/#website",
         "url": "https://mnr.network/",
-        "name": "mnr",
+        "name": "mnr (Monero Network Relay)",
         "alternateName": [
+          "mnr",
           "mnr network",
-          "mnr.network"
+          "mnr.network",
+          "Monero Network Relay",
+          "Monero Node Relay"
         ],
+        "disambiguatingDescription": "Cryptographic Monero RPC proxy and decentralized consensus relay network for Monero (XMR) wallets; distinct from MTA Metro-North Railroad, Ontario Ministry of Natural Resources, and unrelated npm package 'mnr'.",
         "description": "Verified RPC network and trustless proxy for Monero wallets",
         "publisher": { "@id": "https://mnr.network/#organization" }
       },
@@ -55,11 +59,33 @@
         "@type": "WebPage",
         "@id": "https://mnr.network/#webpage",
         "url": "https://mnr.network/",
-        "name": "mnr — an RPC network for Monero",
+        "name": "mnr (Monero Network Relay) — Verified RPC Network for Monero",
         "description": "Verified Monero RPC proxy. Recomputed hashes, consensus tips across independent nodes, and no request logs. Stock wallet compatible, free tier.",
         "isPartOf": { "@id": "https://mnr.network/#website" },
         "about": { "@id": "https://mnr.network/#software" },
-        "breadcrumb": { "@id": "https://mnr.network/#breadcrumbs" }
+        "breadcrumb": { "@id": "https://mnr.network/#breadcrumbs" },
+        "citation": [
+          {
+            "@type": "WebSite",
+            "name": "monero.fail",
+            "url": "https://monero.fail"
+          },
+          {
+            "@type": "WebSite",
+            "name": "Seth For Privacy",
+            "url": "https://sethforprivacy.com"
+          },
+          {
+            "@type": "WebSite",
+            "name": "Cake Wallet",
+            "url": "https://cakewallet.com"
+          },
+          {
+            "@type": "SoftwareApplication",
+            "name": "Monero Project",
+            "url": "https://getmonero.org"
+          }
+        ]
       },
       {
         "@type": "BreadcrumbList",
@@ -76,18 +102,32 @@
       {
         "@type": "Organization",
         "@id": "https://mnr.network/#organization",
-        "name": "mnr network",
+        "name": "mnr (Monero Network Relay)",
+        "legalName": "mnr (Monero Network Relay)",
+        "alternateName": [
+          "mnr",
+          "mnr network",
+          "mnr.network",
+          "Monero Network Relay",
+          "Monero Node Relay"
+        ],
+        "disambiguatingDescription": "Open-source decentralized Monero RPC proxy project (not affiliated with Metro-North Railroad or Ministry of Natural Resources).",
         "url": "https://mnr.network/",
         "logo": "https://mnr.network/apple-touch-icon.png",
         "email": "dev@mnr.network",
         "sameAs": [
-          "https://github.com/mnrnetwork/mnr"
+          "https://github.com/mnrnetwork/mnr",
+          "https://crates.io/crates/mnr",
+          "https://pypi.org/project/mnr/",
+          "https://www.npmjs.com/package/mnr-network"
         ]
       },
       {
         "@type": "SoftwareApplication",
         "@id": "https://mnr.network/#software",
-        "name": "mnr Monero RPC Network",
+        "name": "mnr (Monero Network Relay)",
+        "alternateName": ["mnr", "mnr Monero RPC Network", "Monero Network Relay"],
+        "disambiguatingDescription": "Verified cryptographic Monero RPC proxy daemon and gateway (distinguished from Metro-North Railroad and Ministry of Natural Resources).",
         "applicationCategory": "BlockchainApplication",
         "operatingSystem": "All",
         "url": "https://mnr.network/",
@@ -391,12 +431,13 @@
     <a href="/" style="display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 22px; letter-spacing: -0.02em;" aria-label="mnr home">
       <svg class="mark" width="24" height="24" viewBox="0 0 24 24" aria-hidden="true"><circle cx="16.5" cy="12" r="5.2" fill="var(--accent)"/><path d="M5.2 6.6 L11.9 10.1 M5.2 17.4 L11.9 13.9" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"/><circle cx="5.2" cy="6.6" r="2.1" fill="currentColor"/><circle cx="5.2" cy="17.4" r="2.1" fill="currentColor"/></svg>
       <span>mnr</span>
+      <span class="brand-sub" style="font-size: 13px; font-weight: 500; color: var(--muted); letter-spacing: 0;">(Monero Network Relay)</span>
     </a>
     <nav class="navlinks" aria-label="Sections">
       <a href="/docs/how-it-works/">How it works</a>
       <a href="/upstreams/">Upstreams</a>
       <a href="/get-token/">Pricing</a>
-      <a href="#node">Run a node</a>
+      <a href="/verified/">Verified</a>
       <a href="/docs/" style="font-weight: 600;">Docs</a>
     </nav>
     <div style="display: flex; align-items: center; gap: 10px;">
@@ -419,12 +460,15 @@
   <!-- Hero -->
   <section class="wrap section hero-section">
     <div class="col hero-content">
-      <p class="hero-kicker accent">AN RPC NETWORK FOR MONERO</p>
+      <p class="hero-kicker accent">MONERO NETWORK RELAY · VERIFIED RPC GATEWAY</p>
       <h1 class="h1">
         <span class="hero-title-line">One address for your wallet.</span>
         <span class="hero-title-line">Every answer checked.</span>
       </h1>
       <p class="lead">Point any Monero wallet at mnr. We forward your requests to public nodes and to our own, verify each block, transaction and header against its hash and against several nodes, and tell you exactly what we could not check.</p>
+      <div class="disambiguation-callout" style="background: var(--bg-alt); border: 1px solid var(--line); border-radius: 8px; padding: 10px 14px; font-size: 13px; color: var(--fg-2); line-height: 1.5; max-width: 680px;">
+        <strong>Entity Disambiguation:</strong> <strong>mnr</strong> stands for <strong>Monero Network Relay</strong> (hosted at <a href="https://mnr.network/" style="text-decoration: underline;">mnr.network</a>). It is an open-source, Zero-KYC cryptographic RPC proxy for Monero (XMR) wallets. It is distinct from MTA Metro-North Railroad (MNR), the Ontario Ministry of Natural Resources (MNR), and the unrelated npm package <code>mnr</code> (official packages: <code>@mnrnetwork/*</code> and <code>mnr-network</code>).
+      </div>
       <div class="hero-actions">
         <a href="/get-token/" class="btn btn-primary">Get a free token</a>
         <a href="/docs/how-it-works/" class="btn btn-secondary">How it works</a>
@@ -554,6 +598,38 @@
     </div>
   </section>
 
+  <!-- Independent Verification & Third-Party Ecosystem -->
+  <section id="independent-verification" class="wrap section" style="border-top: 1px solid var(--line);">
+    <div class="col" style="gap: 32px;">
+      <div class="col" style="gap: 12px; max-width: 820px;">
+        <span class="step-num accent">PROVENANCE & INDEPENDENT EVIDENCE</span>
+        <h2 class="h2">Independent consensus, not first-party promises</h2>
+        <p class="lead">mnr does not ask you to trust our word. Verification is established mathematically and cross-checked in real-time across independent infrastructure run by distinct third parties:</p>
+      </div>
+
+      <div class="grid3">
+        <div class="card col" style="gap: 12px; padding: 24px;">
+          <h3 class="h3" style="font-size: 18px;">Independent Node Operators</h3>
+          <p class="muted" style="font-size: 14.5px; line-height: 1.55;">Our consensus quorum actively queries community nodes operated by prominent, verifiable third parties: <a href="https://cakewallet.com" target="_blank" rel="noopener noreferrer" style="text-decoration: underline;">Cake Wallet</a>, <a href="https://sethforprivacy.com" target="_blank" rel="noopener noreferrer" style="text-decoration: underline;">Seth For Privacy</a>, <a href="https://hashvault.pro" target="_blank" rel="noopener noreferrer" style="text-decoration: underline;">HashVault</a>, <a href="https://boldsuck.de" target="_blank" rel="noopener noreferrer" style="text-decoration: underline;">BoldSuck</a>, <a href="https://stormycloud.org" target="_blank" rel="noopener noreferrer" style="text-decoration: underline;">StormyCloud</a>, and <a href="https://stackwallet.com" target="_blank" rel="noopener noreferrer" style="text-decoration: underline;">Stack Wallet</a>.</p>
+        </div>
+
+        <div class="card col" style="gap: 12px; padding: 24px;">
+          <h3 class="h3" style="font-size: 18px;">External Network Monitors</h3>
+          <p class="muted" style="font-size: 14.5px; line-height: 1.55;">mnr's dedicated node (<span class="mono">node.kyc.rip</span>) is independently crawled, indexed, and monitored by <a href="https://monero.fail" target="_blank" rel="noopener noreferrer" style="text-decoration: underline;">monero.fail</a> — the canonical open-source Monero node scanner — and community monitors at <a href="https://nodes.monero.ninja" target="_blank" rel="noopener noreferrer" style="text-decoration: underline;">nodes.monero.ninja</a>.</p>
+        </div>
+
+        <div class="card col" style="gap: 12px; padding: 24px;">
+          <h3 class="h3" style="font-size: 18px;">Independent Package Registries</h3>
+          <p class="muted" style="font-size: 14.5px; line-height: 1.55;">AGPL-3.0 source code and reproducible crates are anchored on independent package registries: <a href="https://crates.io/crates/mnr" target="_blank" rel="noopener noreferrer" style="text-decoration: underline;">crates.io/crates/mnr</a>, <a href="https://pypi.org/project/mnr/" target="_blank" rel="noopener noreferrer" style="text-decoration: underline;">pypi.org/project/mnr</a>, and <a href="https://www.npmjs.com/package/mnr-network" target="_blank" rel="noopener noreferrer" style="text-decoration: underline;">npm/mnr-network</a>.</p>
+        </div>
+      </div>
+
+      <div>
+        <a href="/verified/" class="btn btn-secondary">Read full verification proofs & transparency log &rarr;</a>
+      </div>
+    </div>
+  </section>
+
   <!-- Start using -->
   <section id="start" style="background: var(--bg-alt);">
     <div class="wrap section">
@@ -656,13 +732,16 @@
   <footer class="wrap site-footer">
     <div class="grid3" style="gap: 32px;">
       <div class="col" style="gap: 10px;">
-        <span style="display: inline-flex; align-items: center; gap: 8px; font-weight: 700; font-size: 18px;"><svg class="mark" width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><circle cx="16.5" cy="12" r="5.2" fill="var(--accent)"/><path d="M5.2 6.6 L11.9 10.1 M5.2 17.4 L11.9 13.9" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"/><circle cx="5.2" cy="6.6" r="2.1" fill="currentColor"/><circle cx="5.2" cy="17.4" r="2.1" fill="currentColor"/></svg><span>mnr</span></span>
-        <span class="muted" style="font-size: 15px;">an RPC network for Monero</span>
-        <span class="muted" style="font-size: 14px;">Open source, AGPL-3.0. <a href="https://github.com/mnrnetwork/mnr" target="_blank" rel="noopener noreferrer" style="text-decoration: underline;">github.com/mnrnetwork/mnr</a></span>
+        <span style="display: inline-flex; align-items: center; gap: 8px; font-weight: 700; font-size: 18px;"><svg class="mark" width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><circle cx="16.5" cy="12" r="5.2" fill="var(--accent)"/><path d="M5.2 6.6 L11.9 10.1 M5.2 17.4 L11.9 13.9" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"/><circle cx="5.2" cy="6.6" r="2.1" fill="currentColor"/><circle cx="5.2" cy="17.4" r="2.1" fill="currentColor"/></svg><span>mnr</span> <span style="font-size: 13px; font-weight: 500; color: var(--muted);">(Monero Network Relay)</span></span>
+        <span class="muted" style="font-size: 14.5px;">Verified RPC proxy & consensus network for Monero</span>
+        <span class="muted" style="font-size: 13px;">Not affiliated with MTA Metro-North Railroad (MNR) or Ministry of Natural Resources.</span>
+        <span class="muted" style="font-size: 13px;">Open source, AGPL-3.0. <a href="https://github.com/mnrnetwork/mnr" target="_blank" rel="noopener noreferrer" style="text-decoration: underline;">github.com/mnrnetwork/mnr</a></span>
+        <span class="muted" style="font-size: 12.5px;">Registries: <a href="https://crates.io/crates/mnr" target="_blank" rel="noopener noreferrer" style="text-decoration: underline;">crates.io</a> · <a href="https://pypi.org/project/mnr/" target="_blank" rel="noopener noreferrer" style="text-decoration: underline;">PyPI</a> · <a href="https://www.npmjs.com/package/mnr-network" target="_blank" rel="noopener noreferrer" style="text-decoration: underline;">npm</a></span>
       </div>
       <div class="col footer-links" style="gap: 8px; font-size: 15px;">
         <span style="font-weight: 600;">Documentation</span>
         <a href="/upstreams/">Upstreams, live</a>
+        <a href="/verified/">Independent Verification & Transparency</a>
         <a href="/docs/">Docs Hub</a>
         <a href="/docs/how-it-works/">How mnr works</a>
         <a href="/docs/connect-wallets/">Connect a wallet</a>

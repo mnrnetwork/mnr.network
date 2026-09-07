@@ -7,16 +7,46 @@
     <priority>1.0</priority>
   </url>
   <url>
+    <loc>https://mnr.network/index.md</loc>
+    <lastmod>2026-09-07</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.95</priority>
+  </url>
+  <url>
     <loc>https://mnr.network/get-token/</loc>
     <lastmod>2026-09-07</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
+    <loc>https://mnr.network/get-token/index.md</loc>
+    <lastmod>2026-09-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
     <loc>https://mnr.network/upstreams/</loc>
     <lastmod>2026-09-07</lastmod>
     <changefreq>daily</changefreq>
-    <priority>0.8</priority>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://mnr.network/upstreams/index.md</loc>
+    <lastmod>2026-09-07</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://mnr.network/verified/</loc>
+    <lastmod>2026-09-07</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://mnr.network/verified/index.md</loc>
+    <lastmod>2026-09-07</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
   </url>
   <url>
     <loc>https://mnr.network/docs/</loc>
@@ -25,10 +55,40 @@
     <priority>0.9</priority>
   </url>
   <url>
+    <loc>https://mnr.network/docs/index.md</loc>
+    <lastmod>2026-09-07</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://mnr.network/auth.md</loc>
+    <lastmod>2026-09-07</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://mnr.network/llms.txt</loc>
+    <lastmod>2026-09-07</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://mnr.network/llms-full.txt</loc>
+    <lastmod>2026-09-07</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.80</priority>
+  </url>
+  <url>
     <loc>https://mnr.network/docs/how-it-works/</loc>
     <lastmod>2026-09-07</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://mnr.network/docs/how-it-works/index.md</loc>
+    <lastmod>2026-09-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.75</priority>
   </url>
   <url>
     <loc>https://mnr.network/docs/connect-wallets/</loc>
@@ -37,10 +97,22 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://mnr.network/docs/connect-wallets/index.md</loc>
+    <lastmod>2026-09-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.75</priority>
+  </url>
+  <url>
     <loc>https://mnr.network/docs/privacy/</loc>
     <lastmod>2026-09-07</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://mnr.network/docs/privacy/index.md</loc>
+    <lastmod>2026-09-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.75</priority>
   </url>
   <url>
     <loc>https://mnr.network/docs/wallets/feather/</loc>
@@ -49,10 +121,22 @@
     <priority>0.85</priority>
   </url>
   <url>
+    <loc>https://mnr.network/docs/wallets/feather/index.md</loc>
+    <lastmod>2026-09-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.80</priority>
+  </url>
+  <url>
     <loc>https://mnr.network/docs/wallets/cake-wallet/</loc>
     <lastmod>2026-09-07</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://mnr.network/docs/wallets/cake-wallet/index.md</loc>
+    <lastmod>2026-09-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.80</priority>
   </url>
   <url>
     <loc>https://mnr.network/docs/wallets/monero-gui/</loc>
@@ -61,10 +145,22 @@
     <priority>0.85</priority>
   </url>
   <url>
+    <loc>https://mnr.network/docs/wallets/monero-gui/index.md</loc>
+    <lastmod>2026-09-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.80</priority>
+  </url>
+  <url>
     <loc>https://mnr.network/docs/wallets/monerujo/</loc>
     <lastmod>2026-09-07</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://mnr.network/docs/wallets/monerujo/index.md</loc>
+    <lastmod>2026-09-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.80</priority>
   </url>
   <url>
     <loc>https://mnr.network/docs/wallets/cli/</loc>
@@ -73,10 +169,22 @@
     <priority>0.85</priority>
   </url>
   <url>
+    <loc>https://mnr.network/docs/wallets/cli/index.md</loc>
+    <lastmod>2026-09-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.80</priority>
+  </url>
+  <url>
     <loc>https://mnr.network/docs/wallets/ripley/</loc>
     <lastmod>2026-09-07</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://mnr.network/docs/wallets/ripley/index.md</loc>
+    <lastmod>2026-09-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.80</priority>
   </url>
   <url>
     <loc>https://mnr.network/docs/tokens/</loc>
@@ -85,10 +193,22 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://mnr.network/docs/tokens/index.md</loc>
+    <lastmod>2026-09-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.75</priority>
+  </url>
+  <url>
     <loc>https://mnr.network/docs/method-policy/</loc>
     <lastmod>2026-09-07</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://mnr.network/docs/method-policy/index.md</loc>
+    <lastmod>2026-09-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.75</priority>
   </url>
   <url>
     <loc>https://mnr.network/docs/roadmap/</loc>
@@ -97,10 +217,22 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://mnr.network/docs/roadmap/index.md</loc>
+    <lastmod>2026-09-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.75</priority>
+  </url>
+  <url>
     <loc>https://mnr.network/docs/stage0-mvp/</loc>
     <lastmod>2026-09-07</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://mnr.network/docs/stage0-mvp/index.md</loc>
+    <lastmod>2026-09-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.75</priority>
   </url>
   <url>
     <loc>https://mnr.network/docs/stage1-gateway/</loc>
@@ -109,15 +241,21 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://mnr.network/docs/stage1-gateway/index.md</loc>
+    <lastmod>2026-09-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.75</priority>
+  </url>
+  <url>
     <loc>https://mnr.network/docs/stage2-network/</loc>
     <lastmod>2026-09-07</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://mnr.network/verified/</loc>
+    <loc>https://mnr.network/docs/stage2-network/index.md</loc>
     <lastmod>2026-09-07</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.75</priority>
   </url>
 </urlset>

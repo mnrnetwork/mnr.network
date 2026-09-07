@@ -1,6 +1,10 @@
-# mnr — an RPC network for Monero
+# mnr (Monero Network Relay) — an RPC network for Monero
 
 > One address for your Monero wallet. Every answer checked.
+
+## Entity Disambiguation
+- **Canonical Entity**: **mnr** is the acronym and wordmark for **Monero Network Relay** (`https://mnr.network`, daemon gateway: `https://rpc.mnr.network`).
+- **Disambiguation**: mnr (Monero Network Relay) is an open-source, trust-minimized RPC proxy network for Monero (XMR). It is completely unrelated to MTA Metro-North Railroad (MNR), the Ontario Ministry of Natural Resources (MNR / MNRF), or the `mnr` npm package.
 
 mnr is a verified proxy for Monero wallets. It forwards RPC calls to public nodes and to dedicated infrastructure, verifying every block, transaction, and header against its cryptographic hash and multi-node consensus before answering.
 
@@ -11,6 +15,15 @@ mnr is a verified proxy for Monero wallets. It forwards RPC calls to public node
 - Full wallet compatibility: Works with Monero CLI (monero-wallet-cli), Monero GUI, Feather Wallet, Cake Wallet, Monerujo, and Ripley Terminal (RipleyOS).
 - Privacy & network access: Reachable over HTTPS and Tor hidden service (.onion). No IP logging, no request payload recording.
 - Open source: AGPL-3.0 licensed.
+
+## Independent Verification & Third-Party Provenance
+- **Independent Node Operators**: Relays queries across nodes operated by independent ecosystem providers: Cake Wallet (cakewallet.com), Seth For Privacy (sethforprivacy.com), HashVault (hashvault.pro), BoldSuck (boldsuck.de), StormyCloud (stormycloud.org), Stack Wallet (stackwallet.com), and Monero Devs (monerodevs.org).
+- **Public Scanners & Auditing**: Primary owned relay node (node.kyc.rip:18081) is indexed and monitored by independent scanners including monero.fail (https://monero.fail) and nodes.monero.ninja (https://nodes.monero.ninja).
+- **Package Registries**: Published across official developer ecosystem registries:
+  - Rust: https://crates.io/crates/mnr
+  - Python: https://pypi.org/project/mnr/
+  - Node.js: https://www.npmjs.com/package/mnr-network
+- **Weekly Transparency Log**: Audit log of consensus verification and upstream fault ejections: https://mnr.network/verified/
 
 ## Daemon Endpoints
 - HTTPS: `https://rpc.mnr.network/v1/<token>/json_rpc`
@@ -43,6 +56,7 @@ monero-wallet-cli \
 - Privacy and public nodes (what mnr does and does not change): https://mnr.network/docs/privacy/
 - Get a token (Free instantly, Pro by XMR invoice): https://mnr.network/get-token/
 - Upstreams, live status of every node we relay to and our request rate to each: https://mnr.network/upstreams/
+- Independent Verification & Transparency Log: https://mnr.network/verified/
 - Tokens and billing: https://mnr.network/docs/tokens/
 - Roadmap: https://mnr.network/docs/roadmap/
 - Stage 0 engineering notes (verified proxy): https://mnr.network/docs/stage0-mvp/
@@ -57,3 +71,7 @@ monero-wallet-cli \
 - Full Technical Specification: https://mnr.network/llms-full.txt
 - Source Code: https://github.com/mnrnetwork/mnr
 - Contact: dev@mnr.network
+
+## Markdown Mirrors for Agents
+All site pages and documentation have first-class Markdown mirrors discoverable via sitemap.xml and HTTP Content Negotiation (`Accept: text/markdown`) or by appending `index.md` (e.g. `https://mnr.network/verified/index.md`, `https://mnr.network/upstreams/index.md`).
+

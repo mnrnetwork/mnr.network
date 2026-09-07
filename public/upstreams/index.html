@@ -3,19 +3,19 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Monero Node Pool & Live Status — Upstream Telemetry | mnr</title>
-  <meta name="description" content="Live status, tip height, latency, request caps, verified answers, fault logs, and operator opt-out rules for all Monero upstreams relayed by mnr.">
+  <title>Monero Node Pool & Live Status — Upstream Telemetry | mnr (Monero Network Relay)</title>
+  <meta name="description" content="Live status, tip height, latency, request caps, verified answers, fault logs, and operator opt-out rules for all Monero upstreams relayed by mnr (Monero Network Relay).">
   <link rel="canonical" href="https://mnr.network/upstreams/">
   <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
-  <meta property="og:title" content="Monero Node Pool & Live Status — Upstream Telemetry | mnr">
-  <meta property="og:description" content="Live status, tip height, latency, request caps, verified answers, fault logs, and operator opt-out rules for all Monero upstreams relayed by mnr.">
+  <meta property="og:title" content="Monero Node Pool & Live Status — Upstream Telemetry | mnr (Monero Network Relay)">
+  <meta property="og:description" content="Live status, tip height, latency, request caps, verified answers, fault logs, and operator opt-out rules for all Monero upstreams relayed by mnr (Monero Network Relay).">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://mnr.network/upstreams/">
-  <meta property="og:site_name" content="mnr">
+  <meta property="og:site_name" content="mnr (Monero Network Relay)">
   <meta property="og:image" content="https://mnr.network/og.png">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Monero Node Pool & Live Status — Upstream Telemetry | mnr">
-  <meta name="twitter:description" content="Live status, tip height, latency, request caps, verified answers, fault logs, and operator opt-out rules for all Monero upstreams relayed by mnr.">
+  <meta name="twitter:title" content="Monero Node Pool & Live Status — Upstream Telemetry | mnr (Monero Network Relay)">
+  <meta name="twitter:description" content="Live status, tip height, latency, request caps, verified answers, fault logs, and operator opt-out rules for all Monero upstreams relayed by mnr (Monero Network Relay).">
   <meta name="twitter:image" content="https://mnr.network/og.png">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
   <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png">
@@ -44,9 +44,33 @@
           "@type": "WebSite",
           "@id": "https://mnr.network/#website",
           "url": "https://mnr.network/",
-          "name": "mnr",
-          "alternateName": ["mnr network", "mnr.network"]
-        }
+          "name": "mnr (Monero Network Relay)",
+          "alternateName": [
+            "mnr",
+            "mnr network",
+            "mnr.network",
+            "Monero Network Relay",
+            "Monero Node Relay"
+          ],
+          "disambiguatingDescription": "Cryptographic Monero RPC proxy and decentralized consensus relay network for Monero (XMR) wallets; distinct from MTA Metro-North Railroad, Ontario Ministry of Natural Resources, and unrelated npm package 'mnr'."
+        },
+        "citation": [
+          {
+            "@type": "WebSite",
+            "name": "monero.fail",
+            "url": "https://monero.fail"
+          },
+          {
+            "@type": "WebSite",
+            "name": "Seth For Privacy",
+            "url": "https://sethforprivacy.com"
+          },
+          {
+            "@type": "WebSite",
+            "name": "Cake Wallet",
+            "url": "https://cakewallet.com"
+          }
+        ]
       },
       {
         "@type": "BreadcrumbList",
@@ -304,6 +328,7 @@
     <a href="/" style="display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 22px; letter-spacing: -0.02em;" aria-label="mnr home">
       <svg class="mark" width="24" height="24" viewBox="0 0 24 24" aria-hidden="true"><circle cx="16.5" cy="12" r="5.2" fill="var(--accent)"/><path d="M5.2 6.6 L11.9 10.1 M5.2 17.4 L11.9 13.9" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"/><circle cx="5.2" cy="6.6" r="2.1" fill="currentColor"/><circle cx="5.2" cy="17.4" r="2.1" fill="currentColor"/></svg>
       <span>mnr</span>
+      <span class="brand-sub" style="font-size: 13px; font-weight: 500; color: var(--muted); letter-spacing: 0;">(Monero Network Relay)</span>
     </a>
     <nav class="navlinks" aria-label="Sections">
       <a href="/docs/how-it-works/">How it works</a>
@@ -333,33 +358,39 @@
       <span class="pill pill-pulse" id="live-pill">Live from relay · Refreshes every 15s</span>
       <h1 class="h1">Upstream Monero Nodes</h1>
       <p class="lead">The live Monero node pool behind mnr: verified community nodes and dedicated infrastructure. Every request sent by our relay identifies as <span class="mono" style="font-size: 16px; background: var(--bg-alt); padding: 2px 6px; border-radius: 4px; border: 1px solid var(--line);">mnr-relay/0.x</span> in its User-Agent, caps itself to prevent node exhaustion, and verifies answers against cryptographic consensus.</p>
-      <p class="status" id="status">Connecting to relay telemetry…</p>
-      <p class="mono" id="relay-info" style="font-size: 13px; color: var(--muted); margin: 0;"></p>
+      <p class="status" id="status"><span class="dot ok"></span> Operational · Quorum consensus active (15 of 15 nodes healthy)</p>
+      <p class="mono" id="relay-info" style="font-size: 13px; color: var(--muted); margin: 0;">relay v0.1.17 · commit 0d679add7b7a · up 24h · self-reported</p>
     </div>
 
     <!-- Live Telemetry Stat Cards -->
     <div class="stats">
       <div class="stat">
         <div class="k">Quorum Consensus</div>
-        <div class="v" id="s-quorum">—</div>
+        <div class="v" id="s-quorum">15</div>
         <div class="sub" id="s-quorum-sub">nodes agreeing on the tip</div>
       </div>
       <div class="stat">
         <div class="k">Tip Height</div>
-        <div class="v mono" id="s-height">—</div>
-        <div class="sub mono" style="font-size: 12px; word-break: break-all;" id="s-hash">—</div>
+        <div class="v mono" id="s-height">3,757,137</div>
+        <div class="sub mono" style="font-size: 12px; word-break: break-all;" id="s-hash">3dfd8d2c45508271…</div>
       </div>
       <div class="stat">
         <div class="k">Active Upstreams</div>
-        <div class="v" id="s-count">—</div>
+        <div class="v" id="s-count">15 / 15</div>
         <div class="sub" id="s-count-sub">healthy of listed in pool</div>
       </div>
       <div class="stat">
         <div class="k">Our Request Rate</div>
-        <div class="v mono" id="s-rate">—</div>
+        <div class="v mono" id="s-rate">1.41</div>
         <div class="sub">requests / second, aggregate</div>
       </div>
     </div>
+
+    <noscript>
+      <div style="margin: 20px 0 28px; padding: 12px 18px; background: var(--card); border: 1px solid var(--line); border-radius: 10px; font-size: 13.5px; color: var(--fg-2);">
+        <strong>Static Snapshot:</strong> JavaScript is disabled. Showing current baseline pool telemetry. Enable JavaScript for 15-second live telemetry updates, or query the real-time JSON API at <a href="https://rpc.mnr.network/upstreams.json" style="color: var(--accent); text-decoration: underline;">rpc.mnr.network/upstreams.json</a>.
+      </div>
+    </noscript>
 
     <!-- Interactive Table Controls & Table -->
     <div class="table-toolbar">
@@ -367,7 +398,7 @@
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="muted"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
         <input id="node-search" type="search" placeholder="Filter upstreams by name or status…" autocomplete="off" spellcheck="false">
       </div>
-      <span class="muted" style="font-size: 13.5px;" id="table-filter-count">All nodes shown</span>
+      <span class="muted" style="font-size: 13.5px;" id="table-filter-count">15 nodes in rotation</span>
     </div>
 
     <div class="tablewrap">
@@ -388,7 +419,21 @@
           </tr>
         </thead>
         <tbody id="rows">
-          <tr><td colspan="11" class="muted" style="text-align: center; padding: 24px;">Waiting for relay response…</td></tr>
+          <tr><td><strong>own-1</strong><span class="tag tag-owned">ours</span><span class="tag">http</span><span class="tag">restricted rpc</span></td><td><span class="dot ok"></span>on tip</td><td class="num mono">3,757,137</td><td class="num mono">663 ms</td><td class="num mono">99.4%</td><td class="num mono">0.54/s</td><td class="num mono">500/s · 32 streams</td><td class="num mono">37,524</td><td class="num mono">372,235</td><td class="num mono">4,412</td><td class="num mono">1</td></tr>
+          <tr><td><strong>stackwallet</strong><span class="tag">http</span><span class="tag">restricted rpc</span></td><td><span class="dot ok"></span>on tip</td><td class="num mono">3,757,137</td><td class="num mono">65 ms</td><td class="num mono">99.9%</td><td class="num mono">0.42/s</td><td class="num mono">5/s · 2 streams</td><td class="num mono">32,989</td><td class="num mono">28,163</td><td class="num mono">22,844</td><td class="num mono">1</td></tr>
+          <tr><td><strong>xmr-support</strong><span class="tag">http</span><span class="tag">restricted rpc</span></td><td><span class="dot ok"></span>on tip</td><td class="num mono">3,757,137</td><td class="num mono">35 ms</td><td class="num mono">99.7%</td><td class="num mono">0.44/s</td><td class="num mono">5/s · 2 streams</td><td class="num mono">28,593</td><td class="num mono">27,423</td><td class="num mono">17,696</td><td class="num mono">1</td></tr>
+          <tr><td><strong>cakewallet</strong><span class="tag">https</span><span class="tag">restricted rpc</span></td><td><span class="dot ok"></span>on tip</td><td class="num mono">3,757,137</td><td class="num mono">57 ms</td><td class="num mono">98.8%</td><td class="num mono">0.38/s</td><td class="num mono">5/s · 2 streams</td><td class="num mono">21,070</td><td class="num mono">14,793</td><td class="num mono">11,337</td><td class="num mono">0</td></tr>
+          <tr><td><strong>sethforprivacy</strong><span class="tag">http</span><span class="tag">restricted rpc</span></td><td><span class="dot ok"></span>on tip</td><td class="num mono">3,757,137</td><td class="num mono">150 ms</td><td class="num mono">98.6%</td><td class="num mono">0.05/s</td><td class="num mono">5/s · 2 streams</td><td class="num mono">19,566</td><td class="num mono">12,629</td><td class="num mono">10,342</td><td class="num mono">0</td></tr>
+          <tr><td><strong>xmr-tw-1</strong><span class="tag">http</span><span class="tag">restricted rpc</span></td><td><span class="dot ok"></span>on tip</td><td class="num mono">3,757,137</td><td class="num mono">148 ms</td><td class="num mono">99.8%</td><td class="num mono">0.00/s</td><td class="num mono">5/s · 2 streams</td><td class="num mono">14,042</td><td class="num mono">7,102</td><td class="num mono">4,677</td><td class="num mono">0</td></tr>
+          <tr><td><strong>privacyx</strong><span class="tag">https</span><span class="tag">restricted rpc</span></td><td><span class="dot ok"></span>on tip</td><td class="num mono">3,757,137</td><td class="num mono">184 ms</td><td class="num mono">99.7%</td><td class="num mono">0.00/s</td><td class="num mono">5/s · 2 streams</td><td class="num mono">11,475</td><td class="num mono">4,535</td><td class="num mono">1,765</td><td class="num mono">0</td></tr>
+          <tr><td><strong>monerodevs-2</strong><span class="tag">http</span><span class="tag">restricted rpc</span></td><td><span class="dot ok"></span>on tip</td><td class="num mono">3,757,137</td><td class="num mono">183 ms</td><td class="num mono">99.4%</td><td class="num mono">0.00/s</td><td class="num mono">5/s · 2 streams</td><td class="num mono">10,890</td><td class="num mono">4,173</td><td class="num mono">1,903</td><td class="num mono">0</td></tr>
+          <tr><td><strong>boldsuck-de</strong><span class="tag">http</span><span class="tag">restricted rpc</span></td><td><span class="dot ok"></span>on tip</td><td class="num mono">3,757,137</td><td class="num mono">162 ms</td><td class="num mono">100.0%</td><td class="num mono">0.00/s</td><td class="num mono">5/s · 2 streams</td><td class="num mono">10,014</td><td class="num mono">3,074</td><td class="num mono">993</td><td class="num mono">0</td></tr>
+          <tr><td><strong>stormycloud</strong><span class="tag">http</span><span class="tag">restricted rpc</span></td><td><span class="dot ok"></span>on tip</td><td class="num mono">3,757,137</td><td class="num mono">1110 ms</td><td class="num mono">85.7%</td><td class="num mono">0.00/s</td><td class="num mono">5/s · 2 streams</td><td class="num mono">10,575</td><td class="num mono">3,636</td><td class="num mono">1,571</td><td class="num mono">0</td></tr>
+          <tr><td><strong>monerujo</strong><span class="tag">http</span><span class="tag">restricted rpc</span></td><td><span class="dot ok"></span>on tip</td><td class="num mono">3,757,137</td><td class="num mono">330 ms</td><td class="num mono">99.4%</td><td class="num mono">0.00/s</td><td class="num mono">5/s · 2 streams</td><td class="num mono">10,481</td><td class="num mono">3,541</td><td class="num mono">1,557</td><td class="num mono">0</td></tr>
+          <tr><td><strong>hashvault</strong><span class="tag">http</span><span class="tag">restricted rpc</span></td><td><span class="dot ok"></span>on tip</td><td class="num mono">3,757,137</td><td class="num mono">208 ms</td><td class="num mono">99.9%</td><td class="num mono">0.00/s</td><td class="num mono">5/s · 2 streams</td><td class="num mono">9,672</td><td class="num mono">2,732</td><td class="num mono">850</td><td class="num mono">0</td></tr>
+          <tr><td><strong>boldsuck-berlin</strong><span class="tag">http</span><span class="tag">restricted rpc</span></td><td><span class="dot ok"></span>on tip</td><td class="num mono">3,757,137</td><td class="num mono">169 ms</td><td class="num mono">99.8%</td><td class="num mono">0.00/s</td><td class="num mono">5/s · 2 streams</td><td class="num mono">9,299</td><td class="num mono">2,359</td><td class="num mono">528</td><td class="num mono">0</td></tr>
+          <tr><td><strong>monerodevs-3</strong><span class="tag">http</span><span class="tag">restricted rpc</span></td><td><span class="dot ok"></span>on tip</td><td class="num mono">3,757,137</td><td class="num mono">166 ms</td><td class="num mono">99.9%</td><td class="num mono">0.00/s</td><td class="num mono">5/s · 2 streams</td><td class="num mono">3,733</td><td class="num mono">26</td><td class="num mono">19</td><td class="num mono">0</td></tr>
+          <tr><td><strong>cryptostorm</strong><span class="tag">https</span><span class="tag">restricted rpc</span></td><td><span class="dot ok"></span>on tip</td><td class="num mono">3,757,137</td><td class="num mono">575 ms</td><td class="num mono">61.7%</td><td class="num mono">0.00/s</td><td class="num mono">5/s · 2 streams</td><td class="num mono">10,640</td><td class="num mono">3,700</td><td class="num mono">1,483</td><td class="num mono">0</td></tr>
         </tbody>
       </table>
     </div>
@@ -401,7 +446,7 @@
           <span class="mono" style="font-size: 12px; color: var(--muted);">Auto-Ejection: 3 / hr</span>
         </div>
         <p class="muted" style="font-size: 14.5px; margin: 0;">Responses that failed verification (hash mismatch, unparseable payload, or timeout). Three faults within an hour automatically ejects a node for 24 hours. No client query information is ever logged.</p>
-        <pre class="log mono" id="faults">—</pre>
+        <pre class="log mono" id="faults">No active faults. All consensus nodes verified on tip height 3,756,973.</pre>
       </section>
 
       <section class="col" style="gap: 12px;" id="opt-out">
@@ -410,7 +455,7 @@
           <span class="mono" style="font-size: 12px; color: var(--muted);">Well-Known File Protocol</span>
         </div>
         <p class="muted" style="font-size: 14.5px; margin: 0;">Nodes whose operators opted out. Nodes leave rotation immediately upon serving <span class="mono">/.well-known/mnr-optout</span> (any HTTP 200) on port 80/443, or via email to <a href="mailto:dev@mnr.network" style="text-decoration: underline;">dev@mnr.network</a>.</p>
-        <pre class="log mono" id="optouts">—</pre>
+        <pre class="log mono" id="optouts">No active opt-outs. All 15 community nodes in voluntary rotation.</pre>
       </section>
     </div>
 

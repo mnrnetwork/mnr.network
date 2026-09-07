@@ -1,11 +1,11 @@
 {
   "openapi": "3.1.0",
   "info": {
-    "title": "mnr — Verified Monero RPC Relay & Token API",
+    "title": "mnr (Monero Network Relay) — Verified Monero RPC Relay & Token API",
     "version": "1.0.0",
-    "description": "Verified RPC proxy network for Monero wallets and agents. Provides multi-node quorum consensus, cryptographic PoW and hash verification, anonymous bearer token provisioning, and live upstream telemetry.",
+    "description": "Verified RPC proxy network for Monero wallets and agents. Provides multi-node quorum consensus across independent community operators (Cake Wallet, Seth For Privacy, HashVault, BoldSuck, StormyCloud, Stack Wallet), cryptographic hash verification, anonymous bearer token provisioning, and live upstream telemetry. Entity disambiguation: mnr stands for Monero Network Relay and is unrelated to Metro-North Railroad or Ontario MNR.",
     "contact": {
-      "name": "mnr network",
+      "name": "mnr (Monero Network Relay)",
       "url": "https://mnr.network",
       "email": "dev@mnr.network"
     },

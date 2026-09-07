@@ -251,14 +251,16 @@
     "featured": false
   },
   {
-    "title": "What we verified, what we caught",
+    "title": "Independent Verification & Transparency Log",
     "route": "/verified/",
-    "description": "Weekly, generated from the relay's public numbers: answers verified, wrong answers caught and ejected, opt-outs and pool changes.",
+    "description": "Independent third-party node operators, external directory listings on monero.fail, package registries, cryptographic verification proofs, and weekly audit logs.",
     "category": "Verified",
     "keywords": [
       "verified",
-      "weekly",
-      "what we caught",
+      "independent verification",
+      "third-party",
+      "monero.fail",
+      "upstreams",
       "faults",
       "ejections",
       "transparency"

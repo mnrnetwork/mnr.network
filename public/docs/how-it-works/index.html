@@ -3,18 +3,18 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>How mnr Works: Verified Monero RPC Proxy & Quorum Consensus — mnr</title>
+  <title>How mnr Works: Verified Monero RPC Proxy & Quorum Consensus — mnr (Monero Network Relay)</title>
   <meta name="description" content="What the verified proxy checks, the seven rules it follows toward public Monero nodes, how the upstream pool is ranked, and how to connect a wallet.">
   <link rel="canonical" href="https://mnr.network/docs/how-it-works/">
   <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
-  <meta property="og:title" content="How mnr Works: Verified Monero RPC Proxy & Quorum Consensus — mnr">
+  <meta property="og:title" content="How mnr Works: Verified Monero RPC Proxy & Quorum Consensus — mnr (Monero Network Relay)">
   <meta property="og:description" content="What the verified proxy checks, the seven rules it follows toward public Monero nodes, how the upstream pool is ranked, and how to connect a wallet.">
   <meta property="og:type" content="article">
   <meta property="og:url" content="https://mnr.network/docs/how-it-works/">
-  <meta property="og:site_name" content="mnr">
+  <meta property="og:site_name" content="mnr (Monero Network Relay)">
   <meta property="og:image" content="https://mnr.network/og.png">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="How mnr Works: Verified Monero RPC Proxy & Quorum Consensus — mnr">
+  <meta name="twitter:title" content="How mnr Works: Verified Monero RPC Proxy & Quorum Consensus — mnr (Monero Network Relay)">
   <meta name="twitter:description" content="What the verified proxy checks, the seven rules it follows toward public Monero nodes, how the upstream pool is ranked, and how to connect a wallet.">
   <meta name="twitter:image" content="https://mnr.network/og.png">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
@@ -44,11 +44,15 @@
         "@type": "WebSite",
         "@id": "https://mnr.network/#website",
         "url": "https://mnr.network/",
-        "name": "mnr",
+        "name": "mnr (Monero Network Relay)",
         "alternateName": [
+          "mnr",
           "mnr network",
-          "mnr.network"
-        ]
+          "mnr.network",
+          "Monero Network Relay",
+          "Monero Node Relay"
+        ],
+        "disambiguatingDescription": "Cryptographic Monero RPC proxy and decentralized consensus relay network for Monero (XMR) wallets; distinct from MTA Metro-North Railroad, Ontario Ministry of Natural Resources, and unrelated npm package 'mnr'."
       }
     },
     {
@@ -83,19 +87,48 @@
       "url": "https://mnr.network/docs/how-it-works/",
       "inLanguage": "en",
       "proficiencyLevel": "Expert",
+      "citation": [
+        {
+          "@type": "WebSite",
+          "name": "monero.fail",
+          "url": "https://monero.fail"
+        },
+        {
+          "@type": "WebSite",
+          "name": "Seth For Privacy",
+          "url": "https://sethforprivacy.com"
+        },
+        {
+          "@type": "WebSite",
+          "name": "Cake Wallet",
+          "url": "https://cakewallet.com"
+        }
+      ],
       "author": {
         "@type": "Organization",
-        "name": "mnr",
-        "url": "https://mnr.network/"
+        "name": "mnr (Monero Network Relay)",
+        "url": "https://mnr.network/",
+        "sameAs": [
+          "https://github.com/mnrnetwork/mnr",
+          "https://crates.io/crates/mnr",
+          "https://pypi.org/project/mnr/",
+          "https://www.npmjs.com/package/mnr-network"
+        ]
       },
       "publisher": {
         "@type": "Organization",
-        "name": "mnr",
+        "name": "mnr (Monero Network Relay)",
         "url": "https://mnr.network/",
         "logo": {
           "@type": "ImageObject",
           "url": "https://mnr.network/favicon-192.png"
-        }
+        },
+        "sameAs": [
+          "https://github.com/mnrnetwork/mnr",
+          "https://crates.io/crates/mnr",
+          "https://pypi.org/project/mnr/",
+          "https://www.npmjs.com/package/mnr-network"
+        ]
       }
     }
   ]
@@ -332,6 +365,7 @@
     <a href="/" style="display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 22px; letter-spacing: -0.02em;" aria-label="mnr home">
       <svg class="mark" width="24" height="24" viewBox="0 0 24 24" aria-hidden="true"><circle cx="16.5" cy="12" r="5.2" fill="var(--accent)"/><path d="M5.2 6.6 L11.9 10.1 M5.2 17.4 L11.9 13.9" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"/><circle cx="5.2" cy="6.6" r="2.1" fill="currentColor"/><circle cx="5.2" cy="17.4" r="2.1" fill="currentColor"/></svg>
       <span>mnr</span>
+      <span class="brand-sub" style="font-size: 13px; font-weight: 500; color: var(--muted); letter-spacing: 0;">(Monero Network Relay)</span>
     </a>
     <nav class="navlinks" aria-label="Sections">
       <a href="/docs/how-it-works/">How it works</a>
@@ -416,7 +450,10 @@
 
     <article class="prose">
       <h1>How mnr works</h1>
-<p>mnr is a verified proxy for Monero daemon RPC. Point a wallet at <code>rpc.mnr.network</code> and its requests are forwarded to public Monero nodes run by community members, and to a full node we run and list publicly ourselves. Every answer that can be checked is checked: block and transaction hashes are recomputed, headers are matched against a header chain, and consensus state is taken from the majority of several nodes. The result is a better answer than any single public node gives.</p>
+<blockquote>
+<p><strong>Entity Disambiguation</strong>: <strong>mnr</strong> refers specifically to the <strong>Monero Network Relay</strong> (<code>mnr.network</code>, RPC: <code>rpc.mnr.network</code>). It is an open-source, trust-minimized, anti-KYC RPC proxy network for Monero (XMR). It is completely unrelated to MTA Metro-North Railroad (MNR), the Ontario Ministry of Natural Resources (MNR / MNRF), or the <code>mnr</code> npm package.</p>
+</blockquote>
+<p>mnr (Monero Network Relay) is a verified proxy for Monero daemon RPC. Point a wallet at <code>rpc.mnr.network</code> and its requests are forwarded to public Monero nodes run by independent community members, and to a full node we run and list publicly ourselves. Every answer that can be checked is checked: block and transaction hashes are recomputed, headers are matched against a header chain, and consensus state is taken from the majority of several independent nodes. The result is a better answer than any single public node gives.</p>
 <p>The nodes are mostly not ours, so there is no uptime promise. The promise is narrower and stated on every response: <strong>we tell you what we verified.</strong></p>
 <hr>
 <h2 id="rules-toward-public-nodes">Rules toward public nodes</h2>
@@ -508,6 +545,15 @@
 </tbody></table></div>
 <p>Nothing unverifiable is silently trusted. Every response carries <code>Mnr-Verify</code> saying what was checked, and the per-upstream verified and fault counts are the numbers on the public upstreams page. The full per-method rules, cache bounds and timeouts are in the <a href="/docs/method-policy/">method policy</a>, which is generated from the relay&#39;s source code.</p>
 <p>Blocks, headers and transactions within 10 blocks of the tip are never cached, because they may still be reorganised away.</p>
+<hr>
+<h2 id="independent-operators-and-third-party-verification">Independent operators and third-party verification</h2>
+<p>mnr is fundamentally designed to eliminate single points of trust. Its role as a verified Monero RPC proxy is not an unverified self-assertion; it is anchored in consensus across independently operated community nodes:</p>
+<ul>
+<li><strong>Third-Party Node Operators</strong>: The upstream pool incorporates nodes maintained by recognized Monero ecosystem teams: <a href="https://cakewallet.com">Cake Wallet</a>, <a href="https://sethforprivacy.com">Seth For Privacy</a>, <a href="https://hashvault.pro">HashVault</a>, <a href="https://boldsuck.de">BoldSuck</a>, <a href="https://stormycloud.org">StormyCloud</a>, <a href="https://stackwallet.com">Stack Wallet</a>, and <a href="https://monerodevs.org">Monero Devs</a>. When mnr verifies a tip height or block hash, it requires agreement from these distinct infrastructure operators.</li>
+<li><strong>External Scanning &amp; Health Monitors</strong>: The primary node operated by mnr (<code>node.kyc.rip:18081</code>) is tracked on external public node scanners, including <a href="https://monero.fail">monero.fail</a> and <a href="https://nodes.monero.ninja">nodes.monero.ninja</a>, providing independent third-party uptime and sync telemetry.</li>
+<li><strong>Open Package Ecosystem</strong>: Verified proxy clients and libraries are published under the open AGPL-3.0 license across language registries: <a href="https://crates.io/crates/mnr">crates.io/crates/mnr</a>, <a href="https://pypi.org/project/mnr/">pypi.org/project/mnr/</a>, and <a href="https://www.npmjs.com/package/mnr-network">npmjs.com/package/mnr-network</a>.</li>
+<li><strong>Public Audit Ledger</strong>: See the <a href="/verified/">Independent Verification &amp; Transparency Log</a> for weekly logs of multi-node consensus, tip checks, and upstream fault ejections.</li>
+</ul>
 <hr>
 <h2 id="connecting-a-wallet">Connecting a wallet</h2>
 <p>Stock wallets work with nothing but a daemon address and a login. The token is the <strong>username</strong>; the password is anything:</p>
