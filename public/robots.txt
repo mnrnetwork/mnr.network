@@ -1,29 +1,58 @@
 # mnr.network robots.txt
 # https://mnr.network
 
+# Content signals (https://contentsignals.org)
+#
+#   search    = building a search index and returning links and short excerpts.
+#   ai-input  = feeding this content into a model at answer time (RAG,
+#               grounding, AI search summaries).
+#   ai-train  = training or fine-tuning a model on this content.
+#
+# Ours: search=yes, ai-input=yes, ai-train=no. We want people and their
+# assistants to find and quote these pages, with a link back so the claims can
+# be checked against the live feed at https://mnr.network/upstreams/ and the
+# method policy at https://mnr.network/docs/method-policy/. We do not consent to
+# this content being used to train or fine-tune models. That last line is an
+# express reservation of rights under Article 4 of Directive (EU) 2019/790.
+#
+# Signals are a statement of preference, not an access control. The relay's own
+# terms are at https://mnr.network/docs/tokens/; questions to dev@mnr.network.
+
 User-agent: *
+Content-Signal: search=yes, ai-input=yes, ai-train=no
 Allow: /
 
 # Explicit AI Search & Agent Retrieval Permissions
+# A crawler obeys only the most specific group that matches it, so each named
+# agent below carries its own Content-Signal line. Keep them in sync with the
+# wildcard group above.
+
 User-agent: GPTBot
+Content-Signal: search=yes, ai-input=yes, ai-train=no
 Allow: /
 
 User-agent: OAI-SearchBot
+Content-Signal: search=yes, ai-input=yes, ai-train=no
 Allow: /
 
 User-agent: ClaudeBot
+Content-Signal: search=yes, ai-input=yes, ai-train=no
 Allow: /
 
 User-agent: PerplexityBot
+Content-Signal: search=yes, ai-input=yes, ai-train=no
 Allow: /
 
 User-agent: Applebot-Extended
+Content-Signal: search=yes, ai-input=yes, ai-train=no
 Allow: /
 
 User-agent: Google-Extended
+Content-Signal: search=yes, ai-input=yes, ai-train=no
 Allow: /
 
 User-agent: CCBot
+Content-Signal: search=yes, ai-input=yes, ai-train=no
 Allow: /
 
 # Canonical XML Sitemap
