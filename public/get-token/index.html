@@ -489,7 +489,23 @@
               <pre class="log mono" id="pro-token" style="font-weight: 600; color: var(--accent);"></pre>
               <button class="copy" type="button" data-copy="pro-token">Copy</button>
             </div>
-            <p class="muted" style="font-size: 13.5px; margin: 0;">Bookmark the invoice link above: it remains the only record of this token.</p>
+            <p class="muted" style="font-size: 13.5px; margin: 0;">Bookmark the invoice link above: it remains the only record of this token for the next seven days; after that, only your copy.</p>
+            <div class="col" style="gap: 8px; font-size: 14px; padding-top: 4px;">
+              <span class="muted">Your RPC URL, for Ripley Terminal, scripts and any client that takes a URL:</span>
+              <div class="token-box">
+                <pre class="log mono" id="pro-url" style="font-size: 12.5px; word-break: break-all; white-space: pre-wrap;"></pre>
+                <button class="copy" type="button" data-copy="pro-url">Copy</button>
+              </div>
+              <span class="muted">Run a stock wallet from the terminal with:</span>
+              <div class="token-box">
+                <pre class="log mono" id="pro-cli" style="font-size: 12.5px; word-break: break-all; white-space: pre-wrap;"></pre>
+                <button class="copy" type="button" data-copy="pro-cli">Copy</button>
+              </div>
+              <span class="muted" style="font-size: 13.5px;">
+                In GUI wallets (Cake, Feather, Monero GUI, Monerujo): Host <span class="mono">rpc.mnr.network</span>, Port <span class="mono">443</span>, <strong>Username = token</strong>, Password = <span class="mono">x</span>.
+                <a href="/docs/connect-wallets/" style="text-decoration: underline; font-weight: 500;">Step-by-step wallet guides &rarr;</a>
+              </span>
+            </div>
           </div>
 
           <div id="pro-renewed" class="col hidden" style="gap: 6px;">
@@ -841,6 +857,8 @@
         if (v.status === 'paid') {
           if (v.token) {
             $('pro-token').textContent = v.token;
+            $('pro-url').textContent = 'https://rpc.mnr.network/v1/' + v.token;
+            $('pro-cli').textContent = 'monero-wallet-cli --daemon-address rpc.mnr.network:443 --daemon-login ' + v.token + ':x --daemon-ssl enabled';
             show($('pro-result'));
           } else {
             show($('pro-renewed'));
