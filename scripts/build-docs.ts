@@ -718,8 +718,9 @@ function renderHtmlLayout(doc: DocMeta, contentHtml: string): string {
       .prose h1 { font-size: 30px; }
       .prose h2 { font-size: 22px; }
     }
-      .brand-tag { display: none; margin-left: 6px; padding-left: 12px; border-left: 1px solid var(--line); font-size: 13px; font-weight: 500; color: var(--muted); letter-spacing: 0; white-space: nowrap; }
-    @media (min-width: 900px) { .brand-tag { display: inline; } }
+      .brand-text { display: flex; flex-direction: column; line-height: 1; gap: 4px; }
+    .brand-tag { display: none; font-size: 10px; font-weight: 600; letter-spacing: 0.09em; text-transform: uppercase; color: var(--muted); white-space: nowrap; }
+    @media (min-width: 900px) { .brand-tag { display: block; } }
   </style>
 </head>
 <body>
@@ -728,8 +729,7 @@ function renderHtmlLayout(doc: DocMeta, contentHtml: string): string {
   <header class="wrap" style="display: flex; align-items: center; justify-content: space-between; height: 72px;">
     <a href="/" style="display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 22px; letter-spacing: -0.02em;" aria-label="mnr, Monero Network Relay: home" title="mnr — Monero Network Relay">
       <svg class="mark" width="24" height="24" viewBox="0 0 24 24" aria-hidden="true"><circle cx="16.5" cy="12" r="5.2" fill="var(--accent)"/><path d="M5.2 6.6 L11.9 10.1 M5.2 17.4 L11.9 13.9" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"/><circle cx="5.2" cy="6.6" r="2.1" fill="currentColor"/><circle cx="5.2" cy="17.4" r="2.1" fill="currentColor"/></svg>
-      <span>mnr</span>
-      <span class="brand-tag">Monero Network Relay</span>
+      <span class="brand-text"><span>mnr</span><span class="brand-tag">Monero Network Relay</span></span>
     </a>
     <nav class="navlinks" aria-label="Sections">
       <a href="/docs/how-it-works/">How it works</a>
