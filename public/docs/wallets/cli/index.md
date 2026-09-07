@@ -108,3 +108,22 @@ curl -si -X POST https://rpc.mnr.network/v1/<token>/get_height -d '{}' | grep -i
 - **Error: "Bad server response for authentication"**: The token was passed in the password slot (`--daemon-login user:<token>`). Correct it to `--daemon-login <token>:x`.
 - **Error: 401 Unauthorized**: The token is invalid, rotated, or expired. Obtain a new one at [mnr.network/get-token/](/get-token/).
 - **Error: 429 Too Many Requests**: Request throughput exceeded burst rate limit (5 req/s on Free tier). Use a Pro token for 25 req/s or slow down wallet sync threads.
+
+## What a sync from scratch looks like
+
+We synced a fresh `monero-wallet-cli` from height 1 to the tip through
+`rpc.mnr.network` on 6–7 September 2026 (3.76 million blocks): about 29 hours
+wall clock, 36 blocks per second on average, slower near the tip where blocks
+are dense, and it finished with zero errors. The run survived eight relay
+restarts on our side; the wallet resumes from its checkpoint each time.
+
+Two things to know before you do the same:
+
+- **Work units.** A full sync from scratch is roughly 770,000 WU, more than a
+  Free month's 500,000. Use a Pro token, or a restore height near the wallet's
+  creation, which is what a normal restore does anyway.
+- **Parallel fetch.** The CLI fetches blocks with as many parallel connections
+  as your machine has cores. A Pro token allows three concurrent block streams,
+  so pass `--max-concurrency 3`; without it the extra connections are refused
+  and retried, which costs time, not correctness.
+
