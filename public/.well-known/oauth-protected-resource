@@ -1,5 +1,5 @@
 {
-  "resource": "https://rpc.mnr.network/v1",
+  "resource": "https://mnr.network",
   "authorization_servers": [
     "https://mnr.network"
   ],

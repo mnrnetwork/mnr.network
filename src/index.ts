@@ -83,7 +83,7 @@ const FALLBACK_API_CATALOG = JSON.stringify(
 
 const FALLBACK_OAUTH_PROTECTED_RESOURCE = JSON.stringify(
   {
-    resource: "https://rpc.mnr.network/v1",
+    resource: "https://mnr.network",
     authorization_servers: ["https://mnr.network"],
     scopes_supported: ["rpc:read", "rpc:write", "wallet:sync"],
     bearer_methods_supported: ["header"],
@@ -105,7 +105,7 @@ const FALLBACK_OAUTH_AUTH_SERVER = JSON.stringify(
     scopes_supported: ["rpc:read", "rpc:write", "wallet:sync"],
     service_documentation: "https://mnr.network/docs/tokens/",
     agent_auth: {
-      skill: "https://isitagentready.com/.well-known/agent-skills/auth-md/SKILL.md",
+      skill: "https://mnr.network/auth.md",
       register_uri: "https://rpc.mnr.network/v1/tokens/free",
       identity_types_supported: ["anonymous"],
       anonymous: {
@@ -336,6 +336,11 @@ export default {
         if (res.ok) text = await res.text();
       } catch {}
       if (!text.trim()) text = FALLBACK_OAUTH_PROTECTED_RESOURCE;
+      try {
+        const data = JSON.parse(text);
+        data.resource = url.searchParams.get("resource") || "https://mnr.network";
+        text = JSON.stringify(data, null, 2);
+      } catch {}
 
       const headers = new Headers({
         ...SWR_CACHE_HEADERS,

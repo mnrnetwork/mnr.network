@@ -20,7 +20,7 @@
   ],
   "service_documentation": "https://mnr.network/docs/tokens/",
   "agent_auth": {
-    "skill": "https://isitagentready.com/.well-known/agent-skills/auth-md/SKILL.md",
+    "skill": "https://mnr.network/auth.md",
     "register_uri": "https://rpc.mnr.network/v1/tokens/free",
     "identity_types_supported": [
       "anonymous"
