@@ -305,6 +305,8 @@
       .wallet-grid { grid-template-columns: 1fr; }
       .section { padding-top: 36px; padding-bottom: 52px; }
     }
+      .brand-tag { display: none; margin-left: 6px; padding-left: 12px; border-left: 1px solid var(--line); font-size: 13px; font-weight: 500; color: var(--muted); letter-spacing: 0; white-space: nowrap; }
+    @media (min-width: 900px) { .brand-tag { display: inline; } }
   </style>
 </head>
 <body>
@@ -314,6 +316,7 @@
     <a href="/" style="display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 22px; letter-spacing: -0.02em;" aria-label="mnr, Monero Network Relay: home" title="mnr — Monero Network Relay">
       <svg class="mark" width="24" height="24" viewBox="0 0 24 24" aria-hidden="true"><circle cx="16.5" cy="12" r="5.2" fill="var(--accent)"/><path d="M5.2 6.6 L11.9 10.1 M5.2 17.4 L11.9 13.9" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"/><circle cx="5.2" cy="6.6" r="2.1" fill="currentColor"/><circle cx="5.2" cy="17.4" r="2.1" fill="currentColor"/></svg>
       <span>mnr</span>
+      <span class="brand-tag">Monero Network Relay</span>
     </a>
     <nav class="navlinks" aria-label="Sections">
       <a href="/docs/how-it-works/">How it works</a>
