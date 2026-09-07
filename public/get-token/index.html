@@ -463,10 +463,17 @@
           <div class="col" style="gap: 6px; font-size: 13.5px; background: var(--bg-alt); padding: 12px 14px; border-radius: 10px; border: 1px solid var(--line);">
             <div style="display: flex; justify-content: space-between; align-items: center;">
               <span>Status: <strong id="pro-state" style="text-transform: capitalize;">pending</strong></span>
-              <span>Confirmations: <strong id="pro-conf">0</strong> / 10</span>
+              <span><strong id="pro-conf">0</strong> / 10 confirmed</span>
+            </div>
+            <div id="pro-bar" style="height: 8px; border-radius: 999px; background: var(--line); overflow: hidden;" role="progressbar" aria-valuemin="0" aria-valuemax="10" aria-valuenow="0" aria-label="Confirmations">
+              <div id="pro-bar-fill" style="height: 100%; width: 0%; background: var(--accent); border-radius: 999px; transition: width 0.4s ease;"></div>
             </div>
             <span class="muted" id="pro-expires-row">Invoice expires in: <strong id="pro-expires">24 h</strong></span>
-            <span class="muted">Shareable invoice link: <a id="pro-link" href="#" class="mono" style="text-decoration: underline; word-break: break-all; color: var(--fg);"></a></span>
+            <span class="muted">This page's address is the invoice: bookmark it, a refresh or a new tab brings the invoice back.</span>
+            <div class="token-box" style="margin-top: 2px;">
+              <pre class="log mono" id="pro-link" style="font-size: 12.5px; word-break: break-all; white-space: pre-wrap;"></pre>
+              <button class="copy" type="button" data-copy="pro-link">Copy</button>
+            </div>
           </div>
 
           <div id="pro-result" class="col hidden" style="gap: 10px;">
@@ -774,13 +781,22 @@
         $('pro-uri').href = v.uri;
         var seen = (v.received_atomic || 0) > 0 || (v.confirmations || 0) > 0;
         $('pro-state').textContent = v.status === 'pending' ? (seen ? 'payment seen, confirming' : 'waiting for payment') : v.status;
-        $('pro-conf').textContent = v.confirmations || 0;
+        var conf = Math.min(10, v.confirmations || 0);
+        if (v.status === 'paid') conf = 10;
+        $('pro-conf').textContent = conf;
+        $('pro-bar').setAttribute('aria-valuenow', conf);
+        $('pro-bar-fill').style.width = (conf * 10) + '%';
+        $('pro-bar-fill').style.background = v.status === 'paid' ? '#38A169' : 'var(--accent)';
         var left = Math.max(0, v.expires_at * 1000 - Date.now());
         $('pro-expires').textContent = left > 3600e3 ? Math.round(left / 3600e3) + ' h' : Math.round(left / 60e3) + ' min';
         $('pro-expires-row').style.display = v.status === 'pending' ? '' : 'none';
         var link = location.origin + location.pathname + '?invoice=' + v.invoice_id;
         $('pro-link').textContent = link;
-        $('pro-link').href = link;
+        // The address bar becomes the invoice, so a refresh or a bookmark
+        // brings it back; nothing else about the page changes.
+        if (new URLSearchParams(location.search).get('invoice') !== v.invoice_id) {
+          history.replaceState(null, '', location.pathname + '?invoice=' + v.invoice_id);
+        }
         show($('pro-invoice'));
 
         if (v.status === 'paid') {
