@@ -457,7 +457,12 @@
               <pre class="log mono" id="pro-address" style="font-size: 12.5px;"></pre>
               <button class="copy" type="button" data-copy="pro-address">Copy</button>
             </div>
-            <a id="pro-uri" class="btn btn-secondary btn-sm" href="#" style="width: fit-content; margin-top: 4px;">Open in Monero wallet</a>
+            <div style="display: flex; gap: 8px; flex-wrap: wrap; margin-top: 4px;">
+              <a id="pro-uri" class="btn btn-secondary btn-sm" href="#" style="width: fit-content;">Open in Monero wallet</a>
+              <button id="pro-qr-btn" class="btn btn-secondary btn-sm" type="button" style="width: fit-content;">Show QR code</button>
+            </div>
+            <div id="pro-qr" class="hidden" style="background: #fff; padding: 12px; border-radius: 10px; width: fit-content; line-height: 0;" aria-label="QR code of the payment request: scan it with a Monero wallet on your phone"></div>
+            <span id="pro-qr-hint" class="muted hidden" style="font-size: 12.5px;">Scan with Cake, Monerujo, Feather or any wallet that reads payment QR codes; the address and amount are in it.</span>
           </div>
 
           <div class="col" style="gap: 6px; font-size: 13.5px; background: var(--bg-alt); padding: 12px 14px; border-radius: 10px; border: 1px solid var(--line);">
@@ -699,6 +704,7 @@
   </footer>
 
   <script src="/search.js" defer></script>
+  <script src="/vendor/qrcode.js"></script>
   <script>
     // Theme toggle
     (function () {
@@ -779,6 +785,10 @@
         }
         $('pro-address').textContent = v.address;
         $('pro-uri').href = v.uri;
+        if ($('pro-qr').getAttribute('data-uri') !== v.uri) {
+          $('pro-qr').setAttribute('data-uri', v.uri);
+          $('pro-qr').innerHTML = '';
+        }
         var seen = (v.received_atomic || 0) > 0 || (v.confirmations || 0) > 0;
         $('pro-state').textContent = v.status === 'pending' ? (seen ? 'payment seen, confirming' : 'waiting for payment') : v.status;
         var conf = Math.min(10, v.confirmations || 0);
@@ -820,6 +830,28 @@
           status($('pro-status'), e.message, true);
         }
       }
+
+      $('pro-qr-btn').addEventListener('click', function () {
+        var box = $('pro-qr');
+        var open = !box.classList.contains('hidden');
+        if (open) {
+          box.classList.add('hidden');
+          $('pro-qr-hint').classList.add('hidden');
+          this.textContent = 'Show QR code';
+          return;
+        }
+        if (!box.innerHTML && typeof qrcode === 'function') {
+          var qr = qrcode(0, 'M');
+          qr.addData(box.getAttribute('data-uri') || '');
+          qr.make();
+          box.innerHTML = qr.createSvgTag({ cellSize: 4, margin: 0, scalable: true });
+          var svg = box.querySelector('svg');
+          if (svg) { svg.style.width = '220px'; svg.style.height = '220px'; svg.style.display = 'block'; }
+        }
+        box.classList.remove('hidden');
+        $('pro-qr-hint').classList.remove('hidden');
+        this.textContent = 'Hide QR code';
+      });
 
       function watch(id) {
         if (poll) clearInterval(poll);
