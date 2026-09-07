@@ -25,6 +25,8 @@ One click on the [token page](/get-token/). The token appears once; copy it into
 
 On the [token page](/get-token/), choose how many months and you get an invoice: a Monero address that is yours alone for that invoice, an amount, and 24 hours to pay. The amount is $9 a month converted at the median of five public XMR/USD sources at that moment (the invoice names the rate and the sources), rounded up to the next 0.0001 XMR, and fixed for the 24 hours. Send the amount from any wallet. Your Pro token appears after one confirmation for a month, two under $30, five under $100 and ten above that, about two minutes for a $9 month; the relay keeps watching the payment until it is ten blocks deep and would pause the token if the payment left the chain before then, which in practice does not happen. Keep the invoice link until the token is in your wallet: the invoice id is the only way to see the token again.
 
+For scale: a full wallet sync from scratch (3.76 million blocks) came to about 770,000 WU when we measured it, so it needs a Pro month; a wallet restored from a recent height, or one that syncs daily, stays well inside Free.
+
 Pay a little more and the difference is a tip. Pay less and the invoice waits for the rest until it expires.
 
 ## Renewing
