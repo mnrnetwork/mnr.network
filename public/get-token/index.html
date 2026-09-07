@@ -465,7 +465,7 @@
               <span>Status: <strong id="pro-state" style="text-transform: capitalize;">pending</strong></span>
               <span>Confirmations: <strong id="pro-conf">0</strong> / 10</span>
             </div>
-            <span class="muted">Invoice expires in: <strong id="pro-expires">24 h</strong></span>
+            <span class="muted" id="pro-expires-row">Invoice expires in: <strong id="pro-expires">24 h</strong></span>
             <span class="muted">Shareable invoice link: <a id="pro-link" href="#" class="mono" style="text-decoration: underline; word-break: break-all; color: var(--fg);"></a></span>
           </div>
 
@@ -772,10 +772,12 @@
         }
         $('pro-address').textContent = v.address;
         $('pro-uri').href = v.uri;
-        $('pro-state').textContent = v.status;
-        $('pro-conf').textContent = v.confirmations;
+        var seen = (v.received_atomic || 0) > 0 || (v.confirmations || 0) > 0;
+        $('pro-state').textContent = v.status === 'pending' ? (seen ? 'payment seen, confirming' : 'waiting for payment') : v.status;
+        $('pro-conf').textContent = v.confirmations || 0;
         var left = Math.max(0, v.expires_at * 1000 - Date.now());
         $('pro-expires').textContent = left > 3600e3 ? Math.round(left / 3600e3) + ' h' : Math.round(left / 60e3) + ' min';
+        $('pro-expires-row').style.display = v.status === 'pending' ? '' : 'none';
         var link = location.origin + location.pathname + '?invoice=' + v.invoice_id;
         $('pro-link').textContent = link;
         $('pro-link').href = link;
