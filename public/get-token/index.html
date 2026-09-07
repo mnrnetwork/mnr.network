@@ -473,6 +473,7 @@
             <div id="pro-bar" style="height: 8px; border-radius: 999px; background: var(--line); overflow: hidden;" role="progressbar" aria-valuemin="0" aria-valuemax="10" aria-valuenow="0" aria-label="Confirmations">
               <div id="pro-bar-fill" style="height: 100%; width: 0%; background: var(--accent); border-radius: 999px; transition: width 0.4s ease;"></div>
             </div>
+            <span id="pro-short" class="hidden" style="color: var(--accent); font-weight: 500;"></span>
             <span class="muted" id="pro-expires-row">Invoice expires in: <strong id="pro-expires">24 h</strong></span>
             <span class="muted">This page's address is the invoice: bookmark it, a refresh or a new tab brings the invoice back.</span>
             <div class="token-box" style="margin-top: 2px;">
@@ -789,8 +790,20 @@
           $('pro-qr').setAttribute('data-uri', v.uri);
           $('pro-qr').innerHTML = '';
         }
-        var seen = (v.received_atomic || 0) > 0 || (v.confirmations || 0) > 0;
-        $('pro-state').textContent = v.status === 'pending' ? (seen ? 'payment seen, confirming' : 'waiting for payment') : v.status;
+        var seenAtomic = Math.max(v.seen_atomic || 0, v.received_atomic || 0);
+        var seen = seenAtomic > 0 || (v.confirmations || 0) > 0;
+        var short = v.status === 'pending' && seenAtomic > 0 && seenAtomic < (v.amount_atomic || 0);
+        var state = v.status;
+        if (v.status === 'pending') state = short ? 'underpaid' : (seen ? 'payment seen, confirming' : 'waiting for payment');
+        $('pro-state').textContent = state;
+        var shortRow = $('pro-short');
+        if (short) {
+          var seenXmr = (seenAtomic / 1e12).toFixed(12).replace(/0+$/, '').replace(/\.$/, '');
+          shortRow.textContent = 'Received ' + seenXmr + ' of ' + v.amount_xmr + ' XMR. Send the remaining ' + v.remaining_xmr + ' XMR to the same address before the invoice expires; the confirmations above are for what has arrived so far.';
+          shortRow.classList.remove('hidden');
+        } else {
+          shortRow.classList.add('hidden');
+        }
         var conf = Math.min(10, v.confirmations || 0);
         if (v.status === 'paid') conf = 10;
         $('pro-conf').textContent = conf;
