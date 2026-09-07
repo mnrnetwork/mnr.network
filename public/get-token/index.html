@@ -118,7 +118,7 @@
             "name": "How do renewals work?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "When purchasing Pro, enter your existing sub_... token into the 'Renew existing token' field before generating an invoice. Once 10 block confirmations are detected, the expiration of your token is automatically extended."
+              "text": "When purchasing Pro, enter your existing sub_... token into the 'Renew existing token' field before generating an invoice. Once the payment has the confirmations its amount needs (one to ten, by value), the expiration of your token is automatically extended."
             }
           },
           {
@@ -468,12 +468,13 @@
           <div class="col" style="gap: 6px; font-size: 13.5px; background: var(--bg-alt); padding: 12px 14px; border-radius: 10px; border: 1px solid var(--line);">
             <div style="display: flex; justify-content: space-between; align-items: center;">
               <span>Status: <strong id="pro-state" style="text-transform: capitalize;">pending</strong></span>
-              <span><strong id="pro-conf">0</strong> / 10 confirmed</span>
+              <span><strong id="pro-conf">0</strong> / <span id="pro-need">10</span> confirmed</span>
             </div>
             <div id="pro-bar" style="height: 8px; border-radius: 999px; background: var(--line); overflow: hidden;" role="progressbar" aria-valuemin="0" aria-valuemax="10" aria-valuenow="0" aria-label="Confirmations">
               <div id="pro-bar-fill" style="height: 100%; width: 0%; background: var(--accent); border-radius: 999px; transition: width 0.4s ease;"></div>
             </div>
             <span id="pro-short" class="hidden" style="color: var(--accent); font-weight: 500;"></span>
+            <span id="pro-settle" class="muted hidden"></span>
             <span class="muted" id="pro-expires-row">Invoice expires in: <strong id="pro-expires">24 h</strong></span>
             <span class="muted">This page's address is the invoice: bookmark it, a refresh or a new tab brings the invoice back.</span>
             <div class="token-box" style="margin-top: 2px;">
@@ -661,7 +662,7 @@
 
         <div class="faq-item">
           <h3 class="faq-q">How do renewals work?</h3>
-          <p class="faq-a">When purchasing Pro, enter your existing <span class="mono">sub_...</span> token into the "Renew existing token" field before generating an invoice. Once 10 block confirmations are detected, the expiration of your token is automatically extended.</p>
+          <p class="faq-a">When purchasing Pro, enter your existing <span class="mono">sub_...</span> token into the "Renew existing token" field before generating an invoice. Once the payment has the confirmations its amount needs (one to ten, by value), the expiration of your token is automatically extended.</p>
         </div>
 
         <div class="faq-item">
@@ -794,22 +795,37 @@
         var seen = seenAtomic > 0 || (v.confirmations || 0) > 0;
         var short = v.status === 'pending' && seenAtomic > 0 && seenAtomic < (v.amount_atomic || 0);
         var state = v.status;
-        if (v.status === 'pending') state = short ? 'underpaid' : (seen ? 'payment seen, confirming' : 'waiting for payment');
+        if (v.status === 'pending') state = v.taken_back ? 'payment left the chain' : short ? 'underpaid' : (seen ? 'payment seen, confirming' : 'waiting for payment');
+        if (v.taken_back && v.status === 'pending') {
+          short = true;
+        }
         $('pro-state').textContent = state;
         var shortRow = $('pro-short');
         if (short) {
           var seenXmr = (seenAtomic / 1e12).toFixed(12).replace(/0+$/, '').replace(/\.$/, '');
-          shortRow.textContent = 'Received ' + seenXmr + ' of ' + v.amount_xmr + ' XMR. Send the remaining ' + v.remaining_xmr + ' XMR to the same address before the invoice expires; the confirmations above are for what has arrived so far.';
+          shortRow.textContent = v.taken_back && seenAtomic === 0
+            ? 'The payment left the chain before it settled (a reorg or a double spend), so the token is paused. It comes back on its own if the payment does; otherwise send ' + v.amount_xmr + ' XMR again to the same address.'
+            : 'Received ' + seenXmr + ' of ' + v.amount_xmr + ' XMR. Send the remaining ' + v.remaining_xmr + ' XMR to the same address before the invoice expires; the confirmations above are for what has arrived so far.';
           shortRow.classList.remove('hidden');
         } else {
           shortRow.classList.add('hidden');
         }
-        var conf = Math.min(10, v.confirmations || 0);
-        if (v.status === 'paid') conf = 10;
+        var need = v.required_confirmations || 10;
+        var conf = Math.min(need, v.confirmations || 0);
+        if (v.status === 'paid') conf = need;
         $('pro-conf').textContent = conf;
+        $('pro-need').textContent = need;
+        $('pro-bar').setAttribute('aria-valuemax', need);
         $('pro-bar').setAttribute('aria-valuenow', conf);
-        $('pro-bar-fill').style.width = (conf * 10) + '%';
+        $('pro-bar-fill').style.width = Math.round(conf / need * 100) + '%';
         $('pro-bar-fill').style.background = v.status === 'paid' ? '#38A169' : 'var(--accent)';
+        var settle = $('pro-settle');
+        if (v.status === 'paid' && v.finalized === false) {
+          settle.textContent = 'Settling: ' + Math.min(v.final_confirmations || 10, v.confirmations || 0) + ' / ' + (v.final_confirmations || 10) + ' blocks. The token is active meanwhile; if the payment left the chain before then, the token would pause until it returns.';
+          settle.classList.remove('hidden');
+        } else {
+          settle.classList.add('hidden');
+        }
         var left = Math.max(0, v.expires_at * 1000 - Date.now());
         $('pro-expires').textContent = left > 3600e3 ? Math.round(left / 3600e3) + ' h' : Math.round(left / 60e3) + ' min';
         $('pro-expires-row').style.display = v.status === 'pending' ? '' : 'none';
