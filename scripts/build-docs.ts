@@ -475,13 +475,13 @@ function renderHtmlLayout(doc: DocMeta, contentHtml: string): string {
   <meta property="og:type" content="article">
   <meta property="og:url" content="${canonicalUrl}">
   <meta property="og:site_name" content="mnr (Monero Network Relay)">
-  <meta property="og:image" content="https://mnr.network/og.png">
+  <meta property="og:image" content="https://mnr.network/og-v2.png">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="${doc.title} — mnr (Monero Network Relay)">
   <meta name="twitter:description" content="${doc.description}">
-  <meta name="twitter:image" content="https://mnr.network/og.png">
+  <meta name="twitter:image" content="https://mnr.network/og-v2.png">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
   <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png">
   <link rel="icon" href="/favicon-16.png" sizes="16x16" type="image/png">
