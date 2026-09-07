@@ -374,7 +374,7 @@
             <th class="num">Height</th>
             <th class="num">Latency</th>
             <th class="num" title="Share of probe rounds in the last 24 hours in which the node answered and was on the quorum tip; lifetime figure on hover">Up 24h</th>
-            <th class="num">Our Rate</th>
+            <th class="num" title="RPC calls per second our relay sent this node over the last 15 minutes, probe rounds excluded (from the relay's own feed)">Our Rate</th>
             <th class="num">Our Cap</th>
             <th class="num" title="Requests our relay has sent this node since its counters began: light calls, block streams and probe rounds alike">Requests</th>
             <th class="num" title="Load this node carried in the relay's work units: one per RPC call (probe rounds excluded) plus 20 per MB of block stream. Streams go to our own node first, so this is the honest share of the work, where Requests is not">WU</th>
@@ -604,7 +604,7 @@
         var rowsHtml = filtered.map(function (u) {
           var st = state(u);
           var delta = u.requests - (first.requests[u.name] != null ? first.requests[u.name] : u.requests);
-          var rate = elapsed > 5 ? (delta / elapsed).toFixed(2) + '/s' : '…';
+          var rate = u.rate_15m != null ? u.rate_15m.toFixed(2) + '/s' : (elapsed > 5 ? (delta / elapsed).toFixed(2) + '/s' : '…');
           return '<tr>' +
             '<td><strong>' + esc(u.name) + '</strong>' + (u.kind === 'owned' ? '<span class="tag tag-owned">ours</span>' : '') + '<span class="tag">' + esc(u.transport) + '</span>' + (u.restricted === false ? '<span class="tag">unrestricted rpc</span>' : '') + '</td>' +
             '<td><span class="dot ' + st[0] + '"></span>' + esc(st[1]) + '</td>' +
