@@ -212,7 +212,7 @@
     .grid2 { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 32px; align-items: start; }
     /* With an invoice in the address bar the page is that invoice: the Free
        card and the creation form go, the Pro card takes the width. */
-    body.invoice-mode #free-card, body.invoice-mode #pro-create { display: none !important; }
+    body.invoice-mode #free-card, body.invoice-mode #pro-create, body.invoice-mode #pro-blurb { display: none !important; }
     body.invoice-mode .grid2 { grid-template-columns: minmax(0, 760px); }
     .grid3 { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; }
     .col { display: flex; flex-direction: column; }
@@ -414,7 +414,7 @@
             <h2 class="h3" id="pro-h">Pro Tier</h2>
             <span class="mono" style="font-size: 13px; color: var(--fg); font-weight: 600; background: var(--bg-alt); border: 1px solid var(--line); padding: 3px 8px; border-radius: 6px;">~$9 / mo in XMR</span>
           </div>
-          <p class="muted" style="font-size: 14.5px;">For high-volume merchants, node aggregators, and multi-wallet setups needing dual-upstream agreement.</p>
+          <p class="muted" id="pro-blurb" style="font-size: 14.5px;">For high-volume merchants, node aggregators, and multi-wallet setups needing dual-upstream agreement.</p>
         </div>
 
         <div id="pro-create" class="col" style="gap: 22px;">
