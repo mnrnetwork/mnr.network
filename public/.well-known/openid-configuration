@@ -1,0 +1,35 @@
+{
+  "issuer": "https://mnr.network",
+  "authorization_endpoint": "https://mnr.network/get-token/",
+  "token_endpoint": "https://rpc.mnr.network/v1/tokens/free",
+  "jwks_uri": "https://mnr.network/.well-known/jwks.json",
+  "response_types_supported": [
+    "token"
+  ],
+  "grant_types_supported": [
+    "client_credentials",
+    "anonymous"
+  ],
+  "token_endpoint_auth_methods_supported": [
+    "none"
+  ],
+  "scopes_supported": [
+    "rpc:read",
+    "rpc:write",
+    "wallet:sync"
+  ],
+  "service_documentation": "https://mnr.network/docs/tokens/",
+  "agent_auth": {
+    "skill": "https://isitagentready.com/.well-known/agent-skills/auth-md/SKILL.md",
+    "register_uri": "https://rpc.mnr.network/v1/tokens/free",
+    "identity_types_supported": [
+      "anonymous"
+    ],
+    "anonymous": {
+      "credential_types_supported": [
+        "bearer_token"
+      ],
+      "claim_uri": "https://mnr.network/get-token/"
+    }
+  }
+}

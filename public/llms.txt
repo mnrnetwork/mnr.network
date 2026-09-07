@@ -49,6 +49,11 @@ monero-wallet-cli \
 - Stage 1 engineering notes (gateway architecture): https://mnr.network/docs/stage1-gateway/
 - Stage 2 protocol architecture: https://mnr.network/docs/stage2-network/
 - Full engineering plans: https://github.com/mnrnetwork/mnr/tree/main/docs
+- RFC 9727 API Catalog: https://mnr.network/.well-known/api-catalog
+- OpenAPI 3.1 Specification: https://mnr.network/openapi.json
+- Agent Registration & Authentication (Auth.md): https://mnr.network/auth.md
+- OAuth Protected Resource Metadata (RFC 9728): https://mnr.network/.well-known/oauth-protected-resource
+- Agentic Commerce Protocol (ACP): https://mnr.network/.well-known/acp.json
 - Full Technical Specification: https://mnr.network/llms-full.txt
 - Source Code: https://github.com/mnrnetwork/mnr
 - Contact: dev@mnr.network

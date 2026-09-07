@@ -1,0 +1,28 @@
+{
+  "protocol": {
+    "name": "acp",
+    "version": "2025-01"
+  },
+  "api_base_url": "https://rpc.mnr.network",
+  "transports": [
+    "http",
+    "json-rpc"
+  ],
+  "capabilities": {
+    "services": [
+      "token_provisioning",
+      "rpc_relay",
+      "membership"
+    ]
+  },
+  "endpoints": {
+    "tokens": "https://rpc.mnr.network/v1/tokens/free",
+    "catalog": "https://mnr.network/.well-known/api-catalog",
+    "pricing": "https://mnr.network/get-token/"
+  },
+  "merchant": {
+    "name": "mnr network",
+    "url": "https://mnr.network",
+    "description": "Verified Monero RPC Relay & Token Provisioning"
+  }
+}

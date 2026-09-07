@@ -1,0 +1,57 @@
+{
+  "linkset": [
+    {
+      "anchor": "https://rpc.mnr.network/v1",
+      "service-desc": [
+        {
+          "href": "https://mnr.network/openapi.json",
+          "type": "application/vnd.oai.openapi+json",
+          "title": "mnr Monero RPC Gateway OpenAPI 3.1 Specification"
+        }
+      ],
+      "service-doc": [
+        {
+          "href": "https://mnr.network/docs/method-policy/",
+          "type": "text/html",
+          "title": "Monero RPC Method Policy & Verification Documentation"
+        },
+        {
+          "href": "https://mnr.network/docs/how-it-works/",
+          "type": "text/html",
+          "title": "How mnr Works: Architecture & Quorum Consensus"
+        }
+      ],
+      "status": [
+        {
+          "href": "https://mnr.network/upstreams/",
+          "type": "text/html",
+          "title": "Monero Node Pool & Live Status Telemetry"
+        }
+      ]
+    },
+    {
+      "anchor": "https://rpc.mnr.network/v1/tokens",
+      "service-desc": [
+        {
+          "href": "https://mnr.network/openapi.json",
+          "type": "application/vnd.oai.openapi+json",
+          "title": "mnr Token Provisioning API Specification"
+        }
+      ],
+      "service-doc": [
+        {
+          "href": "https://mnr.network/docs/tokens/",
+          "type": "text/html",
+          "title": "Tokens and Billing Documentation"
+        }
+      ],
+      "status": [
+        {
+          "href": "https://mnr.network/get-token/",
+          "type": "text/html",
+          "title": "Token Issuance & Pricing Status"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,356 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "mnr — Verified Monero RPC Relay & Token API",
+    "version": "1.0.0",
+    "description": "Verified RPC proxy network for Monero wallets and agents. Provides multi-node quorum consensus, cryptographic PoW and hash verification, anonymous bearer token provisioning, and live upstream telemetry.",
+    "contact": {
+      "name": "mnr network",
+      "url": "https://mnr.network",
+      "email": "dev@mnr.network"
+    },
+    "license": {
+      "name": "AGPL-3.0",
+      "url": "https://www.gnu.org/licenses/agpl-3.0.html"
+    }
+  },
+  "servers": [
+    {
+      "url": "https://rpc.mnr.network",
+      "description": "Primary Clearnet HTTPS Gateway"
+    },
+    {
+      "url": "http://mnrrpcvbopaykx7um32r4iyamontteidypjd33fhzvuy2hwfu5c4ifad.onion",
+      "description": "Tor Hidden Service Gateway (.onion)"
+    }
+  ],
+  "tags": [
+    {
+      "name": "Tokens",
+      "description": "Anonymous token provisioning and lifecycle management"
+    },
+    {
+      "name": "Monero RPC",
+      "description": "Cryptographically verified Monero daemon JSON-RPC and binary endpoints"
+    },
+    {
+      "name": "Telemetry & Health",
+      "description": "Upstream node pool status, verified answers, and fault reports"
+    }
+  ],
+  "paths": {
+    "/v1/tokens/free": {
+      "post": {
+        "tags": ["Tokens"],
+        "summary": "Generate anonymous Free bearer token",
+        "description": "Issues an anonymous 32-character hexadecimal bearer token with 500,000 monthly work units and 5 req/s burst allowance. Zero sign-up, zero email, and zero KYC.",
+        "operationId": "generateFreeToken",
+        "responses": {
+          "200": {
+            "description": "Free token generated successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TokenResponse"
+                },
+                "example": {
+                  "token": "4f8a12d9c0e3b5678912345678abcdef",
+                  "tier": "free",
+                  "work_units_monthly": 500000,
+                  "burst_per_sec": 5,
+                  "sync_streams": 1,
+                  "created_at": "2026-09-07T00:00:00Z"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Rate limit exceeded (max 3 tokens per hour per client)"
+          }
+        }
+      }
+    },
+    "/v1/{token}/rotate": {
+      "post": {
+        "tags": ["Tokens"],
+        "summary": "Rotate an active token",
+        "description": "Issues a replacement token for an existing one. The old token remains valid for 24 hours to enable seamless wallet reconfiguration without interruption.",
+        "operationId": "rotateToken",
+        "parameters": [
+          {
+            "name": "token",
+            "in": "path",
+            "required": true,
+            "description": "Current active 32-character bearer token",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Token rotated successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RotateResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Invalid or expired token"
+          }
+        }
+      }
+    },
+    "/v1/{token}/json_rpc": {
+      "post": {
+        "tags": ["Monero RPC"],
+        "summary": "Verified Monero JSON-RPC proxy",
+        "description": "Executes Monero daemon JSON-RPC methods (e.g. get_block_header_by_height, get_block, get_last_block_header, get_info, get_connections). Recomputes block and tx hashes, verifies proof-of-work, and enforces multi-node quorum consensus.",
+        "operationId": "moneroJsonRpc",
+        "parameters": [
+          {
+            "name": "token",
+            "in": "path",
+            "required": true,
+            "description": "32-character bearer token",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/JsonRpcRequest"
+              },
+              "example": {
+                "jsonrpc": "2.0",
+                "id": "0",
+                "method": "get_block_header_by_height",
+                "params": {
+                  "height": 3401220
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Verified JSON-RPC response",
+            "headers": {
+              "Mnr-Verify": {
+                "description": "Verification status of the returned blockchain data",
+                "schema": {
+                  "type": "string"
+                },
+                "example": "verified; hash-match; quorum=5/5"
+              },
+              "Mnr-Relayed": {
+                "description": "Anonymized identifier of the upstream node that answered",
+                "schema": {
+                  "type": "string"
+                },
+                "example": "upstream-3"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/JsonRpcResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Invalid bearer token"
+          },
+          "429": {
+            "description": "Burst limit or monthly work unit quota exceeded"
+          }
+        }
+      }
+    },
+    "/v1/{token}/get_height": {
+      "get": {
+        "tags": ["Monero RPC"],
+        "summary": "Get verified chain tip height",
+        "description": "Direct HTTP RPC returning the current agreed blockchain height across quorum nodes.",
+        "operationId": "getHeight",
+        "parameters": [
+          {
+            "name": "token",
+            "in": "path",
+            "required": true,
+            "description": "32-character bearer token",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Current chain height",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "height": { "type": "integer", "example": 3401220 },
+                    "status": { "type": "string", "example": "OK" },
+                    "untrusted": { "type": "boolean", "example": false }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/{token}/send_raw_transaction": {
+      "post": {
+        "tags": ["Monero RPC"],
+        "summary": "Broadcast raw Monero transaction",
+        "description": "Broadcasts a signed transaction hex to all healthy upstream nodes simultaneously to ensure rapid mempool propagation.",
+        "operationId": "sendRawTransaction",
+        "parameters": [
+          {
+            "name": "token",
+            "in": "path",
+            "required": true,
+            "description": "32-character bearer token",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["tx_as_hex"],
+                "properties": {
+                  "tx_as_hex": {
+                    "type": "string",
+                    "description": "Raw serialized transaction in hexadecimal format"
+                  },
+                  "do_not_relay": {
+                    "type": "boolean",
+                    "default": false
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Transaction broadcast result",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": { "type": "string", "example": "OK" },
+                    "relayed": { "type": "integer", "example": 6 },
+                    "double_spend": { "type": "boolean", "example": false }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/health": {
+      "get": {
+        "tags": ["Telemetry & Health"],
+        "summary": "Relay Health & Node Consensus",
+        "description": "Returns operational health, relay version, and multi-node quorum state.",
+        "operationId": "getHealth",
+        "responses": {
+          "200": {
+            "description": "Relay is operational",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": { "type": "string", "example": "ok" },
+                    "version": { "type": "string", "example": "0.2.0" },
+                    "quorum_healthy": { "type": "boolean", "example": true },
+                    "active_upstreams": { "type": "integer", "example": 14 }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "TokenResponse": {
+        "type": "object",
+        "required": ["token", "tier", "work_units_monthly", "burst_per_sec"],
+        "properties": {
+          "token": { "type": "string" },
+          "tier": { "type": "string", "enum": ["free", "pro"] },
+          "work_units_monthly": { "type": "integer" },
+          "burst_per_sec": { "type": "integer" },
+          "sync_streams": { "type": "integer" },
+          "created_at": { "type": "string", "format": "date-time" }
+        }
+      },
+      "RotateResponse": {
+        "type": "object",
+        "required": ["token", "old_token_expires_in"],
+        "properties": {
+          "token": { "type": "string" },
+          "status": { "type": "string", "example": "rotated" },
+          "old_token_expires_in": { "type": "integer", "example": 86400 }
+        }
+      },
+      "JsonRpcRequest": {
+        "type": "object",
+        "required": ["jsonrpc", "id", "method"],
+        "properties": {
+          "jsonrpc": { "type": "string", "enum": ["2.0"] },
+          "id": { "type": "string" },
+          "method": { "type": "string" },
+          "params": { "type": "object" }
+        }
+      },
+      "JsonRpcResponse": {
+        "type": "object",
+        "required": ["jsonrpc", "id"],
+        "properties": {
+          "jsonrpc": { "type": "string", "enum": ["2.0"] },
+          "id": { "type": "string" },
+          "result": { "type": "object" },
+          "error": {
+            "type": "object",
+            "properties": {
+              "code": { "type": "integer" },
+              "message": { "type": "string" }
+            }
+          }
+        }
+      }
+    },
+    "securitySchemes": {
+      "TokenAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "description": "32-character hexadecimal bearer token passed in URL path (/v1/<token>/...) or as HTTP Digest username with password 'x'"
+      }
+    }
+  }
+}

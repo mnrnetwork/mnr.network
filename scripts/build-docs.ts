@@ -451,7 +451,12 @@ function renderHtmlLayout(doc: DocMeta, contentHtml: string): string {
   <link rel="manifest" href="/site.webmanifest">
   <link rel="alternate" type="text/markdown" href="${doc.route}index.md">
   <link rel="alternate" type="text/markdown" title="LLM context" href="/llms.txt">
+  <link rel="api-catalog" type="application/linkset+json" href="/.well-known/api-catalog">
+  <link rel="service-desc" type="application/vnd.oai.openapi+json" href="/openapi.json">
+  <link rel="service-doc" type="text/html" href="/docs/method-policy/">
+  <link rel="describedby" type="text/markdown" href="/llms.txt">
   <link rel="stylesheet" href="/search.css">
+  <script src="/webmcp.js"></script>
   <script type="application/ld+json">
   ${JSON.stringify(jsonLd, null, 2)}
   </script>
