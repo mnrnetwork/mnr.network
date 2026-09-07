@@ -64,7 +64,7 @@ Settings → Connection and sync → **Add node**:
 - Login: `<token>`, Password: `x`
 - Turn on **Use SSL**
 - Detailed walkthrough: [Cake Wallet Guide](/docs/wallets/cake-wallet/)
-- Confirmed with Monero.com, Cake's Monero-only sibling built from the same code; Cake itself not yet run by us.
+- Confirmed with Cake Wallet (2026-09-07) and with Monero.com, its Monero-only sibling built from the same code: the same login form, the token as the username.
 
 ### Monerujo
 

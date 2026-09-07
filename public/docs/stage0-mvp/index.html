@@ -432,7 +432,7 @@
 </ol>
 <p>The disclosure paragraph for the front page, verbatim:</p>
 <blockquote>
-<p>mnr is a verified proxy. Your wallet&#39;s requests are forwarded to public Monero nodes run by community members, and to our own public node. We check every block, transaction and header we return against its hash and against several nodes, so you get a better answer than any single node gives — but the nodes are not ours, and we make no uptime promise. We cap our traffic to each public node, identify ourselves to operators, honour opt-outs, and publish the full upstream list. If you need nodes we run ourselves, with an SLA, that is a separate paid service coming later.</p>
+<p>mnr is a verified proxy. Your wallet&#39;s requests are forwarded to public Monero nodes run by community members, and to our own public node. We check every block, transaction and header we return against its hash and against several nodes, so you get a better answer than any single node gives — but the nodes are not ours, and we make no uptime promise. We cap our traffic to each public node, identify ourselves to operators, honour opt-outs, and publish the full upstream list live, with status, latency and our request rate to each node. If you need nodes we run ourselves, with an SLA, that is a separate paid service coming later.</p>
 </blockquote>
 <hr>
 <h2 id="3-upstream-pool">3. Upstream pool</h2>
@@ -445,7 +445,7 @@
 </thead>
 <tbody><tr>
 <td>Sources</td>
-<td>Seed list curated from the well-known public node lists (monero.fail and wallet-maintained lists), clearnet and <code>.onion</code>, mainnet only for now. Target: 8–12 clearnet + 3–5 onion at launch. Nodes run by wallet teams or known community members preferred; anonymous VPS nodes allowed but weighted lower.</td>
+<td>Seed list curated from the well-known public node lists (monero.fail and wallet-maintained lists), clearnet and <code>.onion</code>, mainnet only for now. Target: 8–12 clearnet + 3–5 onion at launch. Nodes run by wallet teams or known community members preferred; anonymous VPS nodes allowed (ranking is by health and latency only; there is no weight field).</td>
 </tr>
 <tr>
 <td>Consent</td>
@@ -453,11 +453,11 @@
 </tr>
 <tr>
 <td>Our node</td>
-<td>Full node, NVMe, <code>--restricted-rpc --public-node</code>, listed publicly, reached by the relayer over a private link (WireGuard) <em>and</em> used as a public node by everyone else. It is <code>tier: owned</code> in config and preferred for streams and tie-breaks.</td>
+<td>Full node, NVMe, <code>--restricted-rpc --public-node</code>, listed publicly, reached by the relayer over a private link (WireGuard) <em>and</em> used as a public node by everyone else. It is <code>kind = &quot;owned&quot;</code> in config and preferred for streams and tie-breaks. The WireGuard link is set up by hand on both boxes; the deploy role does not manage the peer yet.</td>
 </tr>
 <tr>
 <td>Probing</td>
-<td>Every 15 s: <code>get_info</code> + <code>get_last_block_header</code>, 2 s timeout clearnet, 8 s onion (via the box&#39;s local Tor SOCKS). Records RTT (EMA), height, top hash, <code>synchronized</code>, restricted-RPC check.</td>
+<td>Every 15 s: <code>get_info</code> (its <code>top_block_hash</code> is the tip hash; a second <code>get_last_block_header</code> call was dropped, the header chain verifies headers better than a probe could), 2 s timeout clearnet, 8 s onion (via the box&#39;s local Tor SOCKS). Records RTT (EMA), height, top hash, <code>synchronized</code>, restricted-RPC check.</td>
 </tr>
 <tr>
 <td>Quorum tip</td>
@@ -490,7 +490,7 @@
 </tr>
 <tr>
 <td><code>/get_transactions</code></td>
-<td>Keccak(tx blob) = txid; height ≤ tip</td>
+<td>Keccak(tx blob) = txid; height ≤ tip + 3 (the quorum lags a probe round)</td>
 <td>Cheap</td>
 </tr>
 <tr>
@@ -500,7 +500,7 @@
 </tr>
 <tr>
 <td><code>get_info</code>, <code>get_height</code>, fee estimate</td>
-<td>Majority of ≥3 upstreams; node-specific fields normalised; SWR cache 1/5/15 s</td>
+<td>Asked of 3 upstreams, majority of ≥2 agreeing (2/2 counts when only two have capacity); node-specific fields normalised; SWR cache 1/5/15 s</td>
 <td>Cheap</td>
 </tr>
 <tr>
@@ -531,7 +531,7 @@
 <li><strong>Method policy:</strong> the gateway plan §3.3 table as-is, compiled into <code>mnr-core::policy</code>.</li>
 <li><strong>Cache:</strong> in-memory (<code>moka</code>, 1 GB cap) for SWR and immutable-below-tip−10; on-disk store deferred to Stage 1.</li>
 <li><strong>Auth:</strong> 256-bit token, hashed at rest in SQLite; rotation endpoint with 24 h grace. Stock wallets use <code>--daemon-login &lt;token&gt;:x</code> (they speak Digest only and drop any path, found in the beta; the token is the Digest username, the password is ignored); the path form <code>/v1/&lt;token&gt;/…</code> and Basic auth serve curl, scripts and URL-taking clients. Free tokens are issued instantly from the site; no email.</li>
-<li><strong>Limits:</strong> in-process token bucket per token; daily WU quota in SQLite.</li>
+<li><strong>Limits:</strong> in-process token bucket per token (capacity twice the rate, so a burst from idle is 2× the figure below); the monthly allowance enforced as a rolling 30-day sum in SQLite, no per-day cap.</li>
 </ul>
 <div class="table-wrap"><table class="doc-table">
 <thead>
@@ -553,8 +553,8 @@
 </tr>
 <tr>
 <td>Burst</td>
-<td>5 rps</td>
-<td>25 rps</td>
+<td>5 rps (10 from idle)</td>
+<td>25 rps (50 from idle)</td>
 </tr>
 <tr>
 <td><code>get_outs</code></td>
@@ -623,7 +623,7 @@ background: prober (15 s) · header-chain sync · cache epoch on reorg · invoic
 </tr>
 <tr>
 <td>Header-chain sync from public nodes is poisoned</td>
-<td>Built by majority of ≥5 upstreams including our own node; spot-checked against two block explorers as an advisory signal; any disagreement halts the build and alerts.</td>
+<td>Each range is asked of up to five upstreams (all of them when fewer are healthy, never fewer than <code>min_agree</code>), our own node first; a range is appended only when every copy agrees, a minority copy is a fault, and no majority at all is never appended: it is counted (<code>mnr_chain_disagreements_total</code>), logged at error with each copy&#39;s tip, and retried. The explorer spot-check was dropped as redundant with the fault log.</td>
 </tr>
 </tbody></table></div>
 <hr>
