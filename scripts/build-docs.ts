@@ -24,6 +24,7 @@ interface DocMeta {
   howToSteps?: { name: string; text: string }[];
   keywords?: string[];
   featured?: boolean;
+  ogImage?: string;
 }
 
 interface PlanFilter {
@@ -214,6 +215,7 @@ const DOCS: DocMeta[] = [
     description:
       "Free and Pro tiers, work units, instant anonymous token generation, paying Pro invoices in XMR, renewing, and rotating.",
     keywords: ["tokens", "billing", "free tier", "pro tier", "work units", "wu", "xmr invoice", "renew", "rotate"],
+    ogImage: "https://mnr.network/og-token.png",
   },
   {
     id: "method-policy",
@@ -461,6 +463,8 @@ function renderHtmlLayout(doc: DocMeta, contentHtml: string): string {
     "@graph": graph,
   };
 
+  const ogImageUrl = doc.ogImage || "https://mnr.network/og-docs.png";
+
   return `<!doctype html>
 <html lang="en">
 <head>
@@ -475,13 +479,13 @@ function renderHtmlLayout(doc: DocMeta, contentHtml: string): string {
   <meta property="og:type" content="article">
   <meta property="og:url" content="${canonicalUrl}">
   <meta property="og:site_name" content="mnr (Monero Network Relay)">
-  <meta property="og:image" content="https://mnr.network/og-v2.png">
+  <meta property="og:image" content="${ogImageUrl}">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="${doc.title} — mnr (Monero Network Relay)">
   <meta name="twitter:description" content="${doc.description}">
-  <meta name="twitter:image" content="https://mnr.network/og-v2.png">
+  <meta name="twitter:image" content="${ogImageUrl}">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
   <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png">
   <link rel="icon" href="/favicon-16.png" sizes="16x16" type="image/png">
@@ -1308,6 +1312,7 @@ function registerVerified(): void {
     category: "Verified",
     keywords: ["verified", "independent verification", "third-party", "monero.fail", "upstreams", "faults", "ejections", "transparency"],
     featured: true,
+    ogImage: "https://mnr.network/og-v2.png",
   };
   DOCS.push(indexDoc);
   fs.writeFileSync("public/verified/index.html", renderHtmlLayout(indexDoc, processMarkdown(index)));
