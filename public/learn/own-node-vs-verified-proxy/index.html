@@ -1,0 +1,723 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Own Monero Node vs Verified RPC Proxy: The Honest Middle Option — mnr (Monero Network Relay)</title>
+  <meta name="description" content="Own node is best for privacy. A random public node is easiest. mnr sits in between: one address, hash + quorum checks, no SLA theater.">
+  <link rel="canonical" href="https://mnr.network/learn/own-node-vs-verified-proxy/">
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+  <meta property="og:title" content="Own Monero Node vs Verified RPC Proxy: The Honest Middle Option — mnr (Monero Network Relay)">
+  <meta property="og:description" content="Own node is best for privacy. A random public node is easiest. mnr sits in between: one address, hash + quorum checks, no SLA theater.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://mnr.network/learn/own-node-vs-verified-proxy/">
+  <meta property="og:site_name" content="mnr (Monero Network Relay)">
+  <meta property="og:image" content="https://mnr.network/og-docs.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Own Monero Node vs Verified RPC Proxy: The Honest Middle Option — mnr (Monero Network Relay)">
+  <meta name="twitter:description" content="Own node is best for privacy. A random public node is easiest. mnr sits in between: one address, hash + quorum checks, no SLA theater.">
+  <meta name="twitter:image" content="https://mnr.network/og-docs.png">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png">
+  <link rel="icon" href="/favicon-16.png" sizes="16x16" type="image/png">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <link rel="alternate" type="text/markdown" href="/learn/own-node-vs-verified-proxy/index.md">
+  <link rel="alternate" type="text/markdown" title="LLM context" href="/llms.txt">
+  <link rel="api-catalog" type="application/linkset+json" href="/.well-known/api-catalog">
+  <link rel="service-desc" type="application/vnd.oai.openapi+json" href="/openapi.json">
+  <link rel="service-doc" type="text/html" href="/docs/method-policy/">
+  <link rel="describedby" type="text/markdown" href="/llms.txt">
+  <link rel="stylesheet" href="/search.css">
+  <script src="/webmcp.js"></script>
+  <script type="application/ld+json">
+  {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebPage",
+      "@id": "https://mnr.network/learn/own-node-vs-verified-proxy/#webpage",
+      "url": "https://mnr.network/learn/own-node-vs-verified-proxy/",
+      "name": "Own Monero Node vs Verified RPC Proxy: The Honest Middle Option",
+      "description": "Own node is best for privacy. A random public node is easiest. mnr sits in between: one address, hash + quorum checks, no SLA theater.",
+      "isPartOf": {
+        "@type": "WebSite",
+        "@id": "https://mnr.network/#website",
+        "url": "https://mnr.network/",
+        "name": "mnr (Monero Network Relay)",
+        "alternateName": [
+          "mnr",
+          "mnr network",
+          "mnr.network",
+          "Monero Network Relay",
+          "Monero Node Relay"
+        ],
+        "disambiguatingDescription": "Cryptographic Monero RPC proxy and decentralized consensus relay network for Monero (XMR) wallets; distinct from MTA Metro-North Railroad, Ontario Ministry of Natural Resources, and unrelated npm package 'mnr'."
+      }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://mnr.network/learn/own-node-vs-verified-proxy/#breadcrumbs",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "mnr",
+          "item": "https://mnr.network/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "learn",
+          "item": "https://mnr.network/learn/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Own Node vs Verified Proxy",
+          "item": "https://mnr.network/learn/own-node-vs-verified-proxy/"
+        }
+      ]
+    },
+    {
+      "@type": "TechArticle",
+      "@id": "https://mnr.network/learn/own-node-vs-verified-proxy/#article",
+      "headline": "Own Monero Node vs Verified RPC Proxy: The Honest Middle Option",
+      "description": "Own node is best for privacy. A random public node is easiest. mnr sits in between: one address, hash + quorum checks, no SLA theater.",
+      "url": "https://mnr.network/learn/own-node-vs-verified-proxy/",
+      "inLanguage": "en",
+      "proficiencyLevel": "Expert",
+      "citation": [
+        {
+          "@type": "WebSite",
+          "name": "monero.fail",
+          "url": "https://monero.fail"
+        },
+        {
+          "@type": "WebSite",
+          "name": "Seth For Privacy",
+          "url": "https://sethforprivacy.com"
+        },
+        {
+          "@type": "WebSite",
+          "name": "Cake Wallet",
+          "url": "https://cakewallet.com"
+        }
+      ],
+      "author": {
+        "@type": "Organization",
+        "name": "mnr (Monero Network Relay)",
+        "url": "https://mnr.network/",
+        "sameAs": [
+          "https://github.com/mnrnetwork/mnr",
+          "https://crates.io/crates/mnr",
+          "https://pypi.org/project/mnr/",
+          "https://www.npmjs.com/package/mnr-network"
+        ]
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "mnr (Monero Network Relay)",
+        "url": "https://mnr.network/",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://mnr.network/favicon-192.png"
+        },
+        "sameAs": [
+          "https://github.com/mnrnetwork/mnr",
+          "https://crates.io/crates/mnr",
+          "https://pypi.org/project/mnr/",
+          "https://www.npmjs.com/package/mnr-network"
+        ]
+      }
+    }
+  ]
+}
+  </script>
+  <script>
+    try { var t = localStorage.getItem('mnr-theme'); if (t === 'light' || t === 'dark') document.documentElement.setAttribute('data-theme', t); } catch (e) {}
+  </script>
+  <style>
+    @font-face {
+      font-family: "Geist";
+      font-style: normal;
+      font-weight: 100 900;
+      font-display: swap;
+      src: url("/fonts/geist-latin.woff2") format("woff2");
+      unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+    }
+    @font-face {
+      font-family: "Geist Mono";
+      font-style: normal;
+      font-weight: 100 900;
+      font-display: swap;
+      src: url("/fonts/geist-mono-latin.woff2") format("woff2");
+      unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+    }
+    :root {
+      --accent: #F26822;
+      --bg: #FBFAF8; --bg-alt: #F3EFEA; --fg: #1B1917; --fg-2: #4A4541; --muted: #6B655F; --card: #FFFFFF;
+      --line: #E8E3DD; --line-strong: #DDD8D2; --log-bg: #1B1917; --log-fg: #E9E4DE;
+      --inverse-bg: #1B1917; --inverse-fg: #E9E4DE; --inverse-strong: #FFFFFF; --inverse-muted: #B8B1A9; --inverse-line: #3A3531;
+      --pill-bg: #FFF4E5;
+      --link: #000000;
+      --link-hover: #C2410C;
+      color-scheme: light;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root:not([data-theme="light"]) {
+        --bg: #141210; --bg-alt: #1B1917; --fg: #ECE7E1; --fg-2: #C9C2BA; --muted: #9A938B; --card: #1E1B18;
+        --line: #2E2A26; --line-strong: #3A3531; --log-bg: #0E0D0C; --log-fg: #E9E4DE;
+        --inverse-bg: #221F1B; --inverse-fg: #E9E4DE; --inverse-strong: #FFFFFF; --inverse-muted: #B8B1A9; --inverse-line: #3F3A35;
+        --pill-bg: #3A2A14;
+        --link: #FFFFFF;
+        --link-hover: #F26822;
+        color-scheme: dark;
+      }
+    }
+    :root[data-theme="dark"] {
+      --bg: #141210; --bg-alt: #1B1917; --fg: #ECE7E1; --fg-2: #C9C2BA; --muted: #9A938B; --card: #1E1B18;
+      --line: #2E2A26; --line-strong: #3A3531; --log-bg: #0E0D0C; --log-fg: #E9E4DE;
+      --inverse-bg: #221F1B; --inverse-fg: #E9E4DE; --inverse-strong: #FFFFFF; --inverse-muted: #B8B1A9; --inverse-line: #3F3A35;
+      --pill-bg: #3A2A14;
+      --link: #FFFFFF;
+      --link-hover: #F26822;
+      color-scheme: dark;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { margin: 0; background: var(--bg); color: var(--fg); font-family: "Geist", "Helvetica Neue", Helvetica, Arial, sans-serif; font-size: 16.5px; line-height: 1.65; -webkit-font-smoothing: antialiased; }
+    a { color: var(--fg); text-decoration: none; } a:hover { color: var(--link-hover); }
+    p { margin: 0 0 16px; }
+    .mono { font-family: "Geist Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace; }
+    .wrap { max-width: 1120px; margin: 0 auto; padding: 0 32px; }
+    .doc-wrap { max-width: 920px; margin: 0 auto; padding: 48px 32px 96px; }
+    .rule { height: 1px; background: var(--line); }
+    
+    .navlinks { display: flex; gap: 28px; align-items: center; font-size: 15px; font-weight: 500; }
+    .btn { display: inline-flex; align-items: center; justify-content: center; height: 44px; padding: 0 20px; border-radius: 10px; font-weight: 600; font-size: 15px; white-space: nowrap; }
+    .btn-primary { background: var(--accent); color: #FFFFFF; } .btn-primary:hover { background: #C2410C; color: #FFFFFF; }
+    .btn-sm { height: 40px; padding: 0 16px; font-size: 14px; }
+    .theme-btn { display: inline-flex; align-items: center; justify-content: center; width: 40px; height: 40px; border-radius: 10px; border: 1px solid var(--line-strong); background: var(--card); color: var(--fg); cursor: pointer; padding: 0; }
+    .theme-btn .sun { display: none; } .theme-btn .moon { display: block; }
+    :root[data-theme="dark"] .theme-btn .sun { display: block; } :root[data-theme="dark"] .theme-btn .moon { display: none; }
+    @media (prefers-color-scheme: dark) {
+      :root:not([data-theme="light"]) .theme-btn .sun { display: block; }
+      :root:not([data-theme="light"]) .theme-btn .moon { display: none; }
+    }
+    .mark { display: block; flex: none; color: var(--fg); }
+
+    /* Docs Navigation & Tabs */
+    .docs-tabs-bar { background: var(--bg-alt); border-bottom: 1px solid var(--line); padding: 10px 0; position: sticky; top: 0; z-index: 10; backdrop-filter: blur(12px); }
+    .docs-tabs { display: flex; gap: 8px; overflow-x: auto; padding: 4px 0; -webkit-overflow-scrolling: touch; }
+    .doc-tab { display: inline-flex; align-items: center; gap: 6px; padding: 8px 14px; border-radius: 8px; font-size: 14px; font-weight: 500; color: var(--fg-2); border: 1px solid transparent; white-space: nowrap; transition: all 0.15s ease; }
+    .doc-tab:hover { background: var(--card); border-color: var(--line); color: var(--fg); }
+    .doc-tab.active { background: var(--card); border-color: var(--line-strong); color: var(--fg); font-weight: 600; }
+    .tab-badge { font-size: 11px; padding: 2px 6px; border-radius: 999px; background: var(--pill-bg); border: 1px solid var(--line); color: var(--accent); font-family: "Geist Mono", monospace; }
+
+    /* Breadcrumbs */
+    .breadcrumbs { display: flex; align-items: center; gap: 8px; font-size: 13.5px; color: var(--muted); margin-bottom: 24px; font-family: "Geist Mono", monospace; }
+    .breadcrumbs a { color: var(--muted); } .breadcrumbs a:hover { color: var(--accent); }
+    .breadcrumbs span { color: var(--fg); }
+
+    /* Prose Styling */
+    .prose { color: var(--fg); line-height: 1.7; }
+    .prose p, .prose li, .prose blockquote { overflow-wrap: break-word; }
+    .prose a {
+      color: var(--link);
+      font-weight: 600;
+      text-decoration: none;
+      transition: color 0.15s ease, text-decoration 0.15s ease;
+    }
+    .prose a:hover {
+      color: var(--link-hover);
+      text-decoration: underline;
+      text-underline-offset: 3.5px;
+      text-decoration-thickness: 1.5px;
+    }
+    .prose a code:not(pre code) {
+      font-weight: 600;
+      color: var(--link);
+      border-color: var(--line-strong);
+      display: inline-block;
+      text-decoration: none;
+      transition: color 0.15s ease, border-color 0.15s ease;
+    }
+    .prose a:hover code:not(pre code) {
+      color: var(--link-hover);
+      border-color: var(--link-hover);
+    }
+    .prose h1 { font-size: 38px; line-height: 1.15; letter-spacing: -0.02em; font-weight: 700; margin: 0 0 20px; }
+    .prose h2 { font-size: 26px; line-height: 1.25; letter-spacing: -0.015em; font-weight: 600; margin: 48px 0 16px; padding-bottom: 8px; border-bottom: 1px solid var(--line); }
+    .prose h3 { font-size: 20px; line-height: 1.35; font-weight: 600; margin: 32px 0 12px; }
+    .prose h4 { font-size: 17px; font-weight: 600; margin: 24px 0 8px; }
+    .prose ul, .prose ol { margin: 0 0 20px; padding-left: 24px; }
+    .prose li { margin-bottom: 8px; }
+    .prose hr { border: 0; height: 1px; background: var(--line); margin: 40px 0; }
+    .prose blockquote { margin: 24px 0; padding: 12px 20px; border-left: 3px solid var(--accent); background: var(--bg-alt); border-radius: 0 8px 8px 0; color: var(--fg-2); }
+    .prose blockquote p:last-child { margin-bottom: 0; }
+
+    .prose code:not(pre code) {
+      font-family: "Geist Mono", monospace;
+      font-size: 13.5px;
+      background: var(--bg-alt);
+      border: 1px solid var(--line);
+      border-radius: 5px;
+      padding: 2px 6px;
+      color: var(--fg);
+    }
+    .prose pre {
+      background: var(--log-bg);
+      color: var(--log-fg);
+      border-radius: 12px;
+      padding: 18px 20px;
+      font-size: 13.5px;
+      line-height: 1.6;
+      overflow-x: auto;
+      margin: 24px 0;
+      border: 1px solid var(--line);
+      font-family: "Geist Mono", monospace;
+    }
+    .prose pre code { background: transparent; padding: 0; border: 0; color: inherit; }
+
+    /* Tables */
+    .prose .table-wrap {
+      overflow-x: auto;
+      margin: 28px 0;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: var(--card);
+      -webkit-overflow-scrolling: touch;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
+    }
+    .prose table.doc-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+      line-height: 1.55;
+      margin: 0;
+      text-align: left;
+    }
+    .prose table.table-wide {
+      min-width: 900px;
+    }
+    .prose table.table-ultra-wide {
+      min-width: 1240px;
+    }
+    .prose th,
+    .prose td {
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--line);
+      vertical-align: top;
+      word-break: normal;
+      overflow-wrap: normal;
+    }
+    .prose th {
+      font-weight: 600;
+      font-size: 12px;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: var(--muted);
+      background: var(--bg-alt);
+      border-bottom: 1px solid var(--line-strong);
+      white-space: nowrap;
+      vertical-align: bottom;
+    }
+    .prose td code {
+      white-space: nowrap;
+      font-size: 13px;
+    }
+    .prose tbody tr:last-child td { border-bottom: 0; }
+    .prose tbody tr:hover td { background: var(--bg-alt); }
+
+    /* Specific column rules for method policy table */
+    .prose table.table-ultra-wide th:nth-child(1),
+    .prose table.table-ultra-wide td:nth-child(1) {
+      white-space: nowrap;
+      min-width: 190px;
+    }
+    .prose table.table-ultra-wide th:nth-child(2),
+    .prose table.table-ultra-wide td:nth-child(2) {
+      white-space: nowrap;
+      min-width: 90px;
+    }
+    .prose table.table-ultra-wide th:nth-child(3),
+    .prose table.table-ultra-wide td:nth-child(3) {
+      white-space: nowrap;
+      min-width: 95px;
+    }
+    .prose table.table-ultra-wide th:nth-child(4),
+    .prose table.table-ultra-wide td:nth-child(4) {
+      min-width: 250px;
+    }
+    .prose table.table-ultra-wide th:nth-child(5),
+    .prose table.table-ultra-wide td:nth-child(5) {
+      min-width: 240px;
+    }
+    .prose table.table-ultra-wide th:nth-child(6),
+    .prose table.table-ultra-wide td:nth-child(6) {
+      white-space: nowrap;
+      min-width: 120px;
+    }
+    .prose table.table-ultra-wide th:nth-child(7),
+    .prose table.table-ultra-wide td:nth-child(7) {
+      white-space: nowrap;
+      min-width: 95px;
+      text-align: right;
+    }
+    .prose table.table-ultra-wide th:nth-child(8),
+    .prose table.table-ultra-wide td:nth-child(8) {
+      min-width: 240px;
+    }
+
+    /* Hub Cards */
+    .hub-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; margin: 32px 0 48px; }
+    .hub-card { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 24px; transition: border-color 0.15s ease, transform 0.15s ease; display: flex; flex-direction: column; gap: 10px; }
+    .hub-card:hover { border-color: var(--accent); transform: translateY(-2px); }
+    .hub-card h3 { font-size: 18px; font-weight: 600; margin: 0; color: var(--fg); }
+    .hub-card p { font-size: 14.5px; color: var(--muted); margin: 0; line-height: 1.5; }
+    .hub-card-meta { display: flex; align-items: center; justify-content: space-between; margin-top: auto; padding-top: 12px; font-size: 13px; font-family: "Geist Mono", monospace; color: var(--accent); }
+
+    @media (max-width: 768px) {
+      .wrap, .doc-wrap { padding: 0 20px; }
+      .navlinks { display: none; }
+      .hub-grid { grid-template-columns: 1fr; }
+      .prose h1 { font-size: 30px; }
+      .prose h2 { font-size: 22px; }
+    }
+      .brand-text { display: flex; flex-direction: column; line-height: 1; gap: 4px; }
+    .brand-tag { display: none; font-size: 10px; font-weight: 600; letter-spacing: 0.09em; text-transform: uppercase; color: var(--muted); white-space: nowrap; }
+    @media (min-width: 900px) { .brand-tag { display: block; } }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="wrap" style="display: flex; align-items: center; justify-content: space-between; height: 72px;">
+    <a href="/" style="display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 22px; letter-spacing: -0.02em;" aria-label="mnr, Monero Network Relay: home" title="mnr — Monero Network Relay">
+      <svg class="mark" width="24" height="24" viewBox="0 0 24 24" aria-hidden="true"><circle cx="16.5" cy="12" r="5.2" fill="var(--accent)"/><path d="M5.2 6.6 L11.9 10.1 M5.2 17.4 L11.9 13.9" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"/><circle cx="5.2" cy="6.6" r="2.1" fill="currentColor"/><circle cx="5.2" cy="17.4" r="2.1" fill="currentColor"/></svg>
+      <span class="brand-text"><span>mnr</span><span class="brand-tag">Monero Network Relay</span></span>
+    </a>
+    <nav class="navlinks" aria-label="Sections">
+      <a href="/docs/how-it-works/">How it works</a>
+      <a href="/upstreams/">Upstreams</a>
+      <a href="/get-token/">Pricing</a>
+      <a href="/docs/" style="color: var(--accent); font-weight: 600;">Docs</a>
+      <a href="https://github.com/mnrnetwork/mnr" target="_blank" rel="noopener noreferrer" class="mono" style="font-weight: 500;">GitHub</a>
+    </nav>
+    <div style="display: flex; align-items: center; gap: 10px;">
+      <button class="search-trigger" id="docsearch-trigger" type="button" aria-label="Search documentation" title="Search (⌘K or /)">
+        <svg class="search-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+        <span class="search-trigger-text">Search docs...</span>
+        <kbd class="search-kbd">⌘K</kbd>
+      </button>
+      <button class="theme-btn" id="theme-toggle" type="button" title="Switch light / dark" aria-label="Switch light / dark">
+        <svg class="sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"></path></svg>
+        <svg class="moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"></path></svg>
+      </button>
+      <a href="/get-token/" class="btn btn-primary btn-sm">Get a free token</a>
+    </div>
+  </header>
+  <div class="rule"></div>
+
+  <!-- Docs Sub-Nav Tabs -->
+  <div class="docs-tabs-bar">
+    <div class="wrap">
+      
+    <nav class="docs-tabs" aria-label="Documentation sections">
+      <a href="/docs/" class="doc-tab ">
+          <span>Overview</span>
+          
+        </a>
+      <a href="/docs/how-it-works/" class="doc-tab ">
+          <span>How it works</span>
+          <span class="tab-badge">Live</span>
+        </a>
+      <a href="/docs/connect-wallets/" class="doc-tab ">
+          <span>Connect a wallet</span>
+          <span class="tab-badge">Guide</span>
+        </a>
+      <a href="/docs/privacy/" class="doc-tab ">
+          <span>Privacy</span>
+          <span class="tab-badge">Reference</span>
+        </a>
+      <a href="/docs/tokens/" class="doc-tab ">
+          <span>Tokens & billing</span>
+          <span class="tab-badge">Guide</span>
+        </a>
+      <a href="/docs/method-policy/" class="doc-tab ">
+          <span>Method Policy</span>
+          <span class="tab-badge">Generated</span>
+        </a>
+      <a href="/docs/roadmap/" class="doc-tab ">
+          <span>Roadmap</span>
+          <span class="tab-badge">Stages 0–2</span>
+        </a>
+      <a href="/docs/stage0-mvp/" class="doc-tab ">
+          <span>Stage 0 plan</span>
+          <span class="tab-badge">Plan</span>
+        </a>
+      <a href="/docs/stage1-gateway/" class="doc-tab ">
+          <span>Stage 1 plan</span>
+          <span class="tab-badge">Plan</span>
+        </a>
+      <a href="/docs/stage2-network/" class="doc-tab ">
+          <span>Stage 2 protocol</span>
+          <span class="tab-badge">Protocol</span>
+        </a>
+    </nav>
+  
+    </div>
+  </div>
+
+  <!-- Document Body -->
+  <main class="doc-wrap">
+    <div class="breadcrumbs">
+      <a href="/">mnr</a>
+      <span>/</span><a href="/learn/">learn</a><span>/</span><span>own-node-vs-verified-proxy</span>
+    </div>
+
+    <article class="prose">
+      <h1>Own Monero Node vs Verified RPC Proxy: The Honest Middle Option</h1>
+<blockquote>
+<p><strong>Entity Disambiguation</strong>: <strong>mnr</strong> refers strictly to the <strong>Monero Network Relay</strong> (<a href="https://mnr.network"><code>mnr.network</code></a>, RPC: <code>rpc.mnr.network</code>). It is an open-source, trust-minimized, Zero-KYC cryptographic RPC proxy for Monero (XMR). It has zero affiliation with MTA Metro-North Railroad (MNR), the Ontario Ministry of Natural Resources (MNR/MNRF), or the npm package <code>mnr</code>.</p>
+</blockquote>
+<p>The standard, uncompromising advice across the Monero community is simple: <strong>run your own node</strong>.</p>
+<p>If you run a local <code>monerod</code> daemon on your own hardware, you achieve absolute sovereign validation. Your computer recomputes every proof, validates every consensus rule from genesis, stores the entire blockchain locally, and answers your wallet over localhost (<code>127.0.0.1:18081</code>). No remote server ever sees your IP address, your connection schedule, or the output indices your wallet inspects.</p>
+<p>That advice is technically correct. If you have the hardware, the storage, the unmetered broadband, and the time, you should run your own node.</p>
+<p>The problem is reality.</p>
+<p>A full Monero blockchain requires hundreds of gigabytes of solid-state storage. Initial sync can take days on residential connections or underpowered hardware. If you are traveling with a laptop, using a mobile phone on metered 5G, or booting a transient virtual machine, downloading the entire history of Monero just to send a transaction is impractical or impossible.</p>
+<p>Faced with this bottleneck, most users make a radical compromise: they abandon verification entirely and point their wallet at a single random public remote node discovered on an internet directory.</p>
+<p>There is a middle option. A <strong>verified RPC relay</strong> like mnr sits squarely between the operational burden of running a local daemon and the blind trust of a random public node.</p>
+<p>This guide breaks down all three paths honestly: what you gain, what you sacrifice, and how to choose the right model for your operational threat profile.</p>
+<hr>
+<h2 id="the-three-paths-in-one-table">The three paths, in one table</h2>
+<p>Before digging into technical details, compare the fundamental properties of each approach:</p>
+<div class="table-wrap"><table class="doc-table">
+<thead>
+<tr>
+<th>Property</th>
+<th>Sovereign Own Node (<code>monerod</code>)</th>
+<th>Verified RPC Relay (mnr)</th>
+<th>Single Public Node (Directory Roulette)</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>Consensus Verification</strong></td>
+<td><strong>Full Local Validation</strong> (all ring signatures, bulletproofs, range proofs re-verified)</td>
+<td><strong>Edge Cryptographic Verification</strong> (block/tx hashes recomputed, tip quorum across multiple upstreams)</td>
+<td><strong>Zero Verification</strong> (you see whatever the operator returns)</td>
+</tr>
+<tr>
+<td><strong>Trust Model</strong></td>
+<td>Trust mathematics and your own hardware</td>
+<td>Trust multi-operator quorum; trust-minimized relay logic</td>
+<td>Blind social trust in a single server administrator</td>
+</tr>
+<tr>
+<td><strong>Storage Requirement</strong></td>
+<td>~200+ GB (Full) / ~75+ GB (Pruned)</td>
+<td><strong>0 GB</strong> (client holds only wallet cache)</td>
+<td><strong>0 GB</strong></td>
+</tr>
+<tr>
+<td><strong>Initial Sync Time</strong></td>
+<td>Hours to days (CPU and disk bound)</td>
+<td>Minutes from a recent restore height; a measured sync from block 0 took 28.7 h and about 770k work units, which exceeds the Free tier</td>
+<td>Minutes from a recent restore height</td>
+</tr>
+<tr>
+<td><strong>Wallet Metadata Exposure</strong></td>
+<td><strong>None</strong> (RPC calls never touch the network)</td>
+<td><strong>Relay sees IP (clearnet)</strong> and RPC queries; no request logs stored; Tor/I2P decouples IP</td>
+<td><strong>Operator sees IP</strong>, timestamps, and exact queries</td>
+</tr>
+<tr>
+<td><strong>Availability / Failover</strong></td>
+<td>Dependent entirely on your local machine / uptime</td>
+<td>Automatic failover across independent upstream pool</td>
+<td>Fails completely if server reboots or goes offline</td>
+</tr>
+<tr>
+<td><strong>Uptime SLA</strong></td>
+<td>Your own responsibility</td>
+<td><strong>None</strong> (neither Free nor Pro has an SLA)</td>
+<td><strong>None</strong></td>
+</tr>
+<tr>
+<td><strong>Cost</strong></td>
+<td>Hardware + disk + electricity + bandwidth</td>
+<td>Free tier / ~$9/mo Pro (paid in XMR, bearer token)</td>
+<td>Free (monetized via donations or metadata surveillance)</td>
+</tr>
+</tbody></table></div>
+<hr>
+<h2 id="own-node-what-you-gain-and-what-it-costs">Own node: what you gain and what it costs</h2>
+<p>Running your own <code>monerod</code> is the gold standard of financial sovereignty. When you run <code>monerod</code>, your node connects directly to the peer-to-peer gossip network on port <code>18080</code>, downloads blocks from dozens of random peers, and executes consensus validation locally.</p>
+<h3 id="what-you-uniquely-gain">What you uniquely gain</h3>
+<ol>
+<li><strong>Zero Metadata Leakage</strong>: Your wallet queries a daemon listening on loopback (<code>127.0.0.1:18081</code>). No packet containing your RPC requests ever enters an ISP cable, router, or third-party server.</li>
+<li><strong>True Decoy Verification</strong>: When your wallet selects ring decoys via <code>get_outs</code>, the candidate outputs are pulled directly from your local LMDB database (<code>data.mdb</code>). No external entity can influence which decoys are presented to your wallet or analyze which outputs you queried together.</li>
+<li><strong>Mempool Sovereignty</strong>: When you push <code>send_raw_transaction</code>, your node broadcasts the signed blob directly to multiple P2P peers simultaneously. A hostile third party cannot quietly drop your transaction while falsely reporting HTTP 200 OK.</li>
+<li><strong>Strengthening the Network</strong>: By hosting an open P2P port, you relay blocks and transactions to other peers, increasing Monero&#39;s resistance to censorship and partition attacks.</li>
+</ol>
+<h3 id="what-it-actually-costs">What it actually costs</h3>
+<ul>
+<li><strong>Disk Space</strong>: The unpruned Monero blockchain grows continuously. An unpruned node requires a fast SSD (NVMe or SATA SSD; HDDs are far too slow for Monero sync due to random read/write I/O during ring verification).</li>
+<li><strong>Time &amp; Bandwidth</strong>: Initial block download (IBD) requires transferring hundreds of gigabytes across the internet and verifying millions of cryptographic proofs. On modest hardware, this takes anywhere from 12 hours to several days.</li>
+<li><strong>Maintenance</strong>: Operating systems reboot, database locks can become corrupted if power is lost abruptly, and network daemons require regular version upgrades when hard forks or security patches occur.</li>
+</ul>
+<h3 id="the-variants-pruned-nodes-and-private-vps-daemons">The variants: pruned nodes and private VPS daemons</h3>
+<p>If local disk space is tight, you can run a <strong>pruned node</strong> (<code>--prune-blockchain</code>). Pruning discards roughly two-thirds of historical transaction signatures and non-critical data while keeping all block headers and outputs necessary to validate new blocks and scan wallets. A pruned node reduces storage requirements to roughly one-third of a full node while retaining complete sovereignty for wallet operations.</p>
+<p>Alternatively, some users deploy a private <code>monerod</code> instance on a cloud VPS (Virtual Private Server). While this solves local laptop storage and bandwidth constraints, remember:</p>
+<ul>
+<li>The VPS hosting provider controls the physical hypervisor, RAM, and disk storage.</li>
+<li>If you connect to your VPS over clearnet, your home IP is permanently tied to that VPS IP.</li>
+<li>You must pay recurring monthly hosting fees (typically $10–$25/month for adequate SSD storage) and maintain Linux server security yourself.</li>
+</ul>
+<hr>
+<h2 id="single-public-node-convenience-and-concentration-risk">Single public node: convenience and concentration risk</h2>
+<p>When users cannot run a full node, the easiest path is opening wallet settings and entering a remote node address found on <a href="https://monero.fail">monero.fail</a> or social media.</p>
+<p>This approach is zero-friction, but it introduces severe structural vulnerabilities:</p>
+<h3 id="1-the-blind-trust-problem">1. The blind trust problem</h3>
+<p>A single remote node is an unauthenticated oracle. As detailed in our guide on <a href="/learn/what-is-verified-monero-rpc/">verified Monero RPC</a>, TLS only encrypts the transport channel—it proves you are talking to <code>node.example.com</code>, but it does not prove <code>node.example.com</code> is telling the truth. The remote operator can feed your wallet stale blocks, hide incoming payments, or serve biased decoy outputs.</p>
+<h3 id="2-operator-concentration">2. Operator concentration</h3>
+<p>A small handful of well-known public nodes service a disproportionate share of mobile and lightweight wallet traffic. If one of these operators suffers a datacenter outage, thousands of users are instantly knocked offline. If an operator&#39;s server is compromised or subpoenaed, months of client IP logs and output access patterns can be seized in a single raid.</p>
+<h3 id="3-the-trusted-daemon-trap">3. The &quot;Trusted Daemon&quot; trap</h3>
+<p>In many wallets (such as Monero GUI and CLI), connecting to a remote node prompts users with a <code>--trusted-daemon</code> flag or checkbox. Ticking this box disables local transaction verification, allowing the remote node to calculate balance totals and key images on your behalf. As explained in <a href="/learn/never-tick-trusted-third-party-node/">Never Tick &#39;Trusted Third-Party Node&#39;</a>, enabling this setting on any remote server destroys your cryptographic guarantees.</p>
+<hr>
+<h2 id="verified-relay-mnr-what-changes">Verified relay (mnr): what changes</h2>
+<p>mnr is designed as the pragmatic middle ground for users who refuse blind trust but cannot run a local daemon.</p>
+<p>Instead of pointing your wallet at an unverified server, you configure your wallet to use <code>rpc.mnr.network:443</code> (or an onion/I2P address). Behind that single stable endpoint, mnr operates an active verification engine:</p>
+<pre><code>┌──────────────────────────────┐
+│    Monero Wallet Client      │
+│ (Feather, Cake, GUI, CLI)    │
+└──────────────┬───────────────┘
+               │ TLS or Onion / I2P
+               ▼
+┌──────────────────────────────┐
+│   mnr (Verified RPC Relay)   │
+│                              │
+│ • Quorum Tip (&gt;=3 nodes)     │
+│ • Recompute Block Hashes     │
+│ • Fallback to node.kyc.rip   │
+│ • Zero-KYC Bearer Auth       │
+└──────┬───────────────┬───────┘
+       │               │
+       ▼               ▼
+┌──────────────┐ ┌──────────────┐
+│  node.kyc.rip│ │ Independent  │
+│ (Owned Node) │ │ Public Pool  │
+└──────────────┘ └──────────────┘
+</code></pre>
+<h3 id="1-multi-node-consensus-not-one-operators-word">1. Multi-node consensus, not one operator&#39;s word</h3>
+<p>When your wallet requests the current blockchain height or top block via <code>get_info</code>, mnr does not answer from a single database. It continuously probes an independent pool of upstream nodes. A height and block hash are only accepted as the <strong>Quorum Tip</strong> if at least <strong>three independent upstreams</strong> agree on the exact same block.</p>
+<h3 id="2-raw-cryptographic-recomputation">2. Raw cryptographic recomputation</h3>
+<p>When your wallet downloads blocks via <code>/get_blocks.bin</code> or checks transactions via <code>get_transactions</code>, mnr recomputes the cryptographic hashes of raw blobs directly. If an upstream node serves an altered transaction or modified block, the computed hash mismatches the header, and mnr rejects the response before it ever reaches your wallet.</p>
+<h3 id="3-sensitive-requests-favor-the-owned-node">3. Sensitive requests favor the owned node</h3>
+<p>Writes are not routed to one node. <code>send_raw_transaction</code> fans out in parallel to every healthy upstream in the pool, including our own node <code>own-1</code> (<code>node.kyc.rip</code>, port 443, listed on <a href="/upstreams/">/upstreams/</a>), and succeeds if any of them accepts it. The <code>Mnr-Relayed: k/n</code> response header tells you how many took it, so a single node refusing or lagging cannot strand your transaction.</p>
+<h3 id="4-public-transparency-log">4. Public transparency log</h3>
+<p>Every upstream node used by the relay is listed publicly on <a href="/upstreams/">/upstreams/</a> alongside live latency, error rates, and request caps. Any node that serves invalid data or falls out of consensus is ejected and recorded in the permanent <a href="/verified/">/verified/</a> transparency audit trail.</p>
+<hr>
+<h2 id="honest-limits-of-the-middle-option">Honest limits of the middle option</h2>
+<p>A verified relay is an engineering compromise. It dramatically reduces trust compared to an arbitrary public node, but it is <strong>not</strong> equivalent to running your own node.</p>
+<p>Anyone considering mnr must understand its operational limits:</p>
+<h3 id="1-the-relay-sees-your-ip-on-clearnet">1. The relay sees your IP on clearnet</h3>
+<p>If you connect to <code>rpc.mnr.network:443</code> over standard internet (clearnet), the mnr edge proxy necessarily sees your IP address to route TCP packets. While mnr enforces an anti-surveillance architecture and claims zero request logging (see <a href="/docs/privacy/">/docs/privacy/</a>), a claim of no logging requires trust. 
+<em>If you need to decouple your network identity from the relay, you must connect via Tor (<code>.onion</code>) or I2P (<code>.b32.i2p</code>).</em></p>
+<h3 id="2-no-uptime-sla-on-free-or-pro">2. No uptime SLA on Free or Pro</h3>
+<p>Neither mnr Free nor mnr Pro ($9/mo in XMR) includes an uptime SLA. Because mnr aggregates independent community upstreams that it does not own, an upstream network partition or datacenter outage can impact relay latency or cause transient failovers. Paid tokens grant higher rate limits and dual-check guarantees on <code>get_outs</code>—they do not buy an enterprise availability contract.</p>
+<h3 id="3-decoys-cannot-be-100-verified-without-full-validation">3. Decoys cannot be 100% verified without full validation</h3>
+<p>While mnr verifies block hashes and quorum tips, it cannot mathematically prove that a set of outputs returned by <code>get_outs</code> reflects the true global distribution without maintaining a full local validation engine for every single client query. On the Pro tier, mnr cross-checks outputs against two independent upstreams to detect poisoning, but complete decoy sovereignty remains exclusive to running your own local node.</p>
+<h3 id="4-mnr-is-not-a-light-wallet-view-key-server">4. mnr is not a light-wallet view-key server</h3>
+<p>mnr is strictly a daemon RPC proxy. It never asks for, accepts, or stores your private view key or mnemonic seed. Your wallet continues to scan blocks client-side.</p>
+<hr>
+<h2 id="migration-path-how-to-start-and-when-to-graduate">Migration path: how to start and when to graduate</h2>
+<p>Choosing an RPC architecture does not have to be permanent. You can adopt a practical migration path that matches your current hardware and privacy requirements:</p>
+<pre><code>Phase 1: Immediate Need
+  └─ Point wallet at rpc.mnr.network (Free or Pro token)
+  └─ Leave &quot;Trusted Daemon&quot; UNCHECKED
+  └─ Verify connection via /docs/connect-wallets/
+       │
+Phase 2: Network Hardening
+  └─ Route mnr connection through Tor (.onion) or I2P
+  └─ Decouple IP address from the relay proxy
+       │
+Phase 3: Ultimate Sovereignty
+  └─ Acquire dedicated hardware / fast SSD
+  └─ Sync local monerod (Full or Pruned)
+  └─ Switch wallet daemon address to 127.0.0.1:18081
+</code></pre>
+<h3 id="when-should-you-graduate-to-your-own-node">When should you graduate to your own node?</h3>
+<p>You should transition from mnr to a sovereign local node when:</p>
+<ol>
+<li><strong>You manage significant treasury or merchant volume</strong>: Businesses processing frequent customer payments should never rely on shared public infrastructure.</li>
+<li><strong>You operate a fixed desktop or home server</strong>: If you have a machine running 24/7 with spare SSD capacity, setting up <code>monerod</code> requires minimal ongoing effort after initial sync.</li>
+<li><strong>Your threat model demands zero IP or timing exposure</strong>: If an adversary has legal or technical leverage over network infrastructure, keeping all RPC calls strictly within <code>127.0.0.1</code> is the only provable defense.</li>
+</ol>
+<p>Until you reach that stage, mnr provides a mathematically verified, trust-minimized alternative to random directory nodes—without the operational overhead of managing local gigabytes.</p>
+<hr>
+<h2 id="frequently-asked-questions">Frequently Asked Questions</h2>
+<h3 id="is-mnr-as-private-as-running-my-own-node">Is mnr as private as running my own node?</h3>
+<p><strong>No.</strong> With your own local node, wallet RPC metadata stays exclusively on machines you physically control. With mnr on clearnet, the relay sees your IP address and RPC queries (even though mnr stores no request logs). To hide your IP from the relay, use mnr&#39;s Tor onion or I2P endpoints—or run your own node for the strongest possible posture.</p>
+<h3 id="why-use-a-verified-relay-instead-of-any-public-node-from-monerofail">Why use a verified relay instead of any public node from monero.fail?</h3>
+<p>A random public node gives you zero consensus guarantees; you see whatever the operator’s server returns, with no protection against stale forks, omitted transactions, or silent logging. mnr provides a single stable endpoint where block hashes are cryptographically recomputed, tip height requires a majority of the responding upstreams and no fewer than three to agree, and upstream failures are logged publicly on <a href="/verified/">/verified/</a>.</p>
+<h3 id="what-does-mnr-pro-9mo-in-xmr-buy-if-there-is-no-sla">What does mnr Pro (~$9/mo in XMR) buy if there is no SLA?</h3>
+<p>Pro tier provides dedicated capacity (up to 25 requests per second vs. 5 rps on Free) and an automated second-node cross-check on sensitive <code>get_outs</code> queries. It does not provide an uptime SLA, because mnr relies on community upstreams that it does not own.</p>
+<h3 id="if-i-switch-to-mnr-now-will-i-lose-my-wallet-balance-or-transaction-history">If I switch to mnr now, will I lose my wallet balance or transaction history?</h3>
+<p><strong>No.</strong> Your balance and transaction history are derived entirely from your private keys and the Monero blockchain. Switching daemon addresses between your own node, mnr, or any other RPC provider does not affect your funds.</p>
+<hr>
+<h2 id="next-steps">Next Steps</h2>
+<ul>
+<li><strong>Compare Tiers</strong>: Review rate limits and features on <a href="/docs/tokens/">/docs/tokens/</a> and generate a token at <a href="/get-token/">/get-token/</a>.</li>
+<li><strong>Connect Your Wallet</strong>: Follow our configuration walkthroughs for Feather, Cake, Monero GUI, or CLI at <a href="/docs/connect-wallets/">/docs/connect-wallets/</a>.</li>
+<li><strong>Audit Upstreams</strong>: Check current quorum height, active upstream nodes, and response latency on <a href="/upstreams/">/upstreams/</a>.</li>
+<li><strong>Learn the Rules</strong>: Read our exact cryptographic validation criteria at <a href="/docs/method-policy/">/docs/method-policy/</a>.</li>
+</ul>
+
+    </article>
+  </main>
+
+  <div class="rule"></div>
+
+  <!-- Footer -->
+  <footer class="wrap" style="padding: 48px 32px;">
+    <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px;">
+      <div style="display: flex; align-items: center; gap: 10px; font-size: 14px;" class="muted">
+        <span>mnr — an RPC network for Monero</span>
+        <span>·</span>
+        <a href="https://github.com/mnrnetwork/mnr" target="_blank" rel="noopener noreferrer" style="text-decoration: underline;">AGPL-3.0</a>
+      </div>
+      <div style="display: flex; gap: 24px; font-size: 14px;">
+        <a href="/">Home</a>
+        <a href="/learn/">Learn</a>
+        <a href="/docs/">Docs Hub</a>
+        <a href="/docs/method-policy/">Method Policy</a>
+        <a href="https://github.com/mnrnetwork/mnr" target="_blank" rel="noopener noreferrer">GitHub</a>
+        <a href="https://x.com/intent/follow?screen_name=mnr_network" target="_blank" rel="noopener noreferrer">X</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="/search.js" defer></script>
+  <script>
+    (function () {
+      var btn = document.getElementById('theme-toggle');
+      var root = document.documentElement;
+      function current() {
+        var t = root.getAttribute('data-theme');
+        if (t === 'light' || t === 'dark') return t;
+        return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+      }
+      btn.addEventListener('click', function () {
+        var next = current() === 'dark' ? 'light' : 'dark';
+        root.setAttribute('data-theme', next);
+        try { localStorage.setItem('mnr-theme', next); } catch (e) {}
+      });
+    })();
+  </script>
+</body>
+</html>

@@ -162,6 +162,8 @@
       --line: #E8E3DD; --line-strong: #DDD8D2; --log-bg: #1B1917; --log-fg: #E9E4DE;
       --inverse-bg: #1B1917; --inverse-fg: #E9E4DE; --inverse-strong: #FFFFFF; --inverse-muted: #B8B1A9; --inverse-line: #3A3531;
       --pill-bg: #FFF4E5;
+      --link: #000000;
+      --link-hover: #C2410C;
       color-scheme: light;
     }
     @media (prefers-color-scheme: dark) {
@@ -170,6 +172,8 @@
         --line: #2E2A26; --line-strong: #3A3531; --log-bg: #0E0D0C; --log-fg: #E9E4DE;
         --inverse-bg: #221F1B; --inverse-fg: #E9E4DE; --inverse-strong: #FFFFFF; --inverse-muted: #B8B1A9; --inverse-line: #3F3A35;
         --pill-bg: #3A2A14;
+        --link: #FFFFFF;
+        --link-hover: #F26822;
         color-scheme: dark;
       }
     }
@@ -178,13 +182,15 @@
       --line: #2E2A26; --line-strong: #3A3531; --log-bg: #0E0D0C; --log-fg: #E9E4DE;
       --inverse-bg: #221F1B; --inverse-fg: #E9E4DE; --inverse-strong: #FFFFFF; --inverse-muted: #B8B1A9; --inverse-line: #3F3A35;
       --pill-bg: #3A2A14;
+      --link: #FFFFFF;
+      --link-hover: #F26822;
       color-scheme: dark;
     }
 
     * { box-sizing: border-box; }
     html { scroll-behavior: smooth; }
     body { margin: 0; background: var(--bg); color: var(--fg); font-family: "Geist", "Helvetica Neue", Helvetica, Arial, sans-serif; font-size: 16.5px; line-height: 1.65; -webkit-font-smoothing: antialiased; }
-    a { color: var(--fg); text-decoration: none; } a:hover { color: #C2410C; }
+    a { color: var(--fg); text-decoration: none; } a:hover { color: var(--link-hover); }
     p { margin: 0 0 16px; }
     .mono { font-family: "Geist Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace; }
     .wrap { max-width: 1120px; margin: 0 auto; padding: 0 32px; }
@@ -220,6 +226,30 @@
     /* Prose Styling */
     .prose { color: var(--fg); line-height: 1.7; }
     .prose p, .prose li, .prose blockquote { overflow-wrap: break-word; }
+    .prose a {
+      color: var(--link);
+      font-weight: 600;
+      text-decoration: none;
+      transition: color 0.15s ease, text-decoration 0.15s ease;
+    }
+    .prose a:hover {
+      color: var(--link-hover);
+      text-decoration: underline;
+      text-underline-offset: 3.5px;
+      text-decoration-thickness: 1.5px;
+    }
+    .prose a code:not(pre code) {
+      font-weight: 600;
+      color: var(--link);
+      border-color: var(--line-strong);
+      display: inline-block;
+      text-decoration: none;
+      transition: color 0.15s ease, border-color 0.15s ease;
+    }
+    .prose a:hover code:not(pre code) {
+      color: var(--link-hover);
+      border-color: var(--link-hover);
+    }
     .prose h1 { font-size: 38px; line-height: 1.15; letter-spacing: -0.02em; font-weight: 700; margin: 0 0 20px; }
     .prose h2 { font-size: 26px; line-height: 1.25; letter-spacing: -0.015em; font-weight: 600; margin: 48px 0 16px; padding-bottom: 8px; border-bottom: 1px solid var(--line); }
     .prose h3 { font-size: 20px; line-height: 1.35; font-weight: 600; margin: 32px 0 12px; }
@@ -447,9 +477,7 @@
   <main class="doc-wrap">
     <div class="breadcrumbs">
       <a href="/">mnr</a>
-      <span>/</span>
-      <a href="/docs/">docs</a>
-      <span>/</span><span>stage1-gateway</span>
+      <span>/</span><a href="/docs/">docs</a><span>/</span><span>stage1-gateway</span>
     </div>
 
     <article class="prose">
@@ -832,6 +860,7 @@
       </div>
       <div style="display: flex; gap: 24px; font-size: 14px;">
         <a href="/">Home</a>
+        <a href="/learn/">Learn</a>
         <a href="/docs/">Docs Hub</a>
         <a href="/docs/method-policy/">Method Policy</a>
         <a href="https://github.com/mnrnetwork/mnr" target="_blank" rel="noopener noreferrer">GitHub</a>

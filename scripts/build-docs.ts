@@ -296,6 +296,160 @@ const DOCS: DocMeta[] = [
       dropLineIf: [/Ripley|KYC\.RIP/],
     },
   },
+  {
+    id: "learn-hub",
+    route: "/learn/",
+    sourceFile: "content/learn/index.md",
+    title: "Monero RPC Concepts, Explainers & Architecture",
+    navTitle: "Learn",
+    badge: "Explainers",
+    category: "Learn",
+    hiddenFromTabs: true,
+    description:
+      "Deep-dive conceptual explainers on Monero daemon RPC, public node risks, multi-node quorum verification, and trust-minimized architecture.",
+    keywords: ["learn", "explainers", "verified monero rpc", "trusted daemon", "monero.fail", "quorum"],
+    featured: true,
+  },
+  {
+    id: "what-is-verified-monero-rpc",
+    route: "/learn/what-is-verified-monero-rpc/",
+    sourceFile: "content/learn/what-is-verified-monero-rpc.md",
+    title: "What Is a Verified Monero RPC? Why One Public Node Is Not Enough",
+    navTitle: "Verified Monero RPC",
+    badge: "Explainer",
+    category: "Learn",
+    hiddenFromTabs: true,
+    description:
+      "A verified Monero RPC recomputes block and tx hashes and checks multi-node consensus before answering, unlike relying on a single public daemon.",
+    keywords: ["verified monero rpc", "public node risks", "quorum", "block hash verification", "mnr-relay"],
+    featured: true,
+  },
+  {
+    id: "never-tick-trusted-third-party-node",
+    route: "/learn/never-tick-trusted-third-party-node/",
+    sourceFile: "content/learn/never-tick-trusted-third-party-node.md",
+    title: "Never Tick Trusted on a Third-Party Monero Node—What the Flag Actually Does",
+    navTitle: "Never Tick Trusted",
+    badge: "Explainer",
+    category: "Learn",
+    hiddenFromTabs: true,
+    description:
+      "The Trusted daemon checkbox is for nodes you control. On a public remote node it weakens wallet checks—here is what it means and what mnr verifies instead.",
+    keywords: ["trusted daemon", "--trusted-daemon", "untrusted daemon", "remote node privacy", "decoy", "get_outs"],
+    featured: true,
+  },
+  {
+    id: "safer-than-random-monero-fail-node",
+    route: "/learn/safer-than-random-monero-fail-node/",
+    sourceFile: "content/learn/safer-than-random-monero-fail-node.md",
+    title: "Safer Than Picking a Random monero.fail Node: One Address, Multi-Node Checks",
+    navTitle: "monero.fail vs mnr",
+    badge: "Explainer",
+    category: "Learn",
+    hiddenFromTabs: true,
+    description:
+      "monero.fail lists nodes; it does not check answers. mnr.network is one daemon address with hash checks and multi-node quorum before your wallet gets a reply.",
+    keywords: ["monero.fail", "node roulette", "public remote node", "verified monero rpc", "quorum"],
+    featured: true,
+  },
+  {
+    id: "own-node-vs-verified-proxy",
+    route: "/learn/own-node-vs-verified-proxy/",
+    sourceFile: "content/learn/own-node-vs-verified-proxy.md",
+    title: "Own Monero Node vs Verified RPC Proxy: The Honest Middle Option",
+    navTitle: "Own Node vs Verified Proxy",
+    badge: "Comparison",
+    category: "Learn",
+    hiddenFromTabs: true,
+    description:
+      "Own node is best for privacy. A random public node is easiest. mnr sits in between: one address, hash + quorum checks, no SLA theater.",
+    keywords: ["monero own node", "remote node", "verified monero rpc", "pruned node", "bootstrap daemon", "mnr free vs pro", "remote node privacy"],
+    featured: true,
+  },
+  {
+    id: "failover-proxy-vs-hash-quorum",
+    route: "/learn/failover-proxy-vs-hash-quorum/",
+    sourceFile: "content/learn/failover-proxy-vs-hash-quorum.md",
+    title: "Failover Is Not Verification: monerod-proxy / HAProxy vs Hash + Quorum",
+    navTitle: "Failover vs Verification",
+    badge: "Architecture",
+    category: "Learn",
+    hiddenFromTabs: true,
+    description:
+      "monerod-proxy and HAProxy keep you online when a node dies. They do not recompute block hashes or require multi-node agreement. mnr does.",
+    keywords: ["monerod-proxy", "haproxy monero", "rpc failover", "quorum verification", "hash check", "load balance"],
+    featured: true,
+  },
+  {
+    id: "remote-daemon-vs-mymonero-lws",
+    route: "/learn/remote-daemon-vs-mymonero-lws/",
+    sourceFile: "content/learn/remote-daemon-vs-mymonero-lws.md",
+    title: "Remote Monero Daemon vs MyMonero / LWS: Keys Local vs Sharing a View Key",
+    navTitle: "Remote Daemon vs LWS",
+    badge: "Deep Dive",
+    category: "Learn",
+    hiddenFromTabs: true,
+    description:
+      "A normal remote daemon never gets your view key. LWS/MyMonero-style servers scan with it. Know which model you are using—and where mnr fits.",
+    keywords: ["mymonero vs remote node", "monero lws", "daemon rpc", "view key", "light wallet server", "client-side scanning"],
+    featured: true,
+  },
+  {
+    id: "read-upstreams-verified-transparency-log",
+    route: "/learn/read-upstreams-verified-transparency-log/",
+    sourceFile: "content/learn/read-upstreams-verified-transparency-log.md",
+    title: "How to Read mnr /upstreams and the /verified Transparency Log",
+    navTitle: "Reading Transparency Logs",
+    badge: "Field Guide",
+    category: "Learn",
+    hiddenFromTabs: true,
+    description:
+      "Do not trust marketing—read live upstreams, verified counts, faults, and weekly logs. Here is what each column means.",
+    keywords: ["mnr upstreams", "monero rpc transparency log", "verification log", "quorum tip", "fault ejection", "mnr-optout"],
+    featured: true,
+  },
+  {
+    id: "connect-mnr-over-tor-i2p",
+    route: "/learn/connect-mnr-over-tor-i2p/",
+    sourceFile: "content/learn/connect-mnr-over-tor-i2p.md",
+    title: "Connect to mnr over Tor or I2P (Onion and b32 Endpoints)",
+    navTitle: "Connect over Tor / I2P",
+    badge: "How-To",
+    category: "Learn",
+    hiddenFromTabs: true,
+    description:
+      "Clearnet mnr still sees your IP. Use the published onion or I2P endpoints with a SOCKS proxy—step-by-step for major wallets.",
+    keywords: ["monero tor remote node", "connect monero wallet tor onion", "i2p monero node", "mnr onion", "socks5 proxy", "feather tor", "cake orbot"],
+    featured: true,
+  },
+  {
+    id: "monero-wallet-rpc-agent-verified-rpc",
+    route: "/learn/monero-wallet-rpc-agent-verified-rpc/",
+    sourceFile: "content/learn/monero-wallet-rpc-agent-verified-rpc.md",
+    title: "Point monero-wallet-rpc or an Agent at a Verified Monero RPC",
+    navTitle: "wallet-rpc & Agent Guide",
+    badge: "Builders",
+    category: "Learn",
+    hiddenFromTabs: true,
+    description:
+      "Wire monero-wallet-rpc to rpc.mnr.network with daemon-login token, SSL, and Trusted off—plus notes for autonomous agents.",
+    keywords: ["monero-wallet-rpc remote daemon", "daemon-login", "verified monero rpc", "agent monero rpc", "mnr-verify header", "untrusted-daemon"],
+    featured: true,
+  },
+  {
+    id: "mnr-vs-seth-hashvault-cake-onion",
+    route: "/learn/mnr-vs-seth-hashvault-cake-onion/",
+    sourceFile: "content/learn/mnr-vs-seth-hashvault-cake-onion.md",
+    title: "mnr vs Seth for Privacy, HashVault, or Cake Onion Alone",
+    navTitle: "mnr vs Single Operators",
+    badge: "Comparison",
+    category: "Learn",
+    hiddenFromTabs: true,
+    description:
+      "Seth, HashVault, and Cake onion are real community nodes. mnr can use them as upstreams—and still hash-check and quorum-check before you see an answer.",
+    keywords: ["seth for privacy node", "cake wallet onion node", "hashvault monero node", "single public node", "multi-node quorum", "mnr upstreams"],
+    featured: true,
+  },
 ];
 
 // The method policy is generated from mnr-core; when the code repo is
@@ -321,6 +475,9 @@ function renderNavTabs(currentId: string): string {
 function renderHtmlLayout(doc: DocMeta, contentHtml: string): string {
   const canonicalUrl = `https://mnr.network${doc.route}`;
 
+  const isLearn = doc.category === "Learn" || doc.route.startsWith("/learn/");
+  const isVerified = doc.category === "Verified" || doc.route.startsWith("/verified/");
+
   const breadcrumbItems: any[] = [
     {
       "@type": "ListItem",
@@ -328,36 +485,68 @@ function renderHtmlLayout(doc: DocMeta, contentHtml: string): string {
       name: "mnr",
       item: "https://mnr.network/",
     },
-    {
+  ];
+
+  if (isLearn) {
+    breadcrumbItems.push({
+      "@type": "ListItem",
+      position: 2,
+      name: "learn",
+      item: "https://mnr.network/learn/",
+    });
+    if (doc.id !== "learn-hub" && doc.id !== "learn") {
+      breadcrumbItems.push({
+        "@type": "ListItem",
+        position: 3,
+        name: doc.navTitle,
+        item: canonicalUrl,
+      });
+    }
+  } else if (isVerified) {
+    breadcrumbItems.push({
+      "@type": "ListItem",
+      position: 2,
+      name: "verified",
+      item: "https://mnr.network/verified/",
+    });
+    if (doc.id !== "verified") {
+      breadcrumbItems.push({
+        "@type": "ListItem",
+        position: 3,
+        name: doc.navTitle,
+        item: canonicalUrl,
+      });
+    }
+  } else {
+    breadcrumbItems.push({
       "@type": "ListItem",
       position: 2,
       name: "docs",
       item: "https://mnr.network/docs/",
-    },
-  ];
-
-  if (doc.category === "Wallets" || doc.id.startsWith("wallet-")) {
-    breadcrumbItems.push(
-      {
+    });
+    if (doc.category === "Wallets" || doc.id.startsWith("wallet-")) {
+      breadcrumbItems.push(
+        {
+          "@type": "ListItem",
+          position: 3,
+          name: "Wallets",
+          item: "https://mnr.network/docs/connect-wallets/",
+        },
+        {
+          "@type": "ListItem",
+          position: 4,
+          name: doc.navTitle,
+          item: canonicalUrl,
+        }
+      );
+    } else if (doc.id !== "hub") {
+      breadcrumbItems.push({
         "@type": "ListItem",
         position: 3,
-        name: "Wallets",
-        item: "https://mnr.network/docs/connect-wallets/",
-      },
-      {
-        "@type": "ListItem",
-        position: 4,
         name: doc.navTitle,
         item: canonicalUrl,
-      }
-    );
-  } else if (doc.id !== "hub") {
-    breadcrumbItems.push({
-      "@type": "ListItem",
-      position: 3,
-      name: doc.navTitle,
-      item: canonicalUrl,
-    });
+      });
+    }
   }
 
   const graph: any[] = [
@@ -528,6 +717,8 @@ function renderHtmlLayout(doc: DocMeta, contentHtml: string): string {
       --line: #E8E3DD; --line-strong: #DDD8D2; --log-bg: #1B1917; --log-fg: #E9E4DE;
       --inverse-bg: #1B1917; --inverse-fg: #E9E4DE; --inverse-strong: #FFFFFF; --inverse-muted: #B8B1A9; --inverse-line: #3A3531;
       --pill-bg: #FFF4E5;
+      --link: #000000;
+      --link-hover: #C2410C;
       color-scheme: light;
     }
     @media (prefers-color-scheme: dark) {
@@ -536,6 +727,8 @@ function renderHtmlLayout(doc: DocMeta, contentHtml: string): string {
         --line: #2E2A26; --line-strong: #3A3531; --log-bg: #0E0D0C; --log-fg: #E9E4DE;
         --inverse-bg: #221F1B; --inverse-fg: #E9E4DE; --inverse-strong: #FFFFFF; --inverse-muted: #B8B1A9; --inverse-line: #3F3A35;
         --pill-bg: #3A2A14;
+        --link: #FFFFFF;
+        --link-hover: #F26822;
         color-scheme: dark;
       }
     }
@@ -544,13 +737,15 @@ function renderHtmlLayout(doc: DocMeta, contentHtml: string): string {
       --line: #2E2A26; --line-strong: #3A3531; --log-bg: #0E0D0C; --log-fg: #E9E4DE;
       --inverse-bg: #221F1B; --inverse-fg: #E9E4DE; --inverse-strong: #FFFFFF; --inverse-muted: #B8B1A9; --inverse-line: #3F3A35;
       --pill-bg: #3A2A14;
+      --link: #FFFFFF;
+      --link-hover: #F26822;
       color-scheme: dark;
     }
 
     * { box-sizing: border-box; }
     html { scroll-behavior: smooth; }
     body { margin: 0; background: var(--bg); color: var(--fg); font-family: "Geist", "Helvetica Neue", Helvetica, Arial, sans-serif; font-size: 16.5px; line-height: 1.65; -webkit-font-smoothing: antialiased; }
-    a { color: var(--fg); text-decoration: none; } a:hover { color: #C2410C; }
+    a { color: var(--fg); text-decoration: none; } a:hover { color: var(--link-hover); }
     p { margin: 0 0 16px; }
     .mono { font-family: "Geist Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace; }
     .wrap { max-width: 1120px; margin: 0 auto; padding: 0 32px; }
@@ -586,6 +781,30 @@ function renderHtmlLayout(doc: DocMeta, contentHtml: string): string {
     /* Prose Styling */
     .prose { color: var(--fg); line-height: 1.7; }
     .prose p, .prose li, .prose blockquote { overflow-wrap: break-word; }
+    .prose a {
+      color: var(--link);
+      font-weight: 600;
+      text-decoration: none;
+      transition: color 0.15s ease, text-decoration 0.15s ease;
+    }
+    .prose a:hover {
+      color: var(--link-hover);
+      text-decoration: underline;
+      text-underline-offset: 3.5px;
+      text-decoration-thickness: 1.5px;
+    }
+    .prose a code:not(pre code) {
+      font-weight: 600;
+      color: var(--link);
+      border-color: var(--line-strong);
+      display: inline-block;
+      text-decoration: none;
+      transition: color 0.15s ease, border-color 0.15s ease;
+    }
+    .prose a:hover code:not(pre code) {
+      color: var(--link-hover);
+      border-color: var(--link-hover);
+    }
     .prose h1 { font-size: 38px; line-height: 1.15; letter-spacing: -0.02em; font-weight: 700; margin: 0 0 20px; }
     .prose h2 { font-size: 26px; line-height: 1.25; letter-spacing: -0.015em; font-weight: 600; margin: 48px 0 16px; padding-bottom: 8px; border-bottom: 1px solid var(--line); }
     .prose h3 { font-size: 20px; line-height: 1.35; font-weight: 600; margin: 32px 0 12px; }
@@ -770,14 +989,18 @@ function renderHtmlLayout(doc: DocMeta, contentHtml: string): string {
   <main class="doc-wrap">
     <div class="breadcrumbs">
       <a href="/">mnr</a>
-      <span>/</span>
-      <a href="/docs/">docs</a>
       ${
-        doc.id === "hub"
-          ? ""
-          : (doc.category === "Wallets" || doc.id.startsWith("wallet-"))
-          ? `<span>/</span><a href="/docs/connect-wallets/">wallets</a><span>/</span><span>${doc.navTitle.toLowerCase()}</span>`
-          : `<span>/</span><span>${doc.id}</span>`
+        isLearn
+          ? `<span>/</span><a href="/learn/">learn</a>${doc.id !== "learn-hub" && doc.id !== "learn" ? `<span>/</span><span>${doc.id}</span>` : ""}`
+          : isVerified
+          ? `<span>/</span><a href="/verified/">verified</a>${doc.id !== "verified" ? `<span>/</span><span>${doc.id.replace("verified-", "")}</span>` : ""}`
+          : `<span>/</span><a href="/docs/">docs</a>${
+              doc.id === "hub"
+                ? ""
+                : (doc.category === "Wallets" || doc.id.startsWith("wallet-"))
+                ? `<span>/</span><a href="/docs/connect-wallets/">wallets</a><span>/</span><span>${doc.navTitle.toLowerCase()}</span>`
+                : `<span>/</span><span>${doc.id}</span>`
+            }`
       }
     </div>
 
@@ -798,6 +1021,7 @@ function renderHtmlLayout(doc: DocMeta, contentHtml: string): string {
       </div>
       <div style="display: flex; gap: 24px; font-size: 14px;">
         <a href="/">Home</a>
+        <a href="/learn/">Learn</a>
         <a href="/docs/">Docs Hub</a>
         <a href="/docs/method-policy/">Method Policy</a>
         <a href="https://github.com/mnrnetwork/mnr" target="_blank" rel="noopener noreferrer">GitHub</a>
@@ -1154,6 +1378,7 @@ function generateSitemap(): string {
     { html: "https://mnr.network/get-token/", md: "https://mnr.network/get-token/index.md", freq: "monthly", p: "0.9", pMd: "0.85" },
     { html: "https://mnr.network/upstreams/", md: "https://mnr.network/upstreams/index.md", freq: "daily", p: "0.9", pMd: "0.85" },
     { html: "https://mnr.network/verified/", md: "https://mnr.network/verified/index.md", freq: "weekly", p: "0.9", pMd: "0.85" },
+    { html: "https://mnr.network/learn/", md: "https://mnr.network/learn/index.md", freq: "weekly", p: "0.9", pMd: "0.85" },
     { html: "https://mnr.network/docs/", md: "https://mnr.network/docs/index.md", freq: "weekly", p: "0.9", pMd: "0.85" },
   ];
 
@@ -1171,8 +1396,8 @@ function generateSitemap(): string {
 
   // 3. Documentation sub-pages (both HTML and .md index)
   for (const doc of DOCS) {
-    if (doc.id === "hub" || doc.id === "verified") continue;
-    const priority = doc.category === "Wallets" ? "0.85" : "0.8";
+    if (doc.id === "hub" || doc.id === "verified" || doc.id === "learn-hub") continue;
+    const priority = doc.category === "Wallets" ? "0.85" : doc.category === "Learn" ? "0.85" : "0.8";
     const mdPriority = (parseFloat(priority) - 0.05).toFixed(2);
     urls.push({
       loc: `https://mnr.network${doc.route}`,

@@ -1,0 +1,655 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Never Tick Trusted on a Third-Party Monero Node—What the Flag Actually Does — mnr (Monero Network Relay)</title>
+  <meta name="description" content="The Trusted daemon checkbox is for nodes you control. On a public remote node it weakens wallet checks—here is what it means and what mnr verifies instead.">
+  <link rel="canonical" href="https://mnr.network/learn/never-tick-trusted-third-party-node/">
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+  <meta property="og:title" content="Never Tick Trusted on a Third-Party Monero Node—What the Flag Actually Does — mnr (Monero Network Relay)">
+  <meta property="og:description" content="The Trusted daemon checkbox is for nodes you control. On a public remote node it weakens wallet checks—here is what it means and what mnr verifies instead.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://mnr.network/learn/never-tick-trusted-third-party-node/">
+  <meta property="og:site_name" content="mnr (Monero Network Relay)">
+  <meta property="og:image" content="https://mnr.network/og-docs.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Never Tick Trusted on a Third-Party Monero Node—What the Flag Actually Does — mnr (Monero Network Relay)">
+  <meta name="twitter:description" content="The Trusted daemon checkbox is for nodes you control. On a public remote node it weakens wallet checks—here is what it means and what mnr verifies instead.">
+  <meta name="twitter:image" content="https://mnr.network/og-docs.png">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png">
+  <link rel="icon" href="/favicon-16.png" sizes="16x16" type="image/png">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <link rel="alternate" type="text/markdown" href="/learn/never-tick-trusted-third-party-node/index.md">
+  <link rel="alternate" type="text/markdown" title="LLM context" href="/llms.txt">
+  <link rel="api-catalog" type="application/linkset+json" href="/.well-known/api-catalog">
+  <link rel="service-desc" type="application/vnd.oai.openapi+json" href="/openapi.json">
+  <link rel="service-doc" type="text/html" href="/docs/method-policy/">
+  <link rel="describedby" type="text/markdown" href="/llms.txt">
+  <link rel="stylesheet" href="/search.css">
+  <script src="/webmcp.js"></script>
+  <script type="application/ld+json">
+  {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebPage",
+      "@id": "https://mnr.network/learn/never-tick-trusted-third-party-node/#webpage",
+      "url": "https://mnr.network/learn/never-tick-trusted-third-party-node/",
+      "name": "Never Tick Trusted on a Third-Party Monero Node—What the Flag Actually Does",
+      "description": "The Trusted daemon checkbox is for nodes you control. On a public remote node it weakens wallet checks—here is what it means and what mnr verifies instead.",
+      "isPartOf": {
+        "@type": "WebSite",
+        "@id": "https://mnr.network/#website",
+        "url": "https://mnr.network/",
+        "name": "mnr (Monero Network Relay)",
+        "alternateName": [
+          "mnr",
+          "mnr network",
+          "mnr.network",
+          "Monero Network Relay",
+          "Monero Node Relay"
+        ],
+        "disambiguatingDescription": "Cryptographic Monero RPC proxy and decentralized consensus relay network for Monero (XMR) wallets; distinct from MTA Metro-North Railroad, Ontario Ministry of Natural Resources, and unrelated npm package 'mnr'."
+      }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://mnr.network/learn/never-tick-trusted-third-party-node/#breadcrumbs",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "mnr",
+          "item": "https://mnr.network/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "learn",
+          "item": "https://mnr.network/learn/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Never Tick Trusted",
+          "item": "https://mnr.network/learn/never-tick-trusted-third-party-node/"
+        }
+      ]
+    },
+    {
+      "@type": "TechArticle",
+      "@id": "https://mnr.network/learn/never-tick-trusted-third-party-node/#article",
+      "headline": "Never Tick Trusted on a Third-Party Monero Node—What the Flag Actually Does",
+      "description": "The Trusted daemon checkbox is for nodes you control. On a public remote node it weakens wallet checks—here is what it means and what mnr verifies instead.",
+      "url": "https://mnr.network/learn/never-tick-trusted-third-party-node/",
+      "inLanguage": "en",
+      "proficiencyLevel": "Expert",
+      "citation": [
+        {
+          "@type": "WebSite",
+          "name": "monero.fail",
+          "url": "https://monero.fail"
+        },
+        {
+          "@type": "WebSite",
+          "name": "Seth For Privacy",
+          "url": "https://sethforprivacy.com"
+        },
+        {
+          "@type": "WebSite",
+          "name": "Cake Wallet",
+          "url": "https://cakewallet.com"
+        }
+      ],
+      "author": {
+        "@type": "Organization",
+        "name": "mnr (Monero Network Relay)",
+        "url": "https://mnr.network/",
+        "sameAs": [
+          "https://github.com/mnrnetwork/mnr",
+          "https://crates.io/crates/mnr",
+          "https://pypi.org/project/mnr/",
+          "https://www.npmjs.com/package/mnr-network"
+        ]
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "mnr (Monero Network Relay)",
+        "url": "https://mnr.network/",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://mnr.network/favicon-192.png"
+        },
+        "sameAs": [
+          "https://github.com/mnrnetwork/mnr",
+          "https://crates.io/crates/mnr",
+          "https://pypi.org/project/mnr/",
+          "https://www.npmjs.com/package/mnr-network"
+        ]
+      }
+    }
+  ]
+}
+  </script>
+  <script>
+    try { var t = localStorage.getItem('mnr-theme'); if (t === 'light' || t === 'dark') document.documentElement.setAttribute('data-theme', t); } catch (e) {}
+  </script>
+  <style>
+    @font-face {
+      font-family: "Geist";
+      font-style: normal;
+      font-weight: 100 900;
+      font-display: swap;
+      src: url("/fonts/geist-latin.woff2") format("woff2");
+      unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+    }
+    @font-face {
+      font-family: "Geist Mono";
+      font-style: normal;
+      font-weight: 100 900;
+      font-display: swap;
+      src: url("/fonts/geist-mono-latin.woff2") format("woff2");
+      unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+    }
+    :root {
+      --accent: #F26822;
+      --bg: #FBFAF8; --bg-alt: #F3EFEA; --fg: #1B1917; --fg-2: #4A4541; --muted: #6B655F; --card: #FFFFFF;
+      --line: #E8E3DD; --line-strong: #DDD8D2; --log-bg: #1B1917; --log-fg: #E9E4DE;
+      --inverse-bg: #1B1917; --inverse-fg: #E9E4DE; --inverse-strong: #FFFFFF; --inverse-muted: #B8B1A9; --inverse-line: #3A3531;
+      --pill-bg: #FFF4E5;
+      --link: #000000;
+      --link-hover: #C2410C;
+      color-scheme: light;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root:not([data-theme="light"]) {
+        --bg: #141210; --bg-alt: #1B1917; --fg: #ECE7E1; --fg-2: #C9C2BA; --muted: #9A938B; --card: #1E1B18;
+        --line: #2E2A26; --line-strong: #3A3531; --log-bg: #0E0D0C; --log-fg: #E9E4DE;
+        --inverse-bg: #221F1B; --inverse-fg: #E9E4DE; --inverse-strong: #FFFFFF; --inverse-muted: #B8B1A9; --inverse-line: #3F3A35;
+        --pill-bg: #3A2A14;
+        --link: #FFFFFF;
+        --link-hover: #F26822;
+        color-scheme: dark;
+      }
+    }
+    :root[data-theme="dark"] {
+      --bg: #141210; --bg-alt: #1B1917; --fg: #ECE7E1; --fg-2: #C9C2BA; --muted: #9A938B; --card: #1E1B18;
+      --line: #2E2A26; --line-strong: #3A3531; --log-bg: #0E0D0C; --log-fg: #E9E4DE;
+      --inverse-bg: #221F1B; --inverse-fg: #E9E4DE; --inverse-strong: #FFFFFF; --inverse-muted: #B8B1A9; --inverse-line: #3F3A35;
+      --pill-bg: #3A2A14;
+      --link: #FFFFFF;
+      --link-hover: #F26822;
+      color-scheme: dark;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { margin: 0; background: var(--bg); color: var(--fg); font-family: "Geist", "Helvetica Neue", Helvetica, Arial, sans-serif; font-size: 16.5px; line-height: 1.65; -webkit-font-smoothing: antialiased; }
+    a { color: var(--fg); text-decoration: none; } a:hover { color: var(--link-hover); }
+    p { margin: 0 0 16px; }
+    .mono { font-family: "Geist Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace; }
+    .wrap { max-width: 1120px; margin: 0 auto; padding: 0 32px; }
+    .doc-wrap { max-width: 920px; margin: 0 auto; padding: 48px 32px 96px; }
+    .rule { height: 1px; background: var(--line); }
+    
+    .navlinks { display: flex; gap: 28px; align-items: center; font-size: 15px; font-weight: 500; }
+    .btn { display: inline-flex; align-items: center; justify-content: center; height: 44px; padding: 0 20px; border-radius: 10px; font-weight: 600; font-size: 15px; white-space: nowrap; }
+    .btn-primary { background: var(--accent); color: #FFFFFF; } .btn-primary:hover { background: #C2410C; color: #FFFFFF; }
+    .btn-sm { height: 40px; padding: 0 16px; font-size: 14px; }
+    .theme-btn { display: inline-flex; align-items: center; justify-content: center; width: 40px; height: 40px; border-radius: 10px; border: 1px solid var(--line-strong); background: var(--card); color: var(--fg); cursor: pointer; padding: 0; }
+    .theme-btn .sun { display: none; } .theme-btn .moon { display: block; }
+    :root[data-theme="dark"] .theme-btn .sun { display: block; } :root[data-theme="dark"] .theme-btn .moon { display: none; }
+    @media (prefers-color-scheme: dark) {
+      :root:not([data-theme="light"]) .theme-btn .sun { display: block; }
+      :root:not([data-theme="light"]) .theme-btn .moon { display: none; }
+    }
+    .mark { display: block; flex: none; color: var(--fg); }
+
+    /* Docs Navigation & Tabs */
+    .docs-tabs-bar { background: var(--bg-alt); border-bottom: 1px solid var(--line); padding: 10px 0; position: sticky; top: 0; z-index: 10; backdrop-filter: blur(12px); }
+    .docs-tabs { display: flex; gap: 8px; overflow-x: auto; padding: 4px 0; -webkit-overflow-scrolling: touch; }
+    .doc-tab { display: inline-flex; align-items: center; gap: 6px; padding: 8px 14px; border-radius: 8px; font-size: 14px; font-weight: 500; color: var(--fg-2); border: 1px solid transparent; white-space: nowrap; transition: all 0.15s ease; }
+    .doc-tab:hover { background: var(--card); border-color: var(--line); color: var(--fg); }
+    .doc-tab.active { background: var(--card); border-color: var(--line-strong); color: var(--fg); font-weight: 600; }
+    .tab-badge { font-size: 11px; padding: 2px 6px; border-radius: 999px; background: var(--pill-bg); border: 1px solid var(--line); color: var(--accent); font-family: "Geist Mono", monospace; }
+
+    /* Breadcrumbs */
+    .breadcrumbs { display: flex; align-items: center; gap: 8px; font-size: 13.5px; color: var(--muted); margin-bottom: 24px; font-family: "Geist Mono", monospace; }
+    .breadcrumbs a { color: var(--muted); } .breadcrumbs a:hover { color: var(--accent); }
+    .breadcrumbs span { color: var(--fg); }
+
+    /* Prose Styling */
+    .prose { color: var(--fg); line-height: 1.7; }
+    .prose p, .prose li, .prose blockquote { overflow-wrap: break-word; }
+    .prose a {
+      color: var(--link);
+      font-weight: 600;
+      text-decoration: none;
+      transition: color 0.15s ease, text-decoration 0.15s ease;
+    }
+    .prose a:hover {
+      color: var(--link-hover);
+      text-decoration: underline;
+      text-underline-offset: 3.5px;
+      text-decoration-thickness: 1.5px;
+    }
+    .prose a code:not(pre code) {
+      font-weight: 600;
+      color: var(--link);
+      border-color: var(--line-strong);
+      display: inline-block;
+      text-decoration: none;
+      transition: color 0.15s ease, border-color 0.15s ease;
+    }
+    .prose a:hover code:not(pre code) {
+      color: var(--link-hover);
+      border-color: var(--link-hover);
+    }
+    .prose h1 { font-size: 38px; line-height: 1.15; letter-spacing: -0.02em; font-weight: 700; margin: 0 0 20px; }
+    .prose h2 { font-size: 26px; line-height: 1.25; letter-spacing: -0.015em; font-weight: 600; margin: 48px 0 16px; padding-bottom: 8px; border-bottom: 1px solid var(--line); }
+    .prose h3 { font-size: 20px; line-height: 1.35; font-weight: 600; margin: 32px 0 12px; }
+    .prose h4 { font-size: 17px; font-weight: 600; margin: 24px 0 8px; }
+    .prose ul, .prose ol { margin: 0 0 20px; padding-left: 24px; }
+    .prose li { margin-bottom: 8px; }
+    .prose hr { border: 0; height: 1px; background: var(--line); margin: 40px 0; }
+    .prose blockquote { margin: 24px 0; padding: 12px 20px; border-left: 3px solid var(--accent); background: var(--bg-alt); border-radius: 0 8px 8px 0; color: var(--fg-2); }
+    .prose blockquote p:last-child { margin-bottom: 0; }
+
+    .prose code:not(pre code) {
+      font-family: "Geist Mono", monospace;
+      font-size: 13.5px;
+      background: var(--bg-alt);
+      border: 1px solid var(--line);
+      border-radius: 5px;
+      padding: 2px 6px;
+      color: var(--fg);
+    }
+    .prose pre {
+      background: var(--log-bg);
+      color: var(--log-fg);
+      border-radius: 12px;
+      padding: 18px 20px;
+      font-size: 13.5px;
+      line-height: 1.6;
+      overflow-x: auto;
+      margin: 24px 0;
+      border: 1px solid var(--line);
+      font-family: "Geist Mono", monospace;
+    }
+    .prose pre code { background: transparent; padding: 0; border: 0; color: inherit; }
+
+    /* Tables */
+    .prose .table-wrap {
+      overflow-x: auto;
+      margin: 28px 0;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: var(--card);
+      -webkit-overflow-scrolling: touch;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
+    }
+    .prose table.doc-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+      line-height: 1.55;
+      margin: 0;
+      text-align: left;
+    }
+    .prose table.table-wide {
+      min-width: 900px;
+    }
+    .prose table.table-ultra-wide {
+      min-width: 1240px;
+    }
+    .prose th,
+    .prose td {
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--line);
+      vertical-align: top;
+      word-break: normal;
+      overflow-wrap: normal;
+    }
+    .prose th {
+      font-weight: 600;
+      font-size: 12px;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: var(--muted);
+      background: var(--bg-alt);
+      border-bottom: 1px solid var(--line-strong);
+      white-space: nowrap;
+      vertical-align: bottom;
+    }
+    .prose td code {
+      white-space: nowrap;
+      font-size: 13px;
+    }
+    .prose tbody tr:last-child td { border-bottom: 0; }
+    .prose tbody tr:hover td { background: var(--bg-alt); }
+
+    /* Specific column rules for method policy table */
+    .prose table.table-ultra-wide th:nth-child(1),
+    .prose table.table-ultra-wide td:nth-child(1) {
+      white-space: nowrap;
+      min-width: 190px;
+    }
+    .prose table.table-ultra-wide th:nth-child(2),
+    .prose table.table-ultra-wide td:nth-child(2) {
+      white-space: nowrap;
+      min-width: 90px;
+    }
+    .prose table.table-ultra-wide th:nth-child(3),
+    .prose table.table-ultra-wide td:nth-child(3) {
+      white-space: nowrap;
+      min-width: 95px;
+    }
+    .prose table.table-ultra-wide th:nth-child(4),
+    .prose table.table-ultra-wide td:nth-child(4) {
+      min-width: 250px;
+    }
+    .prose table.table-ultra-wide th:nth-child(5),
+    .prose table.table-ultra-wide td:nth-child(5) {
+      min-width: 240px;
+    }
+    .prose table.table-ultra-wide th:nth-child(6),
+    .prose table.table-ultra-wide td:nth-child(6) {
+      white-space: nowrap;
+      min-width: 120px;
+    }
+    .prose table.table-ultra-wide th:nth-child(7),
+    .prose table.table-ultra-wide td:nth-child(7) {
+      white-space: nowrap;
+      min-width: 95px;
+      text-align: right;
+    }
+    .prose table.table-ultra-wide th:nth-child(8),
+    .prose table.table-ultra-wide td:nth-child(8) {
+      min-width: 240px;
+    }
+
+    /* Hub Cards */
+    .hub-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; margin: 32px 0 48px; }
+    .hub-card { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 24px; transition: border-color 0.15s ease, transform 0.15s ease; display: flex; flex-direction: column; gap: 10px; }
+    .hub-card:hover { border-color: var(--accent); transform: translateY(-2px); }
+    .hub-card h3 { font-size: 18px; font-weight: 600; margin: 0; color: var(--fg); }
+    .hub-card p { font-size: 14.5px; color: var(--muted); margin: 0; line-height: 1.5; }
+    .hub-card-meta { display: flex; align-items: center; justify-content: space-between; margin-top: auto; padding-top: 12px; font-size: 13px; font-family: "Geist Mono", monospace; color: var(--accent); }
+
+    @media (max-width: 768px) {
+      .wrap, .doc-wrap { padding: 0 20px; }
+      .navlinks { display: none; }
+      .hub-grid { grid-template-columns: 1fr; }
+      .prose h1 { font-size: 30px; }
+      .prose h2 { font-size: 22px; }
+    }
+      .brand-text { display: flex; flex-direction: column; line-height: 1; gap: 4px; }
+    .brand-tag { display: none; font-size: 10px; font-weight: 600; letter-spacing: 0.09em; text-transform: uppercase; color: var(--muted); white-space: nowrap; }
+    @media (min-width: 900px) { .brand-tag { display: block; } }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="wrap" style="display: flex; align-items: center; justify-content: space-between; height: 72px;">
+    <a href="/" style="display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 22px; letter-spacing: -0.02em;" aria-label="mnr, Monero Network Relay: home" title="mnr — Monero Network Relay">
+      <svg class="mark" width="24" height="24" viewBox="0 0 24 24" aria-hidden="true"><circle cx="16.5" cy="12" r="5.2" fill="var(--accent)"/><path d="M5.2 6.6 L11.9 10.1 M5.2 17.4 L11.9 13.9" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"/><circle cx="5.2" cy="6.6" r="2.1" fill="currentColor"/><circle cx="5.2" cy="17.4" r="2.1" fill="currentColor"/></svg>
+      <span class="brand-text"><span>mnr</span><span class="brand-tag">Monero Network Relay</span></span>
+    </a>
+    <nav class="navlinks" aria-label="Sections">
+      <a href="/docs/how-it-works/">How it works</a>
+      <a href="/upstreams/">Upstreams</a>
+      <a href="/get-token/">Pricing</a>
+      <a href="/docs/" style="color: var(--accent); font-weight: 600;">Docs</a>
+      <a href="https://github.com/mnrnetwork/mnr" target="_blank" rel="noopener noreferrer" class="mono" style="font-weight: 500;">GitHub</a>
+    </nav>
+    <div style="display: flex; align-items: center; gap: 10px;">
+      <button class="search-trigger" id="docsearch-trigger" type="button" aria-label="Search documentation" title="Search (⌘K or /)">
+        <svg class="search-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+        <span class="search-trigger-text">Search docs...</span>
+        <kbd class="search-kbd">⌘K</kbd>
+      </button>
+      <button class="theme-btn" id="theme-toggle" type="button" title="Switch light / dark" aria-label="Switch light / dark">
+        <svg class="sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"></path></svg>
+        <svg class="moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"></path></svg>
+      </button>
+      <a href="/get-token/" class="btn btn-primary btn-sm">Get a free token</a>
+    </div>
+  </header>
+  <div class="rule"></div>
+
+  <!-- Docs Sub-Nav Tabs -->
+  <div class="docs-tabs-bar">
+    <div class="wrap">
+      
+    <nav class="docs-tabs" aria-label="Documentation sections">
+      <a href="/docs/" class="doc-tab ">
+          <span>Overview</span>
+          
+        </a>
+      <a href="/docs/how-it-works/" class="doc-tab ">
+          <span>How it works</span>
+          <span class="tab-badge">Live</span>
+        </a>
+      <a href="/docs/connect-wallets/" class="doc-tab ">
+          <span>Connect a wallet</span>
+          <span class="tab-badge">Guide</span>
+        </a>
+      <a href="/docs/privacy/" class="doc-tab ">
+          <span>Privacy</span>
+          <span class="tab-badge">Reference</span>
+        </a>
+      <a href="/docs/tokens/" class="doc-tab ">
+          <span>Tokens & billing</span>
+          <span class="tab-badge">Guide</span>
+        </a>
+      <a href="/docs/method-policy/" class="doc-tab ">
+          <span>Method Policy</span>
+          <span class="tab-badge">Generated</span>
+        </a>
+      <a href="/docs/roadmap/" class="doc-tab ">
+          <span>Roadmap</span>
+          <span class="tab-badge">Stages 0–2</span>
+        </a>
+      <a href="/docs/stage0-mvp/" class="doc-tab ">
+          <span>Stage 0 plan</span>
+          <span class="tab-badge">Plan</span>
+        </a>
+      <a href="/docs/stage1-gateway/" class="doc-tab ">
+          <span>Stage 1 plan</span>
+          <span class="tab-badge">Plan</span>
+        </a>
+      <a href="/docs/stage2-network/" class="doc-tab ">
+          <span>Stage 2 protocol</span>
+          <span class="tab-badge">Protocol</span>
+        </a>
+    </nav>
+  
+    </div>
+  </div>
+
+  <!-- Document Body -->
+  <main class="doc-wrap">
+    <div class="breadcrumbs">
+      <a href="/">mnr</a>
+      <span>/</span><a href="/learn/">learn</a><span>/</span><span>never-tick-trusted-third-party-node</span>
+    </div>
+
+    <article class="prose">
+      <h1>Never Tick Trusted on a Third-Party Monero Node—What the Flag Actually Does</h1>
+<blockquote>
+<p><strong>Entity Disambiguation</strong>: <strong>mnr</strong> refers strictly to the <strong>Monero Network Relay</strong> (<a href="https://mnr.network"><code>mnr.network</code></a>, RPC: <code>rpc.mnr.network</code>). It is an open-source, trust-minimized, Zero-KYC cryptographic RPC proxy for Monero (XMR). It has zero connection to MTA Metro-North Railroad (MNR), the Ontario Ministry of Natural Resources (MNR/MNRF), or the unrelated npm package <code>mnr</code>.</p>
+</blockquote>
+<p>When setting up a remote node in Monero GUI, Feather, Cake Wallet, or <code>monero-wallet-cli</code>, users often encounter a setting labeled <strong>&quot;Trusted Daemon&quot;</strong> or <code>--trusted-daemon</code>.</p>
+<p>Many users assume &quot;trusted&quot; means: <em>&quot;I know this operator,&quot;</em> or <em>&quot;I want a reliable connection.&quot;</em> They tick the checkbox or pass the flag, believing it enables optimal performance or unlocks features.</p>
+<p><strong>Never tick Trusted on a third-party node.</strong></p>
+<p>The Trusted daemon flag does not mean you trust the operator&#39;s good intentions. In the Monero wallet protocol, it is an explicit security directive telling your wallet to disable safety checks and privacy guards that protect you against a malicious node. Ticking that box on any remote node—whether a random host from <a href="https://monero.fail">monero.fail</a>, a famous community node, or even mnr—weakens your wallet&#39;s defense model.</p>
+<p>This guide explains what the Trusted flag actually changes in the wallet codebase, what risks remain even with the flag disabled, and why a verified RPC relay like mnr requires you to leave Trusted firmly <strong>off</strong>.</p>
+<hr>
+<h2 id="two-different-trusts-do-not-mix-them">Two different trusts (do not mix them)</h2>
+<p>The confusion around the Trusted daemon flag stems from an unfortunate collision between social trust and cryptographic trust:</p>
+<ol>
+<li><strong>Social Trust (Operator Reputation)</strong>: You might respect a community member who runs a public node. You might believe they will not willingly log your IP or tamper with responses. This is subjective human reputation.</li>
+<li><strong>Protocol Trust (<code>--trusted-daemon</code>)</strong>: This is a binary programmatic setting in the Monero wallet client. When enabled, it informs the wallet software: <em>&quot;The daemon running at this address is physically controlled by me on my local machine or private network. You may execute unrestricted administrative RPCs and skip client-side privacy mitigations.&quot;</em></li>
+</ol>
+<p>Social reputation does not change protocol behavior. Even the most benevolent node operator can suffer a silent server breach, run buggy pre-release daemon binaries, or be legally compelled to log incoming connections. The Monero wallet architecture assumes all remote endpoints are potentially adversarial.</p>
+<hr>
+<h2 id="what-the-trusted-daemon-flag-actually-changes">What the Trusted daemon flag actually changes</h2>
+<p>In the official Monero codebase (<code>monero/src/wallet/wallet2.cpp</code>), the wallet checks <code>m_is_trusted_daemon</code> when deciding how to handle RPC requests and responses. Enabling the flag alters several critical wallet behaviors:</p>
+<h3 id="1-decoy-obfuscation-dummy-queries">1. Decoy Obfuscation &amp; Dummy Queries</h3>
+<p>When creating a transaction in untrusted mode, your wallet fetches decoys using <code>/get_outs.bin</code>. To prevent the node from guessing which output belongs to you based on your exact query patterns, the wallet obfuscates its request pattern, batching queries and requesting extra dummy outputs.</p>
+<ul>
+<li><strong>In Untrusted Mode (Default)</strong>: The wallet fetches batches of outputs with timing noise to prevent the daemon from correlating the exact outputs being queried with an immediate spend.</li>
+<li><strong>In Trusted Mode (<code>--trusted-daemon</code>)</strong>: The wallet assumes the node is local and will never spy on you. It may bypass decoy fetching jitter and request outputs directly, reducing latency at the direct expense of privacy.</li>
+</ul>
+<h3 id="2-client-side-hash-verification">2. Client-Side Hash Verification</h3>
+<p>In untrusted mode, the wallet performs rigorous client-side checks on block headers received from the daemon. It verifies proof-of-work hashes and ensures the chain matches known checkpoint hashes. When marked trusted, certain verification loops are relaxed or skipped under the assumption that the local node has already fully validated the blockchain.</p>
+<h3 id="3-execution-of-restricted-and-sensitive-commands">3. Execution of Restricted and Sensitive Commands</h3>
+<p>Several sensitive wallet commands are blocked entirely unless connected to a trusted daemon:</p>
+<ul>
+<li><code>rescan_spent</code>: Forces the wallet to re-check all key images against the daemon.</li>
+<li><code>start_mining</code>: Directs the daemon to begin proof-of-work mining on a specific thread count.</li>
+<li>In <code>monero-wallet-rpc</code>, calling certain administrative methods will throw an explicit error (<code>-32601</code> or &quot;Daemon is untrusted&quot;) unless the <code>--trusted-daemon</code> flag was passed at startup.</li>
+</ul>
+<h3 id="defaults-local-trusted-remote-untrusted">Defaults: local Trusted, remote Untrusted</h3>
+<p>The Monero software enforces safe defaults:</p>
+<ul>
+<li>If your daemon address is <code>127.0.0.1</code>, <code>localhost</code>, or a Unix domain socket, the wallet defaults to <strong>Trusted</strong>.</li>
+<li>If your daemon address is an external IP, a public hostname, or a <code>.onion</code> address, the wallet defaults to <strong>Untrusted</strong> (<code>--untrusted-daemon</code>).</li>
+</ul>
+<p>You should never manually override this default for any remote server.</p>
+<hr>
+<h2 id="what-a-third-party-node-can-still-learn-with-trusted-off">What a third-party node can still learn with Trusted off</h2>
+<p>Leaving Trusted off is essential, but it is not a silver bullet. An untrusted remote node still learns significant metadata about your wallet simply by answering standard queries:</p>
+<div class="table-wrap"><table class="doc-table">
+<thead>
+<tr>
+<th>Data Visible to Node</th>
+<th>How the Node Learns It</th>
+<th>Impact on Privacy</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>Your IP Address</strong></td>
+<td>TCP connection handshake</td>
+<td>Geolocation and ISP tracking (unless using Tor/I2P).</td>
+</tr>
+<tr>
+<td><strong>Restore / Sync Height</strong></td>
+<td>Starting block height of your sync request</td>
+<td>Reveals roughly when your wallet was created.</td>
+</tr>
+<tr>
+<td><strong>Active Scan Windows</strong></td>
+<td>When your wallet connects to fetch blocks</td>
+<td>Reveals active hours and transaction frequency.</td>
+</tr>
+<tr>
+<td><strong>Queried Output Sets</strong></td>
+<td><code>/get_outs.bin</code> and <code>/get_output_distribution</code></td>
+<td>The node knows your ring members are contained within the queried output candidate pool.</td>
+</tr>
+<tr>
+<td><strong>Broadcast Timing</strong></td>
+<td>Exact timestamp of <code>send_raw_transaction</code></td>
+<td>The node sees the transaction before it is relayed to the wider P2P network.</td>
+</tr>
+</tbody></table></div>
+<p>Routing your remote connection over Tor (<code>.onion</code>) or I2P eliminates IP logging, but the node still sees the RPC queries themselves. This is why running your own local node (<code>monerod</code>) remains the only way to achieve complete metadata sovereignty.</p>
+<hr>
+<h2 id="why-you-still-never-tick-trusted-for-mnr">Why you still never tick Trusted for mnr</h2>
+<p>mnr (<code>rpc.mnr.network</code>) is a <strong>verified Monero RPC relay</strong>. It recomputes block and transaction hashes, verifies tip consensus across multiple independent nodes, and logs faults publicly.</p>
+<p>Despite these protections, <strong>you must never tick Trusted when connecting to mnr</strong>:</p>
+<ol>
+<li><strong>Verification Belongs on the Relay, Not in the Wallet</strong>: mnr provides verification at the proxy level. The wallet client must continue to treat the connection as an external, untrusted channel. Leaving untrusted mode active preserves client-side decoy noise and header validation.</li>
+<li><strong>mnr Does Not Support Restricted Admin RPCs</strong>: mnr actively blocks administrative calls like <code>/start_mining</code>, <code>/save_bc</code>, and <code>/stop_daemon</code> at the edge with HTTP 403 Forbidden. Ticking Trusted will not unlock these methods; mnr enforces restricted RPC for security.</li>
+<li><strong>Honesty About Remote Risks</strong>: mnr does not claim to replace a local node. Treating mnr as untrusted aligns with the fundamental cypherpunk tenet: <em>don&#39;t trust, verify</em>.</li>
+</ol>
+<p>In Feather Wallet, Cake Wallet, and Monero GUI, leave the &quot;Trusted Daemon&quot; box <strong>unchecked</strong>. In <code>monero-wallet-cli</code>, omit <code>--trusted-daemon</code> (or explicitly pass <code>--untrusted-daemon</code>).</p>
+<hr>
+<h2 id="what-mnr-verifies-instead">What mnr verifies instead</h2>
+<p>If your wallet keeps the daemon untrusted, what does mnr actually do for you?</p>
+<p>Standard untrusted mode protects the wallet from certain types of daemon surveillance, but it cannot prevent a single remote node from serving a stale blockchain height, withholding transaction confirmations, or feeding corrupted block headers.</p>
+<p>mnr verifies what a single remote node can manipulate:</p>
+<ul>
+<li><strong>Block Hash Recomputation</strong>: Every block blob fetched via <code>get_block</code> is re-hashed by the relay to ensure the cryptographic proof matches the requested block hash.</li>
+<li><strong>Transaction Hash Matching</strong>: Transaction blobs fetched via <code>/get_transactions</code> are hashed and compared to their declared txid.</li>
+<li><strong>Tip Quorum Consensus</strong>: The network height and top block hash returned on <code>get_info</code> and <code>/get_height</code> must be confirmed by at least three independent, unaffiliated upstreams (e.g., Cake Wallet, Seth For Privacy, HashVault).</li>
+<li><strong>Cryptographic Transparency</strong>: Every response carries an <code>Mnr-Verify</code> header declaring exactly how the response was validated (<code>chain</code>, <code>hash</code>, <code>majority</code>, <code>agreement</code>, <code>partial</code>, <code>none</code>, or <code>failed</code>).</li>
+<li><strong>Public Accountability</strong>: Any upstream node that fails verification three times in one hour is ejected for 24 hours and recorded on the public <a href="/upstreams/">Upstreams</a> and <a href="/verified/">Weekly Verification</a> ledgers.</li>
+</ul>
+<p>You get multi-node correctness guarantees while keeping your wallet&#39;s client-side defenses fully engaged.</p>
+<hr>
+<h2 id="remote-daemon-setup-checklist">Remote daemon setup checklist</h2>
+<p>Whenever you connect a Monero wallet to any remote node (including mnr), use this checklist to ensure proper security posture:</p>
+<pre><code>[ ] 1. TLS Encryption: Ensure SSL is enabled (Port 443 on clearnet).
+[ ] 2. Trusted Daemon: UNCHECKED (always leave untrusted).
+[ ] 3. Authentication: Enter your access token in the Username field; set Password to &#39;x&#39;.
+[ ] 4. Transport Privacy: If IP privacy is critical, route through the mnr Tor onion address:
+       mnrrpcvbopaykx7um32r4iyamontteidypjd33fhzvuy2hwfu5c4ifad.onion:80
+[ ] 5. View Keys: Verify the wallet is NOT prompting you for your private view key (mnr is pure daemon RPC; never enter your view key into a website or server).
+</code></pre>
+<hr>
+<h2 id="answer-ready-summary">Answer-ready summary</h2>
+<h3 id="should-i-enable-the-trusted-daemon-checkbox-when-using-mnrnetwork">Should I enable the Trusted Daemon checkbox when using mnr.network?</h3>
+<p><strong>No.</strong> Treat mnr like any remote daemon: leave Trusted unchecked. mnr&#39;s value is relay-side cryptographic verification and multi-node consensus—not asking your wallet to lower its defenses.</p>
+<h3 id="what-does-the-trusted-checkbox-actually-mean-in-monero">What does the Trusted checkbox actually mean in Monero?</h3>
+<p>It informs your wallet that the connected node is under your physical control (typically running on <code>localhost</code>). It allows the wallet to skip client-side decoy obfuscation and enables administrative commands. It was never intended for third-party public nodes.</p>
+<h3 id="if-i-leave-trusted-off-am-i-safe-from-a-malicious-node">If I leave Trusted off, am I safe from a malicious node?</h3>
+<p>Untrusted mode preserves essential wallet precautions, but a single remote node can still serve stale blockchain heights, delay transactions, or log metadata. That is why a verified relay checks data against multiple independent nodes before returning it to your wallet.</p>
+<hr>
+<h2 id="next-steps">Next steps</h2>
+<ul>
+<li>Read the architectural definition: <a href="/learn/what-is-verified-monero-rpc/">What Is a Verified Monero RPC?</a></li>
+<li>Inspect per-method verification rules: <a href="/docs/method-policy/">Method Policy</a></li>
+<li>Connect your wallet with Trusted off: <a href="/docs/connect-wallets/">Connect a Wallet</a></li>
+</ul>
+
+    </article>
+  </main>
+
+  <div class="rule"></div>
+
+  <!-- Footer -->
+  <footer class="wrap" style="padding: 48px 32px;">
+    <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px;">
+      <div style="display: flex; align-items: center; gap: 10px; font-size: 14px;" class="muted">
+        <span>mnr — an RPC network for Monero</span>
+        <span>·</span>
+        <a href="https://github.com/mnrnetwork/mnr" target="_blank" rel="noopener noreferrer" style="text-decoration: underline;">AGPL-3.0</a>
+      </div>
+      <div style="display: flex; gap: 24px; font-size: 14px;">
+        <a href="/">Home</a>
+        <a href="/learn/">Learn</a>
+        <a href="/docs/">Docs Hub</a>
+        <a href="/docs/method-policy/">Method Policy</a>
+        <a href="https://github.com/mnrnetwork/mnr" target="_blank" rel="noopener noreferrer">GitHub</a>
+        <a href="https://x.com/intent/follow?screen_name=mnr_network" target="_blank" rel="noopener noreferrer">X</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="/search.js" defer></script>
+  <script>
+    (function () {
+      var btn = document.getElementById('theme-toggle');
+      var root = document.documentElement;
+      function current() {
+        var t = root.getAttribute('data-theme');
+        if (t === 'light' || t === 'dark') return t;
+        return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+      }
+      btn.addEventListener('click', function () {
+        var next = current() === 'dark' ? 'light' : 'dark';
+        root.setAttribute('data-theme', next);
+        try { localStorage.setItem('mnr-theme', next); } catch (e) {}
+      });
+    })();
+  </script>
+</body>
+</html>

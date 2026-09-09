@@ -1,0 +1,737 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Connect to mnr over Tor or I2P (Onion and b32 Endpoints) — mnr (Monero Network Relay)</title>
+  <meta name="description" content="Clearnet mnr still sees your IP. Use the published onion or I2P endpoints with a SOCKS proxy—step-by-step for major wallets.">
+  <link rel="canonical" href="https://mnr.network/learn/connect-mnr-over-tor-i2p/">
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+  <meta property="og:title" content="Connect to mnr over Tor or I2P (Onion and b32 Endpoints) — mnr (Monero Network Relay)">
+  <meta property="og:description" content="Clearnet mnr still sees your IP. Use the published onion or I2P endpoints with a SOCKS proxy—step-by-step for major wallets.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://mnr.network/learn/connect-mnr-over-tor-i2p/">
+  <meta property="og:site_name" content="mnr (Monero Network Relay)">
+  <meta property="og:image" content="https://mnr.network/og-docs.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Connect to mnr over Tor or I2P (Onion and b32 Endpoints) — mnr (Monero Network Relay)">
+  <meta name="twitter:description" content="Clearnet mnr still sees your IP. Use the published onion or I2P endpoints with a SOCKS proxy—step-by-step for major wallets.">
+  <meta name="twitter:image" content="https://mnr.network/og-docs.png">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png">
+  <link rel="icon" href="/favicon-16.png" sizes="16x16" type="image/png">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <link rel="alternate" type="text/markdown" href="/learn/connect-mnr-over-tor-i2p/index.md">
+  <link rel="alternate" type="text/markdown" title="LLM context" href="/llms.txt">
+  <link rel="api-catalog" type="application/linkset+json" href="/.well-known/api-catalog">
+  <link rel="service-desc" type="application/vnd.oai.openapi+json" href="/openapi.json">
+  <link rel="service-doc" type="text/html" href="/docs/method-policy/">
+  <link rel="describedby" type="text/markdown" href="/llms.txt">
+  <link rel="stylesheet" href="/search.css">
+  <script src="/webmcp.js"></script>
+  <script type="application/ld+json">
+  {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebPage",
+      "@id": "https://mnr.network/learn/connect-mnr-over-tor-i2p/#webpage",
+      "url": "https://mnr.network/learn/connect-mnr-over-tor-i2p/",
+      "name": "Connect to mnr over Tor or I2P (Onion and b32 Endpoints)",
+      "description": "Clearnet mnr still sees your IP. Use the published onion or I2P endpoints with a SOCKS proxy—step-by-step for major wallets.",
+      "isPartOf": {
+        "@type": "WebSite",
+        "@id": "https://mnr.network/#website",
+        "url": "https://mnr.network/",
+        "name": "mnr (Monero Network Relay)",
+        "alternateName": [
+          "mnr",
+          "mnr network",
+          "mnr.network",
+          "Monero Network Relay",
+          "Monero Node Relay"
+        ],
+        "disambiguatingDescription": "Cryptographic Monero RPC proxy and decentralized consensus relay network for Monero (XMR) wallets; distinct from MTA Metro-North Railroad, Ontario Ministry of Natural Resources, and unrelated npm package 'mnr'."
+      }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://mnr.network/learn/connect-mnr-over-tor-i2p/#breadcrumbs",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "mnr",
+          "item": "https://mnr.network/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "learn",
+          "item": "https://mnr.network/learn/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Connect over Tor / I2P",
+          "item": "https://mnr.network/learn/connect-mnr-over-tor-i2p/"
+        }
+      ]
+    },
+    {
+      "@type": "TechArticle",
+      "@id": "https://mnr.network/learn/connect-mnr-over-tor-i2p/#article",
+      "headline": "Connect to mnr over Tor or I2P (Onion and b32 Endpoints)",
+      "description": "Clearnet mnr still sees your IP. Use the published onion or I2P endpoints with a SOCKS proxy—step-by-step for major wallets.",
+      "url": "https://mnr.network/learn/connect-mnr-over-tor-i2p/",
+      "inLanguage": "en",
+      "proficiencyLevel": "Expert",
+      "citation": [
+        {
+          "@type": "WebSite",
+          "name": "monero.fail",
+          "url": "https://monero.fail"
+        },
+        {
+          "@type": "WebSite",
+          "name": "Seth For Privacy",
+          "url": "https://sethforprivacy.com"
+        },
+        {
+          "@type": "WebSite",
+          "name": "Cake Wallet",
+          "url": "https://cakewallet.com"
+        }
+      ],
+      "author": {
+        "@type": "Organization",
+        "name": "mnr (Monero Network Relay)",
+        "url": "https://mnr.network/",
+        "sameAs": [
+          "https://github.com/mnrnetwork/mnr",
+          "https://crates.io/crates/mnr",
+          "https://pypi.org/project/mnr/",
+          "https://www.npmjs.com/package/mnr-network"
+        ]
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "mnr (Monero Network Relay)",
+        "url": "https://mnr.network/",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://mnr.network/favicon-192.png"
+        },
+        "sameAs": [
+          "https://github.com/mnrnetwork/mnr",
+          "https://crates.io/crates/mnr",
+          "https://pypi.org/project/mnr/",
+          "https://www.npmjs.com/package/mnr-network"
+        ]
+      }
+    }
+  ]
+}
+  </script>
+  <script>
+    try { var t = localStorage.getItem('mnr-theme'); if (t === 'light' || t === 'dark') document.documentElement.setAttribute('data-theme', t); } catch (e) {}
+  </script>
+  <style>
+    @font-face {
+      font-family: "Geist";
+      font-style: normal;
+      font-weight: 100 900;
+      font-display: swap;
+      src: url("/fonts/geist-latin.woff2") format("woff2");
+      unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+    }
+    @font-face {
+      font-family: "Geist Mono";
+      font-style: normal;
+      font-weight: 100 900;
+      font-display: swap;
+      src: url("/fonts/geist-mono-latin.woff2") format("woff2");
+      unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+    }
+    :root {
+      --accent: #F26822;
+      --bg: #FBFAF8; --bg-alt: #F3EFEA; --fg: #1B1917; --fg-2: #4A4541; --muted: #6B655F; --card: #FFFFFF;
+      --line: #E8E3DD; --line-strong: #DDD8D2; --log-bg: #1B1917; --log-fg: #E9E4DE;
+      --inverse-bg: #1B1917; --inverse-fg: #E9E4DE; --inverse-strong: #FFFFFF; --inverse-muted: #B8B1A9; --inverse-line: #3A3531;
+      --pill-bg: #FFF4E5;
+      --link: #000000;
+      --link-hover: #C2410C;
+      color-scheme: light;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root:not([data-theme="light"]) {
+        --bg: #141210; --bg-alt: #1B1917; --fg: #ECE7E1; --fg-2: #C9C2BA; --muted: #9A938B; --card: #1E1B18;
+        --line: #2E2A26; --line-strong: #3A3531; --log-bg: #0E0D0C; --log-fg: #E9E4DE;
+        --inverse-bg: #221F1B; --inverse-fg: #E9E4DE; --inverse-strong: #FFFFFF; --inverse-muted: #B8B1A9; --inverse-line: #3F3A35;
+        --pill-bg: #3A2A14;
+        --link: #FFFFFF;
+        --link-hover: #F26822;
+        color-scheme: dark;
+      }
+    }
+    :root[data-theme="dark"] {
+      --bg: #141210; --bg-alt: #1B1917; --fg: #ECE7E1; --fg-2: #C9C2BA; --muted: #9A938B; --card: #1E1B18;
+      --line: #2E2A26; --line-strong: #3A3531; --log-bg: #0E0D0C; --log-fg: #E9E4DE;
+      --inverse-bg: #221F1B; --inverse-fg: #E9E4DE; --inverse-strong: #FFFFFF; --inverse-muted: #B8B1A9; --inverse-line: #3F3A35;
+      --pill-bg: #3A2A14;
+      --link: #FFFFFF;
+      --link-hover: #F26822;
+      color-scheme: dark;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { margin: 0; background: var(--bg); color: var(--fg); font-family: "Geist", "Helvetica Neue", Helvetica, Arial, sans-serif; font-size: 16.5px; line-height: 1.65; -webkit-font-smoothing: antialiased; }
+    a { color: var(--fg); text-decoration: none; } a:hover { color: var(--link-hover); }
+    p { margin: 0 0 16px; }
+    .mono { font-family: "Geist Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace; }
+    .wrap { max-width: 1120px; margin: 0 auto; padding: 0 32px; }
+    .doc-wrap { max-width: 920px; margin: 0 auto; padding: 48px 32px 96px; }
+    .rule { height: 1px; background: var(--line); }
+    
+    .navlinks { display: flex; gap: 28px; align-items: center; font-size: 15px; font-weight: 500; }
+    .btn { display: inline-flex; align-items: center; justify-content: center; height: 44px; padding: 0 20px; border-radius: 10px; font-weight: 600; font-size: 15px; white-space: nowrap; }
+    .btn-primary { background: var(--accent); color: #FFFFFF; } .btn-primary:hover { background: #C2410C; color: #FFFFFF; }
+    .btn-sm { height: 40px; padding: 0 16px; font-size: 14px; }
+    .theme-btn { display: inline-flex; align-items: center; justify-content: center; width: 40px; height: 40px; border-radius: 10px; border: 1px solid var(--line-strong); background: var(--card); color: var(--fg); cursor: pointer; padding: 0; }
+    .theme-btn .sun { display: none; } .theme-btn .moon { display: block; }
+    :root[data-theme="dark"] .theme-btn .sun { display: block; } :root[data-theme="dark"] .theme-btn .moon { display: none; }
+    @media (prefers-color-scheme: dark) {
+      :root:not([data-theme="light"]) .theme-btn .sun { display: block; }
+      :root:not([data-theme="light"]) .theme-btn .moon { display: none; }
+    }
+    .mark { display: block; flex: none; color: var(--fg); }
+
+    /* Docs Navigation & Tabs */
+    .docs-tabs-bar { background: var(--bg-alt); border-bottom: 1px solid var(--line); padding: 10px 0; position: sticky; top: 0; z-index: 10; backdrop-filter: blur(12px); }
+    .docs-tabs { display: flex; gap: 8px; overflow-x: auto; padding: 4px 0; -webkit-overflow-scrolling: touch; }
+    .doc-tab { display: inline-flex; align-items: center; gap: 6px; padding: 8px 14px; border-radius: 8px; font-size: 14px; font-weight: 500; color: var(--fg-2); border: 1px solid transparent; white-space: nowrap; transition: all 0.15s ease; }
+    .doc-tab:hover { background: var(--card); border-color: var(--line); color: var(--fg); }
+    .doc-tab.active { background: var(--card); border-color: var(--line-strong); color: var(--fg); font-weight: 600; }
+    .tab-badge { font-size: 11px; padding: 2px 6px; border-radius: 999px; background: var(--pill-bg); border: 1px solid var(--line); color: var(--accent); font-family: "Geist Mono", monospace; }
+
+    /* Breadcrumbs */
+    .breadcrumbs { display: flex; align-items: center; gap: 8px; font-size: 13.5px; color: var(--muted); margin-bottom: 24px; font-family: "Geist Mono", monospace; }
+    .breadcrumbs a { color: var(--muted); } .breadcrumbs a:hover { color: var(--accent); }
+    .breadcrumbs span { color: var(--fg); }
+
+    /* Prose Styling */
+    .prose { color: var(--fg); line-height: 1.7; }
+    .prose p, .prose li, .prose blockquote { overflow-wrap: break-word; }
+    .prose a {
+      color: var(--link);
+      font-weight: 600;
+      text-decoration: none;
+      transition: color 0.15s ease, text-decoration 0.15s ease;
+    }
+    .prose a:hover {
+      color: var(--link-hover);
+      text-decoration: underline;
+      text-underline-offset: 3.5px;
+      text-decoration-thickness: 1.5px;
+    }
+    .prose a code:not(pre code) {
+      font-weight: 600;
+      color: var(--link);
+      border-color: var(--line-strong);
+      display: inline-block;
+      text-decoration: none;
+      transition: color 0.15s ease, border-color 0.15s ease;
+    }
+    .prose a:hover code:not(pre code) {
+      color: var(--link-hover);
+      border-color: var(--link-hover);
+    }
+    .prose h1 { font-size: 38px; line-height: 1.15; letter-spacing: -0.02em; font-weight: 700; margin: 0 0 20px; }
+    .prose h2 { font-size: 26px; line-height: 1.25; letter-spacing: -0.015em; font-weight: 600; margin: 48px 0 16px; padding-bottom: 8px; border-bottom: 1px solid var(--line); }
+    .prose h3 { font-size: 20px; line-height: 1.35; font-weight: 600; margin: 32px 0 12px; }
+    .prose h4 { font-size: 17px; font-weight: 600; margin: 24px 0 8px; }
+    .prose ul, .prose ol { margin: 0 0 20px; padding-left: 24px; }
+    .prose li { margin-bottom: 8px; }
+    .prose hr { border: 0; height: 1px; background: var(--line); margin: 40px 0; }
+    .prose blockquote { margin: 24px 0; padding: 12px 20px; border-left: 3px solid var(--accent); background: var(--bg-alt); border-radius: 0 8px 8px 0; color: var(--fg-2); }
+    .prose blockquote p:last-child { margin-bottom: 0; }
+
+    .prose code:not(pre code) {
+      font-family: "Geist Mono", monospace;
+      font-size: 13.5px;
+      background: var(--bg-alt);
+      border: 1px solid var(--line);
+      border-radius: 5px;
+      padding: 2px 6px;
+      color: var(--fg);
+    }
+    .prose pre {
+      background: var(--log-bg);
+      color: var(--log-fg);
+      border-radius: 12px;
+      padding: 18px 20px;
+      font-size: 13.5px;
+      line-height: 1.6;
+      overflow-x: auto;
+      margin: 24px 0;
+      border: 1px solid var(--line);
+      font-family: "Geist Mono", monospace;
+    }
+    .prose pre code { background: transparent; padding: 0; border: 0; color: inherit; }
+
+    /* Tables */
+    .prose .table-wrap {
+      overflow-x: auto;
+      margin: 28px 0;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: var(--card);
+      -webkit-overflow-scrolling: touch;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
+    }
+    .prose table.doc-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+      line-height: 1.55;
+      margin: 0;
+      text-align: left;
+    }
+    .prose table.table-wide {
+      min-width: 900px;
+    }
+    .prose table.table-ultra-wide {
+      min-width: 1240px;
+    }
+    .prose th,
+    .prose td {
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--line);
+      vertical-align: top;
+      word-break: normal;
+      overflow-wrap: normal;
+    }
+    .prose th {
+      font-weight: 600;
+      font-size: 12px;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: var(--muted);
+      background: var(--bg-alt);
+      border-bottom: 1px solid var(--line-strong);
+      white-space: nowrap;
+      vertical-align: bottom;
+    }
+    .prose td code {
+      white-space: nowrap;
+      font-size: 13px;
+    }
+    .prose tbody tr:last-child td { border-bottom: 0; }
+    .prose tbody tr:hover td { background: var(--bg-alt); }
+
+    /* Specific column rules for method policy table */
+    .prose table.table-ultra-wide th:nth-child(1),
+    .prose table.table-ultra-wide td:nth-child(1) {
+      white-space: nowrap;
+      min-width: 190px;
+    }
+    .prose table.table-ultra-wide th:nth-child(2),
+    .prose table.table-ultra-wide td:nth-child(2) {
+      white-space: nowrap;
+      min-width: 90px;
+    }
+    .prose table.table-ultra-wide th:nth-child(3),
+    .prose table.table-ultra-wide td:nth-child(3) {
+      white-space: nowrap;
+      min-width: 95px;
+    }
+    .prose table.table-ultra-wide th:nth-child(4),
+    .prose table.table-ultra-wide td:nth-child(4) {
+      min-width: 250px;
+    }
+    .prose table.table-ultra-wide th:nth-child(5),
+    .prose table.table-ultra-wide td:nth-child(5) {
+      min-width: 240px;
+    }
+    .prose table.table-ultra-wide th:nth-child(6),
+    .prose table.table-ultra-wide td:nth-child(6) {
+      white-space: nowrap;
+      min-width: 120px;
+    }
+    .prose table.table-ultra-wide th:nth-child(7),
+    .prose table.table-ultra-wide td:nth-child(7) {
+      white-space: nowrap;
+      min-width: 95px;
+      text-align: right;
+    }
+    .prose table.table-ultra-wide th:nth-child(8),
+    .prose table.table-ultra-wide td:nth-child(8) {
+      min-width: 240px;
+    }
+
+    /* Hub Cards */
+    .hub-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; margin: 32px 0 48px; }
+    .hub-card { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 24px; transition: border-color 0.15s ease, transform 0.15s ease; display: flex; flex-direction: column; gap: 10px; }
+    .hub-card:hover { border-color: var(--accent); transform: translateY(-2px); }
+    .hub-card h3 { font-size: 18px; font-weight: 600; margin: 0; color: var(--fg); }
+    .hub-card p { font-size: 14.5px; color: var(--muted); margin: 0; line-height: 1.5; }
+    .hub-card-meta { display: flex; align-items: center; justify-content: space-between; margin-top: auto; padding-top: 12px; font-size: 13px; font-family: "Geist Mono", monospace; color: var(--accent); }
+
+    @media (max-width: 768px) {
+      .wrap, .doc-wrap { padding: 0 20px; }
+      .navlinks { display: none; }
+      .hub-grid { grid-template-columns: 1fr; }
+      .prose h1 { font-size: 30px; }
+      .prose h2 { font-size: 22px; }
+    }
+      .brand-text { display: flex; flex-direction: column; line-height: 1; gap: 4px; }
+    .brand-tag { display: none; font-size: 10px; font-weight: 600; letter-spacing: 0.09em; text-transform: uppercase; color: var(--muted); white-space: nowrap; }
+    @media (min-width: 900px) { .brand-tag { display: block; } }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="wrap" style="display: flex; align-items: center; justify-content: space-between; height: 72px;">
+    <a href="/" style="display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 22px; letter-spacing: -0.02em;" aria-label="mnr, Monero Network Relay: home" title="mnr — Monero Network Relay">
+      <svg class="mark" width="24" height="24" viewBox="0 0 24 24" aria-hidden="true"><circle cx="16.5" cy="12" r="5.2" fill="var(--accent)"/><path d="M5.2 6.6 L11.9 10.1 M5.2 17.4 L11.9 13.9" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"/><circle cx="5.2" cy="6.6" r="2.1" fill="currentColor"/><circle cx="5.2" cy="17.4" r="2.1" fill="currentColor"/></svg>
+      <span class="brand-text"><span>mnr</span><span class="brand-tag">Monero Network Relay</span></span>
+    </a>
+    <nav class="navlinks" aria-label="Sections">
+      <a href="/docs/how-it-works/">How it works</a>
+      <a href="/upstreams/">Upstreams</a>
+      <a href="/get-token/">Pricing</a>
+      <a href="/docs/" style="color: var(--accent); font-weight: 600;">Docs</a>
+      <a href="https://github.com/mnrnetwork/mnr" target="_blank" rel="noopener noreferrer" class="mono" style="font-weight: 500;">GitHub</a>
+    </nav>
+    <div style="display: flex; align-items: center; gap: 10px;">
+      <button class="search-trigger" id="docsearch-trigger" type="button" aria-label="Search documentation" title="Search (⌘K or /)">
+        <svg class="search-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+        <span class="search-trigger-text">Search docs...</span>
+        <kbd class="search-kbd">⌘K</kbd>
+      </button>
+      <button class="theme-btn" id="theme-toggle" type="button" title="Switch light / dark" aria-label="Switch light / dark">
+        <svg class="sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"></path></svg>
+        <svg class="moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"></path></svg>
+      </button>
+      <a href="/get-token/" class="btn btn-primary btn-sm">Get a free token</a>
+    </div>
+  </header>
+  <div class="rule"></div>
+
+  <!-- Docs Sub-Nav Tabs -->
+  <div class="docs-tabs-bar">
+    <div class="wrap">
+      
+    <nav class="docs-tabs" aria-label="Documentation sections">
+      <a href="/docs/" class="doc-tab ">
+          <span>Overview</span>
+          
+        </a>
+      <a href="/docs/how-it-works/" class="doc-tab ">
+          <span>How it works</span>
+          <span class="tab-badge">Live</span>
+        </a>
+      <a href="/docs/connect-wallets/" class="doc-tab ">
+          <span>Connect a wallet</span>
+          <span class="tab-badge">Guide</span>
+        </a>
+      <a href="/docs/privacy/" class="doc-tab ">
+          <span>Privacy</span>
+          <span class="tab-badge">Reference</span>
+        </a>
+      <a href="/docs/tokens/" class="doc-tab ">
+          <span>Tokens & billing</span>
+          <span class="tab-badge">Guide</span>
+        </a>
+      <a href="/docs/method-policy/" class="doc-tab ">
+          <span>Method Policy</span>
+          <span class="tab-badge">Generated</span>
+        </a>
+      <a href="/docs/roadmap/" class="doc-tab ">
+          <span>Roadmap</span>
+          <span class="tab-badge">Stages 0–2</span>
+        </a>
+      <a href="/docs/stage0-mvp/" class="doc-tab ">
+          <span>Stage 0 plan</span>
+          <span class="tab-badge">Plan</span>
+        </a>
+      <a href="/docs/stage1-gateway/" class="doc-tab ">
+          <span>Stage 1 plan</span>
+          <span class="tab-badge">Plan</span>
+        </a>
+      <a href="/docs/stage2-network/" class="doc-tab ">
+          <span>Stage 2 protocol</span>
+          <span class="tab-badge">Protocol</span>
+        </a>
+    </nav>
+  
+    </div>
+  </div>
+
+  <!-- Document Body -->
+  <main class="doc-wrap">
+    <div class="breadcrumbs">
+      <a href="/">mnr</a>
+      <span>/</span><a href="/learn/">learn</a><span>/</span><span>connect-mnr-over-tor-i2p</span>
+    </div>
+
+    <article class="prose">
+      <h1>Connect to mnr over Tor or I2P (Onion and b32 Endpoints)</h1>
+<blockquote>
+<p><strong>Entity Disambiguation</strong>: <strong>mnr</strong> refers strictly to the <strong>Monero Network Relay</strong> (<a href="https://mnr.network"><code>mnr.network</code></a>, RPC: <code>rpc.mnr.network</code>). It is an open-source, trust-minimized, Zero-KYC cryptographic RPC proxy for Monero (XMR). It has zero connection to MTA Metro-North Railroad (MNR), the Ontario Ministry of Natural Resources (MNR/MNRF), or the unrelated npm package <code>mnr</code>.</p>
+</blockquote>
+<p>When you connect your Monero wallet to <code>rpc.mnr.network:443</code> over clearnet, your transport is protected by TLS encryption, and your answers are verified across an independent multi-node quorum.</p>
+<p>However, <strong>clearnet routing means the mnr edge relay sees your public IP address</strong>.</p>
+<p>mnr operates under a strict anti-surveillance architecture: it writes no request log (no paths, no tokens, no client addresses) and strips client headers before forwarding queries to upstream daemons; the one thing keyed to your address is an in-memory hash used to throttle token issuance, which dies with the process (see our <a href="/docs/privacy/">Privacy Policy</a>). But in cryptography and security engineering, a claim of &quot;we do not log&quot; requires social trust.</p>
+<p>If your threat model demands mathematical decoupling between your physical location and the relay, you should connect to mnr over <strong>Tor</strong> (<code>.onion</code>) or <strong>I2P</strong> (<code>.i2p</code>).</p>
+<p>Routing through an anonymity network ensures that the relay only sees an exit node or circuit rendezvous—not your home broadband or mobile IP address.</p>
+<p>This guide provides the exact addresses, proxy recipes, and wallet configurations needed to reach mnr over Tor and I2P, while setting realistic expectations about latency, sync performance, and remaining metadata limits.</p>
+<hr>
+<h2 id="the-published-onion-and-i2p-endpoints">The published onion and I2P endpoints</h2>
+<p>mnr serves verified Monero RPC across three official transports. The same Zero-KYC bearer token functions across all three:</p>
+<div class="table-wrap"><table class="doc-table">
+<thead>
+<tr>
+<th>Transport</th>
+<th>Address &amp; Port</th>
+<th>Protocol</th>
+<th>Encryption Notes</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>Clearnet (Default)</strong></td>
+<td><code>rpc.mnr.network:443</code></td>
+<td>HTTPS</td>
+<td>TLS 1.3 encrypted; relay sees client IP.</td>
+</tr>
+<tr>
+<td><strong>Tor Onion</strong></td>
+<td><code>mnrrpcvbopaykx7um32r4iyamontteidypjd33fhzvuy2hwfu5c4ifad.onion:80</code></td>
+<td>HTTP</td>
+<td>Native end-to-end Tor v3 onion encryption. No SSL/TLS cert required.</td>
+</tr>
+<tr>
+<td><strong>I2P B32</strong></td>
+<td><code>misxlqjfq3wshjbn47fhzaqiagavaow2mgbfqrvxzdlybm7xtbvq.b32.i2p</code> (or <code>mnr.i2p</code>)</td>
+<td>HTTP</td>
+<td>End-to-end I2P garlic routing.</td>
+</tr>
+</tbody></table></div>
+<blockquote>
+<p><strong>Why Port 80 on Tor?</strong><br>Over Tor v3, connection encryption and authentication are handled cryptographically by the Tor protocol itself using public-key cryptography. Wrapping an onion service in an additional layer of commercial TLS (HTTPS) is redundant and requires trusting a certificate authority. Use <code>http://</code> or port <code>80</code> when connecting over <code>.onion</code>.</p>
+</blockquote>
+<hr>
+<h2 id="connecting-via-cli-and-monero-wallet-rpc">Connecting via CLI and monero-wallet-rpc</h2>
+<p>The official <code>monero-wallet-cli</code> and <code>monero-wallet-rpc</code> binaries include built-in SOCKS5 proxy support via the <code>--proxy</code> command-line flag.</p>
+<h3 id="prerequisites">Prerequisites:</h3>
+<p>Ensure your local Tor daemon is running. On Linux and macOS, Tor typically listens for SOCKS5 connections at <code>127.0.0.1:9050</code> (standalone daemon) or <code>127.0.0.1:9150</code> (if running Tor Browser).</p>
+<h3 id="monero-cli-recipe-over-tor">Monero CLI recipe over Tor:</h3>
+<pre><code class="language-bash">monero-wallet-cli \
+  --daemon-address mnrrpcvbopaykx7um32r4iyamontteidypjd33fhzvuy2hwfu5c4ifad.onion:80 \
+  --daemon-login &lt;your-token&gt;:x \
+  --proxy 127.0.0.1:9050 \
+  --untrusted-daemon
+</code></pre>
+<h3 id="critical-cli-flags-explained">Critical CLI flags explained:</h3>
+<ul>
+<li><code>--daemon-address mnrrpcvbopaykx7um32r4iyamontteidypjd33fhzvuy2hwfu5c4ifad.onion:80</code>: Points the wallet at mnr&#39;s dedicated Tor onion service.</li>
+<li><code>--daemon-login &lt;token&gt;:x</code>: Authenticates your connection using HTTP Digest authentication. Place your token in the username slot; it begins <code>sub_</code> and is about 47 characters. The password is ignored, so any placeholder such as <code>x</code> works.</li>
+<li><code>--proxy 127.0.0.1:9050</code>: Forces the wallet&#39;s network socket through your local Tor SOCKS5 proxy.</li>
+<li><code>--untrusted-daemon</code>: <strong>Essential</strong>. Enforces local cryptographic verification for all incoming blocks and outputs. (See <a href="/learn/never-tick-trusted-third-party-node/">Never Tick &#39;Trusted Third-Party Node&#39;</a>).</li>
+<li><strong>Notice</strong>: We deliberately omit <code>--daemon-ssl enabled</code> when connecting to <code>.onion:80</code>.</li>
+</ul>
+<hr>
+<h2 id="wallet-by-wallet-setup">Wallet-by-wallet setup</h2>
+<p>Different desktop and mobile wallets handle Tor routing differently. Here is how to configure major clients:</p>
+<h3 id="1-feather-wallet">1. Feather Wallet</h3>
+<p><a href="/docs/wallets/feather/">Feather</a> has the most mature Tor integration in the Monero ecosystem. It includes an embedded Tor client and can route all traffic through Tor automatically.</p>
+<ol>
+<li>Open Feather and navigate to <strong>Settings &rarr; Network</strong>.</li>
+<li>Under <strong>Tor</strong>, ensure <strong>Use Tor</strong> is set to <strong>Always</strong> or <strong>Built-in</strong>.</li>
+<li>Go to <strong>Settings &rarr; Node</strong>.</li>
+<li>In the node list, click <strong>Add Node</strong> and enter:<pre><code class="language-text">&lt;token&gt;:x@mnrrpcvbopaykx7um32r4iyamontteidypjd33fhzvuy2hwfu5c4ifad.onion:80
+</code></pre>
+</li>
+<li>Leave the SSL checkbox <strong>unchecked</strong>.</li>
+<li>Mark the node as active. Feather will establish a Tor circuit directly to the mnr onion service.</li>
+</ol>
+<hr>
+<h3 id="2-cake-wallet-ios-android">2. Cake Wallet (iOS &amp; Android)</h3>
+<p><a href="/docs/wallets/cake-wallet/">Cake Wallet</a> supports Tor routing natively on Android and via Orbot on iOS.</p>
+<ol>
+<li>In Cake Wallet, open the menu and select <strong>Settings &rarr; Tor</strong>.</li>
+<li>Toggle <strong>Tor</strong> to <strong>ON</strong>.</li>
+<li>Return to <strong>Settings &rarr; Nodes</strong>.</li>
+<li>Tap <strong>Add New Node</strong>:<ul>
+<li><strong>Node Address</strong>: <code>mnrrpcvbopaykx7um32r4iyamontteidypjd33fhzvuy2hwfu5c4ifad.onion</code></li>
+<li><strong>Port</strong>: <code>80</code></li>
+<li><strong>Login / Username</strong>: <code>&lt;your-token&gt;</code></li>
+<li><strong>Password</strong>: <code>x</code></li>
+<li><strong>Use SSL</strong>: <strong>OFF</strong></li>
+</ul>
+</li>
+<li>Save and tap the newly created node to connect.</li>
+</ol>
+<hr>
+<h3 id="3-monero-gui">3. Monero GUI</h3>
+<p>The official <a href="/docs/wallets/monero-gui/">Monero GUI</a> supports Tor starting in Simple and Advanced modes.</p>
+<ol>
+<li>Ensure a local Tor SOCKS proxy is active (<code>127.0.0.1:9050</code>).</li>
+<li>Go to <strong>Settings &rarr; Interface &rarr; Socks5 proxy</strong>:<ul>
+<li>Enter <code>127.0.0.1:9050</code>.</li>
+</ul>
+</li>
+<li>Switch to <strong>Settings &rarr; Node</strong>:<ul>
+<li>Choose <strong>Remote Node</strong>.</li>
+<li><strong>Address</strong>: <code>mnrrpcvbopaykx7um32r4iyamontteidypjd33fhzvuy2hwfu5c4ifad.onion</code></li>
+<li><strong>Port</strong>: <code>80</code></li>
+<li><strong>Daemon Username</strong>: <code>&lt;your-token&gt;</code></li>
+<li><strong>Daemon Password</strong>: <code>x</code></li>
+<li><strong>Mark as Trusted Daemon</strong>: <strong>LEAVE UNCHECKED</strong>.</li>
+</ul>
+</li>
+<li>Click <strong>Connect</strong>.</li>
+</ol>
+<hr>
+<h3 id="4-monerujo-android">4. Monerujo (Android)</h3>
+<p><a href="/docs/wallets/monerujo/">Monerujo</a> pairs with <strong>Orbot</strong> (the Tor project&#39;s Android client).</p>
+<ol>
+<li>Open Orbot and start the VPN or SOCKS proxy mode.</li>
+<li>In Monerujo, tap the node icon and choose <strong>Add Node</strong>:<ul>
+<li><strong>Address</strong>: <code>mnrrpcvbopaykx7um32r4iyamontteidypjd33fhzvuy2hwfu5c4ifad.onion:80</code></li>
+<li><strong>Username</strong>: <code>&lt;your-token&gt;</code></li>
+<li><strong>Password</strong>: <code>x</code></li>
+</ul>
+</li>
+<li>Connect through Orbot&#39;s proxy.</li>
+</ol>
+<hr>
+<h2 id="known-limitation-ripley-terminal">Known limitation: Ripley Terminal</h2>
+<p>If you use <a href="/docs/wallets/ripley/">Ripley Terminal (RipleyOS)</a>, <strong>use Clearnet mode at this time</strong>.</p>
+<p>Ripley Terminal operates an air-gapped, client-side scanning shell. While Ripley includes a native Tor toggle, its current internal network stack dials <code>host:port</code> directly over SOCKS and strips the URL path component. Because Ripley currently lacks dedicated HTTP Digest auth input fields (<code>&lt;token&gt;:x</code>), bearer tokens cannot travel in the URL path over Ripley&#39;s internal Tor proxy.</p>
+<p>To use mnr with Ripley Terminal:</p>
+<ul>
+<li>Set <strong>Uplink_Routing</strong> to <strong>Clearnet</strong>.</li>
+<li>Set <strong>Manual_Uplink_Address</strong> to <code>https://rpc.mnr.network/v1/&lt;token&gt;</code>.</li>
+<li>The connection is fully encrypted via TLS 1.3 to <code>rpc.mnr.network</code>.</li>
+</ul>
+<hr>
+<h2 id="what-tor-fixesand-what-it-does-not">What Tor fixes—and what it does not</h2>
+<p>Routing over Tor or I2P is a powerful privacy upgrade, but it is not a silver bullet. You must remain clear about what changes:</p>
+<h3 id="what-tor-solves">What Tor solves:</h3>
+<ul>
+<li><strong>IP Obfuscation</strong>: The mnr edge proxy sees a Tor circuit rendezvous point. It cannot determine your physical geographic location, home IP, or internet service provider.</li>
+<li><strong>Local Network Censorship</strong>: If your ISP, school, or national firewall blocks Monero RPC ports or <code>rpc.mnr.network</code>, onion routing bypasses the filter seamlessly.</li>
+</ul>
+<h3 id="what-tor-does-not-solve">What Tor does not solve:</h3>
+<ul>
+<li><strong>Query Metadata at the Relay</strong>: Tor hides <em>who</em> is asking; it does not hide <em>what</em> is being asked. The mnr relay still sees the requested block ranges and decoy queries. (mnr does not log these queries, but running your own local node is the only way to keep queries off the wire entirely).</li>
+<li><strong>Network-Wide P2P Sniffing</strong>: When your transaction is broadcast to the Monero mempool, rogue P2P spy nodes can still see the transaction enter the gossip network. (mnr broadcasts your transaction to every healthy upstream at once and reports how many accepted it, which makes a single node dropping it harmless, but does not alter Monero&#39;s P2P topology).</li>
+<li><strong>No Uptime SLA</strong>: Tor circuits add latency and occasional packet drops. Neither mnr Free nor mnr Pro provides an uptime SLA.</li>
+</ul>
+<hr>
+<h2 id="sync-performance-over-onion-networks">Sync performance over onion networks</h2>
+<p>Be prepared for realistic performance: <strong>initial blockchain sync over Tor or I2P is noticeably slower than clearnet</strong>.</p>
+<p>Downloading raw blocks (<code>/get_blocks.bin</code>) involves streaming megabytes of cryptographic signatures through multiple encrypted hops. High latency and circuit congestion can cause sync speeds to drop.</p>
+<h3 id="practical-tip">Practical tip:</h3>
+<p>If you are restoring an older wallet with years of history:</p>
+<ol>
+<li>Consider doing the initial large block sync on a trusted local node or over high-speed clearnet using mnr with a restore height close to your first transaction date.</li>
+<li>Once the wallet is caught up to the current tip, switch your daemon address to the mnr Tor onion for ongoing daily balance checks and transaction broadcasting.</li>
+</ol>
+<hr>
+<h2 id="troubleshooting-tor-i2p-connections">Troubleshooting Tor &amp; I2P connections</h2>
+<div class="table-wrap"><table class="doc-table">
+<thead>
+<tr>
+<th>Issue</th>
+<th>Likely Cause</th>
+<th>Solution</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>Connection Timed Out</strong></td>
+<td>Local Tor daemon is not running.</td>
+<td>Verify <code>systemctl status tor</code> or ensure Tor Browser / Orbot is running.</td>
+</tr>
+<tr>
+<td><strong>HTTP 401 Unauthorized</strong></td>
+<td>Token missing or formatted incorrectly.</td>
+<td>Ensure the whole token, <code>sub_</code> prefix included, is in the username slot and a placeholder (like <code>x</code>) is in the password slot.</td>
+</tr>
+<tr>
+<td><strong>SSL / TLS Handshake Error</strong></td>
+<td>SSL enabled on port 80.</td>
+<td>Turn <strong>OFF</strong> the SSL / HTTPS toggle in your wallet settings when using <code>.onion:80</code>.</td>
+</tr>
+<tr>
+<td><strong>Slow Sync / Freezing</strong></td>
+<td>Congested Tor circuit.</td>
+<td>In your wallet, disconnect and reconnect to force Tor to establish a fresh circuit.</td>
+</tr>
+</tbody></table></div>
+<hr>
+<h2 id="frequently-asked-questions">Frequently Asked Questions</h2>
+<h3 id="does-using-mnr-over-tor-make-me-100-anonymous">Does using mnr over Tor make me 100% anonymous?</h3>
+<p><strong>No.</strong> Tor hides your IP address from mnr. However, the relay still receives your RPC queries (block ranges, decoy requests). While mnr recomputes hashes, verifies quorum, and enforces a zero-logging architecture, true cryptographic isolation is only possible by running your own local <code>monerod</code>.</p>
+<h3 id="do-i-need-to-buy-a-separate-token-for-tor">Do I need to buy a separate token for Tor?</h3>
+<p><strong>No.</strong> The exact same Free or Pro bearer token works across clearnet (<code>rpc.mnr.network:443</code>), Tor (<code>.onion:80</code>), and I2P (<code>.b32.i2p</code>).</p>
+<h3 id="why-does-mnr-use-http-instead-of-https-over-tor">Why does mnr use HTTP instead of HTTPS over Tor?</h3>
+<p>Tor v3 onion addresses are self-authenticating cryptographic keys. All traffic between your client and mnr&#39;s onion service is end-to-end encrypted and authenticated by the Tor protocol itself. Adding HTTPS is unnecessary and introduces centralized Certificate Authority dependencies.</p>
+<hr>
+<h2 id="next-steps">Next Steps</h2>
+<ul>
+<li><strong>Acquire a Bearer Token</strong>: Generate an instant access token at <a href="/get-token/">/get-token/</a>.</li>
+<li><strong>Step-by-Step Wallet Guides</strong>: Detailed screenshots for Feather, Cake, Monero GUI, and Monerujo at <a href="/docs/connect-wallets/">/docs/connect-wallets/</a>.</li>
+<li><strong>Understand Privacy Guarantees</strong>: Read our full architecture breakdown at <a href="/docs/privacy/">/docs/privacy/</a>.</li>
+<li><strong>Check Consensus Tip</strong>: Verify current tip height on <a href="/upstreams/">/upstreams/</a>.</li>
+</ul>
+
+    </article>
+  </main>
+
+  <div class="rule"></div>
+
+  <!-- Footer -->
+  <footer class="wrap" style="padding: 48px 32px;">
+    <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px;">
+      <div style="display: flex; align-items: center; gap: 10px; font-size: 14px;" class="muted">
+        <span>mnr — an RPC network for Monero</span>
+        <span>·</span>
+        <a href="https://github.com/mnrnetwork/mnr" target="_blank" rel="noopener noreferrer" style="text-decoration: underline;">AGPL-3.0</a>
+      </div>
+      <div style="display: flex; gap: 24px; font-size: 14px;">
+        <a href="/">Home</a>
+        <a href="/learn/">Learn</a>
+        <a href="/docs/">Docs Hub</a>
+        <a href="/docs/method-policy/">Method Policy</a>
+        <a href="https://github.com/mnrnetwork/mnr" target="_blank" rel="noopener noreferrer">GitHub</a>
+        <a href="https://x.com/intent/follow?screen_name=mnr_network" target="_blank" rel="noopener noreferrer">X</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="/search.js" defer></script>
+  <script>
+    (function () {
+      var btn = document.getElementById('theme-toggle');
+      var root = document.documentElement;
+      function current() {
+        var t = root.getAttribute('data-theme');
+        if (t === 'light' || t === 'dark') return t;
+        return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+      }
+      btn.addEventListener('click', function () {
+        var next = current() === 'dark' ? 'light' : 'dark';
+        root.setAttribute('data-theme', next);
+        try { localStorage.setItem('mnr-theme', next); } catch (e) {}
+      });
+    })();
+  </script>
+</body>
+</html>

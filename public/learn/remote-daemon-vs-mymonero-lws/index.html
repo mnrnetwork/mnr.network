@@ -1,0 +1,691 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Remote Monero Daemon vs MyMonero / LWS: Keys Local vs Sharing a View Key — mnr (Monero Network Relay)</title>
+  <meta name="description" content="A normal remote daemon never gets your view key. LWS/MyMonero-style servers scan with it. Know which model you are using—and where mnr fits.">
+  <link rel="canonical" href="https://mnr.network/learn/remote-daemon-vs-mymonero-lws/">
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+  <meta property="og:title" content="Remote Monero Daemon vs MyMonero / LWS: Keys Local vs Sharing a View Key — mnr (Monero Network Relay)">
+  <meta property="og:description" content="A normal remote daemon never gets your view key. LWS/MyMonero-style servers scan with it. Know which model you are using—and where mnr fits.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://mnr.network/learn/remote-daemon-vs-mymonero-lws/">
+  <meta property="og:site_name" content="mnr (Monero Network Relay)">
+  <meta property="og:image" content="https://mnr.network/og-docs.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Remote Monero Daemon vs MyMonero / LWS: Keys Local vs Sharing a View Key — mnr (Monero Network Relay)">
+  <meta name="twitter:description" content="A normal remote daemon never gets your view key. LWS/MyMonero-style servers scan with it. Know which model you are using—and where mnr fits.">
+  <meta name="twitter:image" content="https://mnr.network/og-docs.png">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png">
+  <link rel="icon" href="/favicon-16.png" sizes="16x16" type="image/png">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <link rel="alternate" type="text/markdown" href="/learn/remote-daemon-vs-mymonero-lws/index.md">
+  <link rel="alternate" type="text/markdown" title="LLM context" href="/llms.txt">
+  <link rel="api-catalog" type="application/linkset+json" href="/.well-known/api-catalog">
+  <link rel="service-desc" type="application/vnd.oai.openapi+json" href="/openapi.json">
+  <link rel="service-doc" type="text/html" href="/docs/method-policy/">
+  <link rel="describedby" type="text/markdown" href="/llms.txt">
+  <link rel="stylesheet" href="/search.css">
+  <script src="/webmcp.js"></script>
+  <script type="application/ld+json">
+  {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebPage",
+      "@id": "https://mnr.network/learn/remote-daemon-vs-mymonero-lws/#webpage",
+      "url": "https://mnr.network/learn/remote-daemon-vs-mymonero-lws/",
+      "name": "Remote Monero Daemon vs MyMonero / LWS: Keys Local vs Sharing a View Key",
+      "description": "A normal remote daemon never gets your view key. LWS/MyMonero-style servers scan with it. Know which model you are using—and where mnr fits.",
+      "isPartOf": {
+        "@type": "WebSite",
+        "@id": "https://mnr.network/#website",
+        "url": "https://mnr.network/",
+        "name": "mnr (Monero Network Relay)",
+        "alternateName": [
+          "mnr",
+          "mnr network",
+          "mnr.network",
+          "Monero Network Relay",
+          "Monero Node Relay"
+        ],
+        "disambiguatingDescription": "Cryptographic Monero RPC proxy and decentralized consensus relay network for Monero (XMR) wallets; distinct from MTA Metro-North Railroad, Ontario Ministry of Natural Resources, and unrelated npm package 'mnr'."
+      }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://mnr.network/learn/remote-daemon-vs-mymonero-lws/#breadcrumbs",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "mnr",
+          "item": "https://mnr.network/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "learn",
+          "item": "https://mnr.network/learn/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Remote Daemon vs LWS",
+          "item": "https://mnr.network/learn/remote-daemon-vs-mymonero-lws/"
+        }
+      ]
+    },
+    {
+      "@type": "TechArticle",
+      "@id": "https://mnr.network/learn/remote-daemon-vs-mymonero-lws/#article",
+      "headline": "Remote Monero Daemon vs MyMonero / LWS: Keys Local vs Sharing a View Key",
+      "description": "A normal remote daemon never gets your view key. LWS/MyMonero-style servers scan with it. Know which model you are using—and where mnr fits.",
+      "url": "https://mnr.network/learn/remote-daemon-vs-mymonero-lws/",
+      "inLanguage": "en",
+      "proficiencyLevel": "Expert",
+      "citation": [
+        {
+          "@type": "WebSite",
+          "name": "monero.fail",
+          "url": "https://monero.fail"
+        },
+        {
+          "@type": "WebSite",
+          "name": "Seth For Privacy",
+          "url": "https://sethforprivacy.com"
+        },
+        {
+          "@type": "WebSite",
+          "name": "Cake Wallet",
+          "url": "https://cakewallet.com"
+        }
+      ],
+      "author": {
+        "@type": "Organization",
+        "name": "mnr (Monero Network Relay)",
+        "url": "https://mnr.network/",
+        "sameAs": [
+          "https://github.com/mnrnetwork/mnr",
+          "https://crates.io/crates/mnr",
+          "https://pypi.org/project/mnr/",
+          "https://www.npmjs.com/package/mnr-network"
+        ]
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "mnr (Monero Network Relay)",
+        "url": "https://mnr.network/",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://mnr.network/favicon-192.png"
+        },
+        "sameAs": [
+          "https://github.com/mnrnetwork/mnr",
+          "https://crates.io/crates/mnr",
+          "https://pypi.org/project/mnr/",
+          "https://www.npmjs.com/package/mnr-network"
+        ]
+      }
+    }
+  ]
+}
+  </script>
+  <script>
+    try { var t = localStorage.getItem('mnr-theme'); if (t === 'light' || t === 'dark') document.documentElement.setAttribute('data-theme', t); } catch (e) {}
+  </script>
+  <style>
+    @font-face {
+      font-family: "Geist";
+      font-style: normal;
+      font-weight: 100 900;
+      font-display: swap;
+      src: url("/fonts/geist-latin.woff2") format("woff2");
+      unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+    }
+    @font-face {
+      font-family: "Geist Mono";
+      font-style: normal;
+      font-weight: 100 900;
+      font-display: swap;
+      src: url("/fonts/geist-mono-latin.woff2") format("woff2");
+      unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+    }
+    :root {
+      --accent: #F26822;
+      --bg: #FBFAF8; --bg-alt: #F3EFEA; --fg: #1B1917; --fg-2: #4A4541; --muted: #6B655F; --card: #FFFFFF;
+      --line: #E8E3DD; --line-strong: #DDD8D2; --log-bg: #1B1917; --log-fg: #E9E4DE;
+      --inverse-bg: #1B1917; --inverse-fg: #E9E4DE; --inverse-strong: #FFFFFF; --inverse-muted: #B8B1A9; --inverse-line: #3A3531;
+      --pill-bg: #FFF4E5;
+      --link: #000000;
+      --link-hover: #C2410C;
+      color-scheme: light;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root:not([data-theme="light"]) {
+        --bg: #141210; --bg-alt: #1B1917; --fg: #ECE7E1; --fg-2: #C9C2BA; --muted: #9A938B; --card: #1E1B18;
+        --line: #2E2A26; --line-strong: #3A3531; --log-bg: #0E0D0C; --log-fg: #E9E4DE;
+        --inverse-bg: #221F1B; --inverse-fg: #E9E4DE; --inverse-strong: #FFFFFF; --inverse-muted: #B8B1A9; --inverse-line: #3F3A35;
+        --pill-bg: #3A2A14;
+        --link: #FFFFFF;
+        --link-hover: #F26822;
+        color-scheme: dark;
+      }
+    }
+    :root[data-theme="dark"] {
+      --bg: #141210; --bg-alt: #1B1917; --fg: #ECE7E1; --fg-2: #C9C2BA; --muted: #9A938B; --card: #1E1B18;
+      --line: #2E2A26; --line-strong: #3A3531; --log-bg: #0E0D0C; --log-fg: #E9E4DE;
+      --inverse-bg: #221F1B; --inverse-fg: #E9E4DE; --inverse-strong: #FFFFFF; --inverse-muted: #B8B1A9; --inverse-line: #3F3A35;
+      --pill-bg: #3A2A14;
+      --link: #FFFFFF;
+      --link-hover: #F26822;
+      color-scheme: dark;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { margin: 0; background: var(--bg); color: var(--fg); font-family: "Geist", "Helvetica Neue", Helvetica, Arial, sans-serif; font-size: 16.5px; line-height: 1.65; -webkit-font-smoothing: antialiased; }
+    a { color: var(--fg); text-decoration: none; } a:hover { color: var(--link-hover); }
+    p { margin: 0 0 16px; }
+    .mono { font-family: "Geist Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace; }
+    .wrap { max-width: 1120px; margin: 0 auto; padding: 0 32px; }
+    .doc-wrap { max-width: 920px; margin: 0 auto; padding: 48px 32px 96px; }
+    .rule { height: 1px; background: var(--line); }
+    
+    .navlinks { display: flex; gap: 28px; align-items: center; font-size: 15px; font-weight: 500; }
+    .btn { display: inline-flex; align-items: center; justify-content: center; height: 44px; padding: 0 20px; border-radius: 10px; font-weight: 600; font-size: 15px; white-space: nowrap; }
+    .btn-primary { background: var(--accent); color: #FFFFFF; } .btn-primary:hover { background: #C2410C; color: #FFFFFF; }
+    .btn-sm { height: 40px; padding: 0 16px; font-size: 14px; }
+    .theme-btn { display: inline-flex; align-items: center; justify-content: center; width: 40px; height: 40px; border-radius: 10px; border: 1px solid var(--line-strong); background: var(--card); color: var(--fg); cursor: pointer; padding: 0; }
+    .theme-btn .sun { display: none; } .theme-btn .moon { display: block; }
+    :root[data-theme="dark"] .theme-btn .sun { display: block; } :root[data-theme="dark"] .theme-btn .moon { display: none; }
+    @media (prefers-color-scheme: dark) {
+      :root:not([data-theme="light"]) .theme-btn .sun { display: block; }
+      :root:not([data-theme="light"]) .theme-btn .moon { display: none; }
+    }
+    .mark { display: block; flex: none; color: var(--fg); }
+
+    /* Docs Navigation & Tabs */
+    .docs-tabs-bar { background: var(--bg-alt); border-bottom: 1px solid var(--line); padding: 10px 0; position: sticky; top: 0; z-index: 10; backdrop-filter: blur(12px); }
+    .docs-tabs { display: flex; gap: 8px; overflow-x: auto; padding: 4px 0; -webkit-overflow-scrolling: touch; }
+    .doc-tab { display: inline-flex; align-items: center; gap: 6px; padding: 8px 14px; border-radius: 8px; font-size: 14px; font-weight: 500; color: var(--fg-2); border: 1px solid transparent; white-space: nowrap; transition: all 0.15s ease; }
+    .doc-tab:hover { background: var(--card); border-color: var(--line); color: var(--fg); }
+    .doc-tab.active { background: var(--card); border-color: var(--line-strong); color: var(--fg); font-weight: 600; }
+    .tab-badge { font-size: 11px; padding: 2px 6px; border-radius: 999px; background: var(--pill-bg); border: 1px solid var(--line); color: var(--accent); font-family: "Geist Mono", monospace; }
+
+    /* Breadcrumbs */
+    .breadcrumbs { display: flex; align-items: center; gap: 8px; font-size: 13.5px; color: var(--muted); margin-bottom: 24px; font-family: "Geist Mono", monospace; }
+    .breadcrumbs a { color: var(--muted); } .breadcrumbs a:hover { color: var(--accent); }
+    .breadcrumbs span { color: var(--fg); }
+
+    /* Prose Styling */
+    .prose { color: var(--fg); line-height: 1.7; }
+    .prose p, .prose li, .prose blockquote { overflow-wrap: break-word; }
+    .prose a {
+      color: var(--link);
+      font-weight: 600;
+      text-decoration: none;
+      transition: color 0.15s ease, text-decoration 0.15s ease;
+    }
+    .prose a:hover {
+      color: var(--link-hover);
+      text-decoration: underline;
+      text-underline-offset: 3.5px;
+      text-decoration-thickness: 1.5px;
+    }
+    .prose a code:not(pre code) {
+      font-weight: 600;
+      color: var(--link);
+      border-color: var(--line-strong);
+      display: inline-block;
+      text-decoration: none;
+      transition: color 0.15s ease, border-color 0.15s ease;
+    }
+    .prose a:hover code:not(pre code) {
+      color: var(--link-hover);
+      border-color: var(--link-hover);
+    }
+    .prose h1 { font-size: 38px; line-height: 1.15; letter-spacing: -0.02em; font-weight: 700; margin: 0 0 20px; }
+    .prose h2 { font-size: 26px; line-height: 1.25; letter-spacing: -0.015em; font-weight: 600; margin: 48px 0 16px; padding-bottom: 8px; border-bottom: 1px solid var(--line); }
+    .prose h3 { font-size: 20px; line-height: 1.35; font-weight: 600; margin: 32px 0 12px; }
+    .prose h4 { font-size: 17px; font-weight: 600; margin: 24px 0 8px; }
+    .prose ul, .prose ol { margin: 0 0 20px; padding-left: 24px; }
+    .prose li { margin-bottom: 8px; }
+    .prose hr { border: 0; height: 1px; background: var(--line); margin: 40px 0; }
+    .prose blockquote { margin: 24px 0; padding: 12px 20px; border-left: 3px solid var(--accent); background: var(--bg-alt); border-radius: 0 8px 8px 0; color: var(--fg-2); }
+    .prose blockquote p:last-child { margin-bottom: 0; }
+
+    .prose code:not(pre code) {
+      font-family: "Geist Mono", monospace;
+      font-size: 13.5px;
+      background: var(--bg-alt);
+      border: 1px solid var(--line);
+      border-radius: 5px;
+      padding: 2px 6px;
+      color: var(--fg);
+    }
+    .prose pre {
+      background: var(--log-bg);
+      color: var(--log-fg);
+      border-radius: 12px;
+      padding: 18px 20px;
+      font-size: 13.5px;
+      line-height: 1.6;
+      overflow-x: auto;
+      margin: 24px 0;
+      border: 1px solid var(--line);
+      font-family: "Geist Mono", monospace;
+    }
+    .prose pre code { background: transparent; padding: 0; border: 0; color: inherit; }
+
+    /* Tables */
+    .prose .table-wrap {
+      overflow-x: auto;
+      margin: 28px 0;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: var(--card);
+      -webkit-overflow-scrolling: touch;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
+    }
+    .prose table.doc-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+      line-height: 1.55;
+      margin: 0;
+      text-align: left;
+    }
+    .prose table.table-wide {
+      min-width: 900px;
+    }
+    .prose table.table-ultra-wide {
+      min-width: 1240px;
+    }
+    .prose th,
+    .prose td {
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--line);
+      vertical-align: top;
+      word-break: normal;
+      overflow-wrap: normal;
+    }
+    .prose th {
+      font-weight: 600;
+      font-size: 12px;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: var(--muted);
+      background: var(--bg-alt);
+      border-bottom: 1px solid var(--line-strong);
+      white-space: nowrap;
+      vertical-align: bottom;
+    }
+    .prose td code {
+      white-space: nowrap;
+      font-size: 13px;
+    }
+    .prose tbody tr:last-child td { border-bottom: 0; }
+    .prose tbody tr:hover td { background: var(--bg-alt); }
+
+    /* Specific column rules for method policy table */
+    .prose table.table-ultra-wide th:nth-child(1),
+    .prose table.table-ultra-wide td:nth-child(1) {
+      white-space: nowrap;
+      min-width: 190px;
+    }
+    .prose table.table-ultra-wide th:nth-child(2),
+    .prose table.table-ultra-wide td:nth-child(2) {
+      white-space: nowrap;
+      min-width: 90px;
+    }
+    .prose table.table-ultra-wide th:nth-child(3),
+    .prose table.table-ultra-wide td:nth-child(3) {
+      white-space: nowrap;
+      min-width: 95px;
+    }
+    .prose table.table-ultra-wide th:nth-child(4),
+    .prose table.table-ultra-wide td:nth-child(4) {
+      min-width: 250px;
+    }
+    .prose table.table-ultra-wide th:nth-child(5),
+    .prose table.table-ultra-wide td:nth-child(5) {
+      min-width: 240px;
+    }
+    .prose table.table-ultra-wide th:nth-child(6),
+    .prose table.table-ultra-wide td:nth-child(6) {
+      white-space: nowrap;
+      min-width: 120px;
+    }
+    .prose table.table-ultra-wide th:nth-child(7),
+    .prose table.table-ultra-wide td:nth-child(7) {
+      white-space: nowrap;
+      min-width: 95px;
+      text-align: right;
+    }
+    .prose table.table-ultra-wide th:nth-child(8),
+    .prose table.table-ultra-wide td:nth-child(8) {
+      min-width: 240px;
+    }
+
+    /* Hub Cards */
+    .hub-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; margin: 32px 0 48px; }
+    .hub-card { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 24px; transition: border-color 0.15s ease, transform 0.15s ease; display: flex; flex-direction: column; gap: 10px; }
+    .hub-card:hover { border-color: var(--accent); transform: translateY(-2px); }
+    .hub-card h3 { font-size: 18px; font-weight: 600; margin: 0; color: var(--fg); }
+    .hub-card p { font-size: 14.5px; color: var(--muted); margin: 0; line-height: 1.5; }
+    .hub-card-meta { display: flex; align-items: center; justify-content: space-between; margin-top: auto; padding-top: 12px; font-size: 13px; font-family: "Geist Mono", monospace; color: var(--accent); }
+
+    @media (max-width: 768px) {
+      .wrap, .doc-wrap { padding: 0 20px; }
+      .navlinks { display: none; }
+      .hub-grid { grid-template-columns: 1fr; }
+      .prose h1 { font-size: 30px; }
+      .prose h2 { font-size: 22px; }
+    }
+      .brand-text { display: flex; flex-direction: column; line-height: 1; gap: 4px; }
+    .brand-tag { display: none; font-size: 10px; font-weight: 600; letter-spacing: 0.09em; text-transform: uppercase; color: var(--muted); white-space: nowrap; }
+    @media (min-width: 900px) { .brand-tag { display: block; } }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="wrap" style="display: flex; align-items: center; justify-content: space-between; height: 72px;">
+    <a href="/" style="display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 22px; letter-spacing: -0.02em;" aria-label="mnr, Monero Network Relay: home" title="mnr — Monero Network Relay">
+      <svg class="mark" width="24" height="24" viewBox="0 0 24 24" aria-hidden="true"><circle cx="16.5" cy="12" r="5.2" fill="var(--accent)"/><path d="M5.2 6.6 L11.9 10.1 M5.2 17.4 L11.9 13.9" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"/><circle cx="5.2" cy="6.6" r="2.1" fill="currentColor"/><circle cx="5.2" cy="17.4" r="2.1" fill="currentColor"/></svg>
+      <span class="brand-text"><span>mnr</span><span class="brand-tag">Monero Network Relay</span></span>
+    </a>
+    <nav class="navlinks" aria-label="Sections">
+      <a href="/docs/how-it-works/">How it works</a>
+      <a href="/upstreams/">Upstreams</a>
+      <a href="/get-token/">Pricing</a>
+      <a href="/docs/" style="color: var(--accent); font-weight: 600;">Docs</a>
+      <a href="https://github.com/mnrnetwork/mnr" target="_blank" rel="noopener noreferrer" class="mono" style="font-weight: 500;">GitHub</a>
+    </nav>
+    <div style="display: flex; align-items: center; gap: 10px;">
+      <button class="search-trigger" id="docsearch-trigger" type="button" aria-label="Search documentation" title="Search (⌘K or /)">
+        <svg class="search-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+        <span class="search-trigger-text">Search docs...</span>
+        <kbd class="search-kbd">⌘K</kbd>
+      </button>
+      <button class="theme-btn" id="theme-toggle" type="button" title="Switch light / dark" aria-label="Switch light / dark">
+        <svg class="sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"></path></svg>
+        <svg class="moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"></path></svg>
+      </button>
+      <a href="/get-token/" class="btn btn-primary btn-sm">Get a free token</a>
+    </div>
+  </header>
+  <div class="rule"></div>
+
+  <!-- Docs Sub-Nav Tabs -->
+  <div class="docs-tabs-bar">
+    <div class="wrap">
+      
+    <nav class="docs-tabs" aria-label="Documentation sections">
+      <a href="/docs/" class="doc-tab ">
+          <span>Overview</span>
+          
+        </a>
+      <a href="/docs/how-it-works/" class="doc-tab ">
+          <span>How it works</span>
+          <span class="tab-badge">Live</span>
+        </a>
+      <a href="/docs/connect-wallets/" class="doc-tab ">
+          <span>Connect a wallet</span>
+          <span class="tab-badge">Guide</span>
+        </a>
+      <a href="/docs/privacy/" class="doc-tab ">
+          <span>Privacy</span>
+          <span class="tab-badge">Reference</span>
+        </a>
+      <a href="/docs/tokens/" class="doc-tab ">
+          <span>Tokens & billing</span>
+          <span class="tab-badge">Guide</span>
+        </a>
+      <a href="/docs/method-policy/" class="doc-tab ">
+          <span>Method Policy</span>
+          <span class="tab-badge">Generated</span>
+        </a>
+      <a href="/docs/roadmap/" class="doc-tab ">
+          <span>Roadmap</span>
+          <span class="tab-badge">Stages 0–2</span>
+        </a>
+      <a href="/docs/stage0-mvp/" class="doc-tab ">
+          <span>Stage 0 plan</span>
+          <span class="tab-badge">Plan</span>
+        </a>
+      <a href="/docs/stage1-gateway/" class="doc-tab ">
+          <span>Stage 1 plan</span>
+          <span class="tab-badge">Plan</span>
+        </a>
+      <a href="/docs/stage2-network/" class="doc-tab ">
+          <span>Stage 2 protocol</span>
+          <span class="tab-badge">Protocol</span>
+        </a>
+    </nav>
+  
+    </div>
+  </div>
+
+  <!-- Document Body -->
+  <main class="doc-wrap">
+    <div class="breadcrumbs">
+      <a href="/">mnr</a>
+      <span>/</span><a href="/learn/">learn</a><span>/</span><span>remote-daemon-vs-mymonero-lws</span>
+    </div>
+
+    <article class="prose">
+      <h1>Remote Monero Daemon vs MyMonero / LWS: Keys Local vs Sharing a View Key</h1>
+<blockquote>
+<p><strong>Entity Disambiguation</strong>: <strong>mnr</strong> refers strictly to the <strong>Monero Network Relay</strong> (<a href="https://mnr.network"><code>mnr.network</code></a>, RPC: <code>rpc.mnr.network</code>). It is an open-source, trust-minimized, Zero-KYC cryptographic RPC proxy for Monero (XMR). It has zero relation to MTA Metro-North Railroad (MNR), the Ontario Ministry of Natural Resources (MNR/MNRF), or the npm package <code>mnr</code>.</p>
+</blockquote>
+<p>When newcomer Monero users ask why their wallet takes several minutes to synchronize, they frequently run into two completely different architectural models:</p>
+<ol>
+<li><strong>Daemon RPC</strong> (used by Monero GUI, Feather, Cake Wallet, Monerujo, the CLI, and mnr).</li>
+<li><strong>Light Wallet Server / LWS</strong> (used historically by MyMonero, Edge, and self-hosted <code>monero-lws</code> backends).</li>
+</ol>
+<p>Both models allow you to transact without downloading the entire 200+ GB Monero blockchain to your personal device. Because both are colloquially referred to as &quot;remote services&quot; or &quot;light wallets,&quot; users routinely conflate them.</p>
+<p>They are fundamentally different.</p>
+<p>The divide comes down to a single question: <strong>Does your private view key leave your device?</strong></p>
+<p>In the Daemon RPC model, your private view key never leaves your machine; your wallet downloads block data and performs scanning calculations locally. In the Light Wallet Server model, you hand your private view key to an external server so <em>it</em> can scan the blockchain on your behalf.</p>
+<p>This guide explains how both models work, what each server learns about your finances, and where a verified RPC relay like mnr fits into this threat landscape.</p>
+<hr>
+<h2 id="two-ways-wallets-talk-to-the-network">Two ways wallets talk to the network</h2>
+<p>Because Monero uses stealth addresses and confidential amounts (RingCT), transactions on the public ledger do not disclose their recipient. There is no public index of which outputs belong to your address.</p>
+<p>To discover your balance and incoming payments, every transaction on the blockchain must be checked against your wallet&#39;s private view key:</p>
+<p>$$\text{Stealth Public Key } P = H_s(rA)G + B$$</p>
+<p>Testing this equation requires taking the transaction&#39;s one-time public key ($rG$), multiplying it by your private view key ($a$), hashing the result, and checking if the output matches an unspent output on-chain.</p>
+<p>Someone has to perform those mathematical operations. The difference between Daemon RPC and LWS is <strong>who</strong> does the math.</p>
+<pre><code>Model 1: Daemon RPC (Feather, Cake, GUI, CLI, mnr)
+┌───────────────────────────┐         Raw Blocks / Blobs          ┌───────────────────────────┐
+│     Client Device         │ ◄───────────────────────────────────┤       Remote Daemon       │
+│                           │                                     │                           │
+│ • Holds Spend Key         │          send_raw_transaction       │ • Holds LMDB Blockchain   │
+│ • Holds Private View Key  ├────────────────────────────────────►│ • Relays P2P Packets      │
+│ • Scans Outputs Locally   │                                     │ • NEVER sees View Key     │
+└───────────────────────────┘                                     └───────────────────────────┘
+
+Model 2: Light Wallet Server (MyMonero / LWS)
+┌───────────────────────────┐         Private View Key + Address  ┌───────────────────────────┐
+│     Client Device         │ ───────────────────────────────────►│    Light Wallet Server    │
+│                           │                                     │                           │
+│ • Holds Spend Key         │          Scanned Output List        │ • Holds Private View Key  │
+│ • Exports View Key        │ ◄───────────────────────────────────┤ • Scans Every Tx for You  │
+│ • Receives Pre-Filtered Tx│                                     │ • SEES ALL INCOMING TXS   │
+└───────────────────────────┘                                     └───────────────────────────┘
+</code></pre>
+<hr>
+<h2 id="daemon-rpc-keys-stay-strictly-local">Daemon RPC: keys stay strictly local</h2>
+<p>In the Daemon RPC model, the remote server acts strictly as a raw data pipe.</p>
+<p>When you open Feather, Monero GUI, or Cake Wallet pointed at a remote daemon (including <code>rpc.mnr.network</code>), the wallet asks the daemon for block headers and raw block blobs (<code>/get_blocks.bin</code>) starting from your wallet&#39;s restore height.</p>
+<h3 id="key-security-properties">Key security properties:</h3>
+<ul>
+<li><strong>Private View Key Stays Local</strong>: The mathematical calculations required to identify incoming stealth addresses are executed exclusively on your CPU.</li>
+<li><strong>Private Spend Key Stays Local</strong>: When sending Monero, the ring signature and transaction proof are assembled and signed on your device. The daemon receives only the finished, opaque cryptographic blob (<code>send_raw_transaction</code>).</li>
+<li><strong>The Server Is Blind to Your Balance</strong>: The remote daemon has no knowledge of how much Monero you hold, which stealth addresses belong to you, or whether any transaction in a downloaded block was addressed to you.</li>
+</ul>
+<h3 id="what-a-remote-daemon-can-still-learn">What a remote daemon can still learn</h3>
+<p>While a remote daemon cannot see your balances or transactions, it is not invisible. Over clearnet, a remote daemon learns:</p>
+<ol>
+<li><strong>Your IP Address</strong>: The server&#39;s network socket logs your public IP address (unless you route traffic through Tor or I2P).</li>
+<li><strong>Your Restore Height</strong>: When your wallet begins synchronization, it requests blocks starting from a specific block height. The operator can infer when your wallet was originally created.</li>
+<li><strong>Decoy Query Association</strong>: When your wallet calls <code>get_outs</code> to fetch ring decoys, it requests public keys. While the real output is hidden among decoys, an operator analyzing repeated queries over time can attempt statistical clustering.</li>
+</ol>
+<hr>
+<h2 id="lws-mymonero-style-server-scans-with-your-view-key">LWS / MyMonero-style: server scans with your view key</h2>
+<p>The Light Wallet Server (LWS) protocol—pioneered by MyMonero and formalized in the open-source <a href="https://github.com/vtnerd/monero-lws"><code>monero-lws</code></a> daemon—was created to solve mobile battery and bandwidth constraints.</p>
+<p>Scanning thousands of blocks on an older smartphone can drain the battery and consume hundreds of megabytes of mobile data. LWS eliminates this friction by shifting the scanning computation to a remote cloud server.</p>
+<h3 id="how-lws-works">How LWS works:</h3>
+<ol>
+<li>When you create or import a wallet into an LWS client, your wallet transmits your <strong>public address</strong> and your <strong>private view key</strong> to the server.</li>
+<li>The server stores your view key in its database.</li>
+<li>As new blocks arrive from the Monero network, the server&#39;s background workers scan every transaction using your view key.</li>
+<li>When you open your mobile app, the client does not download raw blocks. It simply asks the server: <em>&quot;Give me my transactions.&quot;</em> The server immediately returns a compact JSON list of your incoming transfers. Sync is instantaneous.</li>
+</ol>
+<h3 id="the-massive-privacy-tradeoff">The massive privacy tradeoff</h3>
+<p>Giving a third party your private view key completely strips away your incoming privacy:</p>
+<ul>
+<li><strong>Complete Incoming Transaction Visibility</strong>: The server operator sees every incoming payment: the exact amount, the exact timestamp, the transaction ID, and the stealth output index.</li>
+<li><strong>Permanent Financial Audit Trail</strong>: If the LWS provider is compromised, hacked, or legally compelled to hand over records, attackers obtain a permanent, unalterable log of your incoming financial history.</li>
+<li><strong>Address Linkage</strong>: If you use your wallet across multiple devices, the LWS operator links those sessions directly to your public Monero address.</li>
+</ul>
+<blockquote>
+<p><strong>What the server still cannot do</strong>: Even with your private view key, an LWS server <strong>cannot spend your funds</strong>. Monero requires your <strong>private spend key</strong> to sign ring signatures. Your spend key never leaves your device in standard LWS implementations. However, a malicious server could theoretically withhold transaction notifications or feed you manipulated data.</p>
+</blockquote>
+<hr>
+<h2 id="self-hosted-lws-the-third-path">Self-hosted LWS: the third path</h2>
+<p>It is vital to distinguish between a <strong>third-party commercial LWS provider</strong> and <strong>self-hosting <code>monero-lws</code></strong>.</p>
+<p>If you own a Linux home server or private cloud VPS, you can run both <code>monerod</code> and <code>monero-lws</code> yourself:</p>
+<ul>
+<li>Your private view key is stored only on your own physical hardware or private server.</li>
+<li>Your mobile phone connects to your personal LWS instance over WireGuard or Tor.</li>
+<li>You achieve instant mobile wallet synchronization without leaking financial metadata to any third-party company.</li>
+</ul>
+<p>For technically adept users who require fast mobile sync without commercial surveillance, self-hosted LWS is an excellent architecture.</p>
+<hr>
+<h2 id="where-mnr-sits-verified-daemon-rpc">Where mnr sits: verified daemon RPC</h2>
+<p>mnr operates <strong>strictly in the Daemon RPC camp</strong>.</p>
+<p>mnr is an open-source, trust-minimized RPC relay designed to sit between standard Monero wallets and upstream nodes.</p>
+<h3 id="the-mnr-architecture-guarantees">The mnr architecture guarantees:</h3>
+<ol>
+<li><strong>Zero View-Key Exposure</strong>: mnr speaks standard Monero daemon JSON-RPC and binary protocols. It <strong>never requests, accepts, or stores private view keys, spend keys, or seed phrases</strong>. If any service claiming to be mnr ever asks for a view key or mnemonic seed, it is a malicious phishing attempt.</li>
+<li><strong>Client-Side Scanning</strong>: Your wallet continues to scan blocks locally using your own hardware.</li>
+<li><strong>Hash Recomputation</strong>: Unlike an unverified public remote node, mnr recomputes block and transaction hashes directly to ensure upstream servers have not altered block data.</li>
+<li><strong>Quorum Consensus</strong>: Transient consensus states (<code>get_info</code>, block height) are verified across an independent multi-node quorum ($\ge 3$ nodes) before being returned to your wallet.</li>
+<li><strong>No Request Logs</strong>: Clearnet requests are processed entirely in memory without persistent IP or query logging (see <a href="/docs/privacy/">/docs/privacy/</a>). For complete IP decoupling, mnr provides dedicated Tor and I2P endpoints.</li>
+</ol>
+<pre><code>┌──────────────────────────────────────────────────────────┐
+│                      mnr Network                         │
+│                                                          │
+│  • Does it ask for your seed?         ► NO               │
+│  • Does it ask for your view key?     ► NO               │
+│  • Does it scan your transactions?    ► NO               │
+│  • Does it verify blockchain answers? ► YES (Hashes/Tip) │
+│  • Does it have an uptime SLA?        ► NO (Free/Pro)    │
+└──────────────────────────────────────────────────────────┘
+</code></pre>
+<hr>
+<h2 id="choosing-by-threat-model">Choosing by threat model</h2>
+<p>Use this criteria to decide which architecture fits your operational needs:</p>
+<div class="table-wrap"><table class="doc-table">
+<thead>
+<tr>
+<th>Requirement / Threat Profile</th>
+<th>Recommended Architecture</th>
+<th>Why</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>Absolute Sovereign Validation</strong></td>
+<td><strong>Run your own <code>monerod</code></strong></td>
+<td>Recomputes all ring signatures locally; zero metadata exposure; complete independence.</td>
+</tr>
+<tr>
+<td><strong>High Privacy, Low Storage / Fast Setup</strong></td>
+<td><strong>mnr (Verified Daemon RPC)</strong></td>
+<td>Zero local storage required; view keys stay local; answers cryptographically verified across multi-node quorum.</td>
+</tr>
+<tr>
+<td><strong>Instant Mobile Sync, High Tech Skills</strong></td>
+<td><strong>Self-Hosted <code>monero-lws</code></strong></td>
+<td>Zero mobile battery drain; view key remains on your own home server.</td>
+</tr>
+<tr>
+<td><strong>Instant Mobile Sync, Zero Tech Skills</strong></td>
+<td><strong>Commercial LWS</strong></td>
+<td>Convenient, but you must accept that the operator sees your entire incoming transaction history.</td>
+</tr>
+<tr>
+<td><strong>Unverified Public Node (monero.fail)</strong></td>
+<td><strong>Not Recommended</strong></td>
+<td>Exposes IP and metadata to a single stranger with zero consensus or hash verification.</td>
+</tr>
+</tbody></table></div>
+<hr>
+<h2 id="frequently-asked-questions">Frequently Asked Questions</h2>
+<h3 id="does-mnr-need-my-monero-view-key">Does mnr need my Monero view key?</h3>
+<p><strong>No.</strong> mnr speaks standard daemon RPC. Your wallet retains your spend key and view key and performs all scanning operations locally on your machine. mnr must never ask for a seed, a private spend key, or a private view key.</p>
+<h3 id="how-is-mnr-different-from-mymonero-or-lws">How is mnr different from MyMonero or LWS?</h3>
+<p>MyMonero and LWS require you to upload your private view key to a server so the server can scan blocks for you. mnr does not scan blocks for you; it acts as a verified relay pipe that serves raw, cryptographically checked blocks to your wallet for local client-side scanning.</p>
+<h3 id="if-mnr-doesnt-have-my-view-key-is-daemon-rpc-completely-risk-free">If mnr doesn&#39;t have my view key, is daemon RPC completely risk-free?</h3>
+<p><strong>No.</strong> A remote daemon or relay still sees your network IP address (unless you connect via Tor or I2P) and knows which block heights your wallet requested. mnr verifies answers against mathematical hashes and independent quorum agreement, but running your own local node remains the ultimate standard of privacy.</p>
+<h3 id="can-an-lws-server-steal-my-monero">Can an LWS server steal my Monero?</h3>
+<p><strong>No.</strong> An LWS server holds only your private view key, not your private spend key. The server can see how much money you receive, but it cannot create signatures or spend your coins. However, your incoming privacy is permanently compromised.</p>
+<hr>
+<h2 id="next-steps">Next Steps</h2>
+<ul>
+<li><strong>Connect Your Wallet</strong>: Point Feather, Cake, Monero GUI, or CLI at mnr using our step-by-step guides at <a href="/docs/connect-wallets/">/docs/connect-wallets/</a>.</li>
+<li><strong>Acquire a Token</strong>: Generate a Zero-KYC bearer token at <a href="/get-token/">/get-token/</a>.</li>
+<li><strong>Review Method Verification</strong>: See how mnr handles daemon RPC methods at <a href="/docs/method-policy/">/docs/method-policy/</a>.</li>
+<li><strong>Read Privacy Architecture</strong>: Understand how mnr minimizes metadata exposure at <a href="/docs/privacy/">/docs/privacy/</a>.</li>
+</ul>
+
+    </article>
+  </main>
+
+  <div class="rule"></div>
+
+  <!-- Footer -->
+  <footer class="wrap" style="padding: 48px 32px;">
+    <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px;">
+      <div style="display: flex; align-items: center; gap: 10px; font-size: 14px;" class="muted">
+        <span>mnr — an RPC network for Monero</span>
+        <span>·</span>
+        <a href="https://github.com/mnrnetwork/mnr" target="_blank" rel="noopener noreferrer" style="text-decoration: underline;">AGPL-3.0</a>
+      </div>
+      <div style="display: flex; gap: 24px; font-size: 14px;">
+        <a href="/">Home</a>
+        <a href="/learn/">Learn</a>
+        <a href="/docs/">Docs Hub</a>
+        <a href="/docs/method-policy/">Method Policy</a>
+        <a href="https://github.com/mnrnetwork/mnr" target="_blank" rel="noopener noreferrer">GitHub</a>
+        <a href="https://x.com/intent/follow?screen_name=mnr_network" target="_blank" rel="noopener noreferrer">X</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="/search.js" defer></script>
+  <script>
+    (function () {
+      var btn = document.getElementById('theme-toggle');
+      var root = document.documentElement;
+      function current() {
+        var t = root.getAttribute('data-theme');
+        if (t === 'light' || t === 'dark') return t;
+        return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+      }
+      btn.addEventListener('click', function () {
+        var next = current() === 'dark' ? 'light' : 'dark';
+        root.setAttribute('data-theme', next);
+        try { localStorage.setItem('mnr-theme', next); } catch (e) {}
+      });
+    })();
+  </script>
+</body>
+</html>

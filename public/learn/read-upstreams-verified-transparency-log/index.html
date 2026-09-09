@@ -1,0 +1,688 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>How to Read mnr /upstreams and the /verified Transparency Log — mnr (Monero Network Relay)</title>
+  <meta name="description" content="Do not trust marketing—read live upstreams, verified counts, faults, and weekly logs. Here is what each column means.">
+  <link rel="canonical" href="https://mnr.network/learn/read-upstreams-verified-transparency-log/">
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+  <meta property="og:title" content="How to Read mnr /upstreams and the /verified Transparency Log — mnr (Monero Network Relay)">
+  <meta property="og:description" content="Do not trust marketing—read live upstreams, verified counts, faults, and weekly logs. Here is what each column means.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://mnr.network/learn/read-upstreams-verified-transparency-log/">
+  <meta property="og:site_name" content="mnr (Monero Network Relay)">
+  <meta property="og:image" content="https://mnr.network/og-docs.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="How to Read mnr /upstreams and the /verified Transparency Log — mnr (Monero Network Relay)">
+  <meta name="twitter:description" content="Do not trust marketing—read live upstreams, verified counts, faults, and weekly logs. Here is what each column means.">
+  <meta name="twitter:image" content="https://mnr.network/og-docs.png">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png">
+  <link rel="icon" href="/favicon-16.png" sizes="16x16" type="image/png">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <link rel="alternate" type="text/markdown" href="/learn/read-upstreams-verified-transparency-log/index.md">
+  <link rel="alternate" type="text/markdown" title="LLM context" href="/llms.txt">
+  <link rel="api-catalog" type="application/linkset+json" href="/.well-known/api-catalog">
+  <link rel="service-desc" type="application/vnd.oai.openapi+json" href="/openapi.json">
+  <link rel="service-doc" type="text/html" href="/docs/method-policy/">
+  <link rel="describedby" type="text/markdown" href="/llms.txt">
+  <link rel="stylesheet" href="/search.css">
+  <script src="/webmcp.js"></script>
+  <script type="application/ld+json">
+  {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebPage",
+      "@id": "https://mnr.network/learn/read-upstreams-verified-transparency-log/#webpage",
+      "url": "https://mnr.network/learn/read-upstreams-verified-transparency-log/",
+      "name": "How to Read mnr /upstreams and the /verified Transparency Log",
+      "description": "Do not trust marketing—read live upstreams, verified counts, faults, and weekly logs. Here is what each column means.",
+      "isPartOf": {
+        "@type": "WebSite",
+        "@id": "https://mnr.network/#website",
+        "url": "https://mnr.network/",
+        "name": "mnr (Monero Network Relay)",
+        "alternateName": [
+          "mnr",
+          "mnr network",
+          "mnr.network",
+          "Monero Network Relay",
+          "Monero Node Relay"
+        ],
+        "disambiguatingDescription": "Cryptographic Monero RPC proxy and decentralized consensus relay network for Monero (XMR) wallets; distinct from MTA Metro-North Railroad, Ontario Ministry of Natural Resources, and unrelated npm package 'mnr'."
+      }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://mnr.network/learn/read-upstreams-verified-transparency-log/#breadcrumbs",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "mnr",
+          "item": "https://mnr.network/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "learn",
+          "item": "https://mnr.network/learn/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Reading Transparency Logs",
+          "item": "https://mnr.network/learn/read-upstreams-verified-transparency-log/"
+        }
+      ]
+    },
+    {
+      "@type": "TechArticle",
+      "@id": "https://mnr.network/learn/read-upstreams-verified-transparency-log/#article",
+      "headline": "How to Read mnr /upstreams and the /verified Transparency Log",
+      "description": "Do not trust marketing—read live upstreams, verified counts, faults, and weekly logs. Here is what each column means.",
+      "url": "https://mnr.network/learn/read-upstreams-verified-transparency-log/",
+      "inLanguage": "en",
+      "proficiencyLevel": "Expert",
+      "citation": [
+        {
+          "@type": "WebSite",
+          "name": "monero.fail",
+          "url": "https://monero.fail"
+        },
+        {
+          "@type": "WebSite",
+          "name": "Seth For Privacy",
+          "url": "https://sethforprivacy.com"
+        },
+        {
+          "@type": "WebSite",
+          "name": "Cake Wallet",
+          "url": "https://cakewallet.com"
+        }
+      ],
+      "author": {
+        "@type": "Organization",
+        "name": "mnr (Monero Network Relay)",
+        "url": "https://mnr.network/",
+        "sameAs": [
+          "https://github.com/mnrnetwork/mnr",
+          "https://crates.io/crates/mnr",
+          "https://pypi.org/project/mnr/",
+          "https://www.npmjs.com/package/mnr-network"
+        ]
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "mnr (Monero Network Relay)",
+        "url": "https://mnr.network/",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://mnr.network/favicon-192.png"
+        },
+        "sameAs": [
+          "https://github.com/mnrnetwork/mnr",
+          "https://crates.io/crates/mnr",
+          "https://pypi.org/project/mnr/",
+          "https://www.npmjs.com/package/mnr-network"
+        ]
+      }
+    }
+  ]
+}
+  </script>
+  <script>
+    try { var t = localStorage.getItem('mnr-theme'); if (t === 'light' || t === 'dark') document.documentElement.setAttribute('data-theme', t); } catch (e) {}
+  </script>
+  <style>
+    @font-face {
+      font-family: "Geist";
+      font-style: normal;
+      font-weight: 100 900;
+      font-display: swap;
+      src: url("/fonts/geist-latin.woff2") format("woff2");
+      unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+    }
+    @font-face {
+      font-family: "Geist Mono";
+      font-style: normal;
+      font-weight: 100 900;
+      font-display: swap;
+      src: url("/fonts/geist-mono-latin.woff2") format("woff2");
+      unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+    }
+    :root {
+      --accent: #F26822;
+      --bg: #FBFAF8; --bg-alt: #F3EFEA; --fg: #1B1917; --fg-2: #4A4541; --muted: #6B655F; --card: #FFFFFF;
+      --line: #E8E3DD; --line-strong: #DDD8D2; --log-bg: #1B1917; --log-fg: #E9E4DE;
+      --inverse-bg: #1B1917; --inverse-fg: #E9E4DE; --inverse-strong: #FFFFFF; --inverse-muted: #B8B1A9; --inverse-line: #3A3531;
+      --pill-bg: #FFF4E5;
+      --link: #000000;
+      --link-hover: #C2410C;
+      color-scheme: light;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root:not([data-theme="light"]) {
+        --bg: #141210; --bg-alt: #1B1917; --fg: #ECE7E1; --fg-2: #C9C2BA; --muted: #9A938B; --card: #1E1B18;
+        --line: #2E2A26; --line-strong: #3A3531; --log-bg: #0E0D0C; --log-fg: #E9E4DE;
+        --inverse-bg: #221F1B; --inverse-fg: #E9E4DE; --inverse-strong: #FFFFFF; --inverse-muted: #B8B1A9; --inverse-line: #3F3A35;
+        --pill-bg: #3A2A14;
+        --link: #FFFFFF;
+        --link-hover: #F26822;
+        color-scheme: dark;
+      }
+    }
+    :root[data-theme="dark"] {
+      --bg: #141210; --bg-alt: #1B1917; --fg: #ECE7E1; --fg-2: #C9C2BA; --muted: #9A938B; --card: #1E1B18;
+      --line: #2E2A26; --line-strong: #3A3531; --log-bg: #0E0D0C; --log-fg: #E9E4DE;
+      --inverse-bg: #221F1B; --inverse-fg: #E9E4DE; --inverse-strong: #FFFFFF; --inverse-muted: #B8B1A9; --inverse-line: #3F3A35;
+      --pill-bg: #3A2A14;
+      --link: #FFFFFF;
+      --link-hover: #F26822;
+      color-scheme: dark;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { margin: 0; background: var(--bg); color: var(--fg); font-family: "Geist", "Helvetica Neue", Helvetica, Arial, sans-serif; font-size: 16.5px; line-height: 1.65; -webkit-font-smoothing: antialiased; }
+    a { color: var(--fg); text-decoration: none; } a:hover { color: var(--link-hover); }
+    p { margin: 0 0 16px; }
+    .mono { font-family: "Geist Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace; }
+    .wrap { max-width: 1120px; margin: 0 auto; padding: 0 32px; }
+    .doc-wrap { max-width: 920px; margin: 0 auto; padding: 48px 32px 96px; }
+    .rule { height: 1px; background: var(--line); }
+    
+    .navlinks { display: flex; gap: 28px; align-items: center; font-size: 15px; font-weight: 500; }
+    .btn { display: inline-flex; align-items: center; justify-content: center; height: 44px; padding: 0 20px; border-radius: 10px; font-weight: 600; font-size: 15px; white-space: nowrap; }
+    .btn-primary { background: var(--accent); color: #FFFFFF; } .btn-primary:hover { background: #C2410C; color: #FFFFFF; }
+    .btn-sm { height: 40px; padding: 0 16px; font-size: 14px; }
+    .theme-btn { display: inline-flex; align-items: center; justify-content: center; width: 40px; height: 40px; border-radius: 10px; border: 1px solid var(--line-strong); background: var(--card); color: var(--fg); cursor: pointer; padding: 0; }
+    .theme-btn .sun { display: none; } .theme-btn .moon { display: block; }
+    :root[data-theme="dark"] .theme-btn .sun { display: block; } :root[data-theme="dark"] .theme-btn .moon { display: none; }
+    @media (prefers-color-scheme: dark) {
+      :root:not([data-theme="light"]) .theme-btn .sun { display: block; }
+      :root:not([data-theme="light"]) .theme-btn .moon { display: none; }
+    }
+    .mark { display: block; flex: none; color: var(--fg); }
+
+    /* Docs Navigation & Tabs */
+    .docs-tabs-bar { background: var(--bg-alt); border-bottom: 1px solid var(--line); padding: 10px 0; position: sticky; top: 0; z-index: 10; backdrop-filter: blur(12px); }
+    .docs-tabs { display: flex; gap: 8px; overflow-x: auto; padding: 4px 0; -webkit-overflow-scrolling: touch; }
+    .doc-tab { display: inline-flex; align-items: center; gap: 6px; padding: 8px 14px; border-radius: 8px; font-size: 14px; font-weight: 500; color: var(--fg-2); border: 1px solid transparent; white-space: nowrap; transition: all 0.15s ease; }
+    .doc-tab:hover { background: var(--card); border-color: var(--line); color: var(--fg); }
+    .doc-tab.active { background: var(--card); border-color: var(--line-strong); color: var(--fg); font-weight: 600; }
+    .tab-badge { font-size: 11px; padding: 2px 6px; border-radius: 999px; background: var(--pill-bg); border: 1px solid var(--line); color: var(--accent); font-family: "Geist Mono", monospace; }
+
+    /* Breadcrumbs */
+    .breadcrumbs { display: flex; align-items: center; gap: 8px; font-size: 13.5px; color: var(--muted); margin-bottom: 24px; font-family: "Geist Mono", monospace; }
+    .breadcrumbs a { color: var(--muted); } .breadcrumbs a:hover { color: var(--accent); }
+    .breadcrumbs span { color: var(--fg); }
+
+    /* Prose Styling */
+    .prose { color: var(--fg); line-height: 1.7; }
+    .prose p, .prose li, .prose blockquote { overflow-wrap: break-word; }
+    .prose a {
+      color: var(--link);
+      font-weight: 600;
+      text-decoration: none;
+      transition: color 0.15s ease, text-decoration 0.15s ease;
+    }
+    .prose a:hover {
+      color: var(--link-hover);
+      text-decoration: underline;
+      text-underline-offset: 3.5px;
+      text-decoration-thickness: 1.5px;
+    }
+    .prose a code:not(pre code) {
+      font-weight: 600;
+      color: var(--link);
+      border-color: var(--line-strong);
+      display: inline-block;
+      text-decoration: none;
+      transition: color 0.15s ease, border-color 0.15s ease;
+    }
+    .prose a:hover code:not(pre code) {
+      color: var(--link-hover);
+      border-color: var(--link-hover);
+    }
+    .prose h1 { font-size: 38px; line-height: 1.15; letter-spacing: -0.02em; font-weight: 700; margin: 0 0 20px; }
+    .prose h2 { font-size: 26px; line-height: 1.25; letter-spacing: -0.015em; font-weight: 600; margin: 48px 0 16px; padding-bottom: 8px; border-bottom: 1px solid var(--line); }
+    .prose h3 { font-size: 20px; line-height: 1.35; font-weight: 600; margin: 32px 0 12px; }
+    .prose h4 { font-size: 17px; font-weight: 600; margin: 24px 0 8px; }
+    .prose ul, .prose ol { margin: 0 0 20px; padding-left: 24px; }
+    .prose li { margin-bottom: 8px; }
+    .prose hr { border: 0; height: 1px; background: var(--line); margin: 40px 0; }
+    .prose blockquote { margin: 24px 0; padding: 12px 20px; border-left: 3px solid var(--accent); background: var(--bg-alt); border-radius: 0 8px 8px 0; color: var(--fg-2); }
+    .prose blockquote p:last-child { margin-bottom: 0; }
+
+    .prose code:not(pre code) {
+      font-family: "Geist Mono", monospace;
+      font-size: 13.5px;
+      background: var(--bg-alt);
+      border: 1px solid var(--line);
+      border-radius: 5px;
+      padding: 2px 6px;
+      color: var(--fg);
+    }
+    .prose pre {
+      background: var(--log-bg);
+      color: var(--log-fg);
+      border-radius: 12px;
+      padding: 18px 20px;
+      font-size: 13.5px;
+      line-height: 1.6;
+      overflow-x: auto;
+      margin: 24px 0;
+      border: 1px solid var(--line);
+      font-family: "Geist Mono", monospace;
+    }
+    .prose pre code { background: transparent; padding: 0; border: 0; color: inherit; }
+
+    /* Tables */
+    .prose .table-wrap {
+      overflow-x: auto;
+      margin: 28px 0;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: var(--card);
+      -webkit-overflow-scrolling: touch;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
+    }
+    .prose table.doc-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+      line-height: 1.55;
+      margin: 0;
+      text-align: left;
+    }
+    .prose table.table-wide {
+      min-width: 900px;
+    }
+    .prose table.table-ultra-wide {
+      min-width: 1240px;
+    }
+    .prose th,
+    .prose td {
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--line);
+      vertical-align: top;
+      word-break: normal;
+      overflow-wrap: normal;
+    }
+    .prose th {
+      font-weight: 600;
+      font-size: 12px;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: var(--muted);
+      background: var(--bg-alt);
+      border-bottom: 1px solid var(--line-strong);
+      white-space: nowrap;
+      vertical-align: bottom;
+    }
+    .prose td code {
+      white-space: nowrap;
+      font-size: 13px;
+    }
+    .prose tbody tr:last-child td { border-bottom: 0; }
+    .prose tbody tr:hover td { background: var(--bg-alt); }
+
+    /* Specific column rules for method policy table */
+    .prose table.table-ultra-wide th:nth-child(1),
+    .prose table.table-ultra-wide td:nth-child(1) {
+      white-space: nowrap;
+      min-width: 190px;
+    }
+    .prose table.table-ultra-wide th:nth-child(2),
+    .prose table.table-ultra-wide td:nth-child(2) {
+      white-space: nowrap;
+      min-width: 90px;
+    }
+    .prose table.table-ultra-wide th:nth-child(3),
+    .prose table.table-ultra-wide td:nth-child(3) {
+      white-space: nowrap;
+      min-width: 95px;
+    }
+    .prose table.table-ultra-wide th:nth-child(4),
+    .prose table.table-ultra-wide td:nth-child(4) {
+      min-width: 250px;
+    }
+    .prose table.table-ultra-wide th:nth-child(5),
+    .prose table.table-ultra-wide td:nth-child(5) {
+      min-width: 240px;
+    }
+    .prose table.table-ultra-wide th:nth-child(6),
+    .prose table.table-ultra-wide td:nth-child(6) {
+      white-space: nowrap;
+      min-width: 120px;
+    }
+    .prose table.table-ultra-wide th:nth-child(7),
+    .prose table.table-ultra-wide td:nth-child(7) {
+      white-space: nowrap;
+      min-width: 95px;
+      text-align: right;
+    }
+    .prose table.table-ultra-wide th:nth-child(8),
+    .prose table.table-ultra-wide td:nth-child(8) {
+      min-width: 240px;
+    }
+
+    /* Hub Cards */
+    .hub-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; margin: 32px 0 48px; }
+    .hub-card { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 24px; transition: border-color 0.15s ease, transform 0.15s ease; display: flex; flex-direction: column; gap: 10px; }
+    .hub-card:hover { border-color: var(--accent); transform: translateY(-2px); }
+    .hub-card h3 { font-size: 18px; font-weight: 600; margin: 0; color: var(--fg); }
+    .hub-card p { font-size: 14.5px; color: var(--muted); margin: 0; line-height: 1.5; }
+    .hub-card-meta { display: flex; align-items: center; justify-content: space-between; margin-top: auto; padding-top: 12px; font-size: 13px; font-family: "Geist Mono", monospace; color: var(--accent); }
+
+    @media (max-width: 768px) {
+      .wrap, .doc-wrap { padding: 0 20px; }
+      .navlinks { display: none; }
+      .hub-grid { grid-template-columns: 1fr; }
+      .prose h1 { font-size: 30px; }
+      .prose h2 { font-size: 22px; }
+    }
+      .brand-text { display: flex; flex-direction: column; line-height: 1; gap: 4px; }
+    .brand-tag { display: none; font-size: 10px; font-weight: 600; letter-spacing: 0.09em; text-transform: uppercase; color: var(--muted); white-space: nowrap; }
+    @media (min-width: 900px) { .brand-tag { display: block; } }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="wrap" style="display: flex; align-items: center; justify-content: space-between; height: 72px;">
+    <a href="/" style="display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 22px; letter-spacing: -0.02em;" aria-label="mnr, Monero Network Relay: home" title="mnr — Monero Network Relay">
+      <svg class="mark" width="24" height="24" viewBox="0 0 24 24" aria-hidden="true"><circle cx="16.5" cy="12" r="5.2" fill="var(--accent)"/><path d="M5.2 6.6 L11.9 10.1 M5.2 17.4 L11.9 13.9" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"/><circle cx="5.2" cy="6.6" r="2.1" fill="currentColor"/><circle cx="5.2" cy="17.4" r="2.1" fill="currentColor"/></svg>
+      <span class="brand-text"><span>mnr</span><span class="brand-tag">Monero Network Relay</span></span>
+    </a>
+    <nav class="navlinks" aria-label="Sections">
+      <a href="/docs/how-it-works/">How it works</a>
+      <a href="/upstreams/">Upstreams</a>
+      <a href="/get-token/">Pricing</a>
+      <a href="/docs/" style="color: var(--accent); font-weight: 600;">Docs</a>
+      <a href="https://github.com/mnrnetwork/mnr" target="_blank" rel="noopener noreferrer" class="mono" style="font-weight: 500;">GitHub</a>
+    </nav>
+    <div style="display: flex; align-items: center; gap: 10px;">
+      <button class="search-trigger" id="docsearch-trigger" type="button" aria-label="Search documentation" title="Search (⌘K or /)">
+        <svg class="search-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+        <span class="search-trigger-text">Search docs...</span>
+        <kbd class="search-kbd">⌘K</kbd>
+      </button>
+      <button class="theme-btn" id="theme-toggle" type="button" title="Switch light / dark" aria-label="Switch light / dark">
+        <svg class="sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"></path></svg>
+        <svg class="moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"></path></svg>
+      </button>
+      <a href="/get-token/" class="btn btn-primary btn-sm">Get a free token</a>
+    </div>
+  </header>
+  <div class="rule"></div>
+
+  <!-- Docs Sub-Nav Tabs -->
+  <div class="docs-tabs-bar">
+    <div class="wrap">
+      
+    <nav class="docs-tabs" aria-label="Documentation sections">
+      <a href="/docs/" class="doc-tab ">
+          <span>Overview</span>
+          
+        </a>
+      <a href="/docs/how-it-works/" class="doc-tab ">
+          <span>How it works</span>
+          <span class="tab-badge">Live</span>
+        </a>
+      <a href="/docs/connect-wallets/" class="doc-tab ">
+          <span>Connect a wallet</span>
+          <span class="tab-badge">Guide</span>
+        </a>
+      <a href="/docs/privacy/" class="doc-tab ">
+          <span>Privacy</span>
+          <span class="tab-badge">Reference</span>
+        </a>
+      <a href="/docs/tokens/" class="doc-tab ">
+          <span>Tokens & billing</span>
+          <span class="tab-badge">Guide</span>
+        </a>
+      <a href="/docs/method-policy/" class="doc-tab ">
+          <span>Method Policy</span>
+          <span class="tab-badge">Generated</span>
+        </a>
+      <a href="/docs/roadmap/" class="doc-tab ">
+          <span>Roadmap</span>
+          <span class="tab-badge">Stages 0–2</span>
+        </a>
+      <a href="/docs/stage0-mvp/" class="doc-tab ">
+          <span>Stage 0 plan</span>
+          <span class="tab-badge">Plan</span>
+        </a>
+      <a href="/docs/stage1-gateway/" class="doc-tab ">
+          <span>Stage 1 plan</span>
+          <span class="tab-badge">Plan</span>
+        </a>
+      <a href="/docs/stage2-network/" class="doc-tab ">
+          <span>Stage 2 protocol</span>
+          <span class="tab-badge">Protocol</span>
+        </a>
+    </nav>
+  
+    </div>
+  </div>
+
+  <!-- Document Body -->
+  <main class="doc-wrap">
+    <div class="breadcrumbs">
+      <a href="/">mnr</a>
+      <span>/</span><a href="/learn/">learn</a><span>/</span><span>read-upstreams-verified-transparency-log</span>
+    </div>
+
+    <article class="prose">
+      <h1>How to Read mnr /upstreams and the /verified Transparency Log</h1>
+<blockquote>
+<p><strong>Entity Disambiguation</strong>: <strong>mnr</strong> refers strictly to the <strong>Monero Network Relay</strong> (<a href="https://mnr.network"><code>mnr.network</code></a>, RPC: <code>rpc.mnr.network</code>). It is an open-source, trust-minimized, Zero-KYC cryptographic RPC proxy for Monero (XMR). It has zero connection to MTA Metro-North Railroad (MNR), the Ontario Ministry of Natural Resources (MNR/MNRF), or the unrelated npm package <code>mnr</code>.</p>
+</blockquote>
+<p>In the cryptocurrency space, marketing slogans about &quot;privacy&quot; and &quot;decentralization&quot; are cheap. Anyone can stand up an NGINX proxy, put an orange logo on a static landing page, and claim their service is &quot;trustless.&quot;</p>
+<p>The only way to verify whether a proxy behaves honestly is through <strong>verifiable public telemetry</strong>.</p>
+<p>mnr does not ask you to trust marketing copy. Instead, the network exposes its internal consensus engine through two public, real-time audit interfaces:</p>
+<ol>
+<li><strong>Live Upstream Telemetry</strong> (<a href="https://mnr.network/upstreams/"><code>mnr.network/upstreams/</code></a>): A live dashboard displaying every single upstream node currently queried by the relay, its synchronization height, its round-trip latency, its assigned request cap, its verified answer count, and its recorded faults.</li>
+<li><strong>Weekly Transparency Log</strong> (<a href="https://mnr.network/verified/"><code>mnr.network/verified/</code></a>): An unalterable, chronological log documenting network-wide verification totals, divergence events, node ejections, and third-party upstream provenance.</li>
+</ol>
+<p>If you are a security researcher, an independent node operator, or a skeptical wallet user, this guide teaches you how to read these metrics, interpret failure signals, and verify the network&#39;s behavior yourself.</p>
+<hr>
+<h2 id="why-public-telemetry-exists-trust-minimizing-the-relay">Why public telemetry exists: trust-minimizing the relay</h2>
+<p>When you use a standard public remote node found on a web directory, the node&#39;s internal state is completely opaque. You cannot see whether the node is currently connected to 8 peers or 80 peers, whether its database is corrupted, or how many other clients are currently sharing the connection.</p>
+<p>When you connect to mnr, you are using an aggregation relay. If mnr operated as a closed black box, you would merely replace blind trust in a single node with blind trust in mnr.</p>
+<p>Public telemetry eliminates this opacity by enforcing three invariants:</p>
+<ol>
+<li><strong>Upstream Visibility</strong>: Every upstream Monero node used by mnr is identified by hostname and port. You know exactly which physical servers are answering consensus queries.</li>
+<li><strong>Auditable Consensus</strong>: The agreed <strong>Quorum Tip</strong> (height and top block hash) is rendered live. You can compare mnr&#39;s tip against block explorers or your own local node in real time.</li>
+<li><strong>Accountability for Failures</strong>: When an upstream node falls out of sync, serves a corrupt block, or times out, mnr does not hide the error. It increments the node&#39;s public fault counter and publishes the ejection event.</li>
+</ol>
+<hr>
+<h2 id="walking-upstreams-the-live-dashboard">Walking /upstreams: the live dashboard</h2>
+<p>When you visit <a href="https://mnr.network/upstreams/"><code>mnr.network/upstreams/</code></a>, you are presented with the live operational state of the relay&#39;s routing pool.</p>
+<pre><code>┌────────────────────────────────────────────────────────────────────────┐
+│ Pool: 15 nodes •  Quorum Tip: 3,300,142  •  Hash: 8a4b...2c1f  •  OK  │
+└────────────────────────────────────────────────────────────────────────┘
+</code></pre>
+<h3 id="the-summary-header">The summary header:</h3>
+<ul>
+<li><strong>Pool Status</strong>: Shows total active upstreams meeting health checks. A status of <code>OK</code> indicates normal multi-node consensus. If network partitions prevent at least three nodes from agreeing on the tip, this badge shifts to <code>DEGRADED</code>, indicating the relay is operating in fallback mode.</li>
+<li><strong>Quorum Tip Height &amp; Hash</strong>: The current block height and 64-character hex block hash agreed upon by a majority of the responding upstreams, and no fewer than three.</li>
+</ul>
+<hr>
+<h3 id="the-node-table-columns-explained">The node table columns explained</h3>
+<p>Below the header, every node in the active rotation is rendered in a live table:</p>
+<div class="table-wrap"><table class="doc-table">
+<thead>
+<tr>
+<th>Column</th>
+<th>What It Represents</th>
+<th>Why It Matters</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>Node / Host</strong></td>
+<td>The network address (IP or hostname and port) of the upstream <code>monerod</code> daemon.</td>
+<td>Discloses provenance. Identifies whether a node is an independent community daemon or mnr&#39;s owned fallback node.</td>
+</tr>
+<tr>
+<td><strong>Status</strong></td>
+<td>Operational health: <code>active</code>, <code>degraded</code>, or <code>unreachable</code>.</td>
+<td>Indicates whether the node is actively receiving client traffic or temporarily suspended due to faults.</td>
+</tr>
+<tr>
+<td><strong>Height</strong></td>
+<td>The latest blockchain height reported by this specific node.</td>
+<td>Allows you to immediately detect if a node is lagging behind the Quorum Tip.</td>
+</tr>
+<tr>
+<td><strong>Latency</strong></td>
+<td>Round-trip HTTP/TCP ping time from mnr&#39;s edge proxy to the upstream daemon.</td>
+<td>Demonstrates geographic distribution and routing responsiveness.</td>
+</tr>
+<tr>
+<td><strong>Rate / Cap</strong></td>
+<td>Current queries per second (req/s) versus the permitted cap (e.g. <code>2.4 / 5 req/s</code>).</td>
+<td>Proves mnr respects upstream operator capacity and does not overwhelm community nodes.</td>
+</tr>
+<tr>
+<td><strong>Verified</strong></td>
+<td>Cumulative count of cryptographic responses successfully validated from this node.</td>
+<td>Measures proven historical correctness.</td>
+</tr>
+<tr>
+<td><strong>Faults</strong></td>
+<td>Total consensus mismatches, invalid hashes, or timeout errors recorded against this node.</td>
+<td>Highlights instability or divergence from network consensus.</td>
+</tr>
+</tbody></table></div>
+<hr>
+<h3 id="understanding-the-own-1-row-vs-public-upstreams">Understanding the <code>own-1</code> row vs. public upstreams</h3>
+<p>In the upstreams table, you will notice one entry with a distinct <code>OWNED</code> badge:</p>
+<ul>
+<li><strong>Hostname</strong>: <code>node.kyc.rip</code> (restricted RPC on port 443; Internal ID: <code>own-1</code>)</li>
+<li><strong>Role</strong>: Bare-metal fallback and state-sensitive routing anchor.</li>
+</ul>
+<p>Because public community nodes can disappear or rate-limit without notice, mnr maintains <code>own-1</code> as a self-hosted, unpruned, dedicated Monero daemon. </p>
+<p>Crucially, <strong><code>own-1</code> has higher capacity caps</strong>, and state-sensitive or non-verifiable RPC methods (such as <code>send_raw_transaction</code> or non-quorum block retrieval) route preferentially through <code>own-1</code>. This guarantees that transactions are injected directly into the P2P network through bare-metal infrastructure mnr controls, rather than relying on an arbitrary third party.</p>
+<hr>
+<h2 id="faults-and-ejections-how-mnr-handles-misbehaving-nodes">Faults and ejections: how mnr handles misbehaving nodes</h2>
+<p>What happens when an upstream node behaves badly?</p>
+<p>In mnr&#39;s architecture, a <strong>fault</strong> is not merely a dropped TCP connection. A fault represents an objective failure of blockchain consensus:</p>
+<ol>
+<li><strong>Tip Desynchronization</strong>: The node reports a block height lower than the current Quorum Tip by more than 3 blocks, or reports a conflicting block hash for the same height.</li>
+<li><strong>Cryptographic Hash Failure</strong>: The node returns a block blob or transaction whose computed hash fails to match the header or txid.</li>
+<li><strong>Invalid Output Data</strong>: The node returns malformed responses or empty arrays on supported RPC methods.</li>
+<li><strong>Timeout / 5xx HTTP Errors</strong>: The node fails to respond within the strict deadlines defined in the <a href="/docs/method-policy/">Method Policy</a>.</li>
+</ol>
+<h3 id="the-ejection-lifecycle">The ejection lifecycle</h3>
+<ul>
+<li><strong>Transient Penalty</strong>: When a fault occurs, the node&#39;s public fault counter increments immediately on <code>/upstreams/</code>, and the node is temporarily placed in a penalty box, shedding traffic.</li>
+<li><strong>Quorum Disqualification</strong>: A penalized node cannot participate in voting for the Quorum Tip.</li>
+<li><strong>Automated Ejection</strong>: If a node accumulates persistent faults or remains desynchronized across multiple health cycles, it is completely ejected from the active pool.</li>
+<li><strong>Permanent Record</strong>: Ejection events are committed to the weekly <code>/verified/</code> audit log, documenting the exact reason for removal.</li>
+</ul>
+<hr>
+<h2 id="reading-verified-the-weekly-audit-trail">Reading /verified: the weekly audit trail</h2>
+<p>While <code>/upstreams/</code> provides live real-time telemetry, <a href="https://mnr.network/verified/"><code>mnr.network/verified/</code></a> is the permanent, historical transparency archive.</p>
+<p>Published at the start of each week, each <code>/verified/</code> report documents:</p>
+<ul>
+<li><strong>Total Cryptographic Verifications</strong>: The exact number of block hashes and transaction IDs recomputed across the relay during the 7-day period.</li>
+<li><strong>Consensus Divergences</strong>: Any instance where upstream nodes presented split tips or minor chain forks.</li>
+<li><strong>Node Rotations &amp; Ejections</strong>: A detailed change-log of new community nodes added to the pool, nodes decommissioned, and nodes ejected for consensus violations.</li>
+<li><strong>Third-Party Provenance</strong>: Full disclosure of third-party monitoring endpoints, open-source package hashes, and community audit submissions.</li>
+</ul>
+<p>By reviewing historical <code>/verified/</code> entries, researchers can evaluate long-term upstream stability without relying on transient marketing snapshots.</p>
+<hr>
+<h2 id="the-operator-lens-user-agent-and-opt-out-policy">The operator lens: User-Agent and opt-out policy</h2>
+<p>Running a public Monero node is a community service. Many operators pay out-of-pocket for VPS hosting and unmetered bandwidth to strengthen the Monero network.</p>
+<p>mnr enforces an explicit ethical framework to ensure it remains a cooperative participant in the Monero ecosystem, rather than a parasitic consumer of community resources:</p>
+<h3 id="1-transparent-user-agent-identification">1. Transparent User-Agent identification</h3>
+<p>Every HTTP request initiated by mnr&#39;s routing engine carries an unambiguous, identifiable User-Agent string:</p>
+<pre><code class="language-http">User-Agent: mnr-relay/&lt;version&gt; (+https://mnr.network/upstreams)
+</code></pre>
+<p>Node operators inspecting their NGINX, HAProxy, or <code>monerod</code> access logs can immediately identify traffic originating from mnr, complete with a URL pointing directly to our upstream documentation.</p>
+<h3 id="2-strict-per-node-rate-limiting">2. Strict per-node rate limiting</h3>
+<p>mnr never floods upstream community nodes. Every upstream is capped at 5 light requests per second, 2 concurrent <code>get_blocks.bin</code> streams, and 10 MB/s. Traffic exceeding this cap is queued or shed at mnr&#39;s edge proxy, protecting the operator&#39;s server from CPU spikes or memory exhaustion.</p>
+<h3 id="3-the-automated-opt-out-standard">3. The automated opt-out standard</h3>
+<p>If a node operator does not wish to have their daemon queried by mnr, they can opt out without opening a ticket: serve any HTTP 200 at <code>/.well-known/mnr-optout</code>, or email <a href="mailto:dev@mnr.network">dev@mnr.network</a>. Removal is within 24 hours and the opt-out list is public.</p>
+<p>Operators can simply serve a standard text file at their web root:</p>
+<pre><code>GET /.well-known/mnr-optout
+</code></pre>
+<p>mnr&#39;s health monitors poll for this file. When detected, mnr automatically removes the node from the active rotation within 24 hours and records the voluntary removal on <code>/upstreams/</code>. Alternatively, operators can email or message mnr to request immediate manual removal.</p>
+<hr>
+<h2 id="how-to-cite-telemetry-without-deceiving-yourself">How to cite telemetry without deceiving yourself</h2>
+<p>When citing mnr metrics in technical reviews, forum posts, or research papers, follow these rules:</p>
+<ol>
+<li><strong>Telemetry is Volatile</strong>: Live metrics on <code>/upstreams/</code> change with every block. Never cite a specific latency number or verified query count as an immutable fact—always provide a timestamped link or screenshot.</li>
+<li><strong>Transparency Does Not Equal an Uptime SLA</strong>: The presence of public telemetry does not mean mnr promises 100% uptime. As stated across our documentation, neither the Free nor Pro tier includes an uptime SLA.</li>
+<li><strong>Telemetry Proves Routing, Not Anonymity</strong>: Seeing green indicators on <code>/upstreams/</code> proves that mnr is cross-checking answers against independent nodes. It does not erase the fact that over clearnet, mnr sees your IP address. For network anonymity, use mnr&#39;s published Tor or I2P endpoints.</li>
+</ol>
+<hr>
+<h2 id="frequently-asked-questions">Frequently Asked Questions</h2>
+<h3 id="where-does-the-data-on-upstreams-come-from">Where does the data on /upstreams come from?</h3>
+<p>The <code>/upstreams/</code> dashboard is rendered directly from live telemetry polled by mnr&#39;s edge relays. The data reflects real-time connection state, height synchronization, and latency across active upstreams.</p>
+<h3 id="what-is-the-difference-between-upstreams-and-verified">What is the difference between /upstreams and /verified?</h3>
+<p><code>/upstreams/</code> is live, real-time telemetry showing the current state of the active node pool. <code>/verified/</code> is a permanent, historical archive published weekly that documents aggregate verification counts, node ejections, and consensus divergence events.</p>
+<h3 id="how-do-i-know-mnr-isnt-faking-the-upstream-telemetry">How do I know mnr isn&#39;t faking the upstream telemetry?</h3>
+<p>You can verify consensus yourself. Compare the <strong>Quorum Tip Height and Hash</strong> displayed on mnr with independent block explorers (like <a href="https://xmrchain.net">xmrchain.net</a>) or your own local <code>monerod</code> instance. Furthermore, upstream hostnames are public; you can ping or query them directly to verify their reported heights match.</p>
+<h3 id="can-an-upstream-node-operator-block-mnr">Can an upstream node operator block mnr?</h3>
+<p><strong>Yes.</strong> Operators can publish <code>/.well-known/mnr-optout</code> or block the <code>mnr-relay</code> User-Agent string. mnr respects operator autonomy and removes any node upon request within 24 hours.</p>
+<hr>
+<h2 id="next-steps">Next Steps</h2>
+<ul>
+<li><strong>Inspect the Live Pool</strong>: Visit <a href="/upstreams/">/upstreams/</a> to review active nodes, heights, and fault counts.</li>
+<li><strong>Read the Historical Log</strong>: Browse the weekly audit reports on <a href="/verified/">/verified/</a>.</li>
+<li><strong>Review Validation Rules</strong>: Understand how mnr validates RPC calls at <a href="/docs/method-policy/">/docs/method-policy/</a>.</li>
+<li><strong>Connect a Wallet</strong>: Set up your wallet with a verified relay token at <a href="/docs/connect-wallets/">/docs/connect-wallets/</a>.</li>
+</ul>
+
+    </article>
+  </main>
+
+  <div class="rule"></div>
+
+  <!-- Footer -->
+  <footer class="wrap" style="padding: 48px 32px;">
+    <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px;">
+      <div style="display: flex; align-items: center; gap: 10px; font-size: 14px;" class="muted">
+        <span>mnr — an RPC network for Monero</span>
+        <span>·</span>
+        <a href="https://github.com/mnrnetwork/mnr" target="_blank" rel="noopener noreferrer" style="text-decoration: underline;">AGPL-3.0</a>
+      </div>
+      <div style="display: flex; gap: 24px; font-size: 14px;">
+        <a href="/">Home</a>
+        <a href="/learn/">Learn</a>
+        <a href="/docs/">Docs Hub</a>
+        <a href="/docs/method-policy/">Method Policy</a>
+        <a href="https://github.com/mnrnetwork/mnr" target="_blank" rel="noopener noreferrer">GitHub</a>
+        <a href="https://x.com/intent/follow?screen_name=mnr_network" target="_blank" rel="noopener noreferrer">X</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="/search.js" defer></script>
+  <script>
+    (function () {
+      var btn = document.getElementById('theme-toggle');
+      var root = document.documentElement;
+      function current() {
+        var t = root.getAttribute('data-theme');
+        if (t === 'light' || t === 'dark') return t;
+        return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+      }
+      btn.addEventListener('click', function () {
+        var next = current() === 'dark' ? 'light' : 'dark';
+        root.setAttribute('data-theme', next);
+        try { localStorage.setItem('mnr-theme', next); } catch (e) {}
+      });
+    })();
+  </script>
+</body>
+</html>

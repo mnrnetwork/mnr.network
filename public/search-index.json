@@ -251,6 +251,171 @@
     "featured": false
   },
   {
+    "title": "Monero RPC Concepts, Explainers & Architecture",
+    "route": "/learn/",
+    "description": "Deep-dive conceptual explainers on Monero daemon RPC, public node risks, multi-node quorum verification, and trust-minimized architecture.",
+    "category": "Learn",
+    "keywords": [
+      "learn",
+      "explainers",
+      "verified monero rpc",
+      "trusted daemon",
+      "monero.fail",
+      "quorum"
+    ],
+    "featured": true
+  },
+  {
+    "title": "What Is a Verified Monero RPC? Why One Public Node Is Not Enough",
+    "route": "/learn/what-is-verified-monero-rpc/",
+    "description": "A verified Monero RPC recomputes block and tx hashes and checks multi-node consensus before answering, unlike relying on a single public daemon.",
+    "category": "Learn",
+    "keywords": [
+      "verified monero rpc",
+      "public node risks",
+      "quorum",
+      "block hash verification",
+      "mnr-relay"
+    ],
+    "featured": true
+  },
+  {
+    "title": "Never Tick Trusted on a Third-Party Monero Node—What the Flag Actually Does",
+    "route": "/learn/never-tick-trusted-third-party-node/",
+    "description": "The Trusted daemon checkbox is for nodes you control. On a public remote node it weakens wallet checks—here is what it means and what mnr verifies instead.",
+    "category": "Learn",
+    "keywords": [
+      "trusted daemon",
+      "--trusted-daemon",
+      "untrusted daemon",
+      "remote node privacy",
+      "decoy",
+      "get_outs"
+    ],
+    "featured": true
+  },
+  {
+    "title": "Safer Than Picking a Random monero.fail Node: One Address, Multi-Node Checks",
+    "route": "/learn/safer-than-random-monero-fail-node/",
+    "description": "monero.fail lists nodes; it does not check answers. mnr.network is one daemon address with hash checks and multi-node quorum before your wallet gets a reply.",
+    "category": "Learn",
+    "keywords": [
+      "monero.fail",
+      "node roulette",
+      "public remote node",
+      "verified monero rpc",
+      "quorum"
+    ],
+    "featured": true
+  },
+  {
+    "title": "Own Monero Node vs Verified RPC Proxy: The Honest Middle Option",
+    "route": "/learn/own-node-vs-verified-proxy/",
+    "description": "Own node is best for privacy. A random public node is easiest. mnr sits in between: one address, hash + quorum checks, no SLA theater.",
+    "category": "Learn",
+    "keywords": [
+      "monero own node",
+      "remote node",
+      "verified monero rpc",
+      "pruned node",
+      "bootstrap daemon",
+      "mnr free vs pro",
+      "remote node privacy"
+    ],
+    "featured": true
+  },
+  {
+    "title": "Failover Is Not Verification: monerod-proxy / HAProxy vs Hash + Quorum",
+    "route": "/learn/failover-proxy-vs-hash-quorum/",
+    "description": "monerod-proxy and HAProxy keep you online when a node dies. They do not recompute block hashes or require multi-node agreement. mnr does.",
+    "category": "Learn",
+    "keywords": [
+      "monerod-proxy",
+      "haproxy monero",
+      "rpc failover",
+      "quorum verification",
+      "hash check",
+      "load balance"
+    ],
+    "featured": true
+  },
+  {
+    "title": "Remote Monero Daemon vs MyMonero / LWS: Keys Local vs Sharing a View Key",
+    "route": "/learn/remote-daemon-vs-mymonero-lws/",
+    "description": "A normal remote daemon never gets your view key. LWS/MyMonero-style servers scan with it. Know which model you are using—and where mnr fits.",
+    "category": "Learn",
+    "keywords": [
+      "mymonero vs remote node",
+      "monero lws",
+      "daemon rpc",
+      "view key",
+      "light wallet server",
+      "client-side scanning"
+    ],
+    "featured": true
+  },
+  {
+    "title": "How to Read mnr /upstreams and the /verified Transparency Log",
+    "route": "/learn/read-upstreams-verified-transparency-log/",
+    "description": "Do not trust marketing—read live upstreams, verified counts, faults, and weekly logs. Here is what each column means.",
+    "category": "Learn",
+    "keywords": [
+      "mnr upstreams",
+      "monero rpc transparency log",
+      "verification log",
+      "quorum tip",
+      "fault ejection",
+      "mnr-optout"
+    ],
+    "featured": true
+  },
+  {
+    "title": "Connect to mnr over Tor or I2P (Onion and b32 Endpoints)",
+    "route": "/learn/connect-mnr-over-tor-i2p/",
+    "description": "Clearnet mnr still sees your IP. Use the published onion or I2P endpoints with a SOCKS proxy—step-by-step for major wallets.",
+    "category": "Learn",
+    "keywords": [
+      "monero tor remote node",
+      "connect monero wallet tor onion",
+      "i2p monero node",
+      "mnr onion",
+      "socks5 proxy",
+      "feather tor",
+      "cake orbot"
+    ],
+    "featured": true
+  },
+  {
+    "title": "Point monero-wallet-rpc or an Agent at a Verified Monero RPC",
+    "route": "/learn/monero-wallet-rpc-agent-verified-rpc/",
+    "description": "Wire monero-wallet-rpc to rpc.mnr.network with daemon-login token, SSL, and Trusted off—plus notes for autonomous agents.",
+    "category": "Learn",
+    "keywords": [
+      "monero-wallet-rpc remote daemon",
+      "daemon-login",
+      "verified monero rpc",
+      "agent monero rpc",
+      "mnr-verify header",
+      "untrusted-daemon"
+    ],
+    "featured": true
+  },
+  {
+    "title": "mnr vs Seth for Privacy, HashVault, or Cake Onion Alone",
+    "route": "/learn/mnr-vs-seth-hashvault-cake-onion/",
+    "description": "Seth, HashVault, and Cake onion are real community nodes. mnr can use them as upstreams—and still hash-check and quorum-check before you see an answer.",
+    "category": "Learn",
+    "keywords": [
+      "seth for privacy node",
+      "cake wallet onion node",
+      "hashvault monero node",
+      "single public node",
+      "multi-node quorum",
+      "mnr upstreams"
+    ],
+    "featured": true
+  },
+  {
     "title": "Independent Verification & Transparency Log",
     "route": "/verified/",
     "description": "Independent third-party node operators, external directory listings on monero.fail, package registries, cryptographic verification proofs, and weekly audit logs.",

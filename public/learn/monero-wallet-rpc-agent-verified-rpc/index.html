@@ -1,0 +1,689 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Point monero-wallet-rpc or an Agent at a Verified Monero RPC — mnr (Monero Network Relay)</title>
+  <meta name="description" content="Wire monero-wallet-rpc to rpc.mnr.network with daemon-login token, SSL, and Trusted off—plus notes for autonomous agents.">
+  <link rel="canonical" href="https://mnr.network/learn/monero-wallet-rpc-agent-verified-rpc/">
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+  <meta property="og:title" content="Point monero-wallet-rpc or an Agent at a Verified Monero RPC — mnr (Monero Network Relay)">
+  <meta property="og:description" content="Wire monero-wallet-rpc to rpc.mnr.network with daemon-login token, SSL, and Trusted off—plus notes for autonomous agents.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://mnr.network/learn/monero-wallet-rpc-agent-verified-rpc/">
+  <meta property="og:site_name" content="mnr (Monero Network Relay)">
+  <meta property="og:image" content="https://mnr.network/og-docs.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Point monero-wallet-rpc or an Agent at a Verified Monero RPC — mnr (Monero Network Relay)">
+  <meta name="twitter:description" content="Wire monero-wallet-rpc to rpc.mnr.network with daemon-login token, SSL, and Trusted off—plus notes for autonomous agents.">
+  <meta name="twitter:image" content="https://mnr.network/og-docs.png">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png">
+  <link rel="icon" href="/favicon-16.png" sizes="16x16" type="image/png">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <link rel="alternate" type="text/markdown" href="/learn/monero-wallet-rpc-agent-verified-rpc/index.md">
+  <link rel="alternate" type="text/markdown" title="LLM context" href="/llms.txt">
+  <link rel="api-catalog" type="application/linkset+json" href="/.well-known/api-catalog">
+  <link rel="service-desc" type="application/vnd.oai.openapi+json" href="/openapi.json">
+  <link rel="service-doc" type="text/html" href="/docs/method-policy/">
+  <link rel="describedby" type="text/markdown" href="/llms.txt">
+  <link rel="stylesheet" href="/search.css">
+  <script src="/webmcp.js"></script>
+  <script type="application/ld+json">
+  {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebPage",
+      "@id": "https://mnr.network/learn/monero-wallet-rpc-agent-verified-rpc/#webpage",
+      "url": "https://mnr.network/learn/monero-wallet-rpc-agent-verified-rpc/",
+      "name": "Point monero-wallet-rpc or an Agent at a Verified Monero RPC",
+      "description": "Wire monero-wallet-rpc to rpc.mnr.network with daemon-login token, SSL, and Trusted off—plus notes for autonomous agents.",
+      "isPartOf": {
+        "@type": "WebSite",
+        "@id": "https://mnr.network/#website",
+        "url": "https://mnr.network/",
+        "name": "mnr (Monero Network Relay)",
+        "alternateName": [
+          "mnr",
+          "mnr network",
+          "mnr.network",
+          "Monero Network Relay",
+          "Monero Node Relay"
+        ],
+        "disambiguatingDescription": "Cryptographic Monero RPC proxy and decentralized consensus relay network for Monero (XMR) wallets; distinct from MTA Metro-North Railroad, Ontario Ministry of Natural Resources, and unrelated npm package 'mnr'."
+      }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://mnr.network/learn/monero-wallet-rpc-agent-verified-rpc/#breadcrumbs",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "mnr",
+          "item": "https://mnr.network/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "learn",
+          "item": "https://mnr.network/learn/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "wallet-rpc & Agent Guide",
+          "item": "https://mnr.network/learn/monero-wallet-rpc-agent-verified-rpc/"
+        }
+      ]
+    },
+    {
+      "@type": "TechArticle",
+      "@id": "https://mnr.network/learn/monero-wallet-rpc-agent-verified-rpc/#article",
+      "headline": "Point monero-wallet-rpc or an Agent at a Verified Monero RPC",
+      "description": "Wire monero-wallet-rpc to rpc.mnr.network with daemon-login token, SSL, and Trusted off—plus notes for autonomous agents.",
+      "url": "https://mnr.network/learn/monero-wallet-rpc-agent-verified-rpc/",
+      "inLanguage": "en",
+      "proficiencyLevel": "Expert",
+      "citation": [
+        {
+          "@type": "WebSite",
+          "name": "monero.fail",
+          "url": "https://monero.fail"
+        },
+        {
+          "@type": "WebSite",
+          "name": "Seth For Privacy",
+          "url": "https://sethforprivacy.com"
+        },
+        {
+          "@type": "WebSite",
+          "name": "Cake Wallet",
+          "url": "https://cakewallet.com"
+        }
+      ],
+      "author": {
+        "@type": "Organization",
+        "name": "mnr (Monero Network Relay)",
+        "url": "https://mnr.network/",
+        "sameAs": [
+          "https://github.com/mnrnetwork/mnr",
+          "https://crates.io/crates/mnr",
+          "https://pypi.org/project/mnr/",
+          "https://www.npmjs.com/package/mnr-network"
+        ]
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "mnr (Monero Network Relay)",
+        "url": "https://mnr.network/",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://mnr.network/favicon-192.png"
+        },
+        "sameAs": [
+          "https://github.com/mnrnetwork/mnr",
+          "https://crates.io/crates/mnr",
+          "https://pypi.org/project/mnr/",
+          "https://www.npmjs.com/package/mnr-network"
+        ]
+      }
+    }
+  ]
+}
+  </script>
+  <script>
+    try { var t = localStorage.getItem('mnr-theme'); if (t === 'light' || t === 'dark') document.documentElement.setAttribute('data-theme', t); } catch (e) {}
+  </script>
+  <style>
+    @font-face {
+      font-family: "Geist";
+      font-style: normal;
+      font-weight: 100 900;
+      font-display: swap;
+      src: url("/fonts/geist-latin.woff2") format("woff2");
+      unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+    }
+    @font-face {
+      font-family: "Geist Mono";
+      font-style: normal;
+      font-weight: 100 900;
+      font-display: swap;
+      src: url("/fonts/geist-mono-latin.woff2") format("woff2");
+      unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+    }
+    :root {
+      --accent: #F26822;
+      --bg: #FBFAF8; --bg-alt: #F3EFEA; --fg: #1B1917; --fg-2: #4A4541; --muted: #6B655F; --card: #FFFFFF;
+      --line: #E8E3DD; --line-strong: #DDD8D2; --log-bg: #1B1917; --log-fg: #E9E4DE;
+      --inverse-bg: #1B1917; --inverse-fg: #E9E4DE; --inverse-strong: #FFFFFF; --inverse-muted: #B8B1A9; --inverse-line: #3A3531;
+      --pill-bg: #FFF4E5;
+      --link: #000000;
+      --link-hover: #C2410C;
+      color-scheme: light;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root:not([data-theme="light"]) {
+        --bg: #141210; --bg-alt: #1B1917; --fg: #ECE7E1; --fg-2: #C9C2BA; --muted: #9A938B; --card: #1E1B18;
+        --line: #2E2A26; --line-strong: #3A3531; --log-bg: #0E0D0C; --log-fg: #E9E4DE;
+        --inverse-bg: #221F1B; --inverse-fg: #E9E4DE; --inverse-strong: #FFFFFF; --inverse-muted: #B8B1A9; --inverse-line: #3F3A35;
+        --pill-bg: #3A2A14;
+        --link: #FFFFFF;
+        --link-hover: #F26822;
+        color-scheme: dark;
+      }
+    }
+    :root[data-theme="dark"] {
+      --bg: #141210; --bg-alt: #1B1917; --fg: #ECE7E1; --fg-2: #C9C2BA; --muted: #9A938B; --card: #1E1B18;
+      --line: #2E2A26; --line-strong: #3A3531; --log-bg: #0E0D0C; --log-fg: #E9E4DE;
+      --inverse-bg: #221F1B; --inverse-fg: #E9E4DE; --inverse-strong: #FFFFFF; --inverse-muted: #B8B1A9; --inverse-line: #3F3A35;
+      --pill-bg: #3A2A14;
+      --link: #FFFFFF;
+      --link-hover: #F26822;
+      color-scheme: dark;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { margin: 0; background: var(--bg); color: var(--fg); font-family: "Geist", "Helvetica Neue", Helvetica, Arial, sans-serif; font-size: 16.5px; line-height: 1.65; -webkit-font-smoothing: antialiased; }
+    a { color: var(--fg); text-decoration: none; } a:hover { color: var(--link-hover); }
+    p { margin: 0 0 16px; }
+    .mono { font-family: "Geist Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace; }
+    .wrap { max-width: 1120px; margin: 0 auto; padding: 0 32px; }
+    .doc-wrap { max-width: 920px; margin: 0 auto; padding: 48px 32px 96px; }
+    .rule { height: 1px; background: var(--line); }
+    
+    .navlinks { display: flex; gap: 28px; align-items: center; font-size: 15px; font-weight: 500; }
+    .btn { display: inline-flex; align-items: center; justify-content: center; height: 44px; padding: 0 20px; border-radius: 10px; font-weight: 600; font-size: 15px; white-space: nowrap; }
+    .btn-primary { background: var(--accent); color: #FFFFFF; } .btn-primary:hover { background: #C2410C; color: #FFFFFF; }
+    .btn-sm { height: 40px; padding: 0 16px; font-size: 14px; }
+    .theme-btn { display: inline-flex; align-items: center; justify-content: center; width: 40px; height: 40px; border-radius: 10px; border: 1px solid var(--line-strong); background: var(--card); color: var(--fg); cursor: pointer; padding: 0; }
+    .theme-btn .sun { display: none; } .theme-btn .moon { display: block; }
+    :root[data-theme="dark"] .theme-btn .sun { display: block; } :root[data-theme="dark"] .theme-btn .moon { display: none; }
+    @media (prefers-color-scheme: dark) {
+      :root:not([data-theme="light"]) .theme-btn .sun { display: block; }
+      :root:not([data-theme="light"]) .theme-btn .moon { display: none; }
+    }
+    .mark { display: block; flex: none; color: var(--fg); }
+
+    /* Docs Navigation & Tabs */
+    .docs-tabs-bar { background: var(--bg-alt); border-bottom: 1px solid var(--line); padding: 10px 0; position: sticky; top: 0; z-index: 10; backdrop-filter: blur(12px); }
+    .docs-tabs { display: flex; gap: 8px; overflow-x: auto; padding: 4px 0; -webkit-overflow-scrolling: touch; }
+    .doc-tab { display: inline-flex; align-items: center; gap: 6px; padding: 8px 14px; border-radius: 8px; font-size: 14px; font-weight: 500; color: var(--fg-2); border: 1px solid transparent; white-space: nowrap; transition: all 0.15s ease; }
+    .doc-tab:hover { background: var(--card); border-color: var(--line); color: var(--fg); }
+    .doc-tab.active { background: var(--card); border-color: var(--line-strong); color: var(--fg); font-weight: 600; }
+    .tab-badge { font-size: 11px; padding: 2px 6px; border-radius: 999px; background: var(--pill-bg); border: 1px solid var(--line); color: var(--accent); font-family: "Geist Mono", monospace; }
+
+    /* Breadcrumbs */
+    .breadcrumbs { display: flex; align-items: center; gap: 8px; font-size: 13.5px; color: var(--muted); margin-bottom: 24px; font-family: "Geist Mono", monospace; }
+    .breadcrumbs a { color: var(--muted); } .breadcrumbs a:hover { color: var(--accent); }
+    .breadcrumbs span { color: var(--fg); }
+
+    /* Prose Styling */
+    .prose { color: var(--fg); line-height: 1.7; }
+    .prose p, .prose li, .prose blockquote { overflow-wrap: break-word; }
+    .prose a {
+      color: var(--link);
+      font-weight: 600;
+      text-decoration: none;
+      transition: color 0.15s ease, text-decoration 0.15s ease;
+    }
+    .prose a:hover {
+      color: var(--link-hover);
+      text-decoration: underline;
+      text-underline-offset: 3.5px;
+      text-decoration-thickness: 1.5px;
+    }
+    .prose a code:not(pre code) {
+      font-weight: 600;
+      color: var(--link);
+      border-color: var(--line-strong);
+      display: inline-block;
+      text-decoration: none;
+      transition: color 0.15s ease, border-color 0.15s ease;
+    }
+    .prose a:hover code:not(pre code) {
+      color: var(--link-hover);
+      border-color: var(--link-hover);
+    }
+    .prose h1 { font-size: 38px; line-height: 1.15; letter-spacing: -0.02em; font-weight: 700; margin: 0 0 20px; }
+    .prose h2 { font-size: 26px; line-height: 1.25; letter-spacing: -0.015em; font-weight: 600; margin: 48px 0 16px; padding-bottom: 8px; border-bottom: 1px solid var(--line); }
+    .prose h3 { font-size: 20px; line-height: 1.35; font-weight: 600; margin: 32px 0 12px; }
+    .prose h4 { font-size: 17px; font-weight: 600; margin: 24px 0 8px; }
+    .prose ul, .prose ol { margin: 0 0 20px; padding-left: 24px; }
+    .prose li { margin-bottom: 8px; }
+    .prose hr { border: 0; height: 1px; background: var(--line); margin: 40px 0; }
+    .prose blockquote { margin: 24px 0; padding: 12px 20px; border-left: 3px solid var(--accent); background: var(--bg-alt); border-radius: 0 8px 8px 0; color: var(--fg-2); }
+    .prose blockquote p:last-child { margin-bottom: 0; }
+
+    .prose code:not(pre code) {
+      font-family: "Geist Mono", monospace;
+      font-size: 13.5px;
+      background: var(--bg-alt);
+      border: 1px solid var(--line);
+      border-radius: 5px;
+      padding: 2px 6px;
+      color: var(--fg);
+    }
+    .prose pre {
+      background: var(--log-bg);
+      color: var(--log-fg);
+      border-radius: 12px;
+      padding: 18px 20px;
+      font-size: 13.5px;
+      line-height: 1.6;
+      overflow-x: auto;
+      margin: 24px 0;
+      border: 1px solid var(--line);
+      font-family: "Geist Mono", monospace;
+    }
+    .prose pre code { background: transparent; padding: 0; border: 0; color: inherit; }
+
+    /* Tables */
+    .prose .table-wrap {
+      overflow-x: auto;
+      margin: 28px 0;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: var(--card);
+      -webkit-overflow-scrolling: touch;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
+    }
+    .prose table.doc-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+      line-height: 1.55;
+      margin: 0;
+      text-align: left;
+    }
+    .prose table.table-wide {
+      min-width: 900px;
+    }
+    .prose table.table-ultra-wide {
+      min-width: 1240px;
+    }
+    .prose th,
+    .prose td {
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--line);
+      vertical-align: top;
+      word-break: normal;
+      overflow-wrap: normal;
+    }
+    .prose th {
+      font-weight: 600;
+      font-size: 12px;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: var(--muted);
+      background: var(--bg-alt);
+      border-bottom: 1px solid var(--line-strong);
+      white-space: nowrap;
+      vertical-align: bottom;
+    }
+    .prose td code {
+      white-space: nowrap;
+      font-size: 13px;
+    }
+    .prose tbody tr:last-child td { border-bottom: 0; }
+    .prose tbody tr:hover td { background: var(--bg-alt); }
+
+    /* Specific column rules for method policy table */
+    .prose table.table-ultra-wide th:nth-child(1),
+    .prose table.table-ultra-wide td:nth-child(1) {
+      white-space: nowrap;
+      min-width: 190px;
+    }
+    .prose table.table-ultra-wide th:nth-child(2),
+    .prose table.table-ultra-wide td:nth-child(2) {
+      white-space: nowrap;
+      min-width: 90px;
+    }
+    .prose table.table-ultra-wide th:nth-child(3),
+    .prose table.table-ultra-wide td:nth-child(3) {
+      white-space: nowrap;
+      min-width: 95px;
+    }
+    .prose table.table-ultra-wide th:nth-child(4),
+    .prose table.table-ultra-wide td:nth-child(4) {
+      min-width: 250px;
+    }
+    .prose table.table-ultra-wide th:nth-child(5),
+    .prose table.table-ultra-wide td:nth-child(5) {
+      min-width: 240px;
+    }
+    .prose table.table-ultra-wide th:nth-child(6),
+    .prose table.table-ultra-wide td:nth-child(6) {
+      white-space: nowrap;
+      min-width: 120px;
+    }
+    .prose table.table-ultra-wide th:nth-child(7),
+    .prose table.table-ultra-wide td:nth-child(7) {
+      white-space: nowrap;
+      min-width: 95px;
+      text-align: right;
+    }
+    .prose table.table-ultra-wide th:nth-child(8),
+    .prose table.table-ultra-wide td:nth-child(8) {
+      min-width: 240px;
+    }
+
+    /* Hub Cards */
+    .hub-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; margin: 32px 0 48px; }
+    .hub-card { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 24px; transition: border-color 0.15s ease, transform 0.15s ease; display: flex; flex-direction: column; gap: 10px; }
+    .hub-card:hover { border-color: var(--accent); transform: translateY(-2px); }
+    .hub-card h3 { font-size: 18px; font-weight: 600; margin: 0; color: var(--fg); }
+    .hub-card p { font-size: 14.5px; color: var(--muted); margin: 0; line-height: 1.5; }
+    .hub-card-meta { display: flex; align-items: center; justify-content: space-between; margin-top: auto; padding-top: 12px; font-size: 13px; font-family: "Geist Mono", monospace; color: var(--accent); }
+
+    @media (max-width: 768px) {
+      .wrap, .doc-wrap { padding: 0 20px; }
+      .navlinks { display: none; }
+      .hub-grid { grid-template-columns: 1fr; }
+      .prose h1 { font-size: 30px; }
+      .prose h2 { font-size: 22px; }
+    }
+      .brand-text { display: flex; flex-direction: column; line-height: 1; gap: 4px; }
+    .brand-tag { display: none; font-size: 10px; font-weight: 600; letter-spacing: 0.09em; text-transform: uppercase; color: var(--muted); white-space: nowrap; }
+    @media (min-width: 900px) { .brand-tag { display: block; } }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="wrap" style="display: flex; align-items: center; justify-content: space-between; height: 72px;">
+    <a href="/" style="display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 22px; letter-spacing: -0.02em;" aria-label="mnr, Monero Network Relay: home" title="mnr — Monero Network Relay">
+      <svg class="mark" width="24" height="24" viewBox="0 0 24 24" aria-hidden="true"><circle cx="16.5" cy="12" r="5.2" fill="var(--accent)"/><path d="M5.2 6.6 L11.9 10.1 M5.2 17.4 L11.9 13.9" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"/><circle cx="5.2" cy="6.6" r="2.1" fill="currentColor"/><circle cx="5.2" cy="17.4" r="2.1" fill="currentColor"/></svg>
+      <span class="brand-text"><span>mnr</span><span class="brand-tag">Monero Network Relay</span></span>
+    </a>
+    <nav class="navlinks" aria-label="Sections">
+      <a href="/docs/how-it-works/">How it works</a>
+      <a href="/upstreams/">Upstreams</a>
+      <a href="/get-token/">Pricing</a>
+      <a href="/docs/" style="color: var(--accent); font-weight: 600;">Docs</a>
+      <a href="https://github.com/mnrnetwork/mnr" target="_blank" rel="noopener noreferrer" class="mono" style="font-weight: 500;">GitHub</a>
+    </nav>
+    <div style="display: flex; align-items: center; gap: 10px;">
+      <button class="search-trigger" id="docsearch-trigger" type="button" aria-label="Search documentation" title="Search (⌘K or /)">
+        <svg class="search-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+        <span class="search-trigger-text">Search docs...</span>
+        <kbd class="search-kbd">⌘K</kbd>
+      </button>
+      <button class="theme-btn" id="theme-toggle" type="button" title="Switch light / dark" aria-label="Switch light / dark">
+        <svg class="sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"></path></svg>
+        <svg class="moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"></path></svg>
+      </button>
+      <a href="/get-token/" class="btn btn-primary btn-sm">Get a free token</a>
+    </div>
+  </header>
+  <div class="rule"></div>
+
+  <!-- Docs Sub-Nav Tabs -->
+  <div class="docs-tabs-bar">
+    <div class="wrap">
+      
+    <nav class="docs-tabs" aria-label="Documentation sections">
+      <a href="/docs/" class="doc-tab ">
+          <span>Overview</span>
+          
+        </a>
+      <a href="/docs/how-it-works/" class="doc-tab ">
+          <span>How it works</span>
+          <span class="tab-badge">Live</span>
+        </a>
+      <a href="/docs/connect-wallets/" class="doc-tab ">
+          <span>Connect a wallet</span>
+          <span class="tab-badge">Guide</span>
+        </a>
+      <a href="/docs/privacy/" class="doc-tab ">
+          <span>Privacy</span>
+          <span class="tab-badge">Reference</span>
+        </a>
+      <a href="/docs/tokens/" class="doc-tab ">
+          <span>Tokens & billing</span>
+          <span class="tab-badge">Guide</span>
+        </a>
+      <a href="/docs/method-policy/" class="doc-tab ">
+          <span>Method Policy</span>
+          <span class="tab-badge">Generated</span>
+        </a>
+      <a href="/docs/roadmap/" class="doc-tab ">
+          <span>Roadmap</span>
+          <span class="tab-badge">Stages 0–2</span>
+        </a>
+      <a href="/docs/stage0-mvp/" class="doc-tab ">
+          <span>Stage 0 plan</span>
+          <span class="tab-badge">Plan</span>
+        </a>
+      <a href="/docs/stage1-gateway/" class="doc-tab ">
+          <span>Stage 1 plan</span>
+          <span class="tab-badge">Plan</span>
+        </a>
+      <a href="/docs/stage2-network/" class="doc-tab ">
+          <span>Stage 2 protocol</span>
+          <span class="tab-badge">Protocol</span>
+        </a>
+    </nav>
+  
+    </div>
+  </div>
+
+  <!-- Document Body -->
+  <main class="doc-wrap">
+    <div class="breadcrumbs">
+      <a href="/">mnr</a>
+      <span>/</span><a href="/learn/">learn</a><span>/</span><span>monero-wallet-rpc-agent-verified-rpc</span>
+    </div>
+
+    <article class="prose">
+      <h1>Point monero-wallet-rpc or an Agent at a Verified Monero RPC</h1>
+<blockquote>
+<p><strong>Entity Disambiguation</strong>: <strong>mnr</strong> refers strictly to the <strong>Monero Network Relay</strong> (<a href="https://mnr.network"><code>mnr.network</code></a>, RPC: <code>rpc.mnr.network</code>). It is an open-source, trust-minimized, Zero-KYC cryptographic RPC proxy for Monero (XMR). It has zero connection to MTA Metro-North Railroad (MNR), the Ontario Ministry of Natural Resources (MNR/MNRF), or the unrelated npm package <code>mnr</code>.</p>
+</blockquote>
+<p>Building automated payment flows, merchant checkouts, tip bots, or autonomous AI agents on Monero presents a unique systems challenge.</p>
+<p>Unlike Ethereum or Solana, where a bot simply calls a hosted JSON-RPC node with a signed payload, Monero&#39;s privacy features require a dedicated cryptographic service: <strong><code>monero-wallet-rpc</code></strong>.</p>
+<p>The <code>monero-wallet-rpc</code> binary is the bridge between application logic and the blockchain. It holds your wallet files, decrypts incoming stealth addresses using your private view key, signs ring signatures with your spend key, and handles outgoing transfers. To do this, <code>monero-wallet-rpc</code> must connect to an upstream daemon (<code>monerod</code>) to download blocks and broadcast transactions.</p>
+<p>If you point <code>monero-wallet-rpc</code> at a random public node, an upstream operator can feed your bot a stale tip, omit transaction confirmations, or drop broadcasts. Conversely, running a local full <code>monerod</code> instance on every cloud container or serverless agent is expensive and operations-heavy.</p>
+<p>Pointing <code>monero-wallet-rpc</code> at <strong>mnr</strong> gives your automated agents the middle ground: verified cryptographic block and transaction hashes, multi-node quorum consensus, zero-KYC bearer token auth, and machine-readable verification headers.</p>
+<p>This guide provides the minimal production flags, raw JSON-RPC path-form URLs, rate-limit policies, and error-handling patterns required to deploy bots and agents against mnr reliably.</p>
+<hr>
+<h2 id="the-two-processes-wallet-rpc-vs-daemon-rpc">The two processes: wallet-rpc vs daemon RPC</h2>
+<p>Before running commands, ensure your software architecture correctly separates wallet management from blockchain consensus:</p>
+<pre><code>┌────────────────────────────────────────────────────────┐
+│             Your Application / AI Agent                │
+│    (Python, TypeScript, Rust, Go, or Payment Script)   │
+└───────────────────────────┬────────────────────────────┘
+                            │ JSON-RPC (:18082, local)
+                            ▼
+┌────────────────────────────────────────────────────────┐
+│                  monero-wallet-rpc                     │
+│                                                        │
+│  • Holds Keys (spend key &amp; view key in memory/disk)   │
+│  • Scans Outputs Client-Side                           │
+│  • Signs Transactions Locally                          │
+│  • Listens on 127.0.0.1:18082 (Restricted)            │
+└───────────────────────────┬────────────────────────────┘
+                            │ HTTPS / Digest Auth (:443)
+                            ▼
+┌────────────────────────────────────────────────────────┐
+│               mnr (rpc.mnr.network:443)                │
+│                                                        │
+│  • Cryptographic Hash Recomputation                    │
+│  • Multi-Node Quorum Consensus                         │
+│  • Sensitive Methods Routed to Owned Node              │
+│  • Appends Mnr-Verify Proof Headers                    │
+└────────────────────────────────────────────────────────┘
+</code></pre>
+<ol>
+<li><strong><code>monero-wallet-rpc</code></strong>: Runs locally or in your private Docker container. It holds your wallet file and keys. It <strong>never shares your keys</strong> with the daemon.</li>
+<li><strong><code>mnr</code> (Daemon RPC)</strong>: Acts as the verified gateway to the Monero network. It validates blocks, establishes consensus height, and broadcasts signed transactions.</li>
+</ol>
+<hr>
+<h2 id="minimal-working-flags-for-monero-wallet-rpc">Minimal working flags for monero-wallet-rpc</h2>
+<p>To connect <code>monero-wallet-rpc</code> to mnr over clearnet with full verification and security hardening, launch the binary with these exact flags:</p>
+<pre><code class="language-bash">monero-wallet-rpc \
+  --daemon-address rpc.mnr.network:443 \
+  --daemon-login &lt;your-token&gt;:x \
+  --daemon-ssl enabled \
+  --daemon-ssl-allow-any-cert false \
+  --daemon-ssl-cacerts /etc/ssl/certs/ca-certificates.crt \
+  --untrusted-daemon \
+  --rpc-bind-ip 127.0.0.1 \
+  --rpc-bind-port 18082 \
+  --rpc-login botadmin:StrongLocalPassword123 \
+  --wallet-file /path/to/bot_wallet \
+  --password-file /path/to/wallet_password \
+  --disable-rpc-login false \
+  --confirm-external-bind false
+</code></pre>
+<h3 id="key-parameters-explained">Key parameters explained:</h3>
+<ul>
+<li><code>--daemon-address rpc.mnr.network:443</code>: Connects to mnr&#39;s secure edge proxy.</li>
+<li><code>--daemon-login &lt;token&gt;:x</code>: Authenticates via HTTP Digest auth. Your token, which begins <code>sub_</code> and is about 47 characters, goes in the username field; the password is ignored, so any dummy string (such as <code>x</code>) works.</li>
+<li><code>--daemon-ssl enabled</code>: Enforces TLS 1.3 encryption.</li>
+<li><code>--daemon-ssl-cacerts</code>: Points to your operating system&#39;s standard CA root bundle (<code>/etc/ssl/certs/ca-certificates.crt</code> on Debian/Ubuntu; <code>/etc/ssl/cert.pem</code> on macOS).</li>
+<li><code>--untrusted-daemon</code>: <strong>Mandatory</strong>. Instructs <code>monero-wallet-rpc</code> to re-verify block hashes, outputs, and key images locally, refusing to trust the remote endpoint blindly.</li>
+<li><code>--rpc-bind-ip 127.0.0.1</code>: <strong>Critical</strong>. Ensures the wallet RPC interface binds strictly to localhost, preventing unauthorized remote access to your wallet.</li>
+</ul>
+<hr>
+<h2 id="raw-https-path-form-for-scripts-and-autonomous-agents">Raw HTTPS path-form for scripts and autonomous agents</h2>
+<p>If you are writing a custom bot, autonomous agent, or microservice that does not use <code>monero-wallet-rpc</code> but interacts with Monero daemon endpoints directly (e.g. querying blockchain height, checking fee estimates, or fetching raw block headers), you can query mnr directly using the <strong>path-form URL</strong>.</p>
+<p>Instead of negotiating HTTP Digest authentication headers, pass your bearer token directly in the URL path:</p>
+<pre><code>https://rpc.mnr.network/v1/&lt;token&gt;/json_rpc
+</code></pre>
+<h3 id="example-querying-consensus-tip-from-python-or-curl">Example: querying consensus tip from Python or cURL</h3>
+<pre><code class="language-bash">curl -s -X POST &quot;https://rpc.mnr.network/v1/$MNR_TOKEN/json_rpc&quot; \
+  -H &quot;Content-Type: application/json&quot; \
+  -d &#39;{&quot;jsonrpc&quot;:&quot;2.0&quot;,&quot;id&quot;:&quot;0&quot;,&quot;method&quot;:&quot;get_info&quot;}&#39;
+</code></pre>
+<h3 id="supported-path-form-routes">Supported path-form routes:</h3>
+<ul>
+<li><strong>JSON-RPC</strong>: <code>https://rpc.mnr.network/v1/&lt;token&gt;/json_rpc</code></li>
+<li><strong>Binary Blocks</strong>: <code>https://rpc.mnr.network/v1/&lt;token&gt;/get_blocks.bin</code></li>
+<li><strong>Output Distribution</strong>: <code>https://rpc.mnr.network/v1/&lt;token&gt;/get_output_distribution.bin</code></li>
+<li><strong>Height Probe</strong>: <code>https://rpc.mnr.network/v1/&lt;token&gt;/get_height</code></li>
+</ul>
+<p>Every route adheres to the strict validation policies detailed in our <a href="/docs/method-policy/">Method Policy</a>.</p>
+<hr>
+<h2 id="machine-readable-observability-reading-mnr-verify-headers">Machine-readable observability: reading <code>Mnr-Verify</code> headers</h2>
+<p>mnr does not silently pass data through. Every HTTP response returned to your application includes explicit cryptographic verification headers.</p>
+<p>Your bot or agent logic should inspect these headers before finalizing high-value state:</p>
+<pre><code class="language-http">HTTP/2 200 OK
+Content-Type: application/json
+Mnr-Verify: majority
+Mnr-Cache: miss
+Mnr-Upstream: 7
+</code></pre>
+<h3 id="header-definitions">Header definitions:</h3>
+<ul>
+<li><strong><code>Mnr-Verify</code></strong>:<ul>
+<li><code>chain</code>: confirmed against the relay&#39;s own header chain.</li>
+<li><code>hash</code>: the recomputed hash matched what the client asked for.</li>
+<li><code>majority</code>: consensus state agreed by a majority of upstreams.</li>
+<li><code>agreement</code>: identical answers from the number of upstreams your tier requires.</li>
+<li><code>partial</code>: some entries of a batch verified and some could not be.</li>
+<li><code>none</code>: not verifiable, annotated rather than trusted silently.</li>
+<li><code>failed</code>: every upstream&#39;s answer failed verification (error responses only).</li>
+</ul>
+</li>
+<li><strong><code>Mnr-Cache</code></strong>: whether the answer came from cache, and how.</li>
+<li><strong><code>Mnr-Upstream</code></strong>: the id of the upstream that answered.</li>
+<li><strong><code>Mnr-Relayed: k/n</code></strong>: on writes only, how many upstreams accepted the transaction.</li>
+</ul>
+<blockquote>
+<p><strong>Security Rule</strong>: In your agent&#39;s logging framework, <strong>always redact the URL path and daemon-login credentials</strong>. Log the <code>Mnr-Verify</code> status, but never write your token to disk or cloud logging services.</p>
+</blockquote>
+<hr>
+<h2 id="production-realism-rate-limits-errors-and-no-sla-architecture">Production realism: rate limits, errors, and no-SLA architecture</h2>
+<p>When engineering automated payment bots or autonomous agents, build for reality, not marketing promises.</p>
+<h3 id="1-rate-limits-and-work-units">1. Rate limits and work units</h3>
+<p>Review our token capacity definitions at <a href="/docs/tokens/">/docs/tokens/</a>:</p>
+<ul>
+<li><strong>Free Tier</strong>: 5 requests per second (rps) burst; 500,000 work units per month. Ideal for testing and low-frequency bots.</li>
+<li><strong>Pro Tier ($9/mo in XMR)</strong>: 25 requests per second (rps) burst; 10,000,000 work units per month; 3 concurrent sync streams; <code>get_outs</code> must agree across two upstreams.</li>
+</ul>
+<p>If your agent exceeds its rate cap, mnr returns <strong>HTTP 429 Too Many Requests</strong>.</p>
+<h3 id="2-required-retry-and-backoff-logic">2. Required retry and backoff logic</h3>
+<p>Neither mnr Free nor mnr Pro provides an uptime SLA. Because mnr aggregates independent community upstreams that it does not own, upstream nodes may reboot or partition.</p>
+<p>Your bot must handle:</p>
+<ul>
+<li><strong>HTTP 429</strong>: Exponential backoff with jitter (e.g. pause 1s, 2s, 4s).</li>
+<li><strong>HTTP 502 / 504</strong>: Transient upstream failover. Retry the query after a brief delay.</li>
+<li><strong>Circuit Breakers</strong>: If mnr returns persistent errors during transaction broadcast (<code>send_raw_transaction</code>), hold the payment queue in memory or database storage rather than failing noisily.</li>
+</ul>
+<hr>
+<h2 id="safety-checklist-for-autonomous-agents">Safety checklist for autonomous agents</h2>
+<p>Before deploying your Monero agent or payment daemon to production, confirm each invariant:</p>
+<ul>
+<li><input disabled="" type="checkbox"> <strong>Untrusted Daemon Enabled</strong>: The <code>--untrusted-daemon</code> flag is set on <code>monero-wallet-rpc</code>.</li>
+<li><input disabled="" type="checkbox"> <strong>Loopback Bind</strong>: <code>monero-wallet-rpc</code> binds strictly to <code>127.0.0.1</code>, protected by strong RPC credentials.</li>
+<li><input disabled="" type="checkbox"> <strong>No View-Key Leakage</strong>: Your code never transmits private view keys or mnemonic seeds over network sockets.</li>
+<li><input disabled="" type="checkbox"> <strong>Credential Hygiene</strong>: The token is stored as an environment variable (<code>MNR_TOKEN</code>), not committed to git.</li>
+<li><input disabled="" type="checkbox"> <strong>Retry Logic Configured</strong>: The bot handles HTTP 429 and 502 codes with exponential backoff.</li>
+<li><input disabled="" type="checkbox"> <strong>Header Inspection</strong>: Critical payment flows assert that <code>Mnr-Verify</code> is not falsified.</li>
+</ul>
+<hr>
+<h2 id="frequently-asked-questions">Frequently Asked Questions</h2>
+<h3 id="can-an-ai-agent-or-automated-script-use-mnr-without-monero-wallet-rpc">Can an AI agent or automated script use mnr without monero-wallet-rpc?</h3>
+<p><strong>Yes</strong>, for read-only queries. Scripts can query <code>https://rpc.mnr.network/v1/&lt;token&gt;/json_rpc</code> directly to check heights, fee estimates, and block headers. However, scanning incoming transactions and creating signed transfers requires private key calculations that only <code>monero-wallet-rpc</code> (or a client-side cryptographic library) can perform.</p>
+<h3 id="should-production-payment-bots-check-the-trusted-flag">Should production payment bots check the &quot;Trusted&quot; flag?</h3>
+<p><strong>Never.</strong> Always run with <code>--untrusted-daemon</code> (or <code>trusted: false</code>). A third-party daemon should never be trusted to calculate balances or key images on behalf of an automated financial bot.</p>
+<h3 id="what-happens-if-mnr-goes-down-while-my-bot-is-running">What happens if mnr goes down while my bot is running?</h3>
+<p>Your bot&#39;s RPC requests will return HTTP 502 or connection timeouts. <code>monero-wallet-rpc</code> will pause synchronization until connectivity is restored. Your keys and balances remain safe on your server. Because mnr offers no uptime SLA on Free/Pro, production services should implement monitoring and alert hooks.</p>
+<hr>
+<h2 id="next-steps">Next Steps</h2>
+<ul>
+<li><strong>Acquire a Token</strong>: Get a Free or Pro bearer token at <a href="/get-token/">/get-token/</a>.</li>
+<li><strong>Review Rate Limits</strong>: Detailed tier specifications on <a href="/docs/tokens/">/docs/tokens/</a>.</li>
+<li><strong>Inspect Method Verification</strong>: Review verification levels for all RPC calls at <a href="/docs/method-policy/">/docs/method-policy/</a>.</li>
+<li><strong>Monitor Network Health</strong>: Check live upstream consensus on <a href="/upstreams/">/upstreams/</a>.</li>
+</ul>
+
+    </article>
+  </main>
+
+  <div class="rule"></div>
+
+  <!-- Footer -->
+  <footer class="wrap" style="padding: 48px 32px;">
+    <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px;">
+      <div style="display: flex; align-items: center; gap: 10px; font-size: 14px;" class="muted">
+        <span>mnr — an RPC network for Monero</span>
+        <span>·</span>
+        <a href="https://github.com/mnrnetwork/mnr" target="_blank" rel="noopener noreferrer" style="text-decoration: underline;">AGPL-3.0</a>
+      </div>
+      <div style="display: flex; gap: 24px; font-size: 14px;">
+        <a href="/">Home</a>
+        <a href="/learn/">Learn</a>
+        <a href="/docs/">Docs Hub</a>
+        <a href="/docs/method-policy/">Method Policy</a>
+        <a href="https://github.com/mnrnetwork/mnr" target="_blank" rel="noopener noreferrer">GitHub</a>
+        <a href="https://x.com/intent/follow?screen_name=mnr_network" target="_blank" rel="noopener noreferrer">X</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="/search.js" defer></script>
+  <script>
+    (function () {
+      var btn = document.getElementById('theme-toggle');
+      var root = document.documentElement;
+      function current() {
+        var t = root.getAttribute('data-theme');
+        if (t === 'light' || t === 'dark') return t;
+        return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+      }
+      btn.addEventListener('click', function () {
+        var next = current() === 'dark' ? 'light' : 'dark';
+        root.setAttribute('data-theme', next);
+        try { localStorage.setItem('mnr-theme', next); } catch (e) {}
+      });
+    })();
+  </script>
+</body>
+</html>
