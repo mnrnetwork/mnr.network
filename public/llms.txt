@@ -69,8 +69,20 @@ monero-wallet-cli \
 - OAuth Protected Resource Metadata (RFC 9728): https://mnr.network/.well-known/oauth-protected-resource
 - Agentic Commerce Protocol (ACP): https://mnr.network/.well-known/acp.json
 - Full Technical Specification: https://mnr.network/llms-full.txt
-- Source Code: https://github.com/mnrnetwork/mnr
 - Contact: dev@mnr.network
+
+## Learn Hub & Architectural Explainers
+- Learn Hub (Overview): https://mnr.network/learn/
+- What Is a Verified Monero RPC?: https://mnr.network/learn/what-is-verified-monero-rpc/
+- Never Tick Trusted on a Third-Party Node: https://mnr.network/learn/never-tick-trusted-third-party-node/
+- Safer Than Picking a Random monero.fail Node: https://mnr.network/learn/safer-than-random-monero-fail-node/
+- Own Monero Node vs Verified RPC Proxy: https://mnr.network/learn/own-node-vs-verified-proxy/
+- Failover Is Not Verification (monerod-proxy/HAProxy vs Quorum): https://mnr.network/learn/failover-proxy-vs-hash-quorum/
+- Remote Monero Daemon vs MyMonero / LWS (Keys Local vs View-Key Sharing): https://mnr.network/learn/remote-daemon-vs-mymonero-lws/
+- How to Read mnr /upstreams and /verified: https://mnr.network/learn/read-upstreams-verified-transparency-log/
+- Connect to mnr over Tor or I2P: https://mnr.network/learn/connect-mnr-over-tor-i2p/
+- Point monero-wallet-rpc or an Agent at Verified RPC: https://mnr.network/learn/monero-wallet-rpc-agent-verified-rpc/
+- mnr vs Seth for Privacy, HashVault, or Cake Onion Alone: https://mnr.network/learn/mnr-vs-seth-hashvault-cake-onion/
 
 ## Markdown Mirrors for Agents
 All site pages and documentation have first-class Markdown mirrors discoverable via sitemap.xml and HTTP Content Negotiation (`Accept: text/markdown`) or by appending `index.md` (e.g. `https://mnr.network/verified/index.md`, `https://mnr.network/upstreams/index.md`).
