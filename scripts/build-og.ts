@@ -54,6 +54,13 @@ const JOBS: OgJob[] = [
       path.resolve(import.meta.dir, "../../mnr/brand/og-docs.png"),
     ],
   },
+  {
+    sourceHtml: path.resolve(import.meta.dir, "../../mnr/brand/og-learn.html"),
+    targets: [
+      path.resolve(import.meta.dir, "../public/og-learn.png"),
+      path.resolve(import.meta.dir, "../../mnr/brand/og-learn.png"),
+    ],
+  },
 ];
 
 async function main() {

@@ -652,7 +652,7 @@ function renderHtmlLayout(doc: DocMeta, contentHtml: string): string {
     "@graph": graph,
   };
 
-  const ogImageUrl = doc.ogImage || "https://mnr.network/og-docs.png";
+  const ogImageUrl = doc.ogImage || (isLearn ? "https://mnr.network/og-learn.png" : "https://mnr.network/og-docs.png");
 
   return `<!doctype html>
 <html lang="en">
