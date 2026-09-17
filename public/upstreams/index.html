@@ -415,7 +415,7 @@
       <div class="stat">
         <div class="k">Our Request Rate</div>
         <div class="v mono" id="s-rate">1.41</div>
-        <div class="sub">requests / second, aggregate</div>
+        <div class="sub" id="s-rate-sub">rpc calls / second, 15-min average</div>
       </div>
     </div>
 
@@ -710,7 +710,23 @@
           $('rows').innerHTML = rowsHtml.join('');
         }
 
-        $('s-rate').textContent = elapsed > 5 ? (total / elapsed).toFixed(2) : '…';
+        // The relay publishes a 15-minute rate per node which counts rpc
+        // calls only (upstream.rs: requests − probes), so sum that. Measuring
+        // the lifetime counters here instead would count the probe we send
+        // every node every 15 s (about 0.9/s over the pool), and would divide
+        // by however long this tab has been open, so a few seconds that
+        // caught a wallet sync read several times the steady rate.
+        var rated = d.upstreams.filter(function (u) { return u.rate_15m != null; });
+        if (rated.length) {
+          var sum = rated.reduce(function (a, u) { return a + u.rate_15m; }, 0);
+          $('s-rate').textContent = sum.toFixed(2);
+          $('s-rate-sub').textContent = 'rpc calls / second, 15-min average';
+        } else {
+          // A feed from before 0.1.17 has no rate: fall back to the counters,
+          // and say what that number includes.
+          $('s-rate').textContent = elapsed > 30 ? (total / elapsed).toFixed(2) : '…';
+          $('s-rate-sub').textContent = 'requests / second since page load, probes included';
+        }
         $('table-filter-count').textContent = q ? ('Showing ' + filtered.length + ' of ' + d.upstreams.length + ' nodes') : (d.upstreams.length + ' nodes in rotation');
       }
 

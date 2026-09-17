@@ -480,14 +480,15 @@
   --daemon-address rpc.mnr.network:443 \
   --daemon-login &lt;token&gt;:x \
   --daemon-ssl enabled \
-  --daemon-ssl-ca-certificates /etc/ssl/certs/ca-certificates.crt
+  --daemon-ssl-ca-certificates /etc/ssl/certs/ca-certificates.crt \
+  --daemon-ssl-allow-chained
 </code></pre>
 <blockquote>
 <p><strong>Important</strong>: Put your token in the username part of <code>--daemon-login &lt;token&gt;:x</code>. Stock Monero CLI authenticates using HTTP Digest auth; mnr checks the token from the username and ignores the password.</p>
 </blockquote>
 <hr>
 <h2 id="ca-certificate-bundles-by-operating-system">CA Certificate Bundles by Operating System</h2>
-<p>When <code>--daemon-ssl enabled</code> is passed, <code>monero-wallet-cli</code> strictly requires a CA bundle to authenticate the server&#39;s certificate. Point <code>--daemon-ssl-ca-certificates</code> to your system&#39;s certificate path:</p>
+<p>When <code>--daemon-ssl enabled</code> is passed, <code>monero-wallet-cli</code> strictly requires a CA bundle to authenticate the server&#39;s certificate. Point <code>--daemon-ssl-ca-certificates</code> to your system&#39;s certificate path, <strong>and pass <code>--daemon-ssl-allow-chained</code> with it</strong>: without that flag wallet2 uses the file as a pin on a single certificate rather than as a list of authorities, and every connection fails with <code>certificate verify failed</code>. Verified against this endpoint with v0.18.5.1.</p>
 <div class="table-wrap"><table class="doc-table">
 <thead>
 <tr>
@@ -523,6 +524,22 @@
 <blockquote>
 <p><code>--daemon-ssl-allow-any-cert</code> bypasses certificate validation. Use it only for temporary diagnostic testing if your local CA bundle is misconfigured.</p>
 </blockquote>
+<p>Two alternatives, both tested against this endpoint:</p>
+<ul>
+<li><p><strong>Pin the fingerprint</strong> instead of trusting a CA. Our edge certificate is replaced periodically, so re-read it when the handshake starts failing:</p>
+<pre><code class="language-bash">FP=$(openssl s_client -connect rpc.mnr.network:443 -servername rpc.mnr.network &lt;/dev/null 2&gt;/dev/null \
+     | openssl x509 -noout -fingerprint -sha256 | sed &#39;s/.*=//; s/://g&#39;)
+monero-wallet-cli --daemon-address rpc.mnr.network:443 --daemon-login &lt;token&gt;:x \
+  --daemon-ssl enabled --daemon-ssl-allowed-fingerprints &quot;$FP&quot;
+</code></pre>
+</li>
+<li><p><strong>Use the onion</strong>, where the address is the identity and no certificate is involved:</p>
+<pre><code class="language-bash">monero-wallet-cli --proxy 127.0.0.1:9050 \
+  --daemon-address mnrrpcvbopaykx7um32r4iyamontteidypjd33fhzvuy2hwfu5c4ifad.onion:80 \
+  --daemon-login &lt;token&gt;:x
+</code></pre>
+</li>
+</ul>
 <hr>
 <h2 id="connecting-monero-wallet-rpc-backends-merchants">Connecting monero-wallet-rpc (Backends &amp; Merchants)</h2>
 <p>For automated payment services, crypto payment processors, or multi-user backend daemons:</p>
@@ -531,6 +548,7 @@
   --daemon-login &lt;token&gt;:x \
   --daemon-ssl enabled \
   --daemon-ssl-ca-certificates /etc/ssl/certs/ca-certificates.crt \
+  --daemon-ssl-allow-chained \
   --wallet-file /var/monero/wallets/merchant.wallet \
   --password-file /var/monero/wallets/merchant.pass \
   --rpc-bind-port 18082 \
@@ -572,7 +590,7 @@
 <hr>
 <h2 id="troubleshooting">Troubleshooting</h2>
 <ul>
-<li><strong>Error: &quot;SSL certificate verify failed&quot;</strong>: Verify that <code>--daemon-ssl-ca-certificates</code> points to a valid file on disk. Run <code>ls -l &lt;path&gt;</code> to check existence.</li>
+<li><strong>Error: &quot;SSL certificate verify failed&quot;</strong>: The usual cause is a missing <code>--daemon-ssl-allow-chained</code> next to <code>--daemon-ssl-ca-certificates</code>; without it the file is treated as a pin, not a CA list. Otherwise verify the path points to a valid file on disk. Run <code>ls -l &lt;path&gt;</code> to check existence.</li>
 <li><strong>Error: &quot;Bad server response for authentication&quot;</strong>: The token was passed in the password slot (<code>--daemon-login user:&lt;token&gt;</code>). Correct it to <code>--daemon-login &lt;token&gt;:x</code>.</li>
 <li><strong>Error: 401 Unauthorized</strong>: The token is invalid, rotated, or expired. Obtain a new one at <a href="/get-token/">mnr.network/get-token/</a>.</li>
 <li><strong>Error: 429 Too Many Requests</strong>: Request throughput exceeded burst rate limit (5 req/s on Free tier). Use a Pro token for 25 req/s or slow down wallet sync threads.</li>

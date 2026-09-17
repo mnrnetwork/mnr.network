@@ -36,8 +36,14 @@ monero-wallet-cli \
   --daemon-address rpc.mnr.network:443 \
   --daemon-login <token>:x \
   --daemon-ssl enabled \
-  --daemon-ssl-ca-certificates /etc/ssl/certs/ca-certificates.crt
+  --daemon-ssl-ca-certificates /etc/ssl/certs/ca-certificates.crt \
+  --daemon-ssl-allow-chained
 ```
+
+`--daemon-ssl-allow-chained` is required with `--daemon-ssl-ca-certificates`:
+without it wallet2 treats the file as a *pin* on one certificate rather than as
+a list of authorities, and the handshake fails with `certificate verify failed`
+however you fill the file. Verified against this endpoint with v0.18.5.1.
 
 The CA bundle path is Debian and Ubuntu's; on Fedora it is `/etc/pki/tls/certs/ca-bundle.crt`, on macOS with Homebrew `$(brew --prefix)/etc/ca-certificates/cert.pem`. See the [CLI & RPC Guide](/docs/wallets/cli/) for full options.
 
@@ -102,8 +108,16 @@ That's it — sync, decoy selection and broadcasting all go through mnr from the
 monero-wallet-rpc \
   --daemon-address rpc.mnr.network:443 --daemon-login <token>:x \
   --daemon-ssl enabled --daemon-ssl-ca-certificates /etc/ssl/certs/ca-certificates.crt \
+  --daemon-ssl-allow-chained \
   --wallet-file … --rpc-bind-port 18082 --disable-rpc-login
 ```
+
+This is also how the wallet-RPC methods no daemon offers — `check_tx_key`,
+`check_tx_proof` — work against mnr: they run in your own `monero-wallet-rpc`,
+which fetches the transaction from us over a verified path. Confirming a
+payment by transaction id alone is not possible for anyone: the id proves the
+transaction exists and how deep it is, and the amount paid to an address needs
+the sender's transaction key, a transaction proof, or your own view key.
 
 Anything that speaks daemon JSON-RPC or the `.bin` endpoints directly can use the path form: POST to `https://rpc.mnr.network/v1/<token>/json_rpc` or `/v1/<token>/get_height` and so on. The full list of methods, what is verified and what is cached is in the [method policy](/docs/method-policy/).
 
@@ -145,7 +159,7 @@ The meaning of every value is in the spec: [headers](https://github.com/mnrnetwo
 ## If something does not work
 
 - **Bad server response for authentication** — the token is in the password slot. Put it in the username: `--daemon-login <token>:x`.
-- **SSL: certificate verify failed / wants `--daemon-ssl-allow-any-cert`** — add `--daemon-ssl-ca-certificates` with your system bundle (paths above).
+- **SSL: certificate verify failed** — add `--daemon-ssl-allow-chained` next to `--daemon-ssl-ca-certificates`; without it wallet2 pins the file instead of reading it as a CA list. Do not reach for `--daemon-ssl-allow-any-cert`: it encrypts without checking who answers.
 - **401 unknown token** — mistyped, rotated more than 24 hours ago, or not a token. Get a new one.
 - **403 subscription expired** — a Pro token past its month. Renew it on the [token page](/get-token/); the same token keeps working afterwards.
 - **429 rate limited** — the tier's burst (5 requests per second on Free, 25 on Pro) or the monthly allowance. Wallets retry on their own.

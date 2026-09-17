@@ -507,8 +507,13 @@ password: x                      (anything; it is not checked)
   --daemon-address rpc.mnr.network:443 \
   --daemon-login &lt;token&gt;:x \
   --daemon-ssl enabled \
-  --daemon-ssl-ca-certificates /etc/ssl/certs/ca-certificates.crt
+  --daemon-ssl-ca-certificates /etc/ssl/certs/ca-certificates.crt \
+  --daemon-ssl-allow-chained
 </code></pre>
+<p><code>--daemon-ssl-allow-chained</code> is required with <code>--daemon-ssl-ca-certificates</code>:
+without it wallet2 treats the file as a <em>pin</em> on one certificate rather than as
+a list of authorities, and the handshake fails with <code>certificate verify failed</code>
+however you fill the file. Verified against this endpoint with v0.18.5.1.</p>
 <p>The CA bundle path is Debian and Ubuntu&#39;s; on Fedora it is <code>/etc/pki/tls/certs/ca-bundle.crt</code>, on macOS with Homebrew <code>$(brew --prefix)/etc/ca-certificates/cert.pem</code>. See the <a href="/docs/wallets/cli/">CLI &amp; RPC Guide</a> for full options.</p>
 <h3 id="monero-wallet-gui">monero-wallet-gui</h3>
 <p>Settings → Node → <strong>Remote node</strong>.</p>
@@ -559,8 +564,15 @@ Keep the <code>https://</code> and the <code>/v1/&lt;token&gt;</code> path, no t
 <pre><code>monero-wallet-rpc \
   --daemon-address rpc.mnr.network:443 --daemon-login &lt;token&gt;:x \
   --daemon-ssl enabled --daemon-ssl-ca-certificates /etc/ssl/certs/ca-certificates.crt \
+  --daemon-ssl-allow-chained \
   --wallet-file … --rpc-bind-port 18082 --disable-rpc-login
 </code></pre>
+<p>This is also how the wallet-RPC methods no daemon offers — <code>check_tx_key</code>,
+<code>check_tx_proof</code> — work against mnr: they run in your own <code>monero-wallet-rpc</code>,
+which fetches the transaction from us over a verified path. Confirming a
+payment by transaction id alone is not possible for anyone: the id proves the
+transaction exists and how deep it is, and the amount paid to an address needs
+the sender&#39;s transaction key, a transaction proof, or your own view key.</p>
 <p>Anything that speaks daemon JSON-RPC or the <code>.bin</code> endpoints directly can use the path form: POST to <code>https://rpc.mnr.network/v1/&lt;token&gt;/json_rpc</code> or <code>/v1/&lt;token&gt;/get_height</code> and so on. The full list of methods, what is verified and what is cached is in the <a href="/docs/method-policy/">method policy</a>.</p>
 <h2 id="over-tor-or-i2p">Over Tor or I2P</h2>
 <p>The same relay, without the clearnet or TLS. Plain HTTP is fine here: the network layer carries the encryption.</p>
@@ -588,7 +600,7 @@ mnr-tier: free
 <h2 id="if-something-does-not-work">If something does not work</h2>
 <ul>
 <li><strong>Bad server response for authentication</strong> — the token is in the password slot. Put it in the username: <code>--daemon-login &lt;token&gt;:x</code>.</li>
-<li><strong>SSL: certificate verify failed / wants <code>--daemon-ssl-allow-any-cert</code></strong> — add <code>--daemon-ssl-ca-certificates</code> with your system bundle (paths above).</li>
+<li><strong>SSL: certificate verify failed</strong> — add <code>--daemon-ssl-allow-chained</code> next to <code>--daemon-ssl-ca-certificates</code>; without it wallet2 pins the file instead of reading it as a CA list. Do not reach for <code>--daemon-ssl-allow-any-cert</code>: it encrypts without checking who answers.</li>
 <li><strong>401 unknown token</strong> — mistyped, rotated more than 24 hours ago, or not a token. Get a new one.</li>
 <li><strong>403 subscription expired</strong> — a Pro token past its month. Renew it on the <a href="/get-token/">token page</a>; the same token keeps working afterwards.</li>
 <li><strong>429 rate limited</strong> — the tier&#39;s burst (5 requests per second on Free, 25 on Pro) or the monthly allowance. Wallets retry on their own.</li>

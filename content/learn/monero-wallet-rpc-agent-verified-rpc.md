@@ -61,23 +61,22 @@ monero-wallet-rpc \
   --daemon-address rpc.mnr.network:443 \
   --daemon-login <your-token>:x \
   --daemon-ssl enabled \
-  --daemon-ssl-allow-any-cert false \
-  --daemon-ssl-cacerts /etc/ssl/certs/ca-certificates.crt \
+  --daemon-ssl-ca-certificates /etc/ssl/certs/ca-certificates.crt \
+  --daemon-ssl-allow-chained \
   --untrusted-daemon \
   --rpc-bind-ip 127.0.0.1 \
   --rpc-bind-port 18082 \
   --rpc-login botadmin:StrongLocalPassword123 \
   --wallet-file /path/to/bot_wallet \
   --password-file /path/to/wallet_password \
-  --disable-rpc-login false \
-  --confirm-external-bind false
 ```
 
 ### Key parameters explained:
 - `--daemon-address rpc.mnr.network:443`: Connects to mnr's secure edge proxy.
 - `--daemon-login <token>:x`: Authenticates via HTTP Digest auth. Your token, which begins `sub_` and is about 47 characters, goes in the username field; the password is ignored, so any dummy string (such as `x`) works.
-- `--daemon-ssl enabled`: Enforces TLS 1.3 encryption.
-- `--daemon-ssl-cacerts`: Points to your operating system's standard CA root bundle (`/etc/ssl/certs/ca-certificates.crt` on Debian/Ubuntu; `/etc/ssl/cert.pem` on macOS).
+- `--daemon-ssl enabled`: Requires TLS on the daemon connection rather than letting wallet2 detect it.
+- `--daemon-ssl-ca-certificates`: Points to your operating system's standard CA root bundle (`/etc/ssl/certs/ca-certificates.crt` on Debian/Ubuntu; `/etc/ssl/cert.pem` on macOS).
+- `--daemon-ssl-allow-chained`: Required alongside the bundle. Without it wallet2 treats the file as a pin on one certificate instead of a list of authorities, and the handshake fails with `certificate verify failed`.
 - `--untrusted-daemon`: **Mandatory**. Instructs `monero-wallet-rpc` to re-verify block hashes, outputs, and key images locally, refusing to trust the remote endpoint blindly.
 - `--rpc-bind-ip 127.0.0.1`: **Critical**. Ensures the wallet RPC interface binds strictly to localhost, preventing unauthorized remote access to your wallet.
 

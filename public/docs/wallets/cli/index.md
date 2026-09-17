@@ -13,7 +13,8 @@ monero-wallet-cli \
   --daemon-address rpc.mnr.network:443 \
   --daemon-login <token>:x \
   --daemon-ssl enabled \
-  --daemon-ssl-ca-certificates /etc/ssl/certs/ca-certificates.crt
+  --daemon-ssl-ca-certificates /etc/ssl/certs/ca-certificates.crt \
+  --daemon-ssl-allow-chained
 ```
 
 > **Important**: Put your token in the username part of `--daemon-login <token>:x`. Stock Monero CLI authenticates using HTTP Digest auth; mnr checks the token from the username and ignores the password.
@@ -22,7 +23,7 @@ monero-wallet-cli \
 
 ## CA Certificate Bundles by Operating System
 
-When `--daemon-ssl enabled` is passed, `monero-wallet-cli` strictly requires a CA bundle to authenticate the server's certificate. Point `--daemon-ssl-ca-certificates` to your system's certificate path:
+When `--daemon-ssl enabled` is passed, `monero-wallet-cli` strictly requires a CA bundle to authenticate the server's certificate. Point `--daemon-ssl-ca-certificates` to your system's certificate path, **and pass `--daemon-ssl-allow-chained` with it**: without that flag wallet2 uses the file as a pin on a single certificate rather than as a list of authorities, and every connection fails with `certificate verify failed`. Verified against this endpoint with v0.18.5.1.
 
 | Operating System | CA Bundle Path |
 |:---|:---|
@@ -34,6 +35,25 @@ When `--daemon-ssl enabled` is passed, `monero-wallet-cli` strictly requires a C
 | **Windows** | Export system root certs to a `.crt` file or pass `--daemon-ssl-allow-any-cert` |
 
 > `--daemon-ssl-allow-any-cert` bypasses certificate validation. Use it only for temporary diagnostic testing if your local CA bundle is misconfigured.
+
+Two alternatives, both tested against this endpoint:
+
+- **Pin the fingerprint** instead of trusting a CA. Our edge certificate is replaced periodically, so re-read it when the handshake starts failing:
+
+  ```bash
+  FP=$(openssl s_client -connect rpc.mnr.network:443 -servername rpc.mnr.network </dev/null 2>/dev/null \
+       | openssl x509 -noout -fingerprint -sha256 | sed 's/.*=//; s/://g')
+  monero-wallet-cli --daemon-address rpc.mnr.network:443 --daemon-login <token>:x \
+    --daemon-ssl enabled --daemon-ssl-allowed-fingerprints "$FP"
+  ```
+
+- **Use the onion**, where the address is the identity and no certificate is involved:
+
+  ```bash
+  monero-wallet-cli --proxy 127.0.0.1:9050 \
+    --daemon-address mnrrpcvbopaykx7um32r4iyamontteidypjd33fhzvuy2hwfu5c4ifad.onion:80 \
+    --daemon-login <token>:x
+  ```
 
 ---
 
@@ -47,6 +67,7 @@ monero-wallet-rpc \
   --daemon-login <token>:x \
   --daemon-ssl enabled \
   --daemon-ssl-ca-certificates /etc/ssl/certs/ca-certificates.crt \
+  --daemon-ssl-allow-chained \
   --wallet-file /var/monero/wallets/merchant.wallet \
   --password-file /var/monero/wallets/merchant.pass \
   --rpc-bind-port 18082 \
@@ -104,7 +125,7 @@ curl -si -X POST https://rpc.mnr.network/v1/<token>/get_height -d '{}' | grep -i
 
 ## Troubleshooting
 
-- **Error: "SSL certificate verify failed"**: Verify that `--daemon-ssl-ca-certificates` points to a valid file on disk. Run `ls -l <path>` to check existence.
+- **Error: "SSL certificate verify failed"**: The usual cause is a missing `--daemon-ssl-allow-chained` next to `--daemon-ssl-ca-certificates`; without it the file is treated as a pin, not a CA list. Otherwise verify the path points to a valid file on disk. Run `ls -l <path>` to check existence.
 - **Error: "Bad server response for authentication"**: The token was passed in the password slot (`--daemon-login user:<token>`). Correct it to `--daemon-login <token>:x`.
 - **Error: 401 Unauthorized**: The token is invalid, rotated, or expired. Obtain a new one at [mnr.network/get-token/](/get-token/).
 - **Error: 429 Too Many Requests**: Request throughput exceeded burst rate limit (5 req/s on Free tier). Use a Pro token for 25 req/s or slow down wallet sync threads.

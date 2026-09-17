@@ -530,23 +530,22 @@
   --daemon-address rpc.mnr.network:443 \
   --daemon-login &lt;your-token&gt;:x \
   --daemon-ssl enabled \
-  --daemon-ssl-allow-any-cert false \
-  --daemon-ssl-cacerts /etc/ssl/certs/ca-certificates.crt \
+  --daemon-ssl-ca-certificates /etc/ssl/certs/ca-certificates.crt \
+  --daemon-ssl-allow-chained \
   --untrusted-daemon \
   --rpc-bind-ip 127.0.0.1 \
   --rpc-bind-port 18082 \
   --rpc-login botadmin:StrongLocalPassword123 \
   --wallet-file /path/to/bot_wallet \
   --password-file /path/to/wallet_password \
-  --disable-rpc-login false \
-  --confirm-external-bind false
 </code></pre>
 <h3 id="key-parameters-explained">Key parameters explained:</h3>
 <ul>
 <li><code>--daemon-address rpc.mnr.network:443</code>: Connects to mnr&#39;s secure edge proxy.</li>
 <li><code>--daemon-login &lt;token&gt;:x</code>: Authenticates via HTTP Digest auth. Your token, which begins <code>sub_</code> and is about 47 characters, goes in the username field; the password is ignored, so any dummy string (such as <code>x</code>) works.</li>
-<li><code>--daemon-ssl enabled</code>: Enforces TLS 1.3 encryption.</li>
-<li><code>--daemon-ssl-cacerts</code>: Points to your operating system&#39;s standard CA root bundle (<code>/etc/ssl/certs/ca-certificates.crt</code> on Debian/Ubuntu; <code>/etc/ssl/cert.pem</code> on macOS).</li>
+<li><code>--daemon-ssl enabled</code>: Requires TLS on the daemon connection rather than letting wallet2 detect it.</li>
+<li><code>--daemon-ssl-ca-certificates</code>: Points to your operating system&#39;s standard CA root bundle (<code>/etc/ssl/certs/ca-certificates.crt</code> on Debian/Ubuntu; <code>/etc/ssl/cert.pem</code> on macOS).</li>
+<li><code>--daemon-ssl-allow-chained</code>: Required alongside the bundle. Without it wallet2 treats the file as a pin on one certificate instead of a list of authorities, and the handshake fails with <code>certificate verify failed</code>.</li>
 <li><code>--untrusted-daemon</code>: <strong>Mandatory</strong>. Instructs <code>monero-wallet-rpc</code> to re-verify block hashes, outputs, and key images locally, refusing to trust the remote endpoint blindly.</li>
 <li><code>--rpc-bind-ip 127.0.0.1</code>: <strong>Critical</strong>. Ensures the wallet RPC interface binds strictly to localhost, preventing unauthorized remote access to your wallet.</li>
 </ul>
