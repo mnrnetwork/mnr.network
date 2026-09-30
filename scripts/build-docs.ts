@@ -1,5 +1,6 @@
 import fs from "node:fs";
 import path from "node:path";
+import { execFileSync } from "node:child_process";
 import { marked } from "marked";
 
 // Configure marked with GitHub Flavored Markdown
@@ -1368,9 +1369,29 @@ function generateSearchIndex(): string {
   return JSON.stringify(items, null, 2);
 }
 
+/** Last commit date (YYYY-MM-DD) of the given files, or null when git has no
+ *  history for them (e.g. a shallow CI clone). <lastmod> must be a real
+ *  content date: stamping every URL with the build day taught crawlers to
+ *  ignore it, so an unknown date is omitted instead. */
+function gitDate(...files: string[]): string | null {
+  const existing = files.filter((f) => f && fs.existsSync(f));
+  if (!existing.length) return null;
+  try {
+    const out = execFileSync("git", ["log", "-1", "--format=%cs", "--", ...existing], { encoding: "utf-8" }).trim();
+    return /^\d{4}-\d{2}-\d{2}$/.test(out) ? out : null;
+  } catch {
+    return null;
+  }
+}
+
+/** public/<route>index.html (+ .md mirror) for a site route like "/get-token/". */
+const publicFiles = (route: string) => {
+  const dir = path.join("public", route.replace(/^\/+/, ""));
+  return [path.join(dir, "index.html"), path.join(dir, "index.md")];
+};
+
 function generateSitemap(): string {
-  const today = new Date().toISOString().split("T")[0];
-  const urls: { loc: string; lastmod: string; changefreq: string; priority: string }[] = [];
+  const urls: { loc: string; lastmod: string | null; changefreq: string; priority: string }[] = [];
 
   // 1. Core pages (both HTML and primary Markdown mirrors)
   const corePages = [
@@ -1383,15 +1404,16 @@ function generateSitemap(): string {
   ];
 
   for (const page of corePages) {
-    urls.push({ loc: page.html, lastmod: today, changefreq: page.freq, priority: page.p });
-    urls.push({ loc: page.md, lastmod: today, changefreq: page.freq, priority: page.pMd });
+    const lastmod = gitDate(...publicFiles(new URL(page.html).pathname));
+    urls.push({ loc: page.html, lastmod, changefreq: page.freq, priority: page.p });
+    urls.push({ loc: page.md, lastmod, changefreq: page.freq, priority: page.pMd });
   }
 
   // 2. Machine-readable context & discovery endpoints
   urls.push(
-    { loc: "https://mnr.network/auth.md", lastmod: today, changefreq: "weekly", priority: "0.85" },
-    { loc: "https://mnr.network/llms.txt", lastmod: today, changefreq: "weekly", priority: "0.85" },
-    { loc: "https://mnr.network/llms-full.txt", lastmod: today, changefreq: "weekly", priority: "0.80" }
+    { loc: "https://mnr.network/auth.md", lastmod: gitDate("public/auth.md"), changefreq: "weekly", priority: "0.85" },
+    { loc: "https://mnr.network/llms.txt", lastmod: gitDate("public/llms.txt"), changefreq: "weekly", priority: "0.85" },
+    { loc: "https://mnr.network/llms-full.txt", lastmod: gitDate("public/llms-full.txt"), changefreq: "weekly", priority: "0.80" }
   );
 
   // 3. Documentation sub-pages (both HTML and .md index)
@@ -1399,15 +1421,16 @@ function generateSitemap(): string {
     if (doc.id === "hub" || doc.id === "verified" || doc.id === "learn-hub") continue;
     const priority = doc.category === "Wallets" ? "0.85" : doc.category === "Learn" ? "0.85" : "0.8";
     const mdPriority = (parseFloat(priority) - 0.05).toFixed(2);
+    const docDate = doc.sourceFile ? gitDate(doc.sourceFile) : gitDate(...publicFiles(doc.route));
     urls.push({
       loc: `https://mnr.network${doc.route}`,
-      lastmod: today,
+      lastmod: docDate,
       changefreq: "monthly",
       priority,
     });
     urls.push({
       loc: `https://mnr.network${doc.route}index.md`,
-      lastmod: today,
+      lastmod: docDate,
       changefreq: "monthly",
       priority: mdPriority,
     });
@@ -1418,8 +1441,7 @@ function generateSitemap(): string {
 ${urls
   .map(
     (u) => `  <url>
-    <loc>${u.loc}</loc>
-    <lastmod>${u.lastmod}</lastmod>
+    <loc>${u.loc}</loc>${u.lastmod ? `\n    <lastmod>${u.lastmod}</lastmod>` : ""}
     <changefreq>${u.changefreq}</changefreq>
     <priority>${u.priority}</priority>
   </url>`
