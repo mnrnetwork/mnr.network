@@ -478,7 +478,7 @@
           <h2 class="h3">Cryptographic Fault Log</h2>
           <span class="mono" style="font-size: 12px; color: var(--muted);">Auto-Ejection: 3 / hr</span>
         </div>
-        <p class="muted" style="font-size: 14.5px; margin: 0;">Responses that failed verification (hash mismatch, unparseable payload, or timeout). Three faults within an hour automatically ejects a node for 24 hours. No client query information is ever logged.</p>
+        <p class="muted" style="font-size: 14.5px; margin: 0;">Responses that failed verification against block and transaction hashes, our header chain, or the answers other nodes gave. Three faults within an hour automatically ejects a node for 24 hours. No client query information is ever logged.</p>
         <pre class="log mono" id="faults">No active faults. All consensus nodes verified on tip height 3,756,973.</pre>
       </section>
 
