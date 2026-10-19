@@ -373,6 +373,8 @@
     .hub-card:hover { border-color: var(--accent); transform: translateY(-2px); }
     .hub-card h3 { font-size: 18px; font-weight: 600; margin: 0; color: var(--fg); }
     .hub-card p { font-size: 14.5px; color: var(--muted); margin: 0; line-height: 1.5; }
+    .prose a.hub-card, .prose a.hub-card:hover { color: inherit; font-weight: inherit; text-decoration: none; }
+    .prose a.hub-card:hover .hub-card-meta span { text-decoration: underline; text-underline-offset: 3.5px; }
     .hub-card-meta { display: flex; align-items: center; justify-content: space-between; margin-top: auto; padding-top: 12px; font-size: 13px; font-family: "Geist Mono", monospace; color: var(--accent); }
 
     @media (max-width: 768px) {
