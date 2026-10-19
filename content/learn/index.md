@@ -70,6 +70,11 @@ While the [Documentation Hub](/docs/) provides operational references and wallet
 - **Badge**: `Builders`
 - **Topics**: `monero-wallet-rpc`, daemon-login, bearer token auth, `Mnr-Verify` header, agent Monero RPC.
 
+#### 11. [Read the Monero Mempool After /get_transaction_pool Went Away](/learn/read-monero-mempool-restricted-rpc/)
+**Explorers & Payment Watchers.** monerod 0.18.5.3 refuses `/get_transaction_pool` on restricted nodes. How to build a live mempool feed from `/get_transaction_pool_hashes` plus hash-verified `/get_transactions`, when to use mnr's composed listing instead, and what each costs in work units.
+- **Badge**: `Builders`
+- **Topics**: `get_transaction_pool_hashes`, `get_transactions`, mempool polling, block explorers, `Mnr-Verify: hash`.
+
 ---
 
 ## Architectural Principles

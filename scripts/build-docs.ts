@@ -451,6 +451,20 @@ const DOCS: DocMeta[] = [
     keywords: ["seth for privacy node", "cake wallet onion node", "hashvault monero node", "single public node", "multi-node quorum", "mnr upstreams"],
     featured: true,
   },
+  {
+    id: "read-monero-mempool-restricted-rpc",
+    route: "/learn/read-monero-mempool-restricted-rpc/",
+    sourceFile: "content/learn/read-monero-mempool-restricted-rpc.md",
+    title: "Read the Monero Mempool After /get_transaction_pool Went Away",
+    navTitle: "Mempool on Restricted RPC",
+    badge: "Builders",
+    category: "Learn",
+    hiddenFromTabs: true,
+    description:
+      "monerod 0.18.5.3 refuses /get_transaction_pool on restricted nodes. Build a live mempool feed from pool hashes plus verified get_transactions, or use mnr's composed listing.",
+    keywords: ["get_transaction_pool restricted", "get_transaction_pool_hashes", "monero mempool api", "monero block explorer rpc", "monerod 0.18.5.3", "verified mempool"],
+    featured: true,
+  },
 ];
 
 // The method policy is generated from mnr-core; when the code repo is

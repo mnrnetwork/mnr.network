@@ -416,6 +416,21 @@
     "featured": true
   },
   {
+    "title": "Read the Monero Mempool After /get_transaction_pool Went Away",
+    "route": "/learn/read-monero-mempool-restricted-rpc/",
+    "description": "monerod 0.18.5.3 refuses /get_transaction_pool on restricted nodes. Build a live mempool feed from pool hashes plus verified get_transactions, or use mnr's composed listing.",
+    "category": "Learn",
+    "keywords": [
+      "get_transaction_pool restricted",
+      "get_transaction_pool_hashes",
+      "monero mempool api",
+      "monero block explorer rpc",
+      "monerod 0.18.5.3",
+      "verified mempool"
+    ],
+    "featured": true
+  },
+  {
     "title": "Independent Verification & Transparency Log",
     "route": "/verified/",
     "description": "Independent third-party node operators, external directory listings on monero.fail, package registries, cryptographic verification proofs, and weekly audit logs.",

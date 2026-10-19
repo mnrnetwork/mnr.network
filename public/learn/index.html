@@ -550,6 +550,12 @@
 <li><strong>Badge</strong>: <code>Builders</code></li>
 <li><strong>Topics</strong>: <code>monero-wallet-rpc</code>, daemon-login, bearer token auth, <code>Mnr-Verify</code> header, agent Monero RPC.</li>
 </ul>
+<h4 id="11-read-the-monero-mempool-after-gettransactionpool-went-away">11. <a href="/learn/read-monero-mempool-restricted-rpc/">Read the Monero Mempool After /get_transaction_pool Went Away</a></h4>
+<p><strong>Explorers &amp; Payment Watchers.</strong> monerod 0.18.5.3 refuses <code>/get_transaction_pool</code> on restricted nodes. How to build a live mempool feed from <code>/get_transaction_pool_hashes</code> plus hash-verified <code>/get_transactions</code>, when to use mnr&#39;s composed listing instead, and what each costs in work units.</p>
+<ul>
+<li><strong>Badge</strong>: <code>Builders</code></li>
+<li><strong>Topics</strong>: <code>get_transaction_pool_hashes</code>, <code>get_transactions</code>, mempool polling, block explorers, <code>Mnr-Verify: hash</code>.</li>
+</ul>
 <hr>
 <h2 id="architectural-principles">Architectural Principles</h2>
 <p>Every explainer in this series adheres to mnr&#39;s core operational rules:</p>

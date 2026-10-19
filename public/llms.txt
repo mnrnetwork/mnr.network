@@ -83,6 +83,7 @@ monero-wallet-cli \
 - Connect to mnr over Tor or I2P: https://mnr.network/learn/connect-mnr-over-tor-i2p/
 - Point monero-wallet-rpc or an Agent at Verified RPC: https://mnr.network/learn/monero-wallet-rpc-agent-verified-rpc/
 - mnr vs Seth for Privacy, HashVault, or Cake Onion Alone: https://mnr.network/learn/mnr-vs-seth-hashvault-cake-onion/
+- Read the Monero Mempool on Restricted RPC: https://mnr.network/learn/read-monero-mempool-restricted-rpc/
 
 ## Markdown Mirrors for Agents
 All site pages and documentation have first-class Markdown mirrors discoverable via sitemap.xml and HTTP Content Negotiation (`Accept: text/markdown`) or by appending `index.md` (e.g. `https://mnr.network/verified/index.md`, `https://mnr.network/upstreams/index.md`).
