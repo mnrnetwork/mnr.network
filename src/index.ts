@@ -1,4 +1,6 @@
-interface Env {
+import { runProbe, statusJson, type StatusEnv } from "./status";
+
+interface Env extends StatusEnv {
   ASSETS: {
     fetch: (request: Request | string, init?: RequestInit) => Promise<Response>;
   };
@@ -298,7 +300,9 @@ export default {
         url.pathname.startsWith("/.well-known/") ||
         url.pathname === "/openapi.json" ||
         url.pathname === "/auth.md" ||
-        url.pathname === "/upstreams.json";
+        url.pathname === "/upstreams.json" ||
+        url.pathname === "/status.json" ||
+        url.pathname === "/status.json/";
       if (isDiscovery) {
         return new Response(null, {
           status: 204,
@@ -506,6 +510,11 @@ export default {
       return new Response(upstreamText, { status: 200, headers });
     }
 
+    // 7.6. Measured uptime of rpc.mnr.network (cron below)
+    if (url.pathname === "/status.json" || url.pathname === "/status.json/") {
+      return statusJson(env, request.method === "HEAD");
+    }
+
     // 8. Content negotiation: check if Markdown is requested
     const wantsMarkdown =
       accept.includes("text/markdown") ||
@@ -601,5 +610,9 @@ export default {
     }
 
     return response;
+  },
+
+  async scheduled(controller: { scheduledTime: number }, env: Env, ctx: { waitUntil(p: Promise<unknown>): void }): Promise<void> {
+    ctx.waitUntil(runProbe(env, controller.scheduledTime));
   },
 };

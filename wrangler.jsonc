@@ -10,6 +10,15 @@
     "not_found_handling": "404-page",
     "run_worker_first": true
   },
+  "triggers": { "crons": ["* * * * *"] },
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "mnr-status",
+      "database_id": "8ec8ac8b-7b8f-41d5-baf8-b1f208835cdd",
+      "migrations_dir": "migrations"
+    }
+  ],
   "routes": [
     { "pattern": "mnr.network", "custom_domain": true },
     { "pattern": "www.mnr.network", "custom_domain": true }

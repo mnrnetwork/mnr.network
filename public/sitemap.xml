@@ -37,6 +37,16 @@
     <priority>0.85</priority>
   </url>
   <url>
+    <loc>https://mnr.network/status/</loc>
+    <changefreq>daily</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://mnr.network/status/index.md</loc>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
     <loc>https://mnr.network/verified/</loc>
     <lastmod>2026-10-19</lastmod>
     <changefreq>weekly</changefreq>
@@ -80,7 +90,7 @@
   </url>
   <url>
     <loc>https://mnr.network/llms.txt</loc>
-    <lastmod>2026-09-09</lastmod>
+    <lastmod>2026-10-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.85</priority>
   </url>
@@ -392,11 +402,13 @@
   </url>
   <url>
     <loc>https://mnr.network/learn/read-monero-mempool-restricted-rpc/</loc>
+    <lastmod>2026-10-19</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.85</priority>
   </url>
   <url>
     <loc>https://mnr.network/learn/read-monero-mempool-restricted-rpc/index.md</loc>
+    <lastmod>2026-10-19</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.80</priority>
   </url>

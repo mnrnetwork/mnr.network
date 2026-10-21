@@ -1041,6 +1041,7 @@ function renderHtmlLayout(doc: DocMeta, contentHtml: string): string {
         <a href="/learn/">Learn</a>
         <a href="/docs/">Docs Hub</a>
         <a href="/docs/method-policy/">Method Policy</a>
+        <a href="/status/">Uptime</a>
         <a href="https://github.com/mnrnetwork/mnr" target="_blank" rel="noopener noreferrer">GitHub</a>
         <a href="https://x.com/intent/follow?screen_name=mnr_network" target="_blank" rel="noopener noreferrer">X</a>
       </div>
@@ -1414,6 +1415,7 @@ function generateSitemap(): string {
     { html: "https://mnr.network/", md: "https://mnr.network/index.md", freq: "weekly", p: "1.0", pMd: "0.95" },
     { html: "https://mnr.network/get-token/", md: "https://mnr.network/get-token/index.md", freq: "monthly", p: "0.9", pMd: "0.85" },
     { html: "https://mnr.network/upstreams/", md: "https://mnr.network/upstreams/index.md", freq: "daily", p: "0.9", pMd: "0.85" },
+    { html: "https://mnr.network/status/", md: "https://mnr.network/status/index.md", freq: "daily", p: "0.7", pMd: "0.6" },
     { html: "https://mnr.network/verified/", md: "https://mnr.network/verified/index.md", freq: "weekly", p: "0.9", pMd: "0.85" },
     { html: "https://mnr.network/learn/", md: "https://mnr.network/learn/index.md", freq: "weekly", p: "0.9", pMd: "0.85" },
     { html: "https://mnr.network/docs/", md: "https://mnr.network/docs/index.md", freq: "weekly", p: "0.9", pMd: "0.85" },

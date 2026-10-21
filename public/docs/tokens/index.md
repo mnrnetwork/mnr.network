@@ -15,7 +15,7 @@ A token is the whole relationship. There is no account, no email, no name. The r
 
 A **work unit** is one light request, or 20 per megabyte of a `get_blocks.bin` sync stream. A wallet that syncs from scratch spends a few thousand; a wallet that is kept open spends a few hundred a day. Cached answers cost the same as fresh ones.
 
-Neither tier promises uptime. The promise is narrower and printed on every response: we tell you what we verified.
+Neither tier promises uptime. The promise is narrower and printed on every response: we tell you what we verified. What uptime the relay actually has is measured from outside every minute and published on the [status page](/status/).
 
 ## Getting a Free token
 
