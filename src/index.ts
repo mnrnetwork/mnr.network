@@ -1,4 +1,5 @@
 import { runProbe, statusJson, type StatusEnv } from "./status";
+import { runNodeRound } from "./nodes";
 
 interface Env extends StatusEnv {
   ASSETS: {
@@ -612,7 +613,9 @@ export default {
     return response;
   },
 
-  async scheduled(controller: { scheduledTime: number }, env: Env, ctx: { waitUntil(p: Promise<unknown>): void }): Promise<void> {
-    ctx.waitUntil(runProbe(env, controller.scheduledTime));
+  // Awaited, not waitUntil: cron invocations may run up to 15 minutes.
+  async scheduled(controller: { cron: string; scheduledTime: number }, env: Env): Promise<void> {
+    if (controller.cron === "*/5 * * * *") await runNodeRound(env, controller.scheduledTime);
+    else await runProbe(env, controller.scheduledTime);
   },
 };

@@ -304,6 +304,16 @@
       </table></div>
     </section>
 
+    <section class="col" style="gap: 12px; margin-bottom: 40px;" id="pool">
+      <h2 class="h3">This pool, measured the same way</h2>
+      <p class="note" style="max-width: 820px;">Every 5 minutes the same probe goes to the relay and, directly, to each public node in its pool: one <span class="mono">get_info</span>, 4-second timeout, one retry. A target is up if it answers, reports itself synchronized, and is no more than one block behind the median of the round. The relay row here uses this probe, so it is comparable with the nodes; the figures at the top use the per-minute probe.</p>
+      <div class="tablewrap"><table class="t-small" aria-label="Relay and public nodes, same probe">
+        <thead><tr><th>Target</th><th class="num">24 h</th><th class="num">7 UTC days</th><th class="num">30 UTC days</th><th class="num">Coverage, 30 d</th><th class="num">Median latency</th></tr></thead>
+        <tbody id="pool-rows"><tr><td colspan="6" class="muted">Loading…</td></tr></tbody>
+      </table></div>
+      <p class="note" style="max-width: 820px;">These nodes are run for free by volunteers and companies, and mnr depends on every one of them. Each run measures from a single Cloudflare location, so a low figure can reflect that network path, or a node limiting Cloudflare addresses (counted as refused, which lowers coverage, not availability); it is not a verdict on the operator. The relay's latency includes the Cloudflare proxy and its quorum cache, unlike the direct node probes. Our own node and the onion and I2P nodes are not measured here. The relay comes first, then the nodes alphabetically; coverage counts from when this table began measuring, so a node added later shows the days it was not measured.</p>
+    </section>
+
     <section class="col" style="gap: 12px; max-width: 820px; margin-bottom: 64px;">
       <h2 class="h3">How this is measured</h2>
       <p class="note"><strong>Up</strong>: the relay answered <span class="mono">get_height</span> with a valid height. <strong>Degraded</strong>: it answered, but its health endpoint did not report healthy (usually a degraded node pool). <strong>Stale</strong>: it answered, but the height had not moved for 60 minutes. <strong>Down</strong>: no valid answer twice in a row, 5 seconds apart. Availability counts up, degraded and stale minutes as available, out of all measured minutes. The 7- and 30-day figures are whole UTC days including today; the 24-hour figure is a rolling window.</p>
@@ -418,6 +428,23 @@
               '</td><td class="mono">' + esc(x.reason || '') + '</td></tr>';
           }).join('');
           $('incidents').innerHTML = rows || '<tr><td colspan="4" class="muted">None since measuring began.</td></tr>';
+          var c = j.comparison;
+          if (c && c.nodes && c.nodes.length) {
+            $('pool-rows').innerHTML = c.nodes.map(function (n) {
+              function cell(w) {
+                if (!w || w.availability == null) return '<td class="num mono muted">—</td>';
+                var low = w.coverage != null && w.coverage < 0.9;
+                return '<td class="num mono" title="' + esc(w.up + ' up, ' + w.down + ' down, ' + w.blocked + ' refused of ' + w.expected_rounds + ' rounds') + '">' + pct(w.availability) + (low ? '*' : '') + '</td>';
+              }
+              var w30 = n.windows['30d'];
+              return '<tr><td>' + (n.relay ? '<strong>mnr relay</strong><span class="tag tag-owned">same probe</span>' : esc(n.name)) + '</td>' +
+                cell(n.windows['24h']) + cell(n.windows['7d']) + cell(w30) +
+                '<td class="num mono">' + (w30 && w30.coverage != null ? (Math.floor(w30.coverage * 1000) / 10) + '%' + (w30.blocked ? ' · ' + w30.blocked + ' refused' : '') : '—') + '</td>' +
+                '<td class="num mono">' + (n.latency_p50_ms != null ? n.latency_p50_ms + ' ms' : '—') + '</td></tr>';
+            }).join('');
+          } else {
+            $('pool-rows').innerHTML = '<tr><td colspan="6" class="muted">No rounds yet.</td></tr>';
+          }
         } catch (e) {
           $('now').innerHTML = '<span class="dot"></span> Could not load /status.json.';
         }

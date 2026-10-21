@@ -1,19 +1,7 @@
-import { Database } from "bun:sqlite";
-import { readFileSync } from "fs";
 import { expect, test } from "bun:test";
 import { runProbe, statusJson } from "../src/status.ts";
+import { d1 } from "./d1.ts";
 
-function d1() {
-  const db = new Database(":memory:");
-  db.exec(readFileSync(new URL("../migrations/0001_status.sql", import.meta.url), "utf8"));
-  const stmt = (sql: string, args: unknown[] = []): any => ({
-    bind: (...v: unknown[]) => stmt(sql, v),
-    first: async () => db.query(sql).get(...(args as any[])) ?? null,
-    all: async () => ({ results: db.query(sql).all(...(args as any[])), meta: { changes: 0 } }),
-    run: async () => { const r = db.query(sql).run(...(args as any[])); return { results: [], meta: { changes: r.changes } }; },
-  });
-  return { raw: db, prepare: (s: string) => stmt(s), batch: async (ss: any[]) => { db.exec("BEGIN"); const out = []; for (const s of ss) out.push(await s.run()); db.exec("COMMIT"); return out; } };
-}
 
 let world = { rpc: 200 as number | "timeout", height: 100, healthz: 200 as number | "throw", seenAuth: "", calls: 0 };
 globalThis.fetch = (async (url: string, init: any) => {

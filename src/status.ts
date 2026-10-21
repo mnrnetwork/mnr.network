@@ -10,17 +10,17 @@
 // Availability = (up + degraded + stale) / (up + degraded + stale + down).
 // Minutes with no row were not measured and are left out, with coverage shown.
 
-interface D1Result<T> {
+export interface D1Result<T> {
   results: T[];
   meta: { changes: number };
 }
-interface D1Stmt {
+export interface D1Stmt {
   bind(...v: unknown[]): D1Stmt;
   first<T = Record<string, unknown>>(): Promise<T | null>;
   all<T = Record<string, unknown>>(): Promise<D1Result<T>>;
   run(): Promise<D1Result<never>>;
 }
-interface D1 {
+export interface D1 {
   prepare(sql: string): D1Stmt;
   batch(s: D1Stmt[]): Promise<D1Result<unknown>[]>;
 }
@@ -32,7 +32,7 @@ export interface StatusEnv {
 
 type State = "up" | "degraded" | "stale" | "down" | "auth";
 
-const RPC = "https://rpc.mnr.network";
+export const RPC = "https://rpc.mnr.network";
 const TIMEOUT_MS = 8000;
 const RETRY_DELAY_MS = 5000;
 const STALE_MIN = 60;
@@ -105,18 +105,18 @@ async function attempt(token: string): Promise<Attempt> {
   return out;
 }
 
-async function meta(db: D1, k: string): Promise<string | null> {
+export async function meta(db: D1, k: string): Promise<string | null> {
   const r = await db.prepare("SELECT v FROM meta WHERE k = ?").bind(k).first<{ v: string }>();
   return r ? r.v : null;
 }
 
-function setMeta(db: D1, k: string, v: string): D1Stmt {
+export function setMeta(db: D1, k: string, v: string): D1Stmt {
   return db
     .prepare("INSERT INTO meta (k, v) VALUES (?, ?) ON CONFLICT(k) DO UPDATE SET v = excluded.v")
     .bind(k, v);
 }
 
-const day = (minute: number) => new Date(minute * 60000).toISOString().slice(0, 10);
+export const day = (minute: number) => new Date(minute * 60000).toISOString().slice(0, 10);
 
 export async function runProbe(env: StatusEnv, scheduledTime: number): Promise<void> {
   const db = env.DB;
@@ -287,10 +287,15 @@ async function writeSummary(db: D1, ts: number): Promise<void> {
 }
 
 export async function statusJson(env: StatusEnv, head = false): Promise<Response> {
-  const [s, last] = await Promise.all([meta(env.DB, "summary"), meta(env.DB, "last_probe")]);
+  const [s, last, cmp] = await Promise.all([
+    meta(env.DB, "summary"),
+    meta(env.DB, "last_probe"),
+    meta(env.DB, "node_summary"),
+  ]);
+  const comparison = cmp ? JSON.parse(cmp) : null;
   const body = s
-    ? { ...JSON.parse(s), last_probe: last ? JSON.parse(last) : null }
-    : { error: "no measurements yet" };
+    ? { ...JSON.parse(s), last_probe: last ? JSON.parse(last) : null, comparison }
+    : { error: "no measurements yet", comparison };
   if (body.last_probe) body.last_probe.at = new Date(body.last_probe.ts * 60000).toISOString();
   return new Response(head ? null : JSON.stringify(body), {
     status: s ? 200 : 503,
