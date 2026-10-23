@@ -171,6 +171,17 @@ export async function runNodeRound(env: StatusEnv, scheduledTime: number, f: Fet
     });
   }
 
+  // Every public node failing at once is the worker's network, not that many
+  // independent outages: record nothing for anyone (the relay included, so it
+  // gains no free round), and the round counts against coverage instead of
+  // availability. Needs at least two public nodes to tell the cases apart.
+  const pub = answers.slice(1);
+  if (pub.length >= 2 && pub.every((a) => a.kind === "fail")) {
+    console.log(`nodes: round ${ts} dropped, all ${pub.length} public nodes failed (${pub[0].reason}), relay ${answers[0].kind}`);
+    if (eligible.fresh) await setMeta(db, "node_eligible", JSON.stringify({ ts, names: eligible.names })).run();
+    return;
+  }
+
   const heights = answers.filter((a) => a.kind === "ok").map((a) => a.height!).sort((a, b) => a - b);
   const ref = heights.length ? heights[Math.floor((heights.length - 1) / 2)] : 0;
 

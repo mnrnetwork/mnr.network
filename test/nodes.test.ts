@@ -118,6 +118,50 @@ test("opt-out fails closed, feed filter, coverage and summary", async () => {
   expect(c.nodes.find((x: any) => x.name === RELAY).latency_p50_ms).not.toBeNull();
 });
 
+test("a round where every public node fails is dropped: coverage drops, availability doesn't", async () => {
+  const DB = d1();
+  const env = { DB, MONITOR_TOKEN: "sub_t" } as any;
+  const pubFail = Object.fromEntries(NAMES.map((n) => [n, "timeout" as Reply]));
+  await runNodeRound(env, at(0), world().f);
+  // all fail, relay included; then all public fail with the relay answering
+  await runNodeRound(env, at(5), world({ replies: { ...pubFail, [RELAY]: "timeout" } }).f);
+  await runNodeRound(env, at(10), world({ replies: pubFail }).f);
+  expect(Object.keys(rows(DB, 5)).length).toBe(0);
+  expect(Object.keys(rows(DB, 10)).length).toBe(0);
+  expect((DB.raw.query("SELECT SUM(down) n FROM node_daily").get() as any).n).toBe(0);
+
+  // one public survivor keeps the round, and the rest count as down
+  await runNodeRound(env, at(15), world({ replies: { ...pubFail, cakewallet: { height: 1000 } } }).f);
+  const r = rows(DB, 15);
+  expect(Object.keys(r).length).toBe(15);
+  expect(r.cakewallet[0]).toBe("up");
+  expect(r.hashvault).toEqual(["down", "timeout"]);
+
+  DB.raw.exec(`INSERT INTO meta (k, v) VALUES ('summary', '{"windows":{}}')`);
+  const c = ((await (await statusJson(env)).json()) as any).comparison;
+  const relay = c.nodes.find((x: any) => x.name === RELAY).windows["24h"];
+  expect(relay.expected_rounds).toBe(4);
+  expect(relay.availability).toBe(1);
+  expect(relay.coverage).toBeCloseTo(2 / 4, 6);
+  const cake = c.nodes.find((x: any) => x.name === "cakewallet").windows["24h"];
+  expect(cake.availability).toBe(1);
+  const hv = c.nodes.find((x: any) => x.name === "hashvault").windows["24h"];
+  expect(hv.availability).toBeCloseTo(1 / 2, 6);
+});
+
+test("dropped round still stores a fresh eligible set; relay-only rounds are never dropped", async () => {
+  const DB = d1();
+  const env = { DB, MONITOR_TOKEN: "sub_t" } as any;
+  const pubFail = Object.fromEntries(NAMES.map((n) => [n, "timeout" as Reply]));
+  await runNodeRound(env, at(0), world({ replies: pubFail }).f);
+  expect(Object.keys(rows(DB, 0)).length).toBe(0);
+  const m = DB.raw.query("SELECT v FROM meta WHERE k = 'node_eligible'").get() as any;
+  expect(JSON.parse(m.v).names.length).toBe(NAMES.length);
+
+  await runNodeRound(env, at(5), world({ feed: [], replies: { [RELAY]: "timeout" } }).f);
+  expect(rows(DB, 5)[RELAY]).toEqual(["down", "timeout"]);
+});
+
 test("onion and reserved names filtered; deadline cut records timeout without fetching", async () => {
   const DB = d1();
   const env = { DB, MONITOR_TOKEN: "sub_t" } as any;
